@@ -1,0 +1,87 @@
+---
+title: My great presentation with a title that is far too long
+author: Hypatia of Alexandria
+date: today
+toc: true
+format:
+  presentation-beamer: default
+  presentation-revealjs+letterbox: default
+---
+
+```{r}
+#| label: load-packages
+library(knitr)
+library(ggplot2)
+library(dplyr)
+```
+
+# Goals
+
+## Goals
+
+The main goals for this slide:
+
+- This is just to show you how this \emph{template} works
+- The blue in this template is based on the official Monash University color palette
+
+### beamer options
+
+- Use the `titlegraphic` option to include a different background image for the title slide
+- Use the `titlecolor` option to change the color for the text on the title slide.
+
+# Tables and graphs
+
+## Slide 2
+
+A nice table
+
+```{r}
+mtcars |>
+  select(mpg:wt) |>
+  head() |>
+  kable(booktabs = TRUE)
+```
+
+## Slide 3
+
+And a graph
+
+```{r}
+#| fig-height: 3.8
+mtcars |>
+  ggplot(aes(x=wt, y = mpg)) +
+  geom_point()
+```
+
+## Slide 4
+
+The sample standard deviation is given by
+$$
+  s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}
+$$
+
+## Testing monospace font
+
+```{r}
+#| echo: true
+mtcars
+```
+
+
+## Testing math fonts
+
+* Calligraphic
+
+  * $\mathcal{ABCDE}$
+
+* Script
+
+  * $\mathscr{ABCDE}$
+
+* Fraktur
+
+  * $\mathfrak{ABCDE}$
+
+* Mathbb
+
+  * $\mathbb{ABCDE}$
