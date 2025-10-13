@@ -30,7 +30,8 @@ list(
   tar_target(
     fig_old_faithful,
     create_old_faithful_figure(old_faithful_results, show_anomalies = FALSE)
-  ),  # Wine reviews example
+  ),
+  # Wine reviews example -------------------------------
   tar_target(
     wine_reviews,
     weird::fetch_wine_reviews()

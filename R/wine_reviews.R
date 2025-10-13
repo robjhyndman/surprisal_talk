@@ -17,23 +17,21 @@ analyse_wine_data <- function(wine_reviews, scale, alpha, beta, gamma) {
 
 create_wine_figure <- function(results, show_anomalies = TRUE) {
   set_ggplot_options()
-  df <- results |>
-    mutate(alpha = 0.4 + 0.6 * as.numeric(outliers))
-  if (show_anomalies) {
-    p <- df |>
-      ggplot(aes(x = points, y = price, color = outliers))
-  } else {
-    p <- df |>
-      ggplot(aes(x = points, y = price))
-  }
-  p <- p +
-    geom_point(alpha = df$alpha)
+  p <- results |>
+    ggplot(aes(x = points, y = price))
   if (show_anomalies) {
     p <- p +
+      geom_point(
+        aes(color = outliers),
+        alpha = 0.4 + 0.6 * as.numeric(results$outliers)
+      ) +
       scale_color_manual(
         values = c(`FALSE` = "#999999", `TRUE` = "red"),
       ) +
       guides(color = "none")
+  } else {
+    p <- p +
+      geom_point(alpha = 0.4)
   }
   p +
     labs(
