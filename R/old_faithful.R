@@ -1,9 +1,6 @@
-analyse_old_faithful <- function(scale, alpha, beta, gamma) {
-  oldfaithful2 <- weird::oldfaithful |>
-    filter(duration < 7200, waiting < 7200)
-
+analyse_old_faithful <- function(oldfaithful, scale, alpha, beta, gamma) {
   lookobjNew <- lookout::lookout(
-    oldfaithful2[, 2:3],
+    oldfaithful[, c("duration", "waiting")],
     scale = scale,
     alpha = alpha,
     beta = beta,
@@ -11,36 +8,28 @@ analyse_old_faithful <- function(scale, alpha, beta, gamma) {
     old_version = FALSE
   )
   as.data.frame.lookoutliers(lookobjNew) |>
-      mutate(method = "New Lookout")
+    mutate(method = "New Lookout")
 }
 
 create_old_faithful_figure <- function(results, show_anomalies = TRUE) {
   set_ggplot_options()
 
-  df <- results |>
-    mutate(alpha = 0.4 + 0.6 * as.numeric(outliers))
-  if(show_anomalies) {
-  p <- df |>
-      ggplot(aes(x = duration, y = waiting, color = outliers)) 
-  } else {
-    p <- df |>
-      ggplot(aes(x = duration, y = waiting))
-  }
-  p <- p + 
-      geom_point(alpha = df$alpha) 
-  if(show_anomalies) {
+  p <- results |>
+    ggplot(aes(x = duration, y = waiting))
+  if (show_anomalies) {
     p <- p +
+      geom_point(aes(color = outliers), alpha = 0.4 + 0.6 * results$outliers) +
       scale_color_manual(
         values = c(`FALSE` = "#999999", `TRUE` = "red")
       ) +
       guides(color = "none")
-  } 
+  } else {
+    p <- p + geom_point(alpha = 0.4)
+  }
   p +
     labs(
       x = "Eruption duration (seconds)",
       y = "Waiting time to next eruption (seconds)",
-      title = 
-        "Old Faithful eruptions from 1 January 2015 to 31 December 2024"
-      )
-    
+      title = "Old Faithful eruptions from 1 January 2015 to 31 December 2024"
+    )
 }

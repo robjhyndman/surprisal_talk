@@ -18,10 +18,14 @@ list(
   tar_target(beta, 0.90),
   # Value of gamma
   tar_target(gamma, 0.97),
-  # Old faithful example
+  # Old faithful example ------------------------------
+  tar_target(
+    oldfaithful,
+    weird::oldfaithful
+  ),
   tar_target(
     old_faithful_results,
-    analyse_old_faithful(scale, alpha, beta, gamma)
+    analyse_old_faithful(oldfaithful, scale, alpha, beta, gamma)
   ),
   tar_target(
     fig_old_faithful,
