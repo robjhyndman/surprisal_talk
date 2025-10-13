@@ -30,6 +30,6 @@ create_old_faithful_figure <- function(results, show_anomalies = TRUE) {
     labs(
       x = "Eruption duration (seconds)",
       y = "Waiting time to next eruption (seconds)",
-      title = "Old Faithful eruptions from 1 January 2015 to 31 December 2024"
+      title = "Old Faithful eruptions from 14 January 2017 to 29 December 2023"
     )
 }

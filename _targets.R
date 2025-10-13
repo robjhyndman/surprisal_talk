@@ -44,6 +44,19 @@ list(
     fig_wine,
     create_wine_figure(wine_results, show_anomalies = FALSE)
   ),
+  # French mortality example ---------------------------
+  tar_target(
+    fr_mortality,
+    weird::fr_mortality
+  ),
+  tar_target(
+    fig_fr_mortality,
+    create_fr_mortality_plot(fr_mortality, type = "functional")
+  ),
+  tar_target(
+    fig_fr_mortality2,
+    create_fr_mortality_plot(fr_mortality, type = "timeseries")
+  ),
   # Slides ------------------------------------------------
   tar_quarto(
     slides,
