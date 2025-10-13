@@ -1,0 +1,20 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+analyze_wine_data|function|029674aeb758e528
+wine_data|stem||3251833b08c21510|18b77648c966a3e9|-1102940099||t20374.0629609536s||0|rds|local|vector|||1.023||argument 'wine_reviews' is missing, with no default
+alpha|stem|630eb7bc977e853c|a423581c2cc925ec|2c530c1562a7fbd1|-1209573786||t20374.0643052497s|s55b|55|rds|local|vector|||1.052||
+wine_reviews|stem|c37acef873bc779b|969741b71d86158a|2c530c1562a7fbd1|-1024037250||t20374.0643360295s|s1701913b|1701913|rds|local|vector|||2.206||
+beta|stem|25668a0106a59afe|c0dc9518d5b0aae3|2c530c1562a7fbd1|-492926814||t20374.0643373475s|s53b|53|rds|local|vector|||0||
+gamma|stem|6bea95012562e0e4|e8db2899c4f2c5f7|2c530c1562a7fbd1|-1635482996||t20374.0643375861s|s55b|55|rds|local|vector|||0||
+scale|stem|ef640145045b5202|1c5923e7076a213a|2c530c1562a7fbd1|-1453494129||t20374.0643378068s|s48b|48|rds|local|vector|||0||
+wine_results|stem|d39fd2788cfc8c59|afd6de5e1045e3ef|23686d366d489fad|-1850638433||t20374.1072925194s|s10917b|10917|rds|local|vector|||0.358||
+fig_wine|stem|4558f81e93c2d62a|23116f00a08ee659|00d14eb18aa02886|1853383857||t20374.1116025783s|s1361373b|1361373|rds|local|vector|||0.12||
+fig_old_faithful|stem|163e94f85bcbccea|9a7a2f20305b31db|f395a2457795c283|1138729004||t20374.1292678423s|s1360399b|1360399|rds|local|vector|||0.092||
+slides|stem|75635a31b288a0ed|ea5a3d66284b9ca2|3850fa9911186e59|1331386099|surprisals_files*surprisals.pdf*surprisals.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex|t20374.1294250546s|s12761647b|12761647|file|local|vector|||13.009||
+set_ggplot_options|function|074ff9b95545498d
+which_outliers|function|d39828fa0b332644
+create_old_faithful_figure|function|ca1745b7bdfa3a81
+create_wine_figure|function|5da4f686399cd64f
+as.data.frame.lookoutliers|function|93bc04ccc349fcad
+analyse_wine_data|function|b8a51e18597949a4
+analyse_old_faithful|function|9f67bcbfe9d79a1f
+old_faithful_results|stem|d313d71c17523ee7|f4c7cf0a11b3e1a5|2f4b6d8c1fd3181b|1780095663||t20374.1165060113s||11658|rds|local|vector|||0.053||Input must be numeric
