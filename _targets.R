@@ -44,6 +44,7 @@ list(
     fig_wine,
     create_wine_figure(wine_results, show_anomalies = FALSE)
   ),
+  # Slides ------------------------------------------------
   tar_quarto(
     slides,
     "surprisals.qmd",

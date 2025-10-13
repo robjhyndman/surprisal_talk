@@ -1,32 +1,89 @@
 ---
-title: Anomaly detection using surprisals 
+title: Anomaly detection using&nbsp;surprisals 
 author: Rob J Hyndman
 date: 28 October 2025
 abstract: "I will discuss a probabilistic approach to anomaly detection based on extreme 'surprisal values' aka log scores, equal to minus the log density at each observation. The surprisal approach can be used for any collection of data objects, provided a probability density can be defined on the sample space. It can distinguish anomalies from legitimate observations in a heavy tail, and will identify anomalies that are undetected using methods based on distance measures. I will demonstrate the idea in various real data examples including univariate, multivariate and regression contexts, and when exploring more complicated data objects. I will also briefly outline the underlying theory when the density is known, and when it is estimated using a kernel density estimate. In the latter case, an innovative bandwidth selection method is used based on persistent homology."
-toc: false
+toc: true
 format:
   presentation-beamer:
     knitr:
       opts_chunk:
         dev: "CairoPDF"
-    fig-width: 9
-    fig-height: 4
+    fig-width: 8
+    fig-height: 4.25
+    titlegraphic: bg-13.png
+    titlecolor: white
 highlight-style: tango
 execute:
   echo: false
   message: false
   warning: false
-  cache: true
+  cache: false
 ---
 
 ```{r}
 #| label: load-packages
-library(knitr)
+library(targets)
 library(ggplot2)
-library(dplyr)
 ```
 
-# Goals
+# Anomalies and surprisals
 
-## Goals
+## Old faithful eruptions
+
+```{r}
+tar_read(fig_old_faithful)
+```
+
+## Wine quality and prices
+
+```{r}
+tar_read(fig_wine)
+```
+
+## French mortality
+
+```{r}
+# French mortality
+```
+
+## Definitions of anomalies
+
+Definitions in books
+
+My definition using density
+
+## Surprisals
+
+Definition of anomaly using surprisals
+
+Relationship with HDRs
+
+Relationship with z-score test
+
+Relationship with boxplots
+
+# Extreme value theory and surprisals
+
+## Extreme value theory
+
+ * GEV
+ * GPD
+
+## Application to French mortality 
+
+## Application to Wine quality and prices
+
+# Lookout algorithm
+
+## KDE
+
+## Bandwidth selection
+
+## Persistent homology
+
+
+## Application to Wine quality and prices
+
+# Conclusions
 
