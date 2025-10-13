@@ -1,11 +1,22 @@
 ---
-title: My great presentation with a title that is far too long
-author: Hypatia of Alexandria
-date: today
-toc: true
+title: Anomaly detection using surprisals 
+author: Rob J Hyndman
+date: 28 October 2025
+abstract: "I will discuss a probabilistic approach to anomaly detection based on extreme 'surprisal values' aka log scores, equal to minus the log density at each observation. The surprisal approach can be used for any collection of data objects, provided a probability density can be defined on the sample space. It can distinguish anomalies from legitimate observations in a heavy tail, and will identify anomalies that are undetected using methods based on distance measures. I will demonstrate the idea in various real data examples including univariate, multivariate and regression contexts, and when exploring more complicated data objects. I will also briefly outline the underlying theory when the density is known, and when it is estimated using a kernel density estimate. In the latter case, an innovative bandwidth selection method is used based on persistent homology."
+toc: false
 format:
-  presentation-beamer: default
-  presentation-revealjs+letterbox: default
+  presentation-beamer:
+    knitr:
+      opts_chunk:
+        dev: "CairoPDF"
+    fig-width: 9
+    fig-height: 4
+highlight-style: tango
+execute:
+  echo: false
+  message: false
+  warning: false
+  cache: true
 ---
 
 ```{r}
@@ -19,69 +30,3 @@ library(dplyr)
 
 ## Goals
 
-The main goals for this slide:
-
-- This is just to show you how this \emph{template} works
-- The blue in this template is based on the official Monash University color palette
-
-### beamer options
-
-- Use the `titlegraphic` option to include a different background image for the title slide
-- Use the `titlecolor` option to change the color for the text on the title slide.
-
-# Tables and graphs
-
-## Slide 2
-
-A nice table
-
-```{r}
-mtcars |>
-  select(mpg:wt) |>
-  head() |>
-  kable(booktabs = TRUE)
-```
-
-## Slide 3
-
-And a graph
-
-```{r}
-#| fig-height: 3.8
-mtcars |>
-  ggplot(aes(x=wt, y = mpg)) +
-  geom_point()
-```
-
-## Slide 4
-
-The sample standard deviation is given by
-$$
-  s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}
-$$
-
-## Testing monospace font
-
-```{r}
-#| echo: true
-mtcars
-```
-
-
-## Testing math fonts
-
-* Calligraphic
-
-  * $\mathcal{ABCDE}$
-
-* Script
-
-  * $\mathscr{ABCDE}$
-
-* Fraktur
-
-  * $\mathfrak{ABCDE}$
-
-* Mathbb
-
-  * $\mathbb{ABCDE}$
