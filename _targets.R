@@ -10,6 +10,26 @@ tar_source()
 
 # Replace the target list below with your own:
 list(
+  # Anomaly definition
+  tar_target(
+    fig61,
+    create_fig_density(dist_chisq(5), y = 9)
+  ),
+  tar_target(
+    fig_normal,
+    create_fig_density(dist_normal(), y = 2.2)
+  ),
+  tar_target(
+    fig_hdr,
+    create_fig_density(
+      dist_mixture(
+        dist_normal(-2, 1),
+        dist_normal(2, 1),
+        weights = c(1 / 3, 2 / 3)
+      ),
+      y = -0.5
+    )
+  ),
   # Should scaling be used?
   tar_target(scale, TRUE),
   # Value of alpha
