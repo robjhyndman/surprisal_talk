@@ -34,7 +34,25 @@ list(
   # Wine reviews example -------------------------------
   tar_target(
     wine_reviews,
-    weird::fetch_wine_reviews()
+    weird::fetch_wine_reviews() |>
+      filter(variety %in% c("Shiraz", "Syrah")) |>
+      select(points, price)
+  ),
+  tar_target(
+    wine_aug,
+    augment_wine(wine_reviews)
+  ),
+  tar_target(
+    wine_loo_surprisals,
+    plot_wine_loo_surprisals(wine_aug)
+  ),
+  tar_target(
+    wine_loo_anomalies,
+    plot_wine_loo_surprisals(wine_aug, show_anomalies = TRUE)
+  ),
+  tar_target(
+    wine_model_plot,
+    create_wine_model_plot(wine_aug)
   ),
   tar_target(
     wine_results,
@@ -42,7 +60,11 @@ list(
   ),
   tar_target(
     fig_wine,
-    create_wine_figure(wine_results, show_anomalies = FALSE)
+    create_wine_figure(wine_aug, show_anomalies = FALSE)
+  ),
+  tar_target(
+    fig_wine2,
+    create_wine_figure(wine_aug, show_anomalies = TRUE)
   ),
   # French mortality example ---------------------------
   tar_target(

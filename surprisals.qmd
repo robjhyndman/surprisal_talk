@@ -103,15 +103,66 @@ e.g., $F\sim N(\mu,\sigma^2)$
 
 
 # Extreme value theory and surprisals
+## Application to wine quality and prices
 
-## Extreme value theory
+```{r}
+tar_read(fig_wine)
+```
 
- * GEV
- * GPD
+## Application to wine quality and prices
+\vspace*{-0.3cm}
+Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+
+```{r}
+#| fig-height: 3.8
+tar_read(wine_model_plot)
+```
+
+## Application to wine quality and prices
+\vspace*{-0.3cm}
+Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+
+```{r}
+#| fig-height: 3.8
+tar_read(wine_loo_surprisals)
+```
+
+## Application to wine quality and prices
+\vspace*{-0.3cm}
+Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+
+```{r}
+#| fig-height: 3.8
+tar_read(wine_loo_anomalies)
+```
+
+\begin{textblock}{4.9}(1.9,2.0)
+\begin{block}{}\footnotesize
+GPD fitted to top 10\% of surprisals computed from LOO predictive densities.
+\end{block}
+\end{textblock}
+
+
+\begin{textblock}{1.85}(13.9,0.95)
+\begin{block}{}\small
+\textcolor{red}{$\alpha = 0.001$}
+\end{block}
+\end{textblock}
+
+## Application to wine quality and prices
+
+```{r}
+tar_read(fig_wine2)
+```
+
+\begin{textblock}{1.85}(13.9,0.95)
+\begin{block}{}\small
+\textcolor{red}{$\alpha = 0.001$}
+\end{block}
+\end{textblock}
 
 ## Application to French mortality 
 
-## Application to Wine quality and prices
 
 # Lookout algorithm
 
