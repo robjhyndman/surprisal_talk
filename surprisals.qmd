@@ -209,6 +209,17 @@ tar_read(fig_wine2)
 \end{block}
 \end{textblock}
 
+
+## Application to wine quality and prices
+\vspace*{-0.2cm}
+\structure{Anomalies detected ($\alpha=0.001$):}
+\fontsize{12}{14}\selectfont\vspace*{-0.3cm}
+
+```{r}
+tar_read(wine_anomalies) |>
+  kableExtra::kbl(booktabs = TRUE, linesep="")
+```
+
 ## Application to French mortality 
 
 

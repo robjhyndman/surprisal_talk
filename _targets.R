@@ -55,8 +55,7 @@ list(
   tar_target(
     wine_reviews,
     weird::fetch_wine_reviews() |>
-      filter(variety %in% c("Shiraz", "Syrah")) |>
-      select(points, price)
+      filter(variety %in% c("Shiraz", "Syrah"))
   ),
   tar_target(
     wine_aug,
@@ -74,10 +73,10 @@ list(
     wine_model_plot,
     create_wine_model_plot(wine_aug)
   ),
-  tar_target(
-    wine_results,
-    analyse_wine_data(wine_reviews, scale, alpha, beta, gamma)
-  ),
+  #tar_target(
+  #  wine_results,
+  #  analyse_wine_data(wine_reviews, scale, alpha, beta, gamma)
+  #),
   tar_target(
     fig_wine,
     create_wine_figure(wine_aug, show_anomalies = FALSE)
@@ -85,6 +84,19 @@ list(
   tar_target(
     fig_wine2,
     create_wine_figure(wine_aug, show_anomalies = TRUE)
+  ),
+  tar_target(
+    wine_anomalies,
+    wine_aug |>
+      filter(prob < 0.001) |>
+      arrange(prob) |>
+      select(
+        Area = state,
+        Winery = winery,
+        Year = year,
+        Points = points,
+        Price = price
+      )
   ),
   # French mortality example ---------------------------
   tar_target(
