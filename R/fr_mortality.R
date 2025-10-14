@@ -44,6 +44,7 @@ create_fr_mortality_plot <- function(
   type = c("functional", "timeseries")
 ) {
   type <- match.arg(type)
+  set_ggplot_options()
   if (type == "functional") {
     fr_mortality |>
       ggplot(aes(x = Year, y = Mortality, color = Age, group = Age)) +
@@ -87,6 +88,8 @@ find_fr_anomalies <- function(fr_mortality) {
 }
 
 create_fr_anomaly_plot <- function(fr_anomalies) {
+  set_ggplot_options()
+
   yrs <- fr_anomalies |>
     select(Year, Sex) |>
     distinct()
