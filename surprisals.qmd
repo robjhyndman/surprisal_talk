@@ -273,3 +273,52 @@ tar_read(fig_fr_anomalies)
 
 # Conclusions
 
+## Conclusions
+
+## Application to test cricket not-outs 
+\vspace*{-0.75cm}
+
+```{r}
+#| label: fig-notouts0
+tar_read(not_outs_plot)
+```
+
+\only<2>{\begin{textblock}{8.6}(7,1.7)
+\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
+$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
+$\log(p / (1- p)) = g(\text{Innings})$
+\end{block}
+\end{textblock}}
+
+## Application to test cricket not-outs 
+\vspace*{-0.75cm}
+
+```{r}
+#| label: fig-notouts1
+tar_read(not_outs_plot_smooth)
+```
+
+\begin{textblock}{8.6}(7,1.7)
+\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
+$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
+$\log(p / (1- p)) = g(\text{Innings})$
+\end{block}
+\end{textblock}
+
+## Application to test cricket not-outs 
+\vspace*{-0.75cm}
+
+```{r}
+#| label: fig-notouts2
+#| fig.cap: "Proportion of not outs for each batter as a function of the number of innings they played. The blue line and associated 95% confidence interval shows the probability of a batter not being dismissed as a function of the number of innings they have played."
+#| message: false
+#| code-fold: false
+tar_read(not_outs_plot_jma)
+```
+
+\begin{textblock}{8.6}(7,1.7)
+\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
+$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
+$\log(p / (1- p)) = g(\text{Innings})$
+\end{block}
+\end{textblock}
