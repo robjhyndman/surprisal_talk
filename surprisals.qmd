@@ -29,31 +29,33 @@ library(targets)
 library(ggplot2)
 ```
 
+
+## Coauthors
+
+\placefig{0.2}{1.4}{height=5cm}{figs/sevvandi.png}
+\begin{textblock}{5}(0.2,6.7)\centering
+  Sevvandi\\ 
+  Kandanaarachchi\\
+  (CSIRO)
+\end{textblock}
+\placefig{5.5}{1.4}{height=5cm}{figs/kate.png}
+\begin{textblock}{5}(5.5,6.7)\centering
+ Kate\\ 
+ Turner\\
+ (ANU)
+\end{textblock}
+\placefig{10.8}{1.4}{height=5cm}{figs/david.png}
+\begin{textblock}{5}(10.8,6.7)\centering
+  David\\ 
+  Frazier \\
+  (Monash U)
+\end{textblock}
+
+## Outline
+\vspace*{0.7cm}
+\tableofcontents[hideallsubsections]
+
 # Anomalies and surprisals
-
-## Old faithful eruptions
-
-```{r}
-tar_read(fig_old_faithful)
-```
-
-## Wine quality and prices
-
-```{r}
-tar_read(fig_wine)
-```
-
-## French mortality
-
-```{r}
-tar_read(fig_fr_mortality)
-```
-
-## French mortality
-
-```{r}
-tar_read(fig_fr_mortality2)
-```
 
 ## Definitions of anomalies
 
@@ -299,13 +301,55 @@ tar_read(fig_fr_anomalies)
 
 # Lookout algorithm
 
-## KDE
+## Kernel density estimation
 
-## Bandwidth selection
+Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$. 
+
+KDE:
+$$
+  \hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),
+$$
+
+* $K$ is a square-integrable spherically-symmetric function, bounded below by 0, with a finite second-order moment and unit integral
+* $\bm{H}$ is a symmetric $m\times m$ positive-definite matrix.
+
+## Kernel density estimation (consistency)
+
+Let $Y_1,\dots,Y_n$ be iid from square integrable density function $f$. Then KDE is a *consistent* estimator of $f$ if
+  $$
+  \lim_{n\rightarrow0} \text{E}\left[\left(\hat{f}(\bm{u}) - f(\bm{u})\right)^2 du\right] = 0
+  $$
+
+
+###
+For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positive-definite matrix that satisfies the following conditions:
+
+  * All elements of $\bm{H}$ approach zero as $n\rightarrow\infty$
+  * $n^{-1}|\bm{H}|^{-1/2} \rightarrow 0$ as $n\rightarrow\infty$
 
 ## Persistent homology
 
+
+## Lookout algorithm
+\fontsize{13}{14.5}\sf\vspace*{-0.3cm}
+
+1. $\bm{Y}=$ data matrix with rows $\bm{y}_1, \dots, \bm{y}_n$. 
+2. $\hat{\bm{\Sigma}}=$ orthogonalized Gnanadesikan-Kettenring estimate of $\text{Cov}(\bm{Y})$, with eigendecomposition $\hat{\bm{\Sigma}} = \bm{U}\bm{D}\bm{U}^\top$.
+3. Rotate and scale the data: $\bm{Z} = \bm{U}\bm{Y}$
+4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$
+5. $d^* =$ $\gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
+6. Compute kde: $f_i = \hat{f}(\bm{y}_i)$, $i=1,\dots,n$, where $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
+7. Compute LOO kde values $f_{-i} = \frac{1}{n-1} \big( n f_i - \bm{H}^{-1/2} K(\bm{0}) \big)$, $i=1,\dots,n$.
+8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be $\le0$.
+9. $p_i = (1-\beta)P(-\log f_{-i} \mid \hat{\mu}, \hat{\sigma}, \hat{\xi})$.
+
 ## Application to Old Faithful eruptions
+
+## Old faithful eruptions
+
+```{r}
+tar_read(fig_old_faithful)
+```
 
 # Conclusions
 
