@@ -41,25 +41,41 @@ hampel_anomalies <- function(
 
 create_fr_mortality_plot <- function(
   fr_mortality,
-  type = c("functional", "timeseries")
+  type = c("functional", "timeseries"),
+  fr_anomalies = NULL
 ) {
   type <- match.arg(type)
   set_ggplot_options()
-  if (type == "functional") {
-    fr_mortality |>
-      ggplot(aes(x = Year, y = Mortality, color = Age, group = Age)) +
-      geom_line() +
-      facet_grid(. ~ Sex) +
-      scale_y_log10(labels = scales::comma) +
-      scale_color_continuous(palette = rainbow(20)[1:17])
-  } else {
-    fr_mortality |>
-      ggplot(aes(x = Age, y = Mortality, color = Year, group = Year)) +
-      geom_line() +
-      facet_grid(. ~ Sex) +
-      scale_y_log10(labels = scales::comma) +
-      scale_color_continuous(palette = rainbow(20)[1:17])
+  alpha <- 0.4 + 0.6 * is.null(fr_anomalies)
+  if (!is.null(fr_anomalies)) {
+    fr_mortality <- fr_mortality |>
+      left_join(
+        fr_anomalies |> select(Year, Age, Sex, hampel),
+        by = c("Year", "Age", "Sex")
+      )
   }
+  if (type == "functional") {
+    p <- fr_mortality |>
+      ggplot(aes(x = Year, y = Mortality, color = Age, group = Age))
+  } else {
+    p <- fr_mortality |>
+      ggplot(aes(x = Age, y = Mortality, color = Year, group = Year))
+  }
+  p <- p +
+    geom_line(alpha = alpha) +
+    facet_grid(. ~ Sex) +
+    scale_y_log10(labels = scales::comma) +
+    scale_color_continuous(palette = rainbow(20)[1:17])
+  if (!is.null(fr_anomalies)) {
+    p <- p +
+      geom_point(
+        size = 0.3,
+        shape = 1,
+        col = "black",
+        data = fr_mortality |> filter(hampel)
+      )
+  }
+  p
 }
 
 find_fr_anomalies <- function(fr_mortality) {

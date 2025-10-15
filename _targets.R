@@ -3,7 +3,7 @@ library(tarchetypes)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble", "weird", "lookout")
+  packages = c("tibble", "weird", "lookout", "dplyr", "ggplot2")
 )
 
 tar_source()
@@ -110,6 +110,22 @@ list(
   tar_target(
     fig_fr_mortality2,
     create_fr_mortality_plot(fr_mortality, type = "timeseries")
+  ),
+  tar_target(
+    fig_fr_mortality3,
+    create_fr_mortality_plot(fr_mortality, type = "functional", fr_anomalies)
+  ),
+  tar_target(
+    fig_fr_mortality4,
+    create_fr_mortality_plot(fr_mortality, type = "timeseries", fr_anomalies)
+  ),
+  tar_target(
+    fr_anomalies,
+    find_fr_anomalies(fr_mortality)
+  ),
+  tar_target(
+    fig_fr_anomalies,
+    create_fr_anomaly_plot(fr_anomalies)
   ),
   # Slides ------------------------------------------------
   tar_quarto(

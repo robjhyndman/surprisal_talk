@@ -220,8 +220,45 @@ tar_read(wine_anomalies) |>
   kableExtra::kbl(booktabs = TRUE, linesep="")
 ```
 
+## French mortality
+
+```{r}
+tar_read(fig_fr_mortality)
+```
+
+## French mortality
+
+```{r}
+tar_read(fig_fr_mortality2)
+```
+
+## Application to French mortality 
+\fontsize{14}{16}\selectfont
+
+Model: $\log y_t \sim N(m_t, a_t)$ where $m_t$ and $a_t$ are locally and robustly estimated in a window of size $2h+1$ around time $t$:
+\begin{align*}
+\hat{m}_t &= \text{median}(\log y_{t-h},\dots,\log y_{t+h}) \\
+\hat{a}_t &= 1.4826 \times \text{median}(|\log y_{t-h}-\hat{m}_t|,\dots,|\log y_{t+h}-\hat{m}_t|)
+\end{align*}\pause\vspace*{-0.8cm}
+
+* Male and female data from 1816--1999, over ages 0--85: `r NROW(tar_read(fr_mortality))` observations.
+* Compute surprisals under model, and surprisal probabilities under a GPD with $\alpha=0.01$
+* Identify when at least three age groups are anomalous in same year/sex.
+
 ## Application to French mortality 
 
+```{r}
+tar_read(fig_fr_anomalies)
+```
+
+## Application to French mortality 
+
+* 1832, 1849: Cholera outbreaks
+* 1870: Franco--Prussian war
+* 1871: Repression of the ‘Commune de Paris’
+* 1914-1918: World War I
+* 1918: Spanish flu outbreak
+* 1940: World War II
 
 # Lookout algorithm
 
