@@ -163,6 +163,7 @@ list(
   tar_quarto(
     slides,
     "surprisals.qmd",
-    quiet = FALSE
+    quiet = FALSE,
+    extra_files = c("header.tex")
   )
 )

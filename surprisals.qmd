@@ -13,11 +13,8 @@ format:
     fig-height: 4.25
     titlegraphic: bg-13.png
     titlecolor: white
-include-in-header:
-  text: |
-    \usepackage{bm,bbm}
-    \def\E{\mathbb{E}}
-    \def\Pr{\mathbb{P}}
+    keep-tex: true
+include-in-header: header.tex
 highlight-style: tango
 execute:
   echo: false
@@ -296,7 +293,7 @@ tar_read(fig_fr_anomalies)
 * 1832, 1849: Cholera outbreaks
 * 1870: Franco--Prussian war
 * 1871: Repression of the ‘Commune de Paris’
-* 1914-1918: World War I
+* 1914--1918: World War I
 * 1918: Spanish flu outbreak
 * 1940: World War II
 
@@ -308,8 +305,7 @@ tar_read(fig_fr_anomalies)
 
 ## Persistent homology
 
-
-## Application to Wine quality and prices
+## Application to Old Faithful eruptions
 
 # Conclusions
 
@@ -323,12 +319,7 @@ tar_read(fig_fr_anomalies)
 tar_read(not_outs_plot)
 ```
 
-\only<2>{\begin{textblock}{8.6}(7,1.7)
-\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
-$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
-$\log(p / (1- p)) = g(\text{Innings})$
-\end{block}
-\end{textblock}}
+\only<2>{\notoutmodel}
 
 ## Application to test cricket not-outs 
 \vspace*{-0.75cm}
@@ -337,13 +328,7 @@ $\log(p / (1- p)) = g(\text{Innings})$
 #| label: fig-notouts1
 tar_read(not_outs_plot_smooth)
 ```
-
-\begin{textblock}{8.6}(7,1.7)
-\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
-$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
-$\log(p / (1- p)) = g(\text{Innings})$
-\end{block}
-\end{textblock}
+\notoutmodel
 
 ## Application to test cricket not-outs 
 \vspace*{-0.75cm}
@@ -356,9 +341,4 @@ $\log(p / (1- p)) = g(\text{Innings})$
 tar_read(not_outs_plot_jma)
 ```
 
-\begin{textblock}{8.6}(7,1.7)
-\begin{block}{Logistic model}\fontsize{12}{14}\selectfont
-$\text{NotOuts} \mid \text{Innings} \sim \text{Binomial}(n=\text{Innings},~ p)$\\
-$\log(p / (1- p)) = g(\text{Innings})$
-\end{block}
-\end{textblock}
+\notoutmodel

@@ -37,12 +37,18 @@ create_notouts_plot <- function(
         data = notouts_aug |> filter(Player == "JM Anderson"),
         aes(label = "JM Anderson"),
         col = "red"
+      ) +
+      geom_point(
+        data = notouts_aug |> filter(Player == "JM Anderson"),
+        aes(x = Innings, y = prop_no),
+        col = "red"
       )
   }
   p +
     labs(
       title = "Career batting data for all test cricketers (M+W): 1834-2025",
-      y = "Proportion of not outs"
+      y = "Proportion of not outs",
+      x = "Innings (m)"
     )
 }
 
