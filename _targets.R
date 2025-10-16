@@ -12,6 +12,10 @@ tar_source()
 list(
   # Anomaly definition
   tar_target(
+    figchisq5,
+    create_fig_density(dist_chisq(5), y = 9, shading = FALSE)
+  ),
+  tar_target(
     fig61,
     create_fig_density(dist_chisq(5), y = 9)
   ),
@@ -50,6 +54,26 @@ list(
   tar_target(
     fig_old_faithful,
     create_old_faithful_figure(old_faithful_results, show_anomalies = FALSE)
+  ),
+  tar_target(
+    fig_old_faithful2,
+    create_old_faithful_figure(old_faithful_results, show_anomalies = TRUE)
+  ),
+  tar_target(
+    fig_of_kde,
+    create_fig_of(oldfaithful)
+  ),
+  tar_target(
+    fig_of_scaled,
+    create_fig_of(oldfaithful, scale = TRUE, contour = FALSE)
+  ),
+  tar_target(
+    fig_of_kde_scaled,
+    create_fig_of(oldfaithful, scale = TRUE)
+  ),
+  tar_target(
+    of_surprisals,
+    get_of_surprisals(oldfaithful)
   ),
   # Wine reviews example -------------------------------
   tar_target(

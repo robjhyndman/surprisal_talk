@@ -81,6 +81,12 @@ library(ggplot2)
 ## Definitions of anomalies
 
 ```{r}
+tar_read(figchisq5)
+```
+
+## Definitions of anomalies
+
+```{r}
 tar_read(fig61)
 ```
 
@@ -343,12 +349,34 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be $\le0$.
 9. $p_i = (1-\beta)P(-\log f_{-i} \mid \hat{\mu}, \hat{\sigma}, \hat{\xi})$.
 
-## Application to Old Faithful eruptions
+## Old faithful eruptions
+
+```{r}
+tar_read(fig_old_faithful)
+```
+
+## Old faithful eruptions
+
+```{r}
+tar_read(fig_of_scaled)
+```
+
+## Old faithful eruptions
+
+```{r}
+tar_read(fig_of_kde_scaled)
+```
 
 ## Old faithful eruptions
 
 ```{r}
 tar_read(fig_old_faithful)
+```
+
+## Old faithful eruptions
+
+```{r}
+  tar_read(of_surprisals)
 ```
 
 # Conclusions
