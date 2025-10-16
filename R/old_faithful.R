@@ -4,31 +4,6 @@ of_labels <- labs(
   title = "Old Faithful eruptions from 14 January 2017 to 29 December 2023"
 )
 
-create_fig_of <- function(oldfaithful, scale = FALSE, contour = TRUE) {
-  df <- oldfaithful |>
-    select(duration, waiting)
-  if (scale) {
-    df <- mvscale(df)
-    colnames(df) <- c("duration", "waiting")
-  }
-  if (contour) {
-    p <- dist_kde(df) |>
-      gg_density(show_points = TRUE)
-  } else {
-    p <- ggplot(df, aes(x = duration, y = waiting)) +
-      geom_point(alpha = 500 / NROW(df), col = "#0072b2")
-  }
-  if (scale) {
-    p +
-      labs(
-        x = "Z1",
-        y = "Z2",
-        title = "Standardized Old Faithful eruptions from 14 January 2017 to 29 December 2023"
-      )
-  } else {
-    p + of_labels
-  }
-}
 analyse_old_faithful <- function(oldfaithful, scale, alpha, beta, gamma) {
   lookobjNew <- lookout::lookout(
     oldfaithful[, c("duration", "waiting")],
@@ -42,25 +17,54 @@ analyse_old_faithful <- function(oldfaithful, scale, alpha, beta, gamma) {
     mutate(method = "New Lookout")
 }
 
-create_old_faithful_figure <- function(results, show_anomalies = TRUE) {
+create_old_faithful_figure <- function(
+  results,
+  scale = FALSE,
+  contour = FALSE,
+  show_anomalies = FALSE
+) {
   set_ggplot_options()
   alpha <- 500 / NROW(results)
-  p <- results |>
-    ggplot(aes(x = duration, y = waiting))
+  df <- results |>
+    select(duration, waiting, outliers)
+  if (scale) {
+    df <- mvscale(df[, 1:2])
+    colnames(df) <- c("duration", "waiting")
+    df$outliers <- results$outliers
+  }
+  if (contour) {
+    p <- dist_kde(df[, 1:2]) |>
+      gg_density(show_points = !show_anomalies, colors = "black")
+  } else {
+    p <- df |>
+      ggplot(aes(x = duration, y = waiting))
+    if (!show_anomalies) {
+      p <- p +
+        geom_point(alpha = alpha, color = "black")
+    }
+  }
   if (show_anomalies) {
     p <- p +
       geom_point(
-        aes(color = outliers),
+        data = df,
+        aes(x = duration, y = waiting, color = outliers),
         alpha = alpha + (1 - alpha) * results$outliers
       ) +
       scale_color_manual(
         values = c(`FALSE` = "#999999", `TRUE` = "red")
       ) +
       guides(color = "none")
-  } else {
-    p <- p + geom_point(alpha = alpha, col = "#0072b2")
   }
-  p + of_labels
+  if (scale) {
+    p +
+      labs(
+        x = "Z1",
+        y = "Z2",
+        title = "Standardized Old Faithful eruptions from 14 January 2017 to 29 December 2023"
+      )
+  } else {
+    p + of_labels
+  }
 }
 
 get_of_surprisals <- function(oldfaithful) {

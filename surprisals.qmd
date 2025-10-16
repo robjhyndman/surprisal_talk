@@ -318,16 +318,23 @@ tar_read(fig_fr_anomalies)
 # Lookout algorithm
 
 ## Kernel density estimation
+\fontsize{14}{15}\sf\vspace*{-0.3cm}
 
 Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$. 
 
-KDE:
-$$
-  \hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),
-$$
+\begin{block}{KDE}
+\centerline{$\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
+\end{block}
 
-* $K$ is a square-integrable spherically-symmetric function, bounded below by 0, with a finite second-order moment and unit integral
+* $K$ is a square-integrable spherically-symmetric function, bounded below by 0, with a finite second-order moment and unit integral.
 * $\bm{H}$ is a symmetric $m\times m$ positive-definite matrix.
+
+\pause\vspace*{0.2cm}
+
+### LOO KDE values
+
+\centerline{$\displaystyle f_{-i} = \frac{1}{n-1} \big( n \hat{f}(\bm{y}_i) - \bm{H}^{-1/2} K(\bm{0}) \big)$}
+
 
 ## Kernel density estimation (consistency)
 
@@ -335,7 +342,6 @@ Let $Y_1,\dots,Y_n$ be iid from square integrable density function $f$. Then KDE
   $$
   \lim_{n\rightarrow0} \text{E}\left[\left(\hat{f}(\bm{u}) - f(\bm{u})\right)^2 du\right] = 0
   $$
-
 
 ###
 For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positive-definite matrix that satisfies the following conditions:
@@ -359,34 +365,40 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
 9. $p_i = (1-\beta)P(-\log f_{-i} \mid \hat{\mu}, \hat{\sigma}, \hat{\xi})$, $P$ = GPD cdf.
 
-## Old faithful eruptions
+## Old Faithful eruptions
 
 ```{r}
 tar_read(fig_old_faithful)
 ```
 
-## Old faithful eruptions
+## Old Faithful eruptions
 
 ```{r}
-tar_read(fig_of_scaled)
+tar_read(fig_old_faithful2)
 ```
 
-## Old faithful eruptions
+## Old Faithful eruptions
 
 ```{r}
-tar_read(fig_of_kde_scaled)
+tar_read(fig_old_faithful3)
 ```
 
-## Old faithful eruptions
+## Old Faithful eruptions
 
 ```{r}
-tar_read(fig_old_faithful)
+tar_read(fig_old_faithful4)
 ```
 
-## Old faithful eruptions
+## Old Faithful eruptions
 
 ```{r}
-  tar_read(of_surprisals)
+tar_read(fig_old_faithful5)
+```
+
+## Old Faithful eruptions
+
+```{r}
+#  tar_read(of_surprisals)
 ```
 
 # Conclusions

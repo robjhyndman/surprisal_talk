@@ -53,27 +53,40 @@ list(
   ),
   tar_target(
     fig_old_faithful,
-    create_old_faithful_figure(old_faithful_results, show_anomalies = FALSE)
+    create_old_faithful_figure(old_faithful_results)
   ),
   tar_target(
     fig_old_faithful2,
-    create_old_faithful_figure(old_faithful_results, show_anomalies = TRUE)
+    create_old_faithful_figure(
+      old_faithful_results,
+      scale = TRUE
+    )
   ),
   tar_target(
-    fig_of_kde,
-    create_fig_of(oldfaithful)
+    fig_old_faithful3,
+    create_old_faithful_figure(
+      old_faithful_results,
+      scale = TRUE,
+      contour = TRUE
+    )
   ),
   tar_target(
-    fig_of_scaled,
-    create_fig_of(oldfaithful, scale = TRUE, contour = FALSE)
+    fig_old_faithful4,
+    create_old_faithful_figure(
+      old_faithful_results,
+      scale = TRUE,
+      contour = TRUE,
+      show_anomalies = TRUE
+    )
   ),
   tar_target(
-    fig_of_kde_scaled,
-    create_fig_of(oldfaithful, scale = TRUE)
-  ),
-  tar_target(
-    of_surprisals,
-    get_of_surprisals(oldfaithful)
+    fig_old_faithful5,
+    create_old_faithful_figure(
+      old_faithful_results,
+      scale = FALSE,
+      contour = FALSE,
+      show_anomalies = TRUE
+    )
   ),
   # Wine reviews example -------------------------------
   tar_target(
