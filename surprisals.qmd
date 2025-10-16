@@ -389,16 +389,30 @@ tar_read(fig_old_faithful3)
 tar_read(fig_old_faithful4)
 ```
 
+\begin{textblock}{1.4}(2.2,1.75)
+\begin{block}{}\footnotesize\color{red}
+$\alpha = 0.01$
+\end{block}
+\end{textblock}
+
 ## Old Faithful eruptions
 
 ```{r}
 tar_read(fig_old_faithful5)
 ```
 
+\begin{textblock}{1.4}(2.2,1.75)
+\begin{block}{}\footnotesize\color{red}
+$\alpha = 0.01$
+\end{block}
+\end{textblock}
+
 ## Old Faithful eruptions
+\fontsize{12}{15}\sf\vspace*{-0.3cm}\tabcolsep=0.1cm
 
 ```{r}
-#  tar_read(of_surprisals)
+tar_read(of_lookout_prob) |>
+  kableExtra::kbl(booktabs = TRUE, linesep="")
 ```
 
 # Conclusions

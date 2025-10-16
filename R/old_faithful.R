@@ -13,8 +13,7 @@ analyse_old_faithful <- function(oldfaithful, scale, alpha, beta, gamma) {
     gamma = gamma,
     old_version = FALSE
   )
-  as.data.frame.lookoutliers(lookobjNew) |>
-    mutate(method = "New Lookout")
+  as.data.frame.lookoutliers(lookobjNew)
 }
 
 create_old_faithful_figure <- function(
@@ -25,12 +24,12 @@ create_old_faithful_figure <- function(
 ) {
   set_ggplot_options()
   alpha <- 500 / NROW(results)
-  df <- results |>
-    select(duration, waiting, outliers)
   if (scale) {
-    df <- mvscale(df[, 1:2])
+    df <- mvscale(results[, 1:2])
     colnames(df) <- c("duration", "waiting")
     df$outliers <- results$outliers
+  } else {
+    df <- results
   }
   if (contour) {
     p <- dist_kde(df[, 1:2]) |>
@@ -67,14 +66,11 @@ create_old_faithful_figure <- function(
   }
 }
 
-get_of_surprisals <- function(oldfaithful) {
+get_of_lookout_prob <- function(oldfaithful, alpha = 0.01) {
   of <- oldfaithful |>
     select(duration, waiting)
-  of |>
-    mutate(
-      loo_kde_surprisal = surprisals(of, loo = TRUE, probability = FALSE),
-      prob = surprisals(of, loo = TRUE, approximation = "gpd")
-    ) |>
-    filter(prob < 0.005) |>
-    arrange(prob, duration)
+  oldfaithful$prob <- lookout_prob(of)
+  oldfaithful |>
+    filter(prob < alpha) |>
+    arrange(duration)
 }
