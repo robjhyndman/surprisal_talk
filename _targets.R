@@ -3,7 +3,7 @@ library(tarchetypes)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble", "weird", "lookout", "dplyr", "ggplot2")
+  packages = c("tibble", "weird", "lookout", "dplyr", "ggplot2", "ggtda")
 )
 
 tar_source()
@@ -32,6 +32,21 @@ list(
         weights = c(1 / 3, 2 / 3)
       ),
       y = -0.5
+    )
+  ),
+  # RIPS animation
+  tar_target(
+    rips_data,
+    d <- tibble(
+      x = stats::rnorm(n = 20, mean = 0, sd = .2),
+      y = x + stats::rnorm(n = 20, mean = 0, sd = .2)
+    )
+  ),
+  tar_map(
+    list(prox = seq(0.01, by = 0.005, l = 99), i = seq(99)),
+    tar_target(
+      rip_file,
+      rips(rips_data, prox, i),
     )
   ),
   # Should scaling be used?

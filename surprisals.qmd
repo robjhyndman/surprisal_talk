@@ -360,6 +360,8 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 
 ## Persistent homology
 
+\centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
+    {6}{"figs/rips_"}{1}{99}}
 
 ## Lookout algorithm
 \fontsize{13}{15}\sf\vspace*{-0.2cm}

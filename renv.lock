@@ -924,6 +924,26 @@
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
       "Repository": "RSPM"
     },
+    "crop": {
+      "Package": "crop",
+      "Version": "0.0-3",
+      "Source": "Repository",
+      "Encoding": "UTF-8",
+      "Title": "Graphics Cropping Tool",
+      "Description": "A device closing function which is able to crop graphics (e.g., PDF, PNG files) on Unix-like operating systems with the required underlying command-line tools installed.",
+      "Authors@R": "person(given = \"Marius\", family = \"Hofert\", role = c(\"aut\", \"cre\"), email = \"mhofert@hku.hk\")",
+      "Author": "Marius Hofert [aut, cre]",
+      "Maintainer": "Marius Hofert <mhofert@hku.hk>",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Imports": [],
+      "Suggests": [],
+      "Enhances": [],
+      "License": "GPL-2 | GPL-3",
+      "NeedsCompilation": "no",
+      "Repository": "RSPM"
+    },
     "data.table": {
       "Package": "data.table",
       "Version": "1.17.8",
@@ -1471,6 +1491,52 @@
       "Author": "Kamil Slowikowski [aut, cre] (<https://orcid.org/0000-0002-2843-6370>), Alicia Schep [ctb] (<https://orcid.org/0000-0002-3915-0618>), Sean Hughes [ctb] (<https://orcid.org/0000-0002-9409-9405>), Trung Kien Dang [ctb] (<https://orcid.org/0000-0001-7562-6495>), Saulius Lukauskas [ctb], Jean-Olivier Irisson [ctb] (<https://orcid.org/0000-0003-4920-3880>), Zhian N Kamvar [ctb] (<https://orcid.org/0000-0003-1458-7108>), Thompson Ryan [ctb] (<https://orcid.org/0000-0002-0450-8181>), Dervieux Christophe [ctb] (<https://orcid.org/0000-0003-4474-2498>), Yutani Hiroaki [ctb], Pierre Gramme [ctb], Amir Masoud Abdol [ctb], Malcolm Barrett [ctb] (<https://orcid.org/0000-0003-0299-5825>), Robrecht Cannoodt [ctb] (<https://orcid.org/0000-0003-3641-729X>), Michał Krassowski [ctb] (<https://orcid.org/0000-0002-9638-7785>), Michael Chirico [ctb] (<https://orcid.org/0000-0003-0787-087X>), Pedro Aphalo [ctb] (<https://orcid.org/0000-0003-3385-972X>), Francis Barton [ctb]",
       "Maintainer": "Kamil Slowikowski <kslowikowski@gmail.com>",
       "Repository": "RSPM"
+    },
+    "ggtda": {
+      "Package": "ggtda",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "Type": "Package",
+      "Title": "'ggplot2' Extension to Visualize Topological Persistence",
+      "Authors@R": "c( person(\"James\", \"Otto\", role = c(\"aut\", \"cre\"), email = \"jamesotto852@gmail.com\", comment = c(ORCID = \"0000-0002-0665-2515\")), person(\"Jason Cory\", \"Brunson\", role = c(\"aut\"), email = \"cornelioid@gmail.com\", comment = c(ORCID = \"0000-0003-3126-9494\")), person(\"Raoul\", \"Wadhwa\", role = c(\"aut\"), email = \"raoulwadhwa@gmail.com\", comment = c(ORCID = \"0000-0003-0503-9580\")), person(\"Nikola\", \"Milicevic\", role = \"ctb\"), person(\"David\", \"Kahle\", role = c(\"aut\"), email = \"david@kahle.io\", comment = c(ORCID = \"0000-0002-9999-1558\")), person(\"Jacob\", \"Scott\", role = c(\"aut\"), comment = c(ORCID = \"0000-0003-2971-7673\")))",
+      "Description": "Topological data analysis often produces summary data consisting of birth and death values for topological features; see Chazal and Michel (2017) <arXiv:1710.04019> and Wasserman (2018) <doi:10.1146/annurev-statistics-031017-100045>. This extends the user-friendly layered grammar of graphics of Wickham (2010) <doi:10.1198/jcgs.2009.07098> to conveniently visualize these persistence data in several standard ways.",
+      "License": "GPL-3",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "Depends": [
+        "R (>= 2.10)",
+        "rlang (>= 1.0.0)",
+        "ggplot2 (>= 3.2.1)"
+      ],
+      "Suggests": [
+        "RTriangle",
+        "TDA",
+        "ripserr (>= 0.1.1)",
+        "simplextree (>= 0.9.1)",
+        "tdaunif (>= 0.1.0)",
+        "rPref (>= 1.2)",
+        "dplyr",
+        "tidyr",
+        "covr (>= 3.1.0)",
+        "testthat (>= 2.0.0)",
+        "vdiffr (>= 0.3.0)",
+        "knitr (>= 1.20)",
+        "rmarkdown (>= 1.10)"
+      ],
+      "URL": "https://tdaverse.github.io/ggtda/",
+      "BugReports": "https://github.com/rrrlw/ggtda/issues",
+      "VignetteBuilder": "knitr",
+      "RoxygenNote": "7.3.3",
+      "Roxygen": "list(markdown = TRUE)",
+      "Collate": "'barcode.R' 'disk.R' 'draw-key-simplex.R' 'ggtda.R' 'persistence.R' 'landscape.R' 'persistence-engines.R' 'simplicial-complex-engines.R' 'simplicial-complex.R' 'themes.R' 'utils.R' 'zzz.R'",
+      "Author": "James Otto [aut, cre] (ORCID: <https://orcid.org/0000-0002-0665-2515>), Jason Cory Brunson [aut] (ORCID: <https://orcid.org/0000-0003-3126-9494>), Raoul Wadhwa [aut] (ORCID: <https://orcid.org/0000-0003-0503-9580>), Nikola Milicevic [ctb], David Kahle [aut] (ORCID: <https://orcid.org/0000-0002-9999-1558>), Jacob Scott [aut] (ORCID: <https://orcid.org/0000-0003-2971-7673>)",
+      "Maintainer": "James Otto <jamesotto852@gmail.com>",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "tdaverse",
+      "RemoteRepo": "ggtda",
+      "RemoteRef": "main",
+      "RemoteSha": "aa90e28ac854c141fb526c04bd01cb62704231da"
     },
     "glue": {
       "Package": "glue",
