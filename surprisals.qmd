@@ -317,19 +317,28 @@ tar_read(fig_fr_anomalies)
 
 # Lookout algorithm
 
+## Lookout algorithm
+
+* Compute Kernel Density Estimate (KDE) of the observations, with a bandwidth matrix chosen using persistent homology.
+* Compute Leave-One-Out (LOO) KDE values
+* Compute surprisals from LOO KDE values
+* Fit a Generalized Pareto Distribution (GPD) to the largest surprisals
+* Compute surprisal probabilities $p_i$ from the fitted GPD
+* An observation is an anomaly if $p_i < \alpha$.
+
 ## Kernel density estimation
 \fontsize{14}{15}\sf\vspace*{-0.3cm}
 
 Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$. 
 
 \begin{block}{KDE}
-\centerline{$\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
-\end{block}
+\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
+\end{block}\vspace*{-0.25cm}
 
 * $K$ is a square-integrable spherically-symmetric function, bounded below by 0, with a finite second-order moment and unit integral.
 * $\bm{H}$ is a symmetric $m\times m$ positive-definite matrix.
 
-\pause\vspace*{0.2cm}
+\pause\vspace*{0.1cm}
 
 ### LOO KDE values
 
@@ -358,7 +367,7 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 1. $\bm{Y}=$ data matrix with rows $\bm{y}_1, \dots, \bm{y}_n$. 
 2. $\hat{\bm{\Sigma}}=$ orthogonalized Gnanadesikan-Kettenring estimate of $\text{Cov}(\bm{Y})$, with eigendecomposition $\hat{\bm{\Sigma}} = \bm{U}\bm{D}\bm{U}^\top$.
 3. Rotate and scale the data: $\bm{Z} = \bm{U}\bm{Y}$.
-4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$
+4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
 5. $d^* =$ $\gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
 6. Compute kde: $f_i = \hat{f}(\bm{z}_i)$, $i=1,\dots,n$, where $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
 7. Compute LOO kde values $f_{-i} = \frac{1}{n-1} \big( n f_i - \bm{H}^{-1/2} K(\bm{0}) \big)$, $i=1,\dots,n$.

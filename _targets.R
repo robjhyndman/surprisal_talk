@@ -38,7 +38,7 @@ list(
   tar_target(scale, TRUE),
   # Value of alpha
   tar_target(alpha, 0.01),
-  # Value of gamma
+  # Value of beta
   tar_target(beta, 0.90),
   # Value of gamma
   tar_target(gamma, 0.97),
@@ -87,6 +87,10 @@ list(
       contour = FALSE,
       show_anomalies = TRUE
     )
+  ),
+  tar_target(
+    of_lookout_prob,
+    get_of_lookout_prob(oldfaithful, alpha)
   ),
   # Wine reviews example -------------------------------
   tar_target(
