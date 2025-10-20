@@ -11,6 +11,30 @@ tar_source()
 # Replace the target list below with your own:
 list(
   # Anomaly definition
+  tar_target(chisq_data1, {
+    set.seed(1)
+    tibble(x = c(rchisq(100, df = 5)))
+  }),
+  tar_target(chisq_data2, {
+    set.seed(2)
+    tibble(x = c(rchisq(100, df = 5)))
+  }),
+  tar_target(chisq_data3, {
+    set.seed(3)
+    tibble(x = c(rchisq(100, df = 5)))
+  }),
+  tar_target(
+    figchisq1,
+    make_figchisq1(chisq_data1)
+  ),
+  tar_target(
+    figchisq2,
+    make_figchisq1(chisq_data2)
+  ),
+  tar_target(
+    figchisq3,
+    make_figchisq1(chisq_data3)
+  ),
   tar_target(
     figchisq5,
     create_fig_density(dist_chisq(5), y = 9, shading = FALSE)
@@ -56,6 +80,10 @@ list(
       rip_file,
       rips(rips_data, prox, i),
     )
+  ),
+  tar_target(
+    barcode,
+    make_barcode(rips_data)
   ),
   # Should scaling be used?
   tar_target(scale, TRUE),

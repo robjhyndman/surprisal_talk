@@ -1,3 +1,17 @@
+make_figchisq1 <- function(data) {
+  data |>
+    ggplot(aes(x = x, y = 1)) +
+    geom_point(alpha = 0.5) +
+    scale_y_discrete() +
+    geom_point(
+      data = data |> filter(x == max(x)),
+      aes(x = x, y = 1),
+      color = "red"
+    ) +
+    labs(y = "", x = "y") +
+    xlim(0, 26)
+}
+
 create_fig_density <- function(distribution, y, shading = TRUE) {
   sup <- support(distribution) |> unclass()
   sup <- sup$lim[[1]]
