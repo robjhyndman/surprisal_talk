@@ -16,3 +16,11 @@ rips <- function(d, prox, i) {
   crop::dev.off.crop(file)
   return(file)
 }
+
+make_barcode <- function(data) {
+  ph1 <- TDAstats::calculate_homology(data, dim = 0)
+  bcd <- TDAstats::plot_barcode(ph1)
+  #pst <- TDAstats::plot_persist(ph1) + xlab("Birth") + ylab("Death")
+  #patchwork::wrap_plots(bcd, pst, nrow = 1)
+  bcd
+}
