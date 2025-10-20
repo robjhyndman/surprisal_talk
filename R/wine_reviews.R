@@ -12,7 +12,6 @@ analyse_wine_data <- function(wine_reviews, scale, alpha, beta, gamma) {
 }
 
 create_wine_figure <- function(results, show_anomalies = TRUE, alpha = 0.001) {
-  set_ggplot_options()
   if (
     show_anomalies &
       !("outliers" %in% colnames(results)) &
@@ -68,7 +67,6 @@ augment_wine <- function(wine_reviews) {
 }
 
 create_wine_model_plot <- function(wine_aug) {
-  set_ggplot_options()
   wine_aug |>
     ggplot(aes(y = price, x = points, col = location)) +
     geom_jitter(height = 0, width = 0, alpha = 0.5) +
@@ -85,7 +83,6 @@ plot_wine_loo_surprisals <- function(
   show_anomalies = FALSE,
   alpha = 0.001
 ) {
-  set_ggplot_options()
   if (show_anomalies) {
     wine_aug <- wine_aug |>
       mutate(anomaly = prob < alpha)

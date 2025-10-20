@@ -22,7 +22,6 @@ create_old_faithful_figure <- function(
   contour = FALSE,
   show_anomalies = FALSE
 ) {
-  set_ggplot_options()
   alpha <- 500 / NROW(results)
   if (scale) {
     df <- mvscale(results[, 1:2])

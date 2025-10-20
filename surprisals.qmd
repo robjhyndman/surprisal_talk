@@ -27,6 +27,8 @@ execute:
 #| label: load-packages
 library(targets)
 library(ggplot2)
+tar_source("R/functions.R")
+set_ggplot_options()
 ```
 
 

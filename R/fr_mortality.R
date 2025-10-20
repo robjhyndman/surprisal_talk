@@ -45,7 +45,6 @@ create_fr_mortality_plot <- function(
   fr_anomalies = NULL
 ) {
   type <- match.arg(type)
-  set_ggplot_options()
   alpha <- 0.4 + 0.6 * is.null(fr_anomalies)
   if (!is.null(fr_anomalies)) {
     fr_mortality <- fr_mortality |>
@@ -104,8 +103,6 @@ find_fr_anomalies <- function(fr_mortality) {
 }
 
 create_fr_anomaly_plot <- function(fr_anomalies) {
-  set_ggplot_options()
-
   yrs <- fr_anomalies |>
     select(Year, Sex) |>
     distinct()
