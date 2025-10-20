@@ -156,16 +156,17 @@ tar_read(fig_hdr)
 
 * Better known as "log scores" in statistics.
 * "Surprisal" coined by Tribus (1961).
-* Average surprisal = entropy of random variable
+* Expected surprisal = entropy of random variable
 * Sum of surprisals = negative log likelihood
 
 ## Anomaly detection using surprisals
 
 Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y \sim F$. 
 $$G(s) = \Pr(-\log f(Y) \le s) = \Pr(f(Y) \ge e^{-s})$$
-The **surprisal score** is
-$$p_i = 1-G(s_i)$$
-and an observation is an **anomaly** if $p_i < \alpha$.
+Then $p_i = 1-G(s_i)$.\pause
+
+* An anomaly is an extreme value of the surprisal distribution.
+* It is not necessarily extreme in the sample space of $F$.
 
 # Extreme value theory and surprisals
 
@@ -176,9 +177,9 @@ $$\Pr\left\{ (M_n - b_n)/a_n \leq z \right\} \rightarrow H(z) \quad \text{as} \q
 for a non-degenerate cdf $H$, then 
 $$H(z) = \exp\left\{ -\left[ 1 + \xi\left(\frac{z - \mu}{\sigma} \right)\right]^{-1/\xi} \right\}$$
 
-* $\xi>0$: Fréchet distribution ($G$ heavy-tailed)
-* $\xi\rightarrow0$: Gumbel distribution ($G$ light-tailed)
 * $\xi<0$: Weibull distribution ($G$ bounded upper tail)
+* $\xi\rightarrow0$: Gumbel distribution ($G$ light-tailed)
+* $\xi>0$: Fréchet distribution ($G$ heavy-tailed)
 
 ## Pickands-Balkema-De Haan theorem
 
@@ -196,7 +197,8 @@ So in practice, we can approximate the upper tail of many distributions by a GPD
 * Suppose we have $n$ iid observations $Y_1,\dots,Y_n$ from distribution $F$ with density $f$.
 * Let $S_i = -\log f(Y_i)$ be the surprisal of $Y_i$.
 * Then $S_1,\dots,S_n$ are iid from the surprisal distribution $G(s) = \Pr(S \le s)$.
-* If $G$ satisfies the FTG theorem, then we can approximate the upper tail of $G$ by a GPD.
+* If $G$ satisfies the FTG theorem, then we can approximate the upper tail of $G$ by a GPD fitted to the top $1-\beta$ of the surprisal values.
+* In practice, we typically use $\beta = 0.9$.
 
 ## Three-type theorem for surprisals
 
@@ -355,10 +357,9 @@ tar_read(fig_fr_anomalies)
 ## Lookout algorithm
 
 * Compute Kernel Density Estimate (KDE) of the observations, with a bandwidth matrix chosen using persistent homology.
-* Compute Leave-One-Out (LOO) KDE values
-* Compute surprisals from LOO KDE values
-* Fit a Generalized Pareto Distribution (GPD) to the largest surprisals
-* Compute surprisal probabilities $p_i$ from the fitted GPD
+* Compute surprisals from KDE values
+* Fit a Generalized Pareto Distribution (GPD) to the largest $1-\beta$ surprisals
+* Compute surprisal probabilities $p_i$ from the fitted GPD applied to the LOO KDE surprisals.
 * An observation is an anomaly if $p_i < \alpha$.
 
 ## Kernel density estimation
@@ -383,7 +384,7 @@ Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$.
 \vspace*{-0.3cm}
 
 \begin{block}{}
-\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
+\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big)$}
 \end{block}
 
 \centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
@@ -402,6 +403,12 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
   * All elements of $\bm{H}$ approach zero as $n\rightarrow\infty$
   * $n^{-1}|\bm{H}|^{-1/2} \rightarrow 0$ as $n\rightarrow\infty$
 
+## GPD fitted to KDE surprisals
+
+* Compute surprisals from LOO KDE values: $s_i = -\log f_{-i}$, $i=1,\dots,n$.
+* $f_{-i}$ are bounded above and below, so the surprisals are sub-Gaussian.
+* Fit GPD to largest $1-\beta$ of $\{s_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
+
 ## Persistent homology
 
 \centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
@@ -412,6 +419,21 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 ```{r}
 tar_read(barcode)
 ```
+
+## KDE bandwidth selection via VR diameters
+
+1. Compute persistence homology barcode of data for dimension 0 using Vietoris-Rips diameter.
+2. Obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
+3. Let $d^* = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$, for some large $\gamma < 1$
+4. Set bandwidth matrix $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
+
+\vspace*{0.9cm}
+
+###
+\vspace*{-0.3cm}
+* Ensures that persistently connected components have large weights in the KDE at each observed point.
+* In practice, we use $\gamma = 0.97$.
+
 ## Lookout algorithm
 \fontsize{13}{15}\sf\vspace*{-0.2cm}
 
@@ -419,7 +441,7 @@ tar_read(barcode)
 2. $\hat{\bm{\Sigma}}=$ orthogonalized Gnanadesikan-Kettenring estimate of $\text{Cov}(\bm{Y})$, with eigendecomposition $\hat{\bm{\Sigma}} = \bm{U}\bm{D}\bm{U}^\top$.
 3. Rotate and scale the data: $\bm{Z} = \bm{U}\bm{Y}$.
 4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
-5. $d^* =$ $\gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
+5. $d^* = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
 6. Compute kde: $f_i = \hat{f}(\bm{z}_i)$, $i=1,\dots,n$, where $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
 7. Compute LOO kde values $f_{-i} = \frac{1}{n-1} \big( n f_i - \bm{H}^{-1/2} K(\bm{0}) \big)$, $i=1,\dots,n$.
 8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
