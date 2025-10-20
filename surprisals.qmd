@@ -537,3 +537,12 @@ tar_read(of_lookout_prob) |>
 # Conclusions
 
 ## Conclusions
+\fontsize{13}{15.5}\sf\vspace*{-0.25cm}
+
+* Surprisal-based anomaly detection is a flexible, probabilistic approach that can be used in any context where a probability distribution can be defined on the space of observations
+* EVT theory on surprisals due to Hyndman & Frazier (in preparation)
+* Original lookout algorithm due to Kandanaarachichi & Hyndman (*JCGS*, 2022). <https://robjhyndman.com/publications/lookout>
+* Modified lookout algorithm due to Hyndman, Kandanaarachichi & Turner (in preparation)
+* R packages `lookout` and `weird` available on CRAN
+* Book in preparation at <https://OTexts.com/weird>
+* Papers will appear at <https://robjhyndman.com/publications>
