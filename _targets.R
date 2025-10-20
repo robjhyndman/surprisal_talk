@@ -87,7 +87,7 @@ list(
   ),
   tar_target(
     rips_kde_bandwidth,
-    lookout::find_tda_bw(rips_data, fast = FALSE, gamma = 0.97)
+    lookout::find_tda_bw(rips_data, fast = FALSE, gamma = gamma)
   ),
   tar_target(
     rips_kde,

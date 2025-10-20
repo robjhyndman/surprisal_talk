@@ -1,275 +1,274 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-analyze_wine_data|function|029674aeb758e528
-wine_data|stem||3251833b08c21510|18b77648c966a3e9|-1102940099||t20374.0629609536s||0|rds|local|vector|||1.023||argument 'wine_reviews' is missing, with no default
-alpha|stem|630eb7bc977e853c|a423581c2cc925ec|2c530c1562a7fbd1|-1209573786||t20374.0643052497s|s55b|55|rds|local|vector|||1.052||
-beta|stem|25668a0106a59afe|c0dc9518d5b0aae3|2c530c1562a7fbd1|-492926814||t20374.0643373475s|s53b|53|rds|local|vector|||0||
-gamma|stem|6bea95012562e0e4|e8db2899c4f2c5f7|2c530c1562a7fbd1|-1635482996||t20374.0643375861s|s55b|55|rds|local|vector|||0||
-scale|stem|ef640145045b5202|1c5923e7076a213a|2c530c1562a7fbd1|-1453494129||t20374.0643378068s|s48b|48|rds|local|vector|||0||
-oldfaithful|stem|1c5c6ac6cebb6f75|64a3086f73029513|2c530c1562a7fbd1|1507925407||t20374.1903488268s|s21394b|21394|rds|local|vector|||1.042||
-fr_mortality|stem|1a6facab860d15ab|b80d086a10275110|2c530c1562a7fbd1|1658610472||t20374.2162543843s|s176946b|176946|rds|local|vector|||0.038||
-create_fig61|function|7a0d15c992827c65
-wine_lm|stem|d71df90b3dfa4d9b|4f89e9afb33fa291|863c28b315b13981|-477688243||t20375.2064716471s|s59896b|59896|rds|local|vector|||0.005||
-wine_model|function|450af18fbbb39c2f
-calculate_wine_loo_surprisals|function|9ab9ec4fb4f15c11
-wine_reviews|stem|53f260f37db60e4c|eacf55ed53c0a509|2c530c1562a7fbd1|-1024037250||t20375.2509383637s|s56759b|56759|rds|local|vector|||1.835||
-wine_aug|stem|61edb3969455e710|0b7679edc6d3417a|ba85cbcf3d62c394|476847258||t20375.2509409416s|s247213b|247213|rds|local|vector|||0.1||
-wine_results|stem|d39fd2788cfc8c59|afd6de5e1045e3ef|96fc4cf64d3e0a35|-1850638433||t20375.2064767121s||10917|rds|local|vector|||0.016||Input must be numeric
-wine_loo_anomalies|stem|575cccbe4437b6d5|a4aa75624f05f745|09f4e086b0e6a763|-810878057||t20375.2538168803s|s4613988b|4613988|rds|local|vector|||0.132||
-fig_wine|stem|3bd46bd5230aa694|7c832c6b48b9fbf4|a782f31c5d967da1|1853383857||t20375.2538277488s|s2589192b|2589192|rds|local|vector|||0.038||
-fig_wine2|stem|f5f0c3c84a6b0503|2ee5a880de499c92|a782f31c5d967da1|-1729682820||t20375.2538433434s|s4599253b|4599253|rds|local|vector|||0.013||
-wine_loo_surprisals|stem|85795910ede742d9|2e605dcad3fa0ace|09f4e086b0e6a763|-1421290143||t20375.2538617426s|s4499016b|4499016|rds|local|vector|||0.034||
-wine_model_plot|stem|1e5d2061474a4bf9|cd8fe372f4f2bed7|bcb62a7127a276d0|-1252684200||t20375.2538776502s|s4393635b|4393635|rds|local|vector|||0.047||
-wine_anomalies|stem|6c49bd90d27d9fc0|846dd205dbbcc9f7|64ff0e04ba8a0441|-302782258||t20375.2670066587s|s366b|366|rds|local|vector|||0.068||
-fr_anomalies|stem|d1ae3266b4067f27|59353db7eff907e3|12f4cea9f8088930|-1599032977||t20376.1226699985s|s2941b|2941|rds|local|vector|||1.431|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22` `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
-fig_fr_anomalies|stem|9697ea72fc7496c8|7de4a73bb331bccd|80d1571af963b0cf|670799851||t20376.1226931984s|s3031152b|3031152|rds|local|vector|||0.254||
-fig_fr_mortality|stem|182a999d8edca6cc|c01530452deb5324|366abf982cb85791|-1049618713||t20376.1441857173s|s2578185b|2578185|rds|local|vector|||0.16||
-fig_fr_mortality2|stem|694bd65f29f5f536|d61efa7715953698|366abf982cb85791|-1520667586||t20376.1441970335s|s2578185b|2578185|rds|local|vector|||0.013||
-fig_fr_mortality3|stem|ebee1f7851d95855|dfccf4b212371ac9|29104dc5b9f489d3|-994436003||t20376.1442130347s|s2687313b|2687313|rds|local|vector|||0.068||
-fig_fr_mortality4|stem|d0bdd4e6efc3cb31|e869329106e942f5|29104dc5b9f489d3|-1402271646||t20376.1442249938s|s2687316b|2687316|rds|local|vector|||0.026||
-cricket_batting|stem|c77bc1305bfe71b1|f0b5df2249414851|2c530c1562a7fbd1|-765287523||t20376.1755123127s|s84964b|84964|rds|local|vector|||0.035||
-not_outs|stem|579a9b23e1e65534|bd3772fa630134d6|5fb3475ee23871ee|-295725273||t20376.1755135862s|s91709b|91709|rds|local|vector|||0.027||
-fit_no|stem|72604a89d196f184|1b8f533835546fdd|e9c5d2ca10dc7c26|1222719752||t20376.175532346s|s308029b|308029|rds|local|vector|||1.496||
-notouts_aug|stem|fad526dc0c46b123|b9d8d85659dab814|e5c0df616f08e032|-1166019250||t20376.1755341358s|s138693b|138693|rds|local|vector|||0.094||
-not_outs_plot_smooth|stem|90894a3231cab196|432d70202265cfe9|ac428d4fbd50489d|-762481028||t20376.2147007763s|s1937946b|1937946|rds|local|vector|||0.092||
-not_outs_plot|stem|d1a2f654206faea4|aa5ba3d3bade3b46|ac428d4fbd50489d|-865269473||t20376.2147100694s|s1925279b|1925279|rds|local|vector|||0.009||
-not_outs_plot_jma|stem|5898163d66b9c557|b277edfac8920749|ac428d4fbd50489d|615803914||t20376.2147245035s|s2044166b|2044166|rds|local|vector|||0.061||
-fig_normal|stem|12bf94765ba4610b|a3f741c20611f396|13f4fb3eccbba9fa|-1572172579||t20376.9998929661s|s1769870b|1769870|rds|local|vector|||0.724||
-figchisq5|stem|a3899ab21d38bc8e|1e59e9f3e0c92285|13f4fb3eccbba9fa|1664400336||t20376.9999071468s|s1764242b|1764242|rds|local|vector|||0.063||
-fig61|stem|ca99a167873021cc|343a90ebcaac4e85|13f4fb3eccbba9fa|1802727934||t20377.0003315373s|s1784451b|1784451|rds|local|vector|||35.663||
-fig_hdr|stem|b07e148287d3a764|7b451d372c5a37db|13f4fb3eccbba9fa|62368854||t20377.0005403857s|s1792114b|1792114|rds|local|vector|||17.08||
-of_surprisals|stem|8515a2864ad118ae|44059a4bf9089cee|a3840f8c0e87eff8|1696546625||t20377.0563565982s|s423b|423|rds|local|vector|||1.74||
-fig_of_scaled|stem|5793ae7325571d9b|9380c2f0417ee12d|ea1f563289303927|-246614751||t20377.1172020957s|s1327600b|1327600|rds|local|vector|||0.147||
-fig_of_kde_scaled|stem|8c51674c82c2b377|5c2d2be76029206f|ea1f563289303927|-144504862||t20377.1172323348s|s2861661b|2861661|rds|local|vector|||1.709||
-fig_of_kde|stem|61d4ff64278d482e|f82291b16f1e4556|ea1f563289303927|-318967972||t20377.1172474436s|s2777631b|2777631|rds|local|vector|||0.341||
-fig_of_scaled_anomalies|stem|8c51674c82c2b377|7b26c1d77b2aff40|a6e1fda1295a255e|-200396510||t20377.1172618466s|s2861661b|2861661|rds|local|vector|||0.339||
-create_fig_of|function|ef1801b2dca2f421
-get_of_surprisals|function|62b6e39a2807e58c
-old_faithful_results|stem|1a7e0c1cf47bfa23|b9a8801bba0fafdc|dd13cc6f5db136fb|1780095663||t20377.1688665905s|s7354b|7354|rds|local|vector|||0.312||
-of_lookout_prob|stem|6e126f742030fdb8|e03f2d1761eda855|fe6fb16005660cb3|-1751518801||t20377.1833432697s|s489b|489|rds|local|vector|||0.283||
-rips_data|stem|9988a6c20cdf44f0|b5668219c1f30507|2c530c1562a7fbd1|1557698455||t20377.2497473847s|s482b|482|rds|local|vector|||0.072||
-fig_old_faithful|stem|7df7150e2191b8ab|b1529ab598611dd0|a8f1128d5afbbefb|1138729004||t20377.2501856605s|s1448902b|1448902|rds|local|vector|||0.033||
-fig_old_faithful2|stem|d1282db894a5203e|ac6c9e2458c672b4|a8f1128d5afbbefb|-1671851285||t20377.2501958574s|s1498519b|1498519|rds|local|vector|||0.067||
-fig_old_faithful3|stem|c960a3c368d1a81c|b68c59b3021e80e4|a8f1128d5afbbefb|-1777986633||t20377.2502253833s|s3044224b|3044224|rds|local|vector|||1.392||
-fig_old_faithful4|stem|4a31271d96ebfb13|59f90b84015dd974|a8f1128d5afbbefb|217950470||t20377.2502472238s|s4498544b|4498544|rds|local|vector|||0.229||
-fig_old_faithful5|stem|b3e34b8e50204a6d|23373f7f3bd71020|a8f1128d5afbbefb|-1677658527||t20377.2502612278s|s2033927b|2033927|rds|local|vector|||0.013||
-rip_file_0.385|stem|fae392cf3c929244|ced4c35dc8c7a645|c24c322fba24ab5b|-160483275||t20377.2523824033s|s72b|72|rds|local|vector|||1.34||
-rip_file_0.23|stem|c4a6d0e18ac0841d|c386e778594c1f6d|c24c322fba24ab5b|722672456||t20377.2523924838s|s71b|71|rds|local|vector|||0.784||
-rip_file_0.095|stem|bf41aeaeeb74a856|ddc42251cf27c8f3|c24c322fba24ab5b|1083378645||t20377.2524033063s|s72b|72|rds|local|vector|||0.821||
-rip_file_0.24|stem|43d764eaaf5b9472|9bae081c0e90228c|c24c322fba24ab5b|1922633364||t20377.2524126228s|s71b|71|rds|local|vector|||0.78||
-rip_file_0.25|stem|f0937aa65f2f767b|810ac8f95ed8d8ab|c24c322fba24ab5b|-1336973847||t20377.2524216084s|s71b|71|rds|local|vector|||0.75||
-rip_file_0.26|stem|9d3eca0253b17232|032c4a11ac5b2cbd|c24c322fba24ab5b|-786508892||t20377.2524311531s|s71b|71|rds|local|vector|||0.803||
-rip_file_0.27|stem|e6b98fc989459949|b0cd1f4d66f92e4f|c24c322fba24ab5b|1153832390||t20377.2524398086s|s71b|71|rds|local|vector|||0.723||
-rip_file_0.28|stem|09589dfa7254691f|ff95e7f0646fd196|c24c322fba24ab5b|-2122038259||t20377.2524492328s|s71b|71|rds|local|vector|||0.789||
-rip_file_0.175|stem|b25a1f1ea976b97a|2c2fe4f56cbd2ebd|c24c322fba24ab5b|-1716307386||t20377.252459261s|s72b|72|rds|local|vector|||0.826||
-rip_file_0.29|stem|33197c0c9f3fac47|13202ac7eeba0c8e|c24c322fba24ab5b|-872359546||t20377.2524682311s|s71b|71|rds|local|vector|||0.749||
-rip_file_0.295|stem|2f3183f254017fa5|72f00fd2593a164d|c24c322fba24ab5b|-1628875417||t20377.2524791052s|s72b|72|rds|local|vector|||0.92||
-rip_file_0.145|stem|e0e42e565b1db48e|2a85e25e57b6a173|c24c322fba24ab5b|199231421||t20377.2524904565s|s72b|72|rds|local|vector|||0.943||
-rip_file_0.11|stem|d1b143b0e9abfef8|75b4e7629f22bc31|c24c322fba24ab5b|1103157726||t20377.2524998282s|s71b|71|rds|local|vector|||0.777||
-rip_file_0.12|stem|5f8ad7b91b4fa8c6|23eb3821359ea378|c24c322fba24ab5b|-1129974605||t20377.2525087447s|s71b|71|rds|local|vector|||0.742||
-rip_file_0.375|stem|3aa9c65cb971457c|b2b21142a81dbb91|c24c322fba24ab5b|1612966327||t20377.2525185817s|s72b|72|rds|local|vector|||0.823||
-rip_file_0.13|stem|cdb3ebc0a33ad798|cb32d416bc32eb55|c24c322fba24ab5b|1965786431||t20377.2525277181s|s71b|71|rds|local|vector|||0.758||
-rip_file_0.14|stem|3d9f361e3101998d|23325f2edc695323|c24c322fba24ab5b|1493498830||t20377.252536668s|s71b|71|rds|local|vector|||0.756||
-rip_file_0.15|stem|05ad8e28a734d2ba|9fb6492beeec88cb|c24c322fba24ab5b|1061687670||t20377.2525475692s|s71b|71|rds|local|vector|||0.916||
-rip_file_0.16|stem|e1b87b17e1bd6c76|1cd230bb5310481c|c24c322fba24ab5b|-704335499||t20377.2525569156s|s71b|71|rds|local|vector|||0.779||
-rip_file_0.17|stem|e2000da8365c9cdc|5f48776832ef1069|c24c322fba24ab5b|-67068162||t20377.2525660596s|s71b|71|rds|local|vector|||0.764||
-rip_file_0.18|stem|7d6f81c4a6a19c7d|c483ac5b8577b0a6|c24c322fba24ab5b|598624697||t20377.2525752514s|s71b|71|rds|local|vector|||0.766||
-rip_file_0.165|stem|1f47df1048740edf|57ec0d0e54438806|c24c322fba24ab5b|-1371457664||t20377.2525842941s|s72b|72|rds|local|vector|||0.754||
-rip_file_0.19|stem|a618e5f8ea547381|cd3f8f48dd31fd66|c24c322fba24ab5b|817242557||t20377.2525951049s|s71b|71|rds|local|vector|||0.918||
-rip_file_0.495|stem|4f11a16e12c77828|438225b036c1d9de|c24c322fba24ab5b|-582546048||t20377.2526040924s|s72b|72|rds|local|vector|||0.748||
-rip_file_0.345|stem|4a8687468899d253|2a728cbb2e03a07f|c24c322fba24ab5b|1387247019||t20377.2526130227s|s72b|72|rds|local|vector|||0.746||
-rip_file_0.205|stem|b776f2837c8442c9|702922d817085c84|c24c322fba24ab5b|-2091615086||t20377.2526222876s|s72b|72|rds|local|vector|||0.771||
-rip_file_0.135|stem|fedb28a67b8b5989|9cf69be53c89b9d4|c24c322fba24ab5b|1334381084||t20377.2526340672s|s72b|72|rds|local|vector|||0.992||
-rip_file_0.41|stem|08d41fe8e9cabbc3|76ea7bfd87b03f25|c24c322fba24ab5b|-192475304||t20377.2526426419s|s71b|71|rds|local|vector|||0.713||
-rip_file_0.42|stem|99fe94696363fe78|a2d275eda1ff2d92|c24c322fba24ab5b|-892351935||t20377.2526522943s|s71b|71|rds|local|vector|||0.819||
-rip_file_0.43|stem|641aedca2bf74efd|731d03942b2aabdc|c24c322fba24ab5b|1046951521||t20377.2526640487s|s71b|71|rds|local|vector|||0.989||
-rip_file_0.365|stem|32b3bf077335897b|e584a04a6b0ac111|c24c322fba24ab5b|1474010264||t20377.2526732877s|s72b|72|rds|local|vector|||0.771||
-rip_file_0.44|stem|27b334292f80356f|c8ffab8c18e823ad|c24c322fba24ab5b|-1651272059||t20377.2526833167s|s71b|71|rds|local|vector|||0.837||
-rip_file_0.45|stem|e7ce43f9c89f745c|52963bfc3542bda1|c24c322fba24ab5b|73093508||t20377.2526934449s|s71b|71|rds|local|vector|||0.846||
-rip_file_0.46|stem|18368e86bbff2aa1|e7e0e182f203fead|c24c322fba24ab5b|-1046838244||t20377.2527030917s|s71b|71|rds|local|vector|||0.804||
-rip_file_0.47|stem|67a586fb38f2c4ed|ac50ce5d235fc5f7|c24c322fba24ab5b|-1995152960||t20377.2527122789s|s71b|71|rds|local|vector|||0.766||
-rip_file_0.48|stem|316fef232840c3b6|7dcc8bffe760776d|c24c322fba24ab5b|-430188163||t20377.2527222248s|s71b|71|rds|local|vector|||0.843||
-rip_file_0.155|stem|5f2ae4ab381157bf|6d10c4717cfcdc37|c24c322fba24ab5b|-1695312256||t20377.252730891s|s72b|72|rds|local|vector|||0.724||
-rip_file_0.49|stem|a41f71d67c1069db|a73d79d581c8022a|c24c322fba24ab5b|1718779341||t20377.2527400185s|s71b|71|rds|local|vector|||0.757||
-rip_file_0.405|stem|d8e5d4a1dda6614b|c011f71687aeb278|c24c322fba24ab5b|-1351038630||t20377.2527512255s|s72b|72|rds|local|vector|||0.938||
-rip_file_0.335|stem|5e69a630ce28256c|06ddcb8c9e93c9ba|c24c322fba24ab5b|1517271487||t20377.2527604199s|s72b|72|rds|local|vector|||0.759||
-rip_file_0.125|stem|f18e748ae2885d38|8cef0ebc72888a50|c24c322fba24ab5b|-207646057||t20377.2527701445s|s72b|72|rds|local|vector|||0.807||
-rip_file_0.31|stem|fc15697db1bd09c2|6d3c4d56848cef20|c24c322fba24ab5b|1123993694||t20377.2527801337s|s71b|71|rds|local|vector|||0.846||
-rip_file_0.32|stem|34b43c1a2e787591|e5f1ba6af5e66da3|c24c322fba24ab5b|-382165275||t20377.2527889791s|s71b|71|rds|local|vector|||0.737||
-rip_file_0.33|stem|a4a9b375c856fc5e|dc1af6b0d0e9e093|c24c322fba24ab5b|-1642174827||t20377.252798843s|s71b|71|rds|local|vector|||0.824||
-rip_file_0.355|stem|047920125f532854|1b94223e49c04001|c24c322fba24ab5b|-1344742603||t20377.2528102626s|s72b|72|rds|local|vector|||0.94||
-rip_file_0.34|stem|104aa5042898dc5d|988d502838a4d1cb|c24c322fba24ab5b|391306134||t20377.2528224879s|s71b|71|rds|local|vector|||1.027||
-rip_file_0.35|stem|99853f76f57925bb|34cbc31d9ec7c461|c24c322fba24ab5b|-2003863348||t20377.2528325302s|s71b|71|rds|local|vector|||0.836||
-rip_file_0.36|stem|2de34621ef4415cd|8b43013d05e4f4b0|c24c322fba24ab5b|-699707242||t20377.2528422095s|s71b|71|rds|local|vector|||0.808||
-rip_file_0.37|stem|0f7e54c28a144295|6a6b772333b5a75f|c24c322fba24ab5b|1159069247||t20377.2528525289s|s71b|71|rds|local|vector|||0.864||
-rip_file_0.38|stem|371f892337766a6a|3e40730c59ea0dd4|c24c322fba24ab5b|-202966734||t20377.2528627182s|s71b|71|rds|local|vector|||0.849||
-rip_file_0.39|stem|43068e06c5eff784|e5758f6c167a8f2f|c24c322fba24ab5b|705048978||t20377.2528749156s|s71b|71|rds|local|vector|||1.032||
-rip_file_0.085|stem|fb04a359c2c24de7|bec6ede422612a90|c24c322fba24ab5b|4492763||t20377.2528880579s|s72b|72|rds|local|vector|||1.086||
-rip_file_0.325|stem|7570185fa9fed33b|89c07b0ce2460a84|c24c322fba24ab5b|-1682966589||t20377.2529017989s|s72b|72|rds|local|vector|||1.155||
-rip_file_0.115|stem|ec53b81fb72d22bb|a499008ee7c503aa|c24c322fba24ab5b|367845057||t20377.2529132496s|s72b|72|rds|local|vector|||0.959||
-rip_file_0.285|stem|4453272c59b32bf7|db5eeadd1ffbdf62|c24c322fba24ab5b|-277086320||t20377.2529237672s|s72b|72|rds|local|vector|||0.87||
-rip_file_0.075|stem|e31d5efce2509993|34361d088a82c8a0|c24c322fba24ab5b|-1341122041||t20377.2529370748s|s72b|72|rds|local|vector|||1.115||
-rip_file_0.315|stem|3a7182f35c43f5c9|dda054e0ba4008c6|c24c322fba24ab5b|-1766312215||t20377.2529480883s|s72b|72|rds|local|vector|||0.898||
-rip_file_0.485|stem|340369d8f67b4b31|ec66f24cc1c2b1a9|c24c322fba24ab5b|821735624||t20377.2529582538s|s72b|72|rds|local|vector|||0.848||
-rip_file_0.045|stem|c4c8c5af41927d95|146232d8ca62a226|c24c322fba24ab5b|1937147017||t20377.2529686291s|s72b|72|rds|local|vector|||0.861||
-rip_file_0.275|stem|3ae51830fa7dc9e2|ba4509aafd4d6574|c24c322fba24ab5b|-653629095||t20377.2529788662s|s72b|72|rds|local|vector|||0.85||
-rip_file_0.065|stem|346e8752e9be2022|e7fa5ab218d68ce3|c24c322fba24ab5b|2054785357||t20377.2529896121s|s72b|72|rds|local|vector|||0.911||
-rip_file_0.245|stem|61b29cd0dfe135fb|ea582f02aa4764f8|c24c322fba24ab5b|-1979541227||t20377.2529995536s|s72b|72|rds|local|vector|||0.821||
-rip_file_0.475|stem|c5c26ed485dce3a2|672a0d467334b6e2|c24c322fba24ab5b|-1754924953||t20377.2530111253s|s72b|72|rds|local|vector|||0.97||
-rip_file_0.035|stem|4aab45e7930b7c29|556620eeb4297a3f|c24c322fba24ab5b|-88920946||t20377.2530251461s|s72b|72|rds|local|vector|||1.162||
-rip_file_0.1|stem|5c8ca76b9144e46c|a8637b496fb33408|c24c322fba24ab5b|-1391151491||t20377.253036084s|s70b|70|rds|local|vector|||0.917||
-rip_file_0.2|stem|36f710071e10ee10|9a02ba375a386410|c24c322fba24ab5b|1357705211||t20377.2530471979s|s70b|70|rds|local|vector|||0.922||
-rip_file_0.265|stem|4ef25220f786a7b7|fa17c9931ee457b7|c24c322fba24ab5b|273501476||t20377.2530575836s|s72b|72|rds|local|vector|||0.867||
-rip_file_0.3|stem|bc08534fffea65e6|4035d6e666d5e5a9|c24c322fba24ab5b|1974640189||t20377.2530689879s|s70b|70|rds|local|vector|||0.954||
-rip_file_0.195|stem|bb8b5f2bded51ab0|cf39de8cc5662bd4|c24c322fba24ab5b|1147439832||t20377.2530801929s|s72b|72|rds|local|vector|||0.933||
-rip_file_0.4|stem|f6ae8f607bcd5e41|fa3b7d0a02de8b48|c24c322fba24ab5b|-637936243||t20377.2530925933s|s70b|70|rds|local|vector|||1.032||
-rip_file_0.5|stem|1691f05942e64928|f465ee0526bbb488|c24c322fba24ab5b|-985484896||t20377.2531076799s|s70b|70|rds|local|vector|||1.259||
-rip_file_0.445|stem|0e021c7f98ee8b1b|64cab49a7a91730b|c24c322fba24ab5b|-534402731||t20377.2531195135s|s72b|72|rds|local|vector|||0.984||
-rip_file_0.055|stem|116ea1b18d9172fb|6f16c3be35300b43|c24c322fba24ab5b|1076248547||t20377.2531302852s|s72b|72|rds|local|vector|||0.899||
-rip_file_0.235|stem|9f30a1b88474d180|f7224b047d97894b|c24c322fba24ab5b|-716569311||t20377.2531411231s|s72b|72|rds|local|vector|||0.897||
-rip_file_0.465|stem|dc2bded6cdae50e0|c8129ab0608da638|c24c322fba24ab5b|410497148||t20377.2531519105s|s72b|72|rds|local|vector|||0.914||
-rip_file_0.395|stem|a9563ad851fe6451|6a4d5ea8a2f73633|c24c322fba24ab5b|-665302751||t20377.2531621498s|s72b|72|rds|local|vector|||0.842||
-rip_file_0.025|stem|1f4773ae301ef9fb|ab89f863c46b4113|c24c322fba24ab5b|585124964||t20377.2531721346s|s72b|72|rds|local|vector|||0.835||
-rip_file_0.255|stem|fa277bb22d168d0a|9c5b46b03810d8f6|c24c322fba24ab5b|-182213779||t20377.2531836813s|s72b|72|rds|local|vector|||0.949||
-rip_file_0.105|stem|d36ae80c7839e298|b9b0219e7ff54024|c24c322fba24ab5b|-1847535571||t20377.2531962438s|s72b|72|rds|local|vector|||1.05||
-rip_file_0.435|stem|4cfb4bed132b30ff|76784487fd0e231f|c24c322fba24ab5b|-1272850166||t20377.2532072802s|s72b|72|rds|local|vector|||0.921||
-rip_file_0.225|stem|b6c8f752cf1db5bf|39c991c41893d86f|c24c322fba24ab5b|991051829||t20377.2532180018s|s72b|72|rds|local|vector|||0.895||
-rip_file_0.455|stem|2fa270b0168d9507|98e5ee048e5c11aa|c24c322fba24ab5b|991244352||t20377.2532300223s|s72b|72|rds|local|vector|||0.992||
-rip_file_0.305|stem|91e02bc47d95d767|877594d4f568d736|c24c322fba24ab5b|-1876360352||t20377.2532426258s|s72b|72|rds|local|vector|||1.062||
-rip_file_0.015|stem|846393ce24477afc|64d285a23e486cb6|c24c322fba24ab5b|981473729||t20377.2532515134s|s72b|72|rds|local|vector|||0.737||
-rip_file_0.01|stem|4b9b490fcdbc6d9d|2fbaad80adb1e158|c24c322fba24ab5b|-208815927||t20377.2532611585s|s71b|71|rds|local|vector|||0.804||
-rip_file_0.02|stem|ea14831475ad5d0b|241e3d12f66db5e9|c24c322fba24ab5b|-449979093||t20377.2532702647s|s71b|71|rds|local|vector|||0.761||
-rip_file_0.03|stem|d42a129cd941c82f|632417b9905f8931|c24c322fba24ab5b|1597770144||t20377.2532790181s|s71b|71|rds|local|vector|||0.727||
-rip_file_0.425|stem|1a79836a190cc450|58dab0b599b5e524|c24c322fba24ab5b|-1712563846||t20377.2532879381s|s72b|72|rds|local|vector|||0.749||
-rip_file_0.04|stem|96e88888160ddf9e|d2ce5f9336487278|c24c322fba24ab5b|660274165||t20377.2532980037s|s71b|71|rds|local|vector|||0.839||
-rip_file_0.05|stem|aa08aded5eb903f2|5459408723e5464f|c24c322fba24ab5b|-1606750159||t20377.2533085315s|s71b|71|rds|local|vector|||0.862||
-rip_file_0.06|stem|e0e3e2a01f44e7b7|b8f3010ddd7df286|c24c322fba24ab5b|1357977218||t20377.2533191084s|s71b|71|rds|local|vector|||0.887||
-rip_file_0.07|stem|b8d3d84934c84e56|7895d445d9d39f51|c24c322fba24ab5b|-1032341120||t20377.2533319683s|s71b|71|rds|local|vector|||1.079||
-rip_file_0.08|stem|47ee303347ec9c7d|8c3d4df2bce0f375|c24c322fba24ab5b|-1456707702||t20377.2533424768s|s71b|71|rds|local|vector|||0.872||
-rip_file_0.215|stem|c63eef4e2874e6c5|35d4b38d70a82d1a|c24c322fba24ab5b|-702465520||t20377.2533529326s|s72b|72|rds|local|vector|||0.873||
-rip_file_0.09|stem|f875fc98437857f9|be66fc7531d2641b|c24c322fba24ab5b|-1651535764||t20377.2533623991s|s71b|71|rds|local|vector|||0.792||
-rip_file_0.415|stem|0829ef9eeeb01eb9|2eb8e6b90e42f220|c24c322fba24ab5b|1192516733||t20377.2533722993s|s72b|72|rds|local|vector|||0.829||
-rip_file_0.185|stem|eec63f9278c19302|f24e169053aab6e1|c24c322fba24ab5b|2043111909||t20377.2533819631s|s72b|72|rds|local|vector|||0.816||
-rip_file_0.21|stem|306bf03c60de0e04|8fbeea1a7ea7bd20|c24c322fba24ab5b|-143255554||t20377.2533915516s|s71b|71|rds|local|vector|||0.801||
-rip_file_0.22|stem|e5f7dbd1b0ec69ff|e35622e404cd0cd4|c24c322fba24ab5b|1423246318||t20377.2534032029s|s71b|71|rds|local|vector|||0.976||
-rip_file_0.27_53|stem|5a41adf788515465|abd313856aa7199e|27e7384c7ce30e4c|-1459082823||t20377.2550015689s|s68b|68|rds|local|vector|||1.235||
-rip_file_0.425_84|stem|4edc8c19039e3075|3a7a568a77bd0ff0|27e7384c7ce30e4c|-657060451||t20377.2550109443s|s68b|68|rds|local|vector|||0.756||
-rip_file_0.025_4|stem|6d47fe662ca3148c|0d6962269cc1963c|27e7384c7ce30e4c|-1532203437||t20377.255020072s|s68b|68|rds|local|vector|||0.712||
-rip_file_0.12_23|stem|fb1deea973419d1b|c36844bff88f46be|27e7384c7ce30e4c|-1764248939||t20377.2550286051s|s68b|68|rds|local|vector|||0.721||
-rip_file_0.25_49|stem|3aef14d83a6bc21f|c395ea47680d4829|27e7384c7ce30e4c|-1503315847||t20377.2550373857s|s68b|68|rds|local|vector|||0.744||
-rip_file_0.32_63|stem|26175a4a013f1b11|209bdfecea85f8ea|27e7384c7ce30e4c|-557353094||t20377.2550456009s|s68b|68|rds|local|vector|||0.694||
-rip_file_0.45_89|stem|bcfa6229769cd630|f3fd64e279530d59|27e7384c7ce30e4c|-599952461||t20377.2550546341s|s68b|68|rds|local|vector|||0.763||
-rip_file_0.355_70|stem|e7b877cae9944fbe|76b1c55c59837522|27e7384c7ce30e4c|1123139058||t20377.255530263s|s68b|68|rds|local|vector|||1.294||
-rip_file_0.23_45|stem|0a030f0b7b71cadc|860d788715ac75cc|27e7384c7ce30e4c|1948777399||t20377.2555399861s|s68b|68|rds|local|vector|||0.785||
-rip_file_0.04_7|stem|4211ba2b0a9593cf|6551913eed22f4b4|27e7384c7ce30e4c|-1265136088||t20377.2555500089s|s68b|68|rds|local|vector|||0.784||
-rip_file_0.43_85|stem|40c2589ab6c749b7|55f277eb78a7e951|27e7384c7ce30e4c|763141148||t20377.2555593599s|s68b|68|rds|local|vector|||0.791||
-rip_file_0.125_24|stem|cf8b6e028773439a|507591c6d8310ecb|27e7384c7ce30e4c|2090484226||t20377.2555684s|s68b|68|rds|local|vector|||0.764||
-rip_file_0.485_96|stem|0714c90cccb23b5f|6804eda19f4a6140|27e7384c7ce30e4c|-1590977520||t20377.255577727s|s68b|68|rds|local|vector|||0.789||
-rip_file_0.065_12|stem|97f18565e5812958|b84bca2daa8db3ef|27e7384c7ce30e4c|671515743||t20377.2555869147s|s68b|68|rds|local|vector|||0.775||
-rip_file_0.305_60|stem|f181d6df36cd113a|41c4ef0b6509539e|27e7384c7ce30e4c|2111941976||t20377.2555960208s|s68b|68|rds|local|vector|||0.773||
-rip_file_0.495_98|stem|49328248fd7f8a97|68e4d298de6451d6|27e7384c7ce30e4c|-846670203||t20377.2556053454s|s68b|68|rds|local|vector|||0.787||
-rip_file_0.315_62|stem|7eb0c0c72d7e2c17|b220ec3befd9e842|27e7384c7ce30e4c|968518924||t20377.2556146574s|s68b|68|rds|local|vector|||0.787||
-rip_file_0.185_36|stem|7a73ab2c6a2f4079|57daa38eb20b720e|27e7384c7ce30e4c|-514874849||t20377.2556239568s|s68b|68|rds|local|vector|||0.786||
-rip_file_0.255_50|stem|ce8f7ffee76f3f80|a607683abffb74a9|27e7384c7ce30e4c|-1386366067||t20377.2556330171s|s68b|68|rds|local|vector|||0.768||
-rip_file_0.195_38|stem|48f5a75b01b45246|8f6e6561cb964b59|27e7384c7ce30e4c|-1318046728||t20377.255642412s|s68b|68|rds|local|vector|||0.796||
-rip_file_0.445_88|stem|7103bea5d17e7762|dbba66ff40fba0ca|27e7384c7ce30e4c|1214797019||t20377.255651814s|s68b|68|rds|local|vector|||0.795||
-rip_file_0.375_74|stem|c4e1ee43a2b38a5a|2060aa22e89394bd|27e7384c7ce30e4c|-1148147738||t20377.2556614686s|s68b|68|rds|local|vector|||0.818||
-rip_file_0.145_28|stem|b907e013510e6a26|efd9eca4deed90b2|27e7384c7ce30e4c|-1753725615||t20377.2556706794s|s68b|68|rds|local|vector|||0.777||
-rip_file_0.085_16|stem|0063378e4f7e1d94|f883adb034873f34|27e7384c7ce30e4c|-938916927||t20377.2556798968s|s68b|68|rds|local|vector|||0.772||
-rip_file_0.15_29|stem|5cdad64f295dd705|01d22c895ac4bfab|27e7384c7ce30e4c|-660028973||t20377.2556895765s|s68b|68|rds|local|vector|||0.818||
-rip_file_0.35_69|stem|19ae56d595e72f58|854971197e1e4981|27e7384c7ce30e4c|-1183764362||t20377.2556992299s|s68b|68|rds|local|vector|||0.819||
-rip_file_0.2_39|stem|3559da28282b2c30|39679149fbea2ad5|27e7384c7ce30e4c|555348934||t20377.2557087263s|s68b|68|rds|local|vector|||0.804||
-rip_file_0.095_18|stem|61a6f175967e69ef|551f3f383c2fd1cc|27e7384c7ce30e4c|-131948555||t20377.2557180965s|s68b|68|rds|local|vector|||0.793||
-rip_file_0.13_25|stem|82d2fc07ebf0d828|5917049610d3b641|27e7384c7ce30e4c|341184765||t20377.2557288149s|s68b|68|rds|local|vector|||0.909||
-rip_file_0.21_41|stem|2172ef5f940d4f18|4bc9cbfad98de144|27e7384c7ce30e4c|-1490266095||t20377.2557408331s|s68b|68|rds|local|vector|||1.021||
-rip_file_0.06_11|stem|223e77b14c76f493|bb64954ab6a8179d|27e7384c7ce30e4c|657509446||t20377.2557506775s|s68b|68|rds|local|vector|||0.834||
-rip_file_0.335_66|stem|96fd98d80ceb87e2|92c5c2637583c08b|27e7384c7ce30e4c|1589002351||t20377.2557607013s|s68b|68|rds|local|vector|||0.849||
-rip_file_0.33_65|stem|5898fef28785c972|4a9793427bfac937|27e7384c7ce30e4c|2146657206||t20377.2557704772s|s68b|68|rds|local|vector|||0.827||
-rip_file_0.26_51|stem|9c96a859b9f2efc9|b9bcd8334e9ee531|27e7384c7ce30e4c|-990450623||t20377.2557798264s|s68b|68|rds|local|vector|||0.79||
-rip_file_0.41_81|stem|e53494cf1ae01a82|ef1f732b25bfbe68|27e7384c7ce30e4c|1905097322||t20377.255790454s|s68b|68|rds|local|vector|||0.899||
-rip_file_0.275_54|stem|0f50bb12b6ebdcca|7198292c341e3a8f|27e7384c7ce30e4c|38490046||t20377.2558017843s|s68b|68|rds|local|vector|||0.958||
-rip_file_0.455_90|stem|97e4a3ce2376e172|58e9e82e9a7b4d31|27e7384c7ce30e4c|-287095941||t20377.2558127635s|s68b|68|rds|local|vector|||0.931||
-rip_file_0.02_3|stem|f995c1c73e86f1c7|42c264b6714fe217|27e7384c7ce30e4c|553640844||t20377.2558236326s|s68b|68|rds|local|vector|||0.913||
-rip_file_0.225_44|stem|a83be867ae4fe3b9|699465dc6e8e83ea|27e7384c7ce30e4c|-1185060243||t20377.2558346439s|s68b|68|rds|local|vector|||0.927||
-rip_file_0.155_30|stem|00a9b7bb4f13e032|d9c426b64f951778|27e7384c7ce30e4c|-1056401302||t20377.2558462311s|s68b|68|rds|local|vector|||0.976||
-rip_file_0.405_80|stem|4a43a14f5d77336d|0ea4aaffd44fa664|27e7384c7ce30e4c|1166991669||t20377.2558580652s|s68b|68|rds|local|vector|||1.005||
-rip_file_0.415_82|stem|aba5648b3a333c6f|0ce4cf7c00e5f243|27e7384c7ce30e4c|1020439248||t20377.2558684651s|s68b|68|rds|local|vector|||0.88||
-rip_file_0.19_37|stem|6bac87d0b82031ba|2ae1e653a707a976|27e7384c7ce30e4c|825411275||t20377.2558784654s|s68b|68|rds|local|vector|||0.845||
-rip_file_0.105_20|stem|1d45812e3ff7a37f|630b74b16de33bb2|27e7384c7ce30e4c|1939271748||t20377.2558879252s|s68b|68|rds|local|vector|||0.799||
-rip_file_0.49_97|stem|bfad1b737578779b|d2f6b5eec03e8132|27e7384c7ce30e4c|1349825829||t20377.2559016506s|s68b|68|rds|local|vector|||1.166||
-rip_file_0.39_77|stem|012c1b85ebadb5ce|3209c5003a617e9b|27e7384c7ce30e4c|466989477||t20377.2559127338s|s68b|68|rds|local|vector|||0.934||
-rip_file_0.3_59|stem|402c766a180145de|8c80b065f3c99cb2|27e7384c7ce30e4c|-1417717437||t20377.2559227219s|s68b|68|rds|local|vector|||0.844||
-rip_file_0.17_33|stem|204b3e1d32fac2e9|ee539d8a97cd9de7|27e7384c7ce30e4c|639539566||t20377.255931969s|s68b|68|rds|local|vector|||0.783||
-rip_file_0.08_15|stem|6a58038af0269d37|3ded98b514c73684|27e7384c7ce30e4c|665330941||t20377.2559416082s|s68b|68|rds|local|vector|||0.817||
-rip_file_0.47_93|stem|70fe97dd096af3af|cdd19c5b5b0c5d2c|27e7384c7ce30e4c|-497496869||t20377.2559517961s|s68b|68|rds|local|vector|||0.86||
-rip_file_0.115_22|stem|6a83db573d6d3b98|a8ec1039ca88000a|27e7384c7ce30e4c|1259075743||t20377.2559613049s|s68b|68|rds|local|vector|||0.804||
-rip_file_0.035_6|stem|8f6b1333012f0c25|24bf6b4f0af28cbe|27e7384c7ce30e4c|-31472459||t20377.2559708045s|s68b|68|rds|local|vector|||0.803||
-rip_file_0.37_73|stem|2a25868bd44dae25|3beb49c07369693a|27e7384c7ce30e4c|-1835620336||t20377.2559801874s|s68b|68|rds|local|vector|||0.794||
-rip_file_0.28_55|stem|9686b5e1faf64216|600efa362ad48702|27e7384c7ce30e4c|287318388||t20377.2559899609s|s68b|68|rds|local|vector|||0.828||
-rip_file_0.475_94|stem|5f8aa575f5d54119|59b33f152d19a005|27e7384c7ce30e4c|1423326447||t20377.2559995562s|s68b|68|rds|local|vector|||0.813||
-rip_file_0.055_10|stem|03437a42ebd1fd23|ee95143d27f5c9f6|27e7384c7ce30e4c|1110193428||t20377.2560090306s|s68b|68|rds|local|vector|||0.801||
-rip_file_0.015_2|stem|a43763fec53a0692|5ee959efa76b7cc7|27e7384c7ce30e4c|-1410828712||t20377.2560184285s|s68b|68|rds|local|vector|||0.792||
-rip_file_0.245_48|stem|46010fcc474568eb|894c8f08a721aeb8|27e7384c7ce30e4c|-1977599266||t20377.256028014s|s68b|68|rds|local|vector|||0.81||
-rip_file_0.11_21|stem|1567e5fadfab3715|e767968620907ab2|27e7384c7ce30e4c|1983524506||t20377.2560374631s|s68b|68|rds|local|vector|||0.8||
-rip_file_0.24_47|stem|d6c5826c9d2aa610|f6bfa19ca1b8f64b|27e7384c7ce30e4c|-437268704||t20377.2560470887s|s68b|68|rds|local|vector|||0.802||
-rip_file_0.05_9|stem|480daaf122ee406e|c8a2aa90cb2909bd|27e7384c7ce30e4c|1818469254||t20377.2560572752s|s68b|68|rds|local|vector|||0.86||
-rip_file_0.44_87|stem|49eb5f2c98d1ab06|dc0bd23921f57e07|27e7384c7ce30e4c|965072870||t20377.2560666597s|s68b|68|rds|local|vector|||0.794||
-rip_file_0.31_61|stem|31ca5ef955e02ff1|89f3bc1defe125fe|27e7384c7ce30e4c|-695735511||t20377.2560761748s|s68b|68|rds|local|vector|||0.804||
-rip_file_0.175_34|stem|78615462be88f10a|154675d37e7cc858|27e7384c7ce30e4c|1085145277||t20377.2560860646s|s68b|68|rds|local|vector|||0.837||
-rip_file_0.03_5|stem|365628a7f974e6dc|dcc67c0dcbd61165|27e7384c7ce30e4c|209456102||t20377.2560956486s|s68b|68|rds|local|vector|||0.8||
-rip_file_0.435_86|stem|12d36318d57151a3|62c94b0a4cff4153|27e7384c7ce30e4c|-1312158250||t20377.256105251s|s68b|68|rds|local|vector|||0.813||
-rip_file_0.365_72|stem|1eda022d6cbcb779|f02e648e3c0d15ca|27e7384c7ce30e4c|1346633295||t20377.256115066s|s68b|68|rds|local|vector|||0.831||
-rip_file_0.135_26|stem|2e6f13c317680794|75d73968914d92d6|27e7384c7ce30e4c|-1687840489||t20377.2561253246s|s68b|68|rds|local|vector|||0.868||
-rip_file_0.075_14|stem|d005c844e3157a0c|9bed1023a43d0d0c|27e7384c7ce30e4c|-71314725||t20377.2561349527s|s68b|68|rds|local|vector|||0.809||
-rip_file_0.325_64|stem|c2259bcaf2b552e8|e2a6f5c2bb143eff|27e7384c7ce30e4c|2115684228||t20377.2561448343s|s68b|68|rds|local|vector|||0.828||
-rip_file_0.265_52|stem|6b1318cab0aee40e|bb112dfd99bdb9f0|27e7384c7ce30e4c|-5587676||t20377.2561542389s|s68b|68|rds|local|vector|||0.796||
-rip_file_0.205_40|stem|883523c839d1bf30|1ab7d6c08f72b102|27e7384c7ce30e4c|835491517||t20377.2561639174s|s68b|68|rds|local|vector|||0.814||
-rip_file_0.4_79|stem|56299f240b2f375c|087127fbfc7f4a05|27e7384c7ce30e4c|-1717570322||t20377.2561735287s|s68b|68|rds|local|vector|||0.812||
-rip_file_0.14_27|stem|5f1ebb6653d990b7|89f9c56ac8d0de05|27e7384c7ce30e4c|-1193060637||t20377.2561831932s|s68b|68|rds|local|vector|||0.816||
-rip_file_0.16_31|stem|c46130fd5f394a47|40f68ccb60741197|27e7384c7ce30e4c|1514905508||t20377.2561929729s|s68b|68|rds|local|vector|||0.827||
-rip_file_0.215_42|stem|ddb9e2d17e6f7627|2c1535b36e47ff15|27e7384c7ce30e4c|-1702005553||t20377.2562025934s|s68b|68|rds|local|vector|||0.814||
-rip_file_0.22_43|stem|cf89932ddbcd5e2f|34497ee0d05af9b6|27e7384c7ce30e4c|-93371222||t20377.2562124134s|s68b|68|rds|local|vector|||0.828||
-rip_file_0.34_67|stem|d4d105c5051f654c|a0b0bad6f794ce7f|27e7384c7ce30e4c|-1983695629||t20377.2562226382s|s68b|68|rds|local|vector|||0.867||
-rip_file_0.46_91|stem|2d38168566e1d848|3bf094313d72cd6e|27e7384c7ce30e4c|116408189||t20377.2562324196s|s68b|68|rds|local|vector|||0.825||
-rip_file_0.385_76|stem|d46a57907960d32f|9e67f9015816e8ce|27e7384c7ce30e4c|-171583331||t20377.2562421045s|s68b|68|rds|local|vector|||0.819||
-rip_file_0.42_83|stem|10e06ada3bb3f5f5|1f7fa62b10e9125c|27e7384c7ce30e4c|955202797||t20377.2562522987s|s68b|68|rds|local|vector|||0.863||
-rip_file_0.36_71|stem|714a144a6b792698|29d818661df2acd1|27e7384c7ce30e4c|-684214357||t20377.2562620959s|s68b|68|rds|local|vector|||0.829||
-rip_file_0.395_78|stem|811243666015008f|db202253681a46c0|27e7384c7ce30e4c|2029353972||t20377.2562722812s|s68b|68|rds|local|vector|||0.862||
-rip_file_0.345_68|stem|08b79791b35db68b|edd134fcfc7fc337|27e7384c7ce30e4c|691569066||t20377.2562817292s|s68b|68|rds|local|vector|||0.798||
-rip_file_0.01_1|stem|2d722b9cfe2c7316|c8d2d0f8e1774bbc|27e7384c7ce30e4c|1333056483||t20377.2562915807s|s68b|68|rds|local|vector|||0.835||
-rip_file_0.285_56|stem|d670545efcd195c5|f3abf95e8c63a66a|27e7384c7ce30e4c|-396811112||t20377.2563009984s|s68b|68|rds|local|vector|||0.793||
-rip_file_0.5_99|stem|b6e2cd25c5936025|3f028dad343e33da|27e7384c7ce30e4c|-104247607||t20377.2563115125s|s68b|68|rds|local|vector|||0.891||
-rip_file_0.465_92|stem|c3abc6263f5bf7d4|de0a78e6b7b9b59a|27e7384c7ce30e4c|340366052||t20377.2563211828s|s68b|68|rds|local|vector|||0.815||
-rip_file_0.295_58|stem|06336a3aadc2c91a|ca40db9d7d0027b1|27e7384c7ce30e4c|-161293157||t20377.2563308449s|s68b|68|rds|local|vector|||0.818||
-rip_file_0.235_46|stem|90a69d563b95bf18|b601143fbd18aeed|27e7384c7ce30e4c|-117850437||t20377.256340971s|s68b|68|rds|local|vector|||0.858||
-rip_file_0.18_35|stem|990c5372e6da04bd|b4b15b38a5d7a372|27e7384c7ce30e4c|-1252668217||t20377.2563503073s|s68b|68|rds|local|vector|||0.792||
-rip_file_0.09_17|stem|f7142e1c442b926e|35a2260d3efb7013|27e7384c7ce30e4c|1815819455||t20377.2563620879s|s68b|68|rds|local|vector|||0.75||
-rip_file_0.48_95|stem|535f9ce87b2347fa|df76336d6188e51f|27e7384c7ce30e4c|-1675705450||t20377.2563710985s|s68b|68|rds|local|vector|||0.762||
-rip_file_0.165_32|stem|84a48d2923b3261c|66bd695336262ca9|27e7384c7ce30e4c|258584383||t20377.256380207s|s68b|68|rds|local|vector|||0.766||
-rip_file_0.045_8|stem|0240b9d690f51094|dd2cade3dda7b981|27e7384c7ce30e4c|-586656867||t20377.2563889635s|s68b|68|rds|local|vector|||0.739||
-rip_file_0.38_75|stem|aa6909ab79a91986|069babaca330e813|27e7384c7ce30e4c|-1508158683||t20377.2563979768s|s68b|68|rds|local|vector|||0.764||
-rip_file_0.29_57|stem|af4f56274b005e4c|333db08e7ad33289|27e7384c7ce30e4c|893976886||t20377.2564067115s|s68b|68|rds|local|vector|||0.74||
-rip_file_0.07_13|stem|cdafb752606a3fce|16be4ba6efb682dd|27e7384c7ce30e4c|-272622491||t20377.2564156345s|s68b|68|rds|local|vector|||0.756||
-rip_file_0.1_19|stem|2a54dab862dcbc39|5bd03856237e05fc|27e7384c7ce30e4c|-1640761647||t20377.2564249801s|s68b|68|rds|local|vector|||0.79||
-fit_notouts|function|02b1342331ef627b
 create_notouts_plot|function|d91403fbb77f3e42
-set_ggplot_options|function|074ff9b95545498d
-noutouts_anomalies|function|87a06cc95c72f089
 of_labels|object|e988b5ed3e201289
-rips|function|70c5e8526e720c1d
-which_outliers|function|d39828fa0b332644
-hampel_anomalies|function|81d72d540552bfc6
+kde_kernels|function|85b39385f2005d5a
+create_fr_anomaly_plot|function|28e72f88ffd2bf2f
 create_fig_density|function|22c2ba641d3bc9c3
-augment_notouts|function|120c6b036fc687e5
+hampel_anomalies|function|81d72d540552bfc6
+set_ggplot_options|function|074ff9b95545498d
+create_wine_figure|function|b0e6f0564cf64efa
+create_wine_model_plot|function|302d3f46ba996ccf
+which_outliers|function|d39828fa0b332644
+noutouts_anomalies|function|87a06cc95c72f089
 get_of_lookout_prob|function|319bf13d81b0a4e8
+augment_notouts|function|120c6b036fc687e5
+make_figchisq1|function|b5127fd2d41550ab
+make_barcode|function|87469f996145b0a4
+plot_wine_loo_surprisals|function|bc1c7db550d19480
 augment_wine|function|58b4e8ba9cfe2f5a
-plot_wine_loo_surprisals|function|67983f0df2873750
-create_fr_mortality_plot|function|0a627ef8c564677e
-create_fr_anomaly_plot|function|e9db98a3eab804ff
-create_wine_figure|function|da3e305b6346bf3b
-create_wine_model_plot|function|1ac7477590fa820a
-create_old_faithful_figure|function|26da85cc44d8e786
-as.data.frame.lookoutliers|function|93bc04ccc349fcad
+rips|function|70c5e8526e720c1d
+fit_notouts|function|02b1342331ef627b
+create_fr_mortality_plot|function|35aa09203a70c42a
+create_old_faithful_figure|function|f30727891fde0988
+make_kde_plot|function|5bcd7c21111a945e
 find_fr_anomalies|function|b4df3338ab9283bc
-analyse_wine_data|function|6e2210dcd1e2ea14
+as.data.frame.lookoutliers|function|93bc04ccc349fcad
 analyse_old_faithful|function|2200323710e43aa1
-slides|stem|28397cb93562856a|96fb93322ba94739|ee2da653b0aa703f|1331386099|surprisals_files*surprisals.pdf*surprisals.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*header.tex|t20377.2581400344s|s19068491b|19068491|file|local|vector|||43.89||
+analyse_wine_data|function|6e2210dcd1e2ea14
+rips_data|stem|9988a6c20cdf44f0|b5668219c1f30507|2c530c1562a7fbd1|1557698455||t20381.2415310722s|s482b|482|rds|local|vector|||0.051||
+fig_hdr|stem|7cac6dc11e536deb|7b451d372c5a37db|13f4fb3eccbba9fa|62368854||t20381.2417589581s|s1794154b|1794154|rds|local|vector|||18.715||
+cricket_batting|stem|c77bc1305bfe71b1|f0b5df2249414851|2c530c1562a7fbd1|-765287523||t20381.2417600536s|s84964b|84964|rds|local|vector|||0.008||
+chisq_data1|stem|45e490013b911116|0be6f013b382dffc|2c530c1562a7fbd1|994688843||t20381.2417603034s|s960b|960|rds|local|vector|||0.001||
+beta|stem|25668a0106a59afe|c0dc9518d5b0aae3|2c530c1562a7fbd1|-492926814||t20381.2417604974s|s53b|53|rds|local|vector|||0||
+chisq_data2|stem|ac3b6ba3e5fa88e1|c6a12da55f0e47bf|2c530c1562a7fbd1|1367619874||t20381.2417607399s|s964b|964|rds|local|vector|||0.001||
+chisq_data3|stem|f4d7e5478a9e4219|56b991569d58c799|2c530c1562a7fbd1|546398478||t20381.2417609333s|s960b|960|rds|local|vector|||0.001||
+fr_mortality|stem|1a6facab860d15ab|b80d086a10275110|2c530c1562a7fbd1|1658610472||t20381.2417618636s|s176946b|176946|rds|local|vector|||0.019||
+fig61|stem|d8d66649b070648c|343a90ebcaac4e85|13f4fb3eccbba9fa|1802727934||t20381.242180731s|s1787581b|1787581|rds|local|vector|||35.091||
+alpha|stem|630eb7bc977e853c|a423581c2cc925ec|2c530c1562a7fbd1|-1209573786||t20381.242180944s|s55b|55|rds|local|vector|||0.001||
+gamma|stem|6bea95012562e0e4|e8db2899c4f2c5f7|2c530c1562a7fbd1|-1635482996||t20381.2421811371s|s55b|55|rds|local|vector|||0||
+oldfaithful|stem|1c5c6ac6cebb6f75|64a3086f73029513|2c530c1562a7fbd1|1507925407||t20381.2421814254s|s21394b|21394|rds|local|vector|||0.001||
+scale|stem|ef640145045b5202|1c5923e7076a213a|2c530c1562a7fbd1|-1453494129||t20381.2421816545s|s48b|48|rds|local|vector|||0||
+fig_normal|stem|2e7b45210a77d2ba|a3f741c20611f396|13f4fb3eccbba9fa|-1572172579||t20381.2421979303s|s1773044b|1773044|rds|local|vector|||0.455||
+wine_reviews|stem|53f260f37db60e4c|eacf55ed53c0a509|2c530c1562a7fbd1|-1024037250||t20381.242222132s|s56759b|56759|rds|local|vector|||2.061||
+figchisq5|stem|480723b39a202e1c|1e59e9f3e0c92285|13f4fb3eccbba9fa|1664400336||t20381.2422334815s|s1767656b|1767656|rds|local|vector|||0.054||
+kde_file_0.162142857142857_58|stem|a47b0eb66cc8c78c|3960ec7a5d6388cd|cea1f52ef2a12b1e|395890246||t20381.2422834355s|s68b|68|rds|local|vector|||4.299|Contour data has duplicated x, y coordinates. ℹ 50263 duplicated rows have been dropped.. Removed 3436 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 7177 duplicated rows have been dropped.. Removed 249 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.49_97|stem|bfad1b737578779b|d2f6b5eec03e8132|27e7384c7ce30e4c|1349825829||t20381.2422941366s|s68b|68|rds|local|vector|||0.907||
+rip_file_0.155_30|stem|00a9b7bb4f13e032|d9c426b64f951778|27e7384c7ce30e4c|-1056401302||t20381.2423063115s|s68b|68|rds|local|vector|||1.034||
+rip_file_0.44_87|stem|49eb5f2c98d1ab06|dc0bd23921f57e07|27e7384c7ce30e4c|965072870||t20381.2423167922s|s68b|68|rds|local|vector|||0.884||
+rip_file_0.36_71|stem|714a144a6b792698|29d818661df2acd1|27e7384c7ce30e4c|-684214357||t20381.2423263964s|s68b|68|rds|local|vector|||0.812||
+kde_file_0.0807142857142857_20|stem|6941a871edd6c1d3|388b1176e67d6667|cea1f52ef2a12b1e|759659170||t20381.2423543385s|s68b|68|rds|local|vector|||2.399|Contour data has duplicated x, y coordinates. ℹ 16485 duplicated rows have been dropped.. Removed 1580 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.19_37|stem|6bac87d0b82031ba|2ae1e653a707a976|27e7384c7ce30e4c|825411275||t20381.2423633178s|s68b|68|rds|local|vector|||0.762||
+kde_file_0.245714285714286_97|stem|18cb67665d3d1fcf|a466cfd2cdb13953|cea1f52ef2a12b1e|-1869934600||t20381.2423870447s|s68b|68|rds|local|vector|||2.029|Contour data has duplicated x, y coordinates. ℹ 93686 duplicated rows have been dropped.. Removed 2896 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13396 duplicated rows have been dropped.. Removed 193 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.46_91|stem|2d38168566e1d848|3bf094313d72cd6e|27e7384c7ce30e4c|116408189||t20381.2423965945s|s68b|68|rds|local|vector|||0.809||
+rip_file_0.455_90|stem|97e4a3ce2376e172|58e9e82e9a7b4d31|27e7384c7ce30e4c|-287095941||t20381.2424063727s|s68b|68|rds|local|vector|||0.831||
+rip_file_0.265_52|stem|6b1318cab0aee40e|bb112dfd99bdb9f0|27e7384c7ce30e4c|-5587676||t20381.2424160478s|s68b|68|rds|local|vector|||0.819||
+rip_file_0.24_47|stem|d6c5826c9d2aa610|f6bfa19ca1b8f64b|27e7384c7ce30e4c|-437268704||t20381.2424256824s|s68b|68|rds|local|vector|||0.815||
+rip_file_0.335_66|stem|96fd98d80ceb87e2|92c5c2637583c08b|27e7384c7ce30e4c|1589002351||t20381.2424359013s|s68b|68|rds|local|vector|||0.859||
+kde_file_0.237142857142857_93|stem|88edf99931b1aedc|1d77c10961e4a069|cea1f52ef2a12b1e|-574288999||t20381.2424632327s|s68b|68|rds|local|vector|||2.342|Contour data has duplicated x, y coordinates. ℹ 89764 duplicated rows have been dropped.. Removed 2949 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12907 duplicated rows have been dropped.. Removed 198 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.16_31|stem|c46130fd5f394a47|40f68ccb60741197|27e7384c7ce30e4c|1514905508||t20381.2424728976s|s68b|68|rds|local|vector|||0.821||
+rip_file_0.185_36|stem|7a73ab2c6a2f4079|57daa38eb20b720e|27e7384c7ce30e4c|-514874849||t20381.2424860758s|s68b|68|rds|local|vector|||1.113||
+kde_file_0.140714285714286_48|stem|20a19b51f3edaca8|db0bf96080a48779|cea1f52ef2a12b1e|-540688275||t20381.2425132367s|s68b|68|rds|local|vector|||2.316|Contour data has duplicated x, y coordinates. ℹ 40024 duplicated rows have been dropped.. Removed 3552 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 4441 duplicated rows have been dropped.. Removed 270 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.485_96|stem|0714c90cccb23b5f|6804eda19f4a6140|27e7384c7ce30e4c|-1590977520||t20381.2425232404s|s68b|68|rds|local|vector|||0.848||
+kde_file_0.185714285714286_69|stem|70d643a3bef9975d|ee985e2f0434a818|cea1f52ef2a12b1e|-1448497279||t20381.2425523977s|s68b|68|rds|local|vector|||2.502|Contour data has duplicated x, y coordinates. ℹ 62909 duplicated rows have been dropped.. Removed 3288 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 9231 duplicated rows have been dropped.. Removed 232 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.205_78|stem|23b0314f9729e5a0|8bb33eedc1fad21b|cea1f52ef2a12b1e|84950010||t20381.2425808826s|s68b|68|rds|local|vector|||2.443|Contour data has duplicated x, y coordinates. ℹ 73088 duplicated rows have been dropped.. Removed 3164 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10924 duplicated rows have been dropped.. Removed 217 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.055_8|stem|02db8b1173cfa3d0|c4433b6b0fd3c8ac|cea1f52ef2a12b1e|-414525207||t20381.2426090597s|s67b|67|rds|local|vector|||2.417|Contour data has duplicated x, y coordinates. ℹ 10317 duplicated rows have been dropped.. Removed 1119 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.1_19|stem|2a54dab862dcbc39|5bd03856237e05fc|27e7384c7ce30e4c|-1640761647||t20381.2426187818s|s68b|68|rds|local|vector|||0.823||
+kde_file_0.121428571428571_39|stem|0355a077ba2a853d|1917a5d7225692a9|cea1f52ef2a12b1e|-694228651||t20381.242643674s|s68b|68|rds|local|vector|||2.129|Contour data has duplicated x, y coordinates. ℹ 30838 duplicated rows have been dropped.. Removed 3193 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 1485 duplicated rows have been dropped.. Removed 291 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.177142857142857_65|stem|fb388e17548aa7f4|490c379c828e4747|cea1f52ef2a12b1e|-1089743360||t20381.2426753956s|s68b|68|rds|local|vector|||2.724|Contour data has duplicated x, y coordinates. ℹ 58185 duplicated rows have been dropped.. Removed 3344 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 8641 duplicated rows have been dropped.. Removed 237 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.04_1|stem|fa4633803a6854f8|79720eee5c6e676f|cea1f52ef2a12b1e|1443106192||t20381.2427078149s|s67b|67|rds|local|vector|||2.784|Contour data has duplicated x, y coordinates. ℹ 7510 duplicated rows have been dropped.. Removed 936 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0635714285714286_12|stem|62a2602c16348506|d303c4a7d3398d15|cea1f52ef2a12b1e|-204296219||t20381.2427339393s|s68b|68|rds|local|vector|||2.242|Contour data has duplicated x, y coordinates. ℹ 12184 duplicated rows have been dropped.. Removed 1306 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.235_46|stem|90a69d563b95bf18|b601143fbd18aeed|27e7384c7ce30e4c|-117850437||t20381.2427433117s|s68b|68|rds|local|vector|||0.793||
+kde_file_0.0892857142857143_24|stem|dd9a359e4ad058c1|ac0bb942d7e444c0|cea1f52ef2a12b1e|-744222262||t20381.2427708739s|s68b|68|rds|local|vector|||2.361|Contour data has duplicated x, y coordinates. ℹ 18579 duplicated rows have been dropped.. Removed 2056 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0742857142857143_17|stem|287e245629b3007e|511c11cd7c741cc1|cea1f52ef2a12b1e|421594712||t20381.2427982141s|s68b|68|rds|local|vector|||2.347|Contour data has duplicated x, y coordinates. ℹ 14732 duplicated rows have been dropped.. Removed 1492 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.102142857142857_30|stem|cebd53cc368c95dd|b3539a20a006e47a|cea1f52ef2a12b1e|632765632||t20381.2428221618s|s68b|68|rds|local|vector|||2.053|Contour data has duplicated x, y coordinates. ℹ 22998 duplicated rows have been dropped.. Removed 2414 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.239285714285714_94|stem|1572fb639d550c85|c9f504372ceedd13|cea1f52ef2a12b1e|637324686||t20381.24285402s|s68b|68|rds|local|vector|||2.735|Contour data has duplicated x, y coordinates. ℹ 90655 duplicated rows have been dropped.. Removed 2937 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13101 duplicated rows have been dropped.. Removed 196 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.145_50|stem|d97157fa28767561|014fc5b3507c8cb2|cea1f52ef2a12b1e|1300446819||t20381.2428799466s|s68b|68|rds|local|vector|||2.21|Contour data has duplicated x, y coordinates. ℹ 41840 duplicated rows have been dropped.. Removed 3532 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 4979 duplicated rows have been dropped.. Removed 266 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.194285714285714_73|stem|24167b6d1f5ddad3|f7ee5f8a94640fa5|cea1f52ef2a12b1e|-1197489570||t20381.242909953s|s68b|68|rds|local|vector|||2.575|Contour data has duplicated x, y coordinates. ℹ 67538 duplicated rows have been dropped.. Removed 3232 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10147 duplicated rows have been dropped.. Removed 224 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.123571428571429_40|stem|1002b56fa530024a|428326e560ba7ee2|cea1f52ef2a12b1e|1209901925||t20381.2429352423s|s68b|68|rds|local|vector|||2.171|Contour data has duplicated x, y coordinates. ℹ 32092 duplicated rows have been dropped.. Removed 3272 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 1631 duplicated rows have been dropped.. Removed 290 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.395_78|stem|811243666015008f|db202253681a46c0|27e7384c7ce30e4c|2029353972||t20381.2429456222s|s68b|68|rds|local|vector|||0.881||
+rip_file_0.5_99|stem|b6e2cd25c5936025|3f028dad343e33da|27e7384c7ce30e4c|-104247607||t20381.2429558591s|s68b|68|rds|local|vector|||0.866||
+kde_file_0.200714285714286_76|stem|ac23632768ba9bde|d47afbd8ff56af29|cea1f52ef2a12b1e|1711285762||t20381.242983604s|s68b|68|rds|local|vector|||2.372|Contour data has duplicated x, y coordinates. ℹ 70975 duplicated rows have been dropped.. Removed 3190 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10593 duplicated rows have been dropped.. Removed 220 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0571428571428571_9|stem|9db6dfa231af3aaa|909550c78d6f7427|cea1f52ef2a12b1e|-1453802861||t20381.2430115849s|s67b|67|rds|local|vector|||2.4|Contour data has duplicated x, y coordinates. ℹ 10584 duplicated rows have been dropped.. Removed 1217 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.16_57|stem|3f5074e77b44141c|9688c5c7865f139a|cea1f52ef2a12b1e|-1347412741||t20381.2430352656s|s68b|68|rds|local|vector|||2.03|Contour data has duplicated x, y coordinates. ℹ 49075 duplicated rows have been dropped.. Removed 3450 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 6801 duplicated rows have been dropped.. Removed 252 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.375_74|stem|c4e1ee43a2b38a5a|2060aa22e89394bd|27e7384c7ce30e4c|-1148147738||t20381.2430450378s|s68b|68|rds|local|vector|||0.826||
+rip_file_0.2_39|stem|3559da28282b2c30|39679149fbea2ad5|27e7384c7ce30e4c|555348934||t20381.2430540483s|s68b|68|rds|local|vector|||0.762||
+barcode|stem|436a105cbc7fc407|80317b0bf51f27f1|ef9a36de7411971e|-1739234715||t20381.2430694705s|s1954086b|1954086|rds|local|vector|||0.181|`aes_string()` was deprecated in ggplot2 3.0.0. ℹ Please use tidy evaluation idioms with `aes()`. ℹ See also `vignette('ggplot2-in-packages')` for more information. ℹ The deprecated feature was likely used in the TDAstats package.   Please report the issue at <https://github.com/rrrlw/TDAstats/issues>.|
+kde_file_0.179285714285714_66|stem|a17f0beff73f1e76|fdd445b11577bb2a|cea1f52ef2a12b1e|-628199159||t20381.2430980281s|s68b|68|rds|local|vector|||2.445|Contour data has duplicated x, y coordinates. ℹ 59315 duplicated rows have been dropped.. Removed 3331 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 8761 duplicated rows have been dropped.. Removed 236 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.19_71|stem|ece85a59e043305b|9a6e9295cd39f618|cea1f52ef2a12b1e|-945735084||t20381.2431266208s|s68b|68|rds|local|vector|||2.448|Contour data has duplicated x, y coordinates. ℹ 64827 duplicated rows have been dropped.. Removed 3265 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 9693 duplicated rows have been dropped.. Removed 228 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0614285714285714_11|stem|b2758db796d0c5f1|9de9603afab8958b|cea1f52ef2a12b1e|-928512974||t20381.2431514309s|s68b|68|rds|local|vector|||2.127|Contour data has duplicated x, y coordinates. ℹ 11819 duplicated rows have been dropped.. Removed 1309 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.055_10|stem|03437a42ebd1fd23|ee95143d27f5c9f6|27e7384c7ce30e4c|1110193428||t20381.243161509s|s68b|68|rds|local|vector|||0.855||
+rip_file_0.45_89|stem|bcfa6229769cd630|f3fd64e279530d59|27e7384c7ce30e4c|-599952461||t20381.2431707166s|s68b|68|rds|local|vector|||0.778||
+kde_file_0.0464285714285714_4|stem|77581fdc7746d80d|727c872539a15b42|cea1f52ef2a12b1e|1333007125||t20381.2431953087s|s67b|67|rds|local|vector|||2.109|Contour data has duplicated x, y coordinates. ℹ 8546 duplicated rows have been dropped.. Removed 930 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.125_24|stem|cf8b6e028773439a|507591c6d8310ecb|27e7384c7ce30e4c|2090484226||t20381.2432045577s|s68b|68|rds|local|vector|||0.783||
+kde_file_0.13_43|stem|36a9b735ea8c19d6|3bb7a2205d9ddd2a|cea1f52ef2a12b1e|-52738950||t20381.2432315578s|s68b|68|rds|local|vector|||2.314|Contour data has duplicated x, y coordinates. ℹ 34850 duplicated rows have been dropped.. Removed 3338 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 2779 duplicated rows have been dropped.. Removed 282 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.31_61|stem|31ca5ef955e02ff1|89f3bc1defe125fe|27e7384c7ce30e4c|-695735511||t20381.243240885s|s68b|68|rds|local|vector|||0.787||
+kde_file_0.134285714285714_45|stem|fa04e7cc5bbc43b0|7095f1472d771a91|cea1f52ef2a12b1e|900126858||t20381.2432675092s|s68b|68|rds|local|vector|||2.282|Contour data has duplicated x, y coordinates. ℹ 36977 duplicated rows have been dropped.. Removed 3491 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 3341 duplicated rows have been dropped.. Removed 278 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.425_84|stem|4edc8c19039e3075|3a7a568a77bd0ff0|27e7384c7ce30e4c|-657060451||t20381.2432774385s|s68b|68|rds|local|vector|||0.842||
+rip_file_0.105_20|stem|1d45812e3ff7a37f|630b74b16de33bb2|27e7384c7ce30e4c|1939271748||t20381.2432864796s|s68b|68|rds|local|vector|||0.761||
+kde_file_0.228571428571429_89|stem|f7664fb5a0a9ca60|1cc3d2e8a187ff9b|cea1f52ef2a12b1e|368729450||t20381.2433095186s|s68b|68|rds|local|vector|||1.969|Contour data has duplicated x, y coordinates. ℹ 85308 duplicated rows have been dropped.. Removed 3008 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12401 duplicated rows have been dropped.. Removed 203 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.25_49|stem|3aef14d83a6bc21f|c395ea47680d4829|27e7384c7ce30e4c|-1503315847||t20381.2433188181s|s68b|68|rds|local|vector|||0.787||
+rip_file_0.085_16|stem|0063378e4f7e1d94|f883adb034873f34|27e7384c7ce30e4c|-938916927||t20381.2433279696s|s68b|68|rds|local|vector|||0.775||
+rip_file_0.405_80|stem|4a43a14f5d77336d|0ea4aaffd44fa664|27e7384c7ce30e4c|1166991669||t20381.2433372197s|s68b|68|rds|local|vector|||0.781||
+rip_file_0.11_21|stem|1567e5fadfab3715|e767968620907ab2|27e7384c7ce30e4c|1983524506||t20381.2433460387s|s68b|68|rds|local|vector|||0.744||
+rip_file_0.01_1|stem|2d722b9cfe2c7316|c8d2d0f8e1774bbc|27e7384c7ce30e4c|1333056483||t20381.24335502s|s68b|68|rds|local|vector|||0.761||
+kde_file_0.226428571428571_88|stem|356a1c1ae418e063|6e2937b6290bb283|cea1f52ef2a12b1e|-2041773128||t20381.2433820243s|s68b|68|rds|local|vector|||2.314|Contour data has duplicated x, y coordinates. ℹ 84539 duplicated rows have been dropped.. Removed 3018 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12297 duplicated rows have been dropped.. Removed 204 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.1_29|stem|2bed6fd1e4584848|9b8c6bc4e63edc0e|cea1f52ef2a12b1e|-701442391||t20381.2434150017s|s68b|68|rds|local|vector|||2.831|Contour data has duplicated x, y coordinates. ℹ 22071 duplicated rows have been dropped.. Removed 2420 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.112857142857143_35|stem|224b57c37ff2cdc4|fc870bf59ec4a582|cea1f52ef2a12b1e|-2050099730||t20381.2434385218s|s68b|68|rds|local|vector|||2.017|Contour data has duplicated x, y coordinates. ℹ 27236 duplicated rows have been dropped.. Removed 2834 rows containing non-finite outside the scale range (`stat_contour()`).. Removed 151 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.127857142857143_42|stem|30f024b94aa252fa|75315e8fe5fcd5f4|cea1f52ef2a12b1e|1200610138||t20381.2434662407s|s68b|68|rds|local|vector|||2.38|Contour data has duplicated x, y coordinates. ℹ 34129 duplicated rows have been dropped.. Removed 3253 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 2495 duplicated rows have been dropped.. Removed 284 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.168571428571429_61|stem|5c469777de60bd3d|7006fa267156fa46|cea1f52ef2a12b1e|-1323803598||t20381.2434933139s|s68b|68|rds|local|vector|||2.322|Contour data has duplicated x, y coordinates. ℹ 53599 duplicated rows have been dropped.. Removed 3398 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 7797 duplicated rows have been dropped.. Removed 244 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.015_2|stem|a43763fec53a0692|5ee959efa76b7cc7|27e7384c7ce30e4c|-1410828712||t20381.2435023556s|s68b|68|rds|local|vector|||0.764||
+rip_file_0.33_65|stem|5898fef28785c972|4a9793427bfac937|27e7384c7ce30e4c|2146657206||t20381.2435117988s|s68b|68|rds|local|vector|||0.8||
+rip_file_0.3_59|stem|402c766a180145de|8c80b065f3c99cb2|27e7384c7ce30e4c|-1417717437||t20381.2435216859s|s68b|68|rds|local|vector|||0.827||
+rip_file_0.315_62|stem|7eb0c0c72d7e2c17|b220ec3befd9e842|27e7384c7ce30e4c|968518924||t20381.2435307984s|s68b|68|rds|local|vector|||0.759||
+rip_file_0.165_32|stem|84a48d2923b3261c|66bd695336262ca9|27e7384c7ce30e4c|258584383||t20381.2435398397s|s68b|68|rds|local|vector|||0.758||
+kde_file_0.166428571428571_60|stem|4fd0930c4d283488|f4e4a2bfe7589881|cea1f52ef2a12b1e|800326796||t20381.2435633975s|s68b|68|rds|local|vector|||2.001|Contour data has duplicated x, y coordinates. ℹ 52641 duplicated rows have been dropped.. Removed 3409 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 7426 duplicated rows have been dropped.. Removed 247 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.295_58|stem|06336a3aadc2c91a|ca40db9d7d0027b1|27e7384c7ce30e4c|-161293157||t20381.2435738377s|s68b|68|rds|local|vector|||0.88||
+kde_file_0.07_15|stem|604e4d0dd280e0ea|00919b8eb5b1a3c5|cea1f52ef2a12b1e|772964553||t20381.2435992704s|s68b|68|rds|local|vector|||2.179|Contour data has duplicated x, y coordinates. ℹ 13687 duplicated rows have been dropped.. Removed 1297 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.465_92|stem|c3abc6263f5bf7d4|de0a78e6b7b9b59a|27e7384c7ce30e4c|340366052||t20381.2436088327s|s68b|68|rds|local|vector|||0.812||
+rip_file_0.13_25|stem|82d2fc07ebf0d828|5917049610d3b641|27e7384c7ce30e4c|341184765||t20381.2436212992s|s68b|68|rds|local|vector|||1.059||
+kde_file_0.192142857142857_72|stem|5e93375c6a622a35|e398b3febb8a7715|cea1f52ef2a12b1e|-35426998||t20381.243649171s|s68b|68|rds|local|vector|||2.387|Contour data has duplicated x, y coordinates. ℹ 66406 duplicated rows have been dropped.. Removed 3246 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 9921 duplicated rows have been dropped.. Removed 226 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.275_54|stem|0f50bb12b6ebdcca|7198292c341e3a8f|27e7384c7ce30e4c|38490046||t20381.2436594526s|s68b|68|rds|local|vector|||0.872||
+kde_file_0.22_85|stem|996d97423ff2e656|72302e3c82cdf21a|cea1f52ef2a12b1e|-2040281127||t20381.2436899159s|s68b|68|rds|local|vector|||2.613|Contour data has duplicated x, y coordinates. ℹ 80912 duplicated rows have been dropped.. Removed 3065 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11883 duplicated rows have been dropped.. Removed 208 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.345_68|stem|08b79791b35db68b|edd134fcfc7fc337|27e7384c7ce30e4c|691569066||t20381.2437037345s|s68b|68|rds|local|vector|||1.17||
+kde_file_0.142857142857143_49|stem|270d26df9308c01b|3edb5fb2df827d2c|cea1f52ef2a12b1e|1781814205||t20381.2437303146s|s68b|68|rds|local|vector|||2.275|Contour data has duplicated x, y coordinates. ℹ 40998 duplicated rows have been dropped.. Removed 3541 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 4577 duplicated rows have been dropped.. Removed 269 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0507142857142857_6|stem|ee7afb70c8a27363|eeb6c126bdd4cb8b|cea1f52ef2a12b1e|1848022724||t20381.2437583239s|s67b|67|rds|local|vector|||2.405|Contour data has duplicated x, y coordinates. ℹ 9376 duplicated rows have been dropped.. Removed 1024 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.108571428571429_33|stem|5356a35d3745b69b|bbdd66044c7dc3cc|cea1f52ef2a12b1e|679231541||t20381.2437824793s|s68b|68|rds|local|vector|||2.066|Contour data has duplicated x, y coordinates. ℹ 25248 duplicated rows have been dropped.. Removed 2581 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.215_42|stem|ddb9e2d17e6f7627|2c1535b36e47ff15|27e7384c7ce30e4c|-1702005553||t20381.2437919165s|s68b|68|rds|local|vector|||0.8||
+rip_file_0.02_3|stem|f995c1c73e86f1c7|42c264b6714fe217|27e7384c7ce30e4c|553640844||t20381.2438007338s|s68b|68|rds|local|vector|||0.743||
+rip_file_0.4_79|stem|56299f240b2f375c|087127fbfc7f4a05|27e7384c7ce30e4c|-1717570322||t20381.2438098746s|s68b|68|rds|local|vector|||0.771||
+kde_file_0.235_92|stem|82ff51d0003eb369|93920087a40c690a|cea1f52ef2a12b1e|2042751952||t20381.2438365764s|s68b|68|rds|local|vector|||2.292|Contour data has duplicated x, y coordinates. ℹ 88862 duplicated rows have been dropped.. Removed 2961 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12703 duplicated rows have been dropped.. Removed 200 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.32_63|stem|26175a4a013f1b11|209bdfecea85f8ea|27e7384c7ce30e4c|-557353094||t20381.2438459192s|s68b|68|rds|local|vector|||0.792||
+kde_file_0.106428571428571_32|stem|4dd0494208ac832c|8f63af20b3c539a7|cea1f52ef2a12b1e|-1789228834||t20381.243875067s|s68b|68|rds|local|vector|||2.499|Contour data has duplicated x, y coordinates. ℹ 24878 duplicated rows have been dropped.. Removed 2500 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.245_48|stem|46010fcc474568eb|894c8f08a721aeb8|27e7384c7ce30e4c|-1977599266||t20381.243887969s|s68b|68|rds|local|vector|||1.095||
+rip_file_0.27_53|stem|5a41adf788515465|abd313856aa7199e|27e7384c7ce30e4c|-1459082823||t20381.243898702s|s68b|68|rds|local|vector|||0.908||
+kde_file_0.0978571428571429_28|stem|6c157d6a4264d6c0|c9d8887f7f2bbdc1|cea1f52ef2a12b1e|423926121||t20381.2439220059s|s68b|68|rds|local|vector|||1.996|Contour data has duplicated x, y coordinates. ℹ 21512 duplicated rows have been dropped.. Removed 2335 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.117142857142857_37|stem|da085cabe8df35bb|7bd965456212dfa2|cea1f52ef2a12b1e|-193235304||t20381.243953564s|s68b|68|rds|local|vector|||2.71|Contour data has duplicated x, y coordinates. ℹ 29143 duplicated rows have been dropped.. Removed 3115 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 600 duplicated rows have been dropped.. Removed 297 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.125714285714286_41|stem|b90d80fb5824c6ac|de0bde5f0414d4ad|cea1f52ef2a12b1e|-733797198||t20381.2439800805s|s68b|68|rds|local|vector|||2.276|Contour data has duplicated x, y coordinates. ℹ 32727 duplicated rows have been dropped.. Removed 3265 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 2065 duplicated rows have been dropped.. Removed 287 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.355_70|stem|e7b877cae9944fbe|76b1c55c59837522|27e7384c7ce30e4c|1123139058||t20381.2439935565s|s68b|68|rds|local|vector|||1.15||
+kde_file_0.202857142857143_77|stem|9a02b28097b085e8|126354fea80566c5|cea1f52ef2a12b1e|-1225759980||t20381.2440240021s|s68b|68|rds|local|vector|||2.615|Contour data has duplicated x, y coordinates. ℹ 72197 duplicated rows have been dropped.. Removed 3175 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10705 duplicated rows have been dropped.. Removed 219 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.12_23|stem|fb1deea973419d1b|c36844bff88f46be|27e7384c7ce30e4c|-1764248939||t20381.2440340204s|s68b|68|rds|local|vector|||0.85||
+kde_file_0.132142857142857_44|stem|d2960909aad7d3d4|21527148783b5a28|cea1f52ef2a12b1e|-16834894||t20381.2440621977s|s68b|68|rds|local|vector|||2.411|Contour data has duplicated x, y coordinates. ℹ 35779 duplicated rows have been dropped.. Removed 3410 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 3061 duplicated rows have been dropped.. Removed 280 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0442857142857143_3|stem|46f4da330e96d3cf|a7373aceb80a9e12|cea1f52ef2a12b1e|1363726445||t20381.2440861524s|s67b|67|rds|local|vector|||2.054|Contour data has duplicated x, y coordinates. ℹ 8446 duplicated rows have been dropped.. Removed 930 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.07_13|stem|cdafb752606a3fce|16be4ba6efb682dd|27e7384c7ce30e4c|-272622491||t20381.2440961506s|s68b|68|rds|local|vector|||0.846||
+kde_file_0.175_64|stem|5ea2d612e9b84432|8c567aed1c9d90f2|cea1f52ef2a12b1e|1335820719||t20381.2441246808s|s68b|68|rds|local|vector|||2.448|Contour data has duplicated x, y coordinates. ℹ 57269 duplicated rows have been dropped.. Removed 3355 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 8283 duplicated rows have been dropped.. Removed 240 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.385_76|stem|d46a57907960d32f|9e67f9015816e8ce|27e7384c7ce30e4c|-171583331||t20381.2441340837s|s68b|68|rds|local|vector|||0.796||
+kde_file_0.25_99|stem|51d8c7e5a12229a0|1ce8cdc79ac13493|cea1f52ef2a12b1e|1880485611||t20381.2441563183s|s68b|68|rds|local|vector|||1.905|Contour data has duplicated x, y coordinates. ℹ 95665 duplicated rows have been dropped.. Removed 2869 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13589 duplicated rows have been dropped.. Removed 191 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0485714285714286_5|stem|c97113079e3572b8|71df137f0ceecfcf|cea1f52ef2a12b1e|-167021828||t20381.2441805564s|s67b|67|rds|local|vector|||2.079|Contour data has duplicated x, y coordinates. ℹ 9193 duplicated rows have been dropped.. Removed 926 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.230714285714286_90|stem|4cd1c5dd5bbfe2dd|bdef3c377d55b57a|cea1f52ef2a12b1e|-419045352||t20381.2442045536s|s68b|68|rds|local|vector|||2.052|Contour data has duplicated x, y coordinates. ℹ 86375 duplicated rows have been dropped.. Removed 2994 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12604 duplicated rows have been dropped.. Removed 201 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.025_4|stem|6d47fe662ca3148c|0d6962269cc1963c|27e7384c7ce30e4c|-1532203437||t20381.2442134761s|s68b|68|rds|local|vector|||0.753||
+kde_file_0.211428571428571_81|stem|32275aac6f40e9f9|8a7779de7ccb5aef|cea1f52ef2a12b1e|-2136742942||t20381.244241342s|s68b|68|rds|local|vector|||2.392|Contour data has duplicated x, y coordinates. ℹ 76733 duplicated rows have been dropped.. Removed 3118 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11356 duplicated rows have been dropped.. Removed 213 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.37_73|stem|2a25868bd44dae25|3beb49c07369693a|27e7384c7ce30e4c|-1835620336||t20381.2442507363s|s68b|68|rds|local|vector|||0.796||
+rip_file_0.34_67|stem|d4d105c5051f654c|a0b0bad6f794ce7f|27e7384c7ce30e4c|-1983695629||t20381.2442599524s|s68b|68|rds|local|vector|||0.778||
+kde_file_0.0785714285714286_19|stem|97bcff54d9ef17ef|fdb2ca5c5220ba10|cea1f52ef2a12b1e|1517276655||t20381.2442883189s|s68b|68|rds|local|vector|||2.432|Contour data has duplicated x, y coordinates. ℹ 15779 duplicated rows have been dropped.. Removed 1488 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.119285714285714_38|stem|eebef678a08cc6f4|77c24193663f0cbc|cea1f52ef2a12b1e|-482796768||t20381.2443205095s|s68b|68|rds|local|vector|||2.765|Contour data has duplicated x, y coordinates. ℹ 29798 duplicated rows have been dropped.. Removed 3109 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 897 duplicated rows have been dropped.. Removed 295 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.065_12|stem|97f18565e5812958|b84bca2daa8db3ef|27e7384c7ce30e4c|671515743||t20381.2443351577s|s68b|68|rds|local|vector|||1.249||
+kde_file_0.0957142857142857_27|stem|e2e17785d0e38f3b|71089519f3860fae|cea1f52ef2a12b1e|-1669740126||t20381.2443676499s|s68b|68|rds|local|vector|||2.787|Contour data has duplicated x, y coordinates. ℹ 20822 duplicated rows have been dropped.. Removed 2041 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.47_93|stem|70fe97dd096af3af|cdd19c5b5b0c5d2c|27e7384c7ce30e4c|-497496869||t20381.2443803087s|s68b|68|rds|local|vector|||1.076||
+rip_file_0.135_26|stem|2e6f13c317680794|75d73968914d92d6|27e7384c7ce30e4c|-1687840489||t20381.2443910056s|s68b|68|rds|local|vector|||0.89||
+kde_file_0.170714285714286_62|stem|c77e80fb9477d33b|89a0e4b9f9bc158e|cea1f52ef2a12b1e|-527542382||t20381.2444204888s|s68b|68|rds|local|vector|||2.53|Contour data has duplicated x, y coordinates. ℹ 54356 duplicated rows have been dropped.. Removed 3389 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 7918 duplicated rows have been dropped.. Removed 243 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.17_33|stem|204b3e1d32fac2e9|ee539d8a97cd9de7|27e7384c7ce30e4c|639539566||t20381.2444324227s|s68b|68|rds|local|vector|||1.014||
+rip_file_0.435_86|stem|12d36318d57151a3|62c94b0a4cff4153|27e7384c7ce30e4c|-1312158250||t20381.2444420688s|s68b|68|rds|local|vector|||0.813||
+rip_file_0.14_27|stem|5f1ebb6653d990b7|89f9c56ac8d0de05|27e7384c7ce30e4c|-1193060637||t20381.2444541194s|s68b|68|rds|local|vector|||1.024||
+kde_file_0.151428571428571_53|stem|3f661b76ce59445b|6371d537d6efd035|cea1f52ef2a12b1e|-1300775521||t20381.2444893266s|s68b|68|rds|local|vector|||3.009|Contour data has duplicated x, y coordinates. ℹ 45017 duplicated rows have been dropped.. Removed 3496 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 5641 duplicated rows have been dropped.. Removed 261 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.213571428571429_82|stem|1675a634a0dff14d|368bc1ffc70189ce|cea1f52ef2a12b1e|1860254905||t20381.2445167042s|s68b|68|rds|local|vector|||2.35|Contour data has duplicated x, y coordinates. ℹ 77759 duplicated rows have been dropped.. Removed 3105 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11461 duplicated rows have been dropped.. Removed 212 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.241428571428571_95|stem|4aa791fecf5e8627|80d8b9f0e0977f16|cea1f52ef2a12b1e|-1862771155||t20381.2445444649s|s68b|68|rds|local|vector|||2.381|Contour data has duplicated x, y coordinates. ℹ 91628 duplicated rows have been dropped.. Removed 2924 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13101 duplicated rows have been dropped.. Removed 196 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.153571428571429_54|stem|c817c727df661d5c|e109a22cfb2e8cb1|cea1f52ef2a12b1e|98587739||t20381.2445753688s|s68b|68|rds|local|vector|||2.64|Contour data has duplicated x, y coordinates. ℹ 46077 duplicated rows have been dropped.. Removed 3484 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 6161 duplicated rows have been dropped.. Removed 257 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0764285714285714_18|stem|4b79324c99e88ea4|a0a970afc613c858|cea1f52ef2a12b1e|-855657945||t20381.244606087s|s68b|68|rds|local|vector|||2.619|Contour data has duplicated x, y coordinates. ℹ 15384 duplicated rows have been dropped.. Removed 1489 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.207142857142857_79|stem|c5d7730b1ac91b69|db81f480f61ae43e|cea1f52ef2a12b1e|1757896498||t20381.2446364327s|s68b|68|rds|local|vector|||2.604|Contour data has duplicated x, y coordinates. ℹ 74771 duplicated rows have been dropped.. Removed 3143 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11031 duplicated rows have been dropped.. Removed 216 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.195_38|stem|48f5a75b01b45246|8f6e6561cb964b59|27e7384c7ce30e4c|-1318046728||t20381.2446464656s|s68b|68|rds|local|vector|||0.844||
+rips_kde_bandwidth|stem|98d5073147b754f5|28b67a94edfb381a|8e11e9c75b6a009f|-475240671||t20381.2446466697s|s55b|55|rds|local|vector|||0.001||
+rip_file_0.03_5|stem|365628a7f974e6dc|dcc67c0dcbd61165|27e7384c7ce30e4c|209456102||t20381.2446570633s|s68b|68|rds|local|vector|||0.877||
+rip_file_0.28_55|stem|9686b5e1faf64216|600efa362ad48702|27e7384c7ce30e4c|287318388||t20381.2446666787s|s68b|68|rds|local|vector|||0.812||
+kde_file_0.198571428571429_75|stem|3f12a715defc9c84|333303aa98632679|cea1f52ef2a12b1e|817055357||t20381.2446953006s|s68b|68|rds|local|vector|||2.454|Contour data has duplicated x, y coordinates. ℹ 69898 duplicated rows have been dropped.. Removed 3203 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10371 duplicated rows have been dropped.. Removed 222 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.181428571428571_67|stem|d5fdf704e8b9ecdf|76aff9cfa2dd2a94|cea1f52ef2a12b1e|-61109636||t20381.2447201082s|s68b|68|rds|local|vector|||2.117|Contour data has duplicated x, y coordinates. ℹ 60405 duplicated rows have been dropped.. Removed 3318 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 8997 duplicated rows have been dropped.. Removed 234 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.41_81|stem|e53494cf1ae01a82|ef1f732b25bfbe68|27e7384c7ce30e4c|1905097322||t20381.2447301077s|s68b|68|rds|local|vector|||0.847||
+kde_file_0.243571428571429_96|stem|5334d037b04ddc81|142e9eda46320031|cea1f52ef2a12b1e|-905231838||t20381.2447533885s|s68b|68|rds|local|vector|||1.994|Contour data has duplicated x, y coordinates. ℹ 92660 duplicated rows have been dropped.. Removed 2910 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13301 duplicated rows have been dropped.. Removed 194 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.495_98|stem|49328248fd7f8a97|68e4d298de6451d6|27e7384c7ce30e4c|-846670203||t20381.2447639678s|s68b|68|rds|local|vector|||0.895||
+rip_file_0.255_50|stem|ce8f7ffee76f3f80|a607683abffb74a9|27e7384c7ce30e4c|-1386366067||t20381.2447737017s|s68b|68|rds|local|vector|||0.82||
+rip_file_0.325_64|stem|c2259bcaf2b552e8|e2a6f5c2bb143eff|27e7384c7ce30e4c|2115684228||t20381.2447828926s|s68b|68|rds|local|vector|||0.772||
+rip_file_0.175_34|stem|78615462be88f10a|154675d37e7cc858|27e7384c7ce30e4c|1085145277||t20381.2447923999s|s68b|68|rds|local|vector|||0.8||
+kde_file_0.224285714285714_87|stem|c98acd12cf263b0c|1d4bb0d49d8152cd|cea1f52ef2a12b1e|-451958990||t20381.2448163916s|s68b|68|rds|local|vector|||2.056|Contour data has duplicated x, y coordinates. ℹ 83623 duplicated rows have been dropped.. Removed 3030 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12196 duplicated rows have been dropped.. Removed 205 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.08_15|stem|6a58038af0269d37|3ded98b514c73684|27e7384c7ce30e4c|665330941||t20381.2448259447s|s68b|68|rds|local|vector|||0.809||
+rip_file_0.475_94|stem|5f8aa575f5d54119|59b33f152d19a005|27e7384c7ce30e4c|1423326447||t20381.2448355593s|s68b|68|rds|local|vector|||0.815||
+kde_file_0.147142857142857_51|stem|e83d67c9fdd6bcfb|aaf7d9f71006d95a|cea1f52ef2a12b1e|-1533210655||t20381.2448630379s|s68b|68|rds|local|vector|||2.36|Contour data has duplicated x, y coordinates. ℹ 42735 duplicated rows have been dropped.. Removed 3522 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 5245 duplicated rows have been dropped.. Removed 264 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0678571428571429_14|stem|9317b197d532cc64|20976ae5478130ca|cea1f52ef2a12b1e|406509811||t20381.2448926249s|s68b|68|rds|local|vector|||2.539|Contour data has duplicated x, y coordinates. ℹ 13137 duplicated rows have been dropped.. Removed 1302 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0528571428571429_7|stem|cb0726df6827af50|de36a31d00dfcbdc|cea1f52ef2a12b1e|1000640367||t20381.2449194698s|s67b|67|rds|local|vector|||2.302|Contour data has duplicated x, y coordinates. ℹ 9742 duplicated rows have been dropped.. Removed 1022 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.196428571428571_74|stem|dd316c783af1835f|d0a8c2e10dcf089d|cea1f52ef2a12b1e|358590823||t20381.2449486753s|s68b|68|rds|local|vector|||2.507|Contour data has duplicated x, y coordinates. ℹ 68785 duplicated rows have been dropped.. Removed 3217 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 10147 duplicated rows have been dropped.. Removed 224 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.21_41|stem|2172ef5f940d4f18|4bc9cbfad98de144|27e7384c7ce30e4c|-1490266095||t20381.2449586207s|s68b|68|rds|local|vector|||0.843||
+rip_file_0.305_60|stem|f181d6df36cd113a|41c4ef0b6509539e|27e7384c7ce30e4c|2111941976||t20381.2449681476s|s68b|68|rds|local|vector|||0.805||
+rip_file_0.285_56|stem|d670545efcd195c5|f3abf95e8c63a66a|27e7384c7ce30e4c|-396811112||t20381.2449775574s|s68b|68|rds|local|vector|||0.789||
+kde_file_0.183571428571429_68|stem|2910a0838e0e28ce|c3be7944fb8bc9c3|cea1f52ef2a12b1e|-929628826||t20381.2450058079s|s68b|68|rds|local|vector|||2.424|Contour data has duplicated x, y coordinates. ℹ 61733 duplicated rows have been dropped.. Removed 3302 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 9231 duplicated rows have been dropped.. Removed 232 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.164285714285714_59|stem|2b00e8ee6510fe6e|0779ac8d1909d4d1|cea1f52ef2a12b1e|-515494313||t20381.2450308487s|s68b|68|rds|local|vector|||2.13|Contour data has duplicated x, y coordinates. ℹ 51418 duplicated rows have been dropped.. Removed 3423 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 7303 duplicated rows have been dropped.. Removed 248 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.035_6|stem|8f6b1333012f0c25|24bf6b4f0af28cbe|27e7384c7ce30e4c|-31472459||t20381.2450402285s|s68b|68|rds|local|vector|||0.795||
+kde_file_0.209285714285714_80|stem|a32242638a825108|6cb9d1605857477c|cea1f52ef2a12b1e|-1542777998||t20381.2450643244s|s68b|68|rds|local|vector|||2.063|Contour data has duplicated x, y coordinates. ℹ 75719 duplicated rows have been dropped.. Removed 3131 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11141 duplicated rows have been dropped.. Removed 215 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.38_75|stem|aa6909ab79a91986|069babaca330e813|27e7384c7ce30e4c|-1508158683||t20381.2450738869s|s68b|68|rds|local|vector|||0.811||
+kde_file_0.217857142857143_84|stem|55fd3595a5b42abc|cc1a5eeaa14df215|cea1f52ef2a12b1e|972459524||t20381.245096995s|s68b|68|rds|local|vector|||1.978|Contour data has duplicated x, y coordinates. ℹ 80444 duplicated rows have been dropped.. Removed 3071 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11780 duplicated rows have been dropped.. Removed 209 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.225_44|stem|a83be867ae4fe3b9|699465dc6e8e83ea|27e7384c7ce30e4c|-1185060243||t20381.2451069448s|s68b|68|rds|local|vector|||0.843||
+rip_file_0.35_69|stem|19ae56d595e72f58|854971197e1e4981|27e7384c7ce30e4c|-1183764362||t20381.2451162601s|s68b|68|rds|local|vector|||0.783||
+rip_file_0.48_95|stem|535f9ce87b2347fa|df76336d6188e51f|27e7384c7ce30e4c|-1675705450||t20381.2451253464s|s68b|68|rds|local|vector|||0.762||
+kde_file_0.138571428571429_47|stem|6616f1f90935b01e|4e44d73dec037d20|cea1f52ef2a12b1e|-519892637||t20381.2451535916s|s68b|68|rds|local|vector|||2.425|Contour data has duplicated x, y coordinates. ℹ 38928 duplicated rows have been dropped.. Removed 3564 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 4033 duplicated rows have been dropped.. Removed 273 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.43_85|stem|40c2589ab6c749b7|55f277eb78a7e951|27e7384c7ce30e4c|763141148||t20381.2451632537s|s68b|68|rds|local|vector|||0.817||
+rip_file_0.205_40|stem|883523c839d1bf30|1ab7d6c08f72b102|27e7384c7ce30e4c|835491517||t20381.2451738289s|s68b|68|rds|local|vector|||0.884||
+kde_file_0.085_22|stem|44ae54ffa9bced69|e39201b8a3cc6695|cea1f52ef2a12b1e|1169429280||t20381.2451968907s|s68b|68|rds|local|vector|||1.974|Contour data has duplicated x, y coordinates. ℹ 17460 duplicated rows have been dropped.. Removed 1675 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.18_35|stem|990c5372e6da04bd|b4b15b38a5d7a372|27e7384c7ce30e4c|-1252668217||t20381.2452060634s|s68b|68|rds|local|vector|||0.775||
+rip_file_0.15_29|stem|5cdad64f295dd705|01d22c895ac4bfab|27e7384c7ce30e4c|-660028973||t20381.2452155082s|s68b|68|rds|local|vector|||0.801||
+kde_file_0.149285714285714_52|stem|58209a9a49556731|6452e1e5591b3a4e|cea1f52ef2a12b1e|1231247874||t20381.2452417225s|s68b|68|rds|local|vector|||2.248|Contour data has duplicated x, y coordinates. ℹ 44110 duplicated rows have been dropped.. Removed 3506 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 5509 duplicated rows have been dropped.. Removed 262 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0657142857142857_13|stem|942c23514d2f82f3|de2ba14986b5c6f4|cea1f52ef2a12b1e|863865420||t20381.245271663s|s68b|68|rds|local|vector|||2.571|Contour data has duplicated x, y coordinates. ℹ 12843 duplicated rows have been dropped.. Removed 1303 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.157857142857143_56|stem|a1356716838f06f6|7d070d77b08f1fbb|cea1f52ef2a12b1e|2133757891||t20381.2453013074s|s68b|68|rds|local|vector|||2.539|Contour data has duplicated x, y coordinates. ℹ 48282 duplicated rows have been dropped.. Removed 3459 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 6673 duplicated rows have been dropped.. Removed 253 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.23_45|stem|0a030f0b7b71cadc|860d788715ac75cc|27e7384c7ce30e4c|1948777399||t20381.2453112592s|s68b|68|rds|local|vector|||0.835||
+rip_file_0.04_7|stem|4211ba2b0a9593cf|6551913eed22f4b4|27e7384c7ce30e4c|-1265136088||t20381.2453209772s|s68b|68|rds|local|vector|||0.817||
+rip_file_0.365_72|stem|1eda022d6cbcb779|f02e648e3c0d15ca|27e7384c7ce30e4c|1346633295||t20381.2453312946s|s68b|68|rds|local|vector|||0.874||
+kde_file_0.136428571428571_46|stem|7ad6a53141229cc3|8f5fdd3ab32037f9|cea1f52ef2a12b1e|1929389151||t20381.2453595604s|s68b|68|rds|local|vector|||2.409|Contour data has duplicated x, y coordinates. ℹ 37752 duplicated rows have been dropped.. Removed 3577 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 3757 duplicated rows have been dropped.. Removed 275 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0592857142857143_10|stem|6510edc1e5c51473|0e75c8616c409807|cea1f52ef2a12b1e|-1685541074||t20381.2453863639s|s68b|68|rds|local|vector|||2.3|Contour data has duplicated x, y coordinates. ℹ 11348 duplicated rows have been dropped.. Removed 1215 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.247857142857143_98|stem|df8c05c58e70366f|e0d7609eb2921907|cea1f52ef2a12b1e|197805420||t20381.2454165064s|s68b|68|rds|local|vector|||2.587|Contour data has duplicated x, y coordinates. ℹ 94568 duplicated rows have been dropped.. Removed 2884 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 13491 duplicated rows have been dropped.. Removed 192 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.232857142857143_91|stem|c6d4bfdcaa016a1e|65d433f4a19d0789|cea1f52ef2a12b1e|-599965074||t20381.245446297s|s68b|68|rds|local|vector|||2.551|Contour data has duplicated x, y coordinates. ℹ 87727 duplicated rows have been dropped.. Removed 2976 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 12703 duplicated rows have been dropped.. Removed 200 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0935714285714286_26|stem|f4254327265a17d6|b19b6021efafe1a4|cea1f52ef2a12b1e|1714347521||t20381.2454709873s|s68b|68|rds|local|vector|||2.114|Contour data has duplicated x, y coordinates. ℹ 20173 duplicated rows have been dropped.. Removed 2046 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0871428571428571_23|stem|589ae0c28f998b82|65e26e3770109d97|cea1f52ef2a12b1e|1260424312||t20381.2454970141s|s68b|68|rds|local|vector|||2.231|Contour data has duplicated x, y coordinates. ℹ 18096 duplicated rows have been dropped.. Removed 1861 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.115_22|stem|6a83db573d6d3b98|a8ec1039ca88000a|27e7384c7ce30e4c|1259075743||t20381.2455056821s|s68b|68|rds|local|vector|||0.732||
+kde_file_0.0721428571428571_16|stem|e1a83b5b30466ff5|e79b6edc529634bd|cea1f52ef2a12b1e|552797811||t20381.2455290521s|s68b|68|rds|local|vector|||2.004|Contour data has duplicated x, y coordinates. ℹ 14346 duplicated rows have been dropped.. Removed 1495 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.104285714285714_31|stem|c117a3ca17460899|d38a29d303e5e68f|cea1f52ef2a12b1e|1157593009||t20381.2455506334s|s68b|68|rds|local|vector|||1.849|Contour data has duplicated x, y coordinates. ℹ 24023 duplicated rows have been dropped.. Removed 2405 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.095_18|stem|61a6f175967e69ef|551f3f383c2fd1cc|27e7384c7ce30e4c|-131948555||t20381.2455592001s|s68b|68|rds|local|vector|||0.725||
+kde_file_0.115_36|stem|0ebda39161cba866|7f7ea036cd904cf8|cea1f52ef2a12b1e|1493477941||t20381.2455876242s|s68b|68|rds|local|vector|||2.44|Contour data has duplicated x, y coordinates. ℹ 27953 duplicated rows have been dropped.. Removed 2926 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 301 duplicated rows have been dropped.. Removed 299 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.29_57|stem|af4f56274b005e4c|333db08e7ad33289|27e7384c7ce30e4c|893976886||t20381.2455961922s|s68b|68|rds|local|vector|||0.724||
+rip_file_0.415_82|stem|aba5648b3a333c6f|0ce4cf7c00e5f243|27e7384c7ce30e4c|1020439248||t20381.2456049415s|s68b|68|rds|local|vector|||0.741||
+rip_file_0.42_83|stem|10e06ada3bb3f5f5|1f7fa62b10e9125c|27e7384c7ce30e4c|955202797||t20381.2456137546s|s68b|68|rds|local|vector|||0.745||
+kde_file_0.172857142857143_63|stem|92e29fa4baa58d92|3388740ebb4f7952|cea1f52ef2a12b1e|530330037||t20381.2456358563s|s68b|68|rds|local|vector|||1.894|Contour data has duplicated x, y coordinates. ℹ 55904 duplicated rows have been dropped.. Removed 3371 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 8161 duplicated rows have been dropped.. Removed 241 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.075_14|stem|d005c844e3157a0c|9bed1023a43d0d0c|27e7384c7ce30e4c|-71314725||t20381.2456453753s|s68b|68|rds|local|vector|||0.807||
+rip_file_0.145_28|stem|b907e013510e6a26|efd9eca4deed90b2|27e7384c7ce30e4c|-1753725615||t20381.2456542448s|s68b|68|rds|local|vector|||0.751||
+kde_file_0.0828571428571429_21|stem|b0eee65f603b364c|04f879e1806cdba2|cea1f52ef2a12b1e|-334925609||t20381.2456807918s|s68b|68|rds|local|vector|||2.28|Contour data has duplicated x, y coordinates. ℹ 16785 duplicated rows have been dropped.. Removed 1679 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.26_51|stem|9c96a859b9f2efc9|b9bcd8334e9ee531|27e7384c7ce30e4c|-990450623||t20381.2456894878s|s68b|68|rds|local|vector|||0.736||
+kde_file_0.187857142857143_70|stem|fdc02fea763a6451|157685dc31c4c51f|cea1f52ef2a12b1e|-1360118891||t20381.2457117236s|s68b|68|rds|local|vector|||1.902|Contour data has duplicated x, y coordinates. ℹ 63831 duplicated rows have been dropped.. Removed 3277 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 9577 duplicated rows have been dropped.. Removed 229 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.09_17|stem|f7142e1c442b926e|35a2260d3efb7013|27e7384c7ce30e4c|1815819455||t20381.2457208631s|s68b|68|rds|local|vector|||0.774||
+kde_file_0.215714285714286_83|stem|b7ef3e6712b0f5e6|38479f82e4500ede|cea1f52ef2a12b1e|533901273||t20381.2457437927s|s68b|68|rds|local|vector|||1.957|Contour data has duplicated x, y coordinates. ℹ 79186 duplicated rows have been dropped.. Removed 3087 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11569 duplicated rows have been dropped.. Removed 211 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.22_43|stem|cf89932ddbcd5e2f|34497ee0d05af9b6|27e7384c7ce30e4c|-93371222||t20381.245752867s|s68b|68|rds|local|vector|||0.765||
+rip_file_0.445_88|stem|7103bea5d17e7762|dbba66ff40fba0ca|27e7384c7ce30e4c|1214797019||t20381.2457623671s|s68b|68|rds|local|vector|||0.804||
+kde_file_0.222142857142857_86|stem|856202982afb3d80|69548b43854c2a6e|cea1f52ef2a12b1e|1821156169||t20381.2457855407s|s68b|68|rds|local|vector|||1.984|Contour data has duplicated x, y coordinates. ℹ 81923 duplicated rows have been dropped.. Removed 3052 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 11989 duplicated rows have been dropped.. Removed 207 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.06_11|stem|223e77b14c76f493|bb64954ab6a8179d|27e7384c7ce30e4c|657509446||t20381.2457941529s|s68b|68|rds|local|vector|||0.727||
+kde_file_0.0914285714285714_25|stem|67d61dcc478c4a6f|ecee935f17e62c7d|cea1f52ef2a12b1e|-777316375||t20381.2458201344s|s68b|68|rds|local|vector|||2.229|Contour data has duplicated x, y coordinates. ℹ 19438 duplicated rows have been dropped.. Removed 2052 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.05_9|stem|480daaf122ee406e|c8a2aa90cb2909bd|27e7384c7ce30e4c|1818469254||t20381.2458288219s|s68b|68|rds|local|vector|||0.729||
+kde_file_0.110714285714286_34|stem|6542bff0100ddada|cd6611a2bcf98beb|cea1f52ef2a12b1e|-1281632286||t20381.2458549629s|s68b|68|rds|local|vector|||2.241|Contour data has duplicated x, y coordinates. ℹ 26308 duplicated rows have been dropped.. Removed 2762 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.045_8|stem|0240b9d690f51094|dd2cade3dda7b981|27e7384c7ce30e4c|-586656867||t20381.2458633604s|s68b|68|rds|local|vector|||0.708||
+kde_file_0.155714285714286_55|stem|66372eb3775c8f66|aeef8d95dd29596a|cea1f52ef2a12b1e|436708553||t20381.2458863552s|s68b|68|rds|local|vector|||1.971|Contour data has duplicated x, y coordinates. ℹ 47229 duplicated rows have been dropped.. Removed 3471 rows containing non-finite outside the scale range (`stat_contour()`).. Contour data has duplicated x, y coordinates. ℹ 6291 duplicated rows have been dropped.. Removed 256 rows containing non-finite outside the scale range (`stat_contour()`).|
+kde_file_0.0421428571428571_2|stem|7be887f79967e977|3e88e6bfcc14b6d6|cea1f52ef2a12b1e|1983940084||t20381.2459088913s|s67b|67|rds|local|vector|||1.932|Contour data has duplicated x, y coordinates. ℹ 7975 duplicated rows have been dropped.. Removed 933 rows containing non-finite outside the scale range (`stat_contour()`).|
+rip_file_0.39_77|stem|012c1b85ebadb5ce|3209c5003a617e9b|27e7384c7ce30e4c|466989477||t20381.2459178678s|s68b|68|rds|local|vector|||0.759||
+not_outs|stem|579a9b23e1e65534|bd3772fa630134d6|5fb3475ee23871ee|-295725273||t20381.2459184641s|s91709b|91709|rds|local|vector|||0.004||
+figchisq1|stem|050590efc7b16f3f|594d11180f31769b|c3a859d385b3f00d|-1572525649||t20381.2459303635s|s1979171b|1979171|rds|local|vector|||0.031||
+figchisq2|stem|50269feee8be1d45|ca1cc995669ce460|ed4c7cdc38db08d2|1109503496||t20381.2459430996s|s1979763b|1979763|rds|local|vector|||0.032||
+figchisq3|stem|6d76984dedcbed71|79ea0df6dad11e5f|430095e51690c2ef|-243547568||t20381.2459556229s|s1979763b|1979763|rds|local|vector|||0.02||
+fig_fr_mortality2|stem|3583768751cf23be|d61efa7715953698|d28769748ee2ccfc|-1520667586||t20381.2459685886s|s2845589b|2845589|rds|local|vector|||0.055||
+fr_anomalies|stem|d1ae3266b4067f27|59353db7eff907e3|12f4cea9f8088930|-1599032977||t20381.2459840142s|s2941b|2941|rds|local|vector|||1.304|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22` `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
+fig_fr_mortality|stem|04c5a29a0bed9113|c01530452deb5324|d28769748ee2ccfc|-1049618713||t20381.2460033355s|s4400281b|4400281|rds|local|vector|||0.015||
+of_lookout_prob|stem|6e126f742030fdb8|e03f2d1761eda855|fe6fb16005660cb3|-1751518801||t20381.2460064164s|s489b|489|rds|local|vector|||0.247||
+old_faithful_results|stem|1a7e0c1cf47bfa23|b9a8801bba0fafdc|dd13cc6f5db136fb|1780095663||t20381.2460089107s|s7354b|7354|rds|local|vector|||0.194||
+wine_aug|stem|61edb3969455e710|0b7679edc6d3417a|ba85cbcf3d62c394|476847258||t20381.2460108547s|s247213b|247213|rds|local|vector|||0.104||
+rips_kde|stem|e10fabb468eda58d|74cd510d64929400|2e7e1384b128ff8c|-1356057470||t20381.2460308787s|s4114961b|4114961|rds|local|vector|||0.334||
+fit_no|stem|72604a89d196f184|1b8f533835546fdd|e9c5d2ca10dc7c26|1222719752||t20381.2460342962s|s308029b|308029|rds|local|vector|||0.221||
+fig_fr_mortality3|stem|67230faaaa6cda13|dfccf4b212371ac9|d717429b54615b8a|-994436003||t20381.246052372s|s4445286b|4445286|rds|local|vector|||0.02||
+fig_fr_mortality4|stem|bb99da5e409bb4a4|e869329106e942f5|d717429b54615b8a|-1402271646||t20381.2460714695s|s4445388b|4445388|rds|local|vector|||0.036||
+fig_fr_anomalies|stem|89e8ea64ea69b3bc|7de4a73bb331bccd|cd3bcc1317f37d7f|670799851||t20381.2460907869s|s3240710b|3240710|rds|local|vector|||0.148||
+fig_old_faithful|stem|9c0086358cfb8c29|b1529ab598611dd0|a34db01a08548dac|1138729004||t20381.2461057536s|s2676078b|2676078|rds|local|vector|||0.044||
+fig_old_faithful2|stem|0669dc42f34d22b3|ac6c9e2458c672b4|a34db01a08548dac|-1671851285||t20381.2461210188s|s2732163b|2732163|rds|local|vector|||0.018||
+fig_old_faithful3|stem|453b6882846005c0|b68c59b3021e80e4|a34db01a08548dac|-1777986633||t20381.2461569s|s4356483b|4356483|rds|local|vector|||1.685||
+fig_old_faithful4|stem|fe9ede9dccf65e21|59f90b84015dd974|a34db01a08548dac|217950470||t20381.2461951287s|s5810355b|5810355|rds|local|vector|||1.524||
+fig_old_faithful5|stem|dfe604f603f7534a|23373f7f3bd71020|a34db01a08548dac|-1677658527||t20381.2462121286s|s3165426b|3165426|rds|local|vector|||0.017||
+wine_loo_anomalies|stem|a474186cc81d54df|a4aa75624f05f745|d940a4a6220f120a|-810878057||t20381.2462358932s|s6689911b|6689911|rds|local|vector|||0.016||
+wine_anomalies|stem|6c49bd90d27d9fc0|846dd205dbbcc9f7|64ff0e04ba8a0441|-302782258||t20381.2462365552s|s366b|366|rds|local|vector|||0.014||
+fig_wine2|stem|0c21b59d3e4c1624|2ee5a880de499c92|6713a5a1a6942ab1|-1729682820||t20381.2462604306s|s6673757b|6673757|rds|local|vector|||0.04||
+wine_loo_surprisals|stem|5ce60b47f98e8cd9|2e605dcad3fa0ace|d940a4a6220f120a|-1421290143||t20381.2462839031s|s6574525b|6574525|rds|local|vector|||0.042||
+wine_model_plot|stem|69b1c913a73fd8ba|cd8fe372f4f2bed7|18e26a87f85db2ae|-1252684200||t20381.2463072494s|s6322383b|6322383|rds|local|vector|||0.027||
+fig_wine|stem|e80b338d687f7d05|7c832c6b48b9fbf4|6713a5a1a6942ab1|1853383857||t20381.2463260796s|s4599312b|4599312|rds|local|vector|||0.012||
+notouts_aug|stem|fad526dc0c46b123|b9d8d85659dab814|e5c0df616f08e032|-1166019250||t20381.2463271072s|s138693b|138693|rds|local|vector|||0.028||
+not_outs_plot_smooth|stem|f96fea996c475f57|432d70202265cfe9|ac428d4fbd50489d|-762481028||t20381.2463441075s|s3741931b|3741931|rds|local|vector|||0.038||
+not_outs_plot_jma|stem|6aa48cb6b47a3f14|b277edfac8920749|ac428d4fbd50489d|615803914||t20381.2463614621s|s3783142b|3783142|rds|local|vector|||0.043||
+not_outs_plot|stem|6dc199e1e0913b19|aa5ba3d3bade3b46|ac428d4fbd50489d|-865269473||t20381.2463782216s|s3728586b|3728586|rds|local|vector|||0.009||
+slides|stem|eef32f6bdcf7a22c|b479a824b11a91e2|6c262c822732b355|1331386099|surprisals_files*surprisals.pdf*surprisals.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*header.tex|t20381.2472124465s|s23338678b|23338678|file|local|vector|||52.322||
