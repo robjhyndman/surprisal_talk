@@ -31,7 +31,8 @@ create_old_faithful_figure <- function(
     df <- results
   }
   if (contour) {
-    p <- dist_kde(df[, 1:2]) |>
+    h <- lookout::find_tda_bw(df[, 1:2], fast = FALSE, gamma = 0.97)
+    p <- dist_kde(df[, 1:2], H = diag(rep(h^2, 2))) |>
       gg_density(show_points = !show_anomalies, colors = "black")
   } else {
     p <- df |>
