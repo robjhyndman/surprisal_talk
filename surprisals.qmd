@@ -434,6 +434,11 @@ tar_read(barcode)
 * Ensures that persistently connected components have large weights in the KDE at each observed point.
 * In practice, we use $\gamma = 0.97$.
 
+## KDE bandwidth selection via VR diameters
+
+```{r}
+tar_read(rips_kde)
+```
 ## Lookout algorithm
 \fontsize{13}{15}\sf\vspace*{-0.2cm}
 

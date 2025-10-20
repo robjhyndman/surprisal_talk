@@ -85,6 +85,15 @@ list(
     barcode,
     make_barcode(rips_data)
   ),
+  tar_target(
+    rips_kde_bandwidth,
+    lookout::find_tda_bw(rips_data, fast = FALSE, gamma = 0.97)
+  ),
+  tar_target(
+    rips_kde,
+    dist_kde(rips_data, H = diag(rep(rips_kde_bandwidth^2, 2))) |>
+      gg_density(show_points = TRUE)
+  ),
   # Should scaling be used?
   tar_target(scale, TRUE),
   # Value of alpha
