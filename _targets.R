@@ -34,6 +34,14 @@ list(
       y = -0.5
     )
   ),
+  # KDE
+  tar_map(
+    list(h = seq(0.04, 0.25, l = 99), i = seq(99)),
+    tar_target(
+      kde_file,
+      make_kde_plot(rips_data, h, i),
+    )
+  ),
   # RIPS animation
   tar_target(
     rips_data,

@@ -344,6 +344,15 @@ Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$.
 
 \centerline{$\displaystyle f_{-i} = \frac{1}{n-1} \big( n \hat{f}(\bm{y}_i) - \bm{H}^{-1/2} K(\bm{0}) \big)$}
 
+## Kernel density estimation 
+\vspace*{-0.3cm}
+
+\begin{block}{}
+\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
+\end{block}
+
+\centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
+    {6}{"figs/kde_"}{1}{99}}
 
 ## Kernel density estimation (consistency)
 
