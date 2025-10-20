@@ -13,7 +13,7 @@ format:
     fig-height: 4.25
     titlegraphic: bg-13.png
     titlecolor: white
-    keep-tex: true
+    keep-tex: false
 include-in-header: header.tex
 highlight-style: tango
 execute:
@@ -391,7 +391,7 @@ tar_read(not_outs_plot_jma)
 * Compute Kernel Density Estimate (KDE) of the observations, with a bandwidth matrix chosen using persistent homology.
 * Compute surprisals from KDE values
 * Fit a Generalized Pareto Distribution (GPD) to the largest $1-\beta$ surprisals
-* Compute surprisal probabilities $p_i$ from the fitted GPD applied to the LOO KDE surprisals.
+* Compute surprisal probabilities $p_i$ from the fitted GPD.
 * An observation is an anomaly if $p_i < \alpha$.
 
 ## Kernel density estimation
@@ -437,8 +437,8 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 
 ## GPD fitted to KDE surprisals
 
-* Compute surprisals from LOO KDE values: $s_i = -\log f_{-i}$, $i=1,\dots,n$.
-* $f_{-i}$ are bounded above and below, so the surprisals are sub-Gaussian.
+* Compute surprisals from KDE values: $s_i = -\log f_{i}$, $i=1,\dots,n$.
+* $f_{i}$ are bounded above and below, so the surprisals are sub-Gaussian.
 * Fit GPD to largest $1-\beta$ of $\{s_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
 
 ## Persistent homology
@@ -453,16 +453,18 @@ tar_read(barcode)
 ```
 
 ## KDE bandwidth selection via VR diameters
+\vspace*{-0.2cm}
 
 1. Compute persistence homology barcode of data for dimension 0 using Vietoris-Rips diameter.
 2. Obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
 3. Let $d^* = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$, for some large $\gamma < 1$
 4. Set bandwidth matrix $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
 
-\vspace*{0.9cm}
+\vspace*{0.5cm}
 
 ###
 \vspace*{-0.3cm}
+* Assumes each dimension has the same scale.
 * Ensures that persistently connected components have large weights in the KDE at each observed point.
 * In practice, we use $\gamma = 0.97$.
 
@@ -471,6 +473,7 @@ tar_read(barcode)
 ```{r}
 tar_read(rips_kde)
 ```
+
 ## Lookout algorithm
 \fontsize{13}{15}\sf\vspace*{-0.2cm}
 
