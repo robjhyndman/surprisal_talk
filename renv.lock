@@ -1088,6 +1088,38 @@
       "Maintainer": "Mitchell O'Hara-Wild <mail@mitchelloharawild.com>",
       "Repository": "RSPM"
     },
+    "dobin": {
+      "Package": "dobin",
+      "Version": "1.0.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Dimension Reduction for Outlier Detection",
+      "Authors@R": "person(\"Sevvandi\", \"Kandanaarachchi\", email = \"sevvandik@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-0337-0395\"))",
+      "Maintainer": "Sevvandi Kandanaarachchi <sevvandik@gmail.com>",
+      "Description": "A dimension reduction technique for outlier detection. DOBIN: a Distance  based Outlier BasIs using Neighbours, constructs a set of basis vectors for outlier  detection. This is not an outlier detection method; rather it is a pre-processing  method for outlier detection. It brings outliers to the fore-front using fewer basis  vectors (Kandanaarachchi, Hyndman 2020) <doi:10.1080/10618600.2020.1807353>.",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Imports": [
+        "dbscan",
+        "ggplot2",
+        "pracma"
+      ],
+      "RoxygenNote": "7.2.1",
+      "Suggests": [
+        "knitr",
+        "rmarkdown",
+        "OutliersO3",
+        "FNN"
+      ],
+      "VignetteBuilder": "knitr",
+      "Depends": [
+        "R (>= 3.4.0)"
+      ],
+      "URL": "https://sevvandi.github.io/dobin/",
+      "NeedsCompilation": "no",
+      "Author": "Sevvandi Kandanaarachchi [aut, cre] (<https://orcid.org/0000-0002-0337-0395>)",
+      "Repository": "RSPM"
+    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.1.4",

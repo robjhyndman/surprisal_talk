@@ -31,7 +31,6 @@ tar_source("R/functions.R")
 set_ggplot_options()
 ```
 
-
 ## Coauthors
 
 \placefig{0.2}{1.4}{height=5cm}{figs/sevvandi.png}
@@ -72,6 +71,7 @@ set_ggplot_options()
 ## Is this an anomaly?
 
 ```{r}
+#| label: anomaly_check1
 #| fig-height: 1
 tar_read(figchisq1)
 ```
@@ -79,6 +79,7 @@ tar_read(figchisq1)
 \pause
 
 ```{r}
+#| label: anomaly_check2
 #| fig-height: 1
 tar_read(figchisq2)
 ```
@@ -86,6 +87,7 @@ tar_read(figchisq2)
 \pause
 
 ```{r}
+#| label: anomaly_check3
 #| fig-height: 1
 tar_read(figchisq3)
 ```
@@ -97,6 +99,7 @@ All points randomly generated from a $\chi^2_5$ distribution.
 ## Are there any anomalies?
 
 ```{r}
+#| label: anomaly_check_of
 tar_read(fig_old_faithful) 
 ```
 
@@ -114,12 +117,14 @@ tar_read(fig_old_faithful)
 ## Definitions of anomalies
 
 ```{r}
+#| label: figchisq5
 tar_read(figchisq5)
 ```
 
 ## Definitions of anomalies
 
 ```{r}
+#| label: fig61
 tar_read(fig61)
 ```
 
@@ -130,6 +135,7 @@ If $F\sim N(\mu,\sigma^2)$, then $p_i = 2\left[1 - \Phi(|y_i - \mu|/\sigma)\righ
 Equivalent to a two-sided p-value from a z-score test.
 
 ```{r}
+#| label: fig_normal
 #| fig-height: 3.5
 tar_read(fig_normal)
 ```
@@ -141,6 +147,7 @@ HDR with probability $1-\alpha$ is $R_\alpha = \{y: f(y) \ge c_\alpha\}$ where $
 An observation is an anomaly if $y_i \notin R_\alpha$.
 
 ```{r}
+#| label: fig_hdr
 #| fig-height: 3.1
 tar_read(fig_hdr)
 ```
@@ -229,7 +236,6 @@ $$
 	\sup_{s:s>C}\left|\Pr\Big\{\big|M_n-\E[S]\big|\ge (Csn^{1/p})\Big\}-e^{-s^{-p}}\right|=o(1).
 $$
 
-
 ## Three-type theorem for surprisals
 
 * If surprisal has Gaussian like tails, then maximum surprisal is a reversed Weibull;
@@ -246,6 +252,7 @@ upper tail of the surprisal distribution can be approximated by a GPD, even if t
 ## Application to wine quality and prices
 
 ```{r}
+#| label: fig_wine
 tar_read(fig_wine)
 ```
 
@@ -254,6 +261,7 @@ tar_read(fig_wine)
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}
+#| label: fig_wine-model
 #| fig-height: 3.8
 tar_read(wine_model_plot)
 ```
@@ -263,6 +271,7 @@ tar_read(wine_model_plot)
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}
+#| label: fig_wine-loo
 #| fig-height: 3.8
 tar_read(wine_loo_surprisals)
 ```
@@ -272,6 +281,7 @@ tar_read(wine_loo_surprisals)
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}
+#| label: fig_wine-loo-anomalies
 #| fig-height: 3.8
 tar_read(wine_loo_anomalies)
 ```
@@ -282,7 +292,6 @@ GPD fitted to top 10\% of surprisals computed from LOO predictive densities.
 \end{block}
 \end{textblock}
 
-
 \begin{textblock}{1.85}(13.9,0.95)
 \begin{block}{}\small
 \textcolor{red}{$\alpha = 0.001$}
@@ -292,6 +301,7 @@ GPD fitted to top 10\% of surprisals computed from LOO predictive densities.
 ## Application to wine quality and prices
 
 ```{r}
+#| label: fig_wine2
 tar_read(fig_wine2)
 ```
 
@@ -301,13 +311,13 @@ tar_read(fig_wine2)
 \end{block}
 \end{textblock}
 
-
 ## Application to wine quality and prices
 \vspace*{-0.2cm}
 \structure{Anomalies detected ($\alpha=0.001$):}
 \fontsize{12}{14}\selectfont\vspace*{-0.3cm}
 
 ```{r}
+#| label: wine-anomalies
 tar_read(wine_anomalies) |>
   kableExtra::kbl(booktabs = TRUE, linesep="")
 ```
@@ -315,12 +325,14 @@ tar_read(wine_anomalies) |>
 ## French mortality
 
 ```{r}
+#| label: fig_fr-mortality
 tar_read(fig_fr_mortality)
 ```
 
 ## French mortality
 
 ```{r}
+#| label: fig_fr-mortality2
 tar_read(fig_fr_mortality2)
 ```
 
@@ -340,6 +352,7 @@ Model: $\log y_t \sim N(m_t, a_t)$ where $m_t$ and $a_t$ are locally and robustl
 ## Application to French mortality 
 
 ```{r}
+#| label: fig_fr-anomalies
 tar_read(fig_fr_anomalies)
 ```
 
@@ -353,32 +366,26 @@ tar_read(fig_fr_anomalies)
 * 1940: World War II
 
 ## Application to test cricket not-outs 
-\vspace*{-0.75cm}
 
 ```{r}
-#| label: fig-notouts0
+#| label: fig_notouts0
 tar_read(not_outs_plot)
 ```
 
 \only<2>{\notoutmodel}
 
 ## Application to test cricket not-outs 
-\vspace*{-0.75cm}
 
 ```{r}
-#| label: fig-notouts1
+#| label: fig_notouts1
 tar_read(not_outs_plot_smooth)
 ```
 \notoutmodel
 
 ## Application to test cricket not-outs 
-\vspace*{-0.75cm}
 
 ```{r}
-#| label: fig-notouts2
-#| fig.cap: "Proportion of not outs for each batter as a function of the number of innings they played. The blue line and associated 95% confidence interval shows the probability of a batter not being dismissed as a function of the number of innings they have played."
-#| message: false
-#| code-fold: false
+#| label: fig_notouts2
 tar_read(not_outs_plot_jma)
 ```
 
@@ -422,19 +429,6 @@ Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$.
 \centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
     {6}{"figs/kde_"}{1}{99}}
 
-## Kernel density estimation (consistency)
-
-Let $Y_1,\dots,Y_n$ be iid from square integrable density function $f$. Then KDE is a *consistent* estimator of $f$ if
-  $$
-  \lim_{n\rightarrow0} \text{E}\left[\left(\hat{f}(\bm{u}) - f(\bm{u})\right)^2 du\right] = 0
-  $$
-
-###
-For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positive-definite matrix that satisfies the following conditions:
-
-  * All elements of $\bm{H}$ approach zero as $n\rightarrow\infty$
-  * $n^{-1}|\bm{H}|^{-1/2} \rightarrow 0$ as $n\rightarrow\infty$
-
 ## GPD fitted to KDE surprisals
 
 * Compute surprisals from KDE values: $s_i = -\log f_{i}$, $i=1,\dots,n$.
@@ -449,6 +443,7 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 ## Persistent homology
 
 ```{r}
+#| label: barcode
 tar_read(barcode)
 ```
 
@@ -457,10 +452,10 @@ tar_read(barcode)
 
 1. Compute persistence homology barcode of data for dimension 0 using Vietoris-Rips diameter.
 2. Obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
-3. Let $d^* = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$, for some large $\gamma < 1$
-4. Set bandwidth matrix $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
+3. Let $d^*_{\gamma} = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$, for some large $\gamma < 1$
+4. Set bandwidth matrix $\bm{H} = (d^*_{\gamma})^{2/m}\bm{I}_m$.
 
-\vspace*{0.5cm}
+\vspace*{0.4cm}
 
 ###
 \vspace*{-0.3cm}
@@ -471,8 +466,37 @@ tar_read(barcode)
 ## KDE bandwidth selection via VR diameters
 
 ```{r}
+#| label: rips_kde
 tar_read(rips_kde)
 ```
+
+## Kernel density estimation (consistency)
+
+Let $Y_1,\dots,Y_n$ be iid from square integrable density function $f$. Then KDE is a *consistent* estimator of $f$ if
+  $$
+  \lim_{n\rightarrow0} \text{E}\left[\left(\hat{f}(\bm{u}) - f(\bm{u})\right)^2 du\right] = 0
+  $$
+
+\vspace*{0.2cm}
+
+###
+\vspace*{-0.3cm}
+For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positive-definite matrix that satisfies the following conditions:
+
+  * All elements of $\bm{H}$ approach zero as $n\rightarrow\infty$
+  * $n^{-1}|\bm{H}|^{-1/2} \rightarrow 0$ as $n\rightarrow\infty$
+
+## KDE bandwidth selection via VR diameters
+\fontsize{13}{14}\sf\vspace*{-0.2cm}
+\begin{theorem}
+  Let $f:\R^p \to \R$ be a Lipschitz density function. For any $\gamma\in (0,1)$, $d_{\gamma}^* \to 0$ a.s., where $d_{\gamma}^* =$  $\gamma$ quantile of finite death times.
+\end{theorem}\pause\vspace*{-0.15cm}
+\begin{theorem}
+  Let $d_k=$ $k$th smallest death time of $0$-homology for Rips filtrations of $n$ points from distribution over $\R^2$ s.t. density  bounded above. Choose any sequence of integers $\{\omega(n)\}$ s.t. $0<\omega(n) <n$ $\forall n$ and $\lim_{n\to \infty} \omega_n =\infty$. Then $nd_{\omega(n)}\to \infty$ as $n\to \infty$.
+\end{theorem}\pause\vspace*{-0.15cm}
+\begin{theorem}
+  Let $d_1=$ smallest death time of $0$-homology for Rips filtrations of $n$ points from distribution over $\R^m$, $m\geq 3$, s.t. density bounded above. Then $nd_{1}\to \infty$ as $n\to \infty$.
+\end{theorem}
 
 ## Lookout algorithm
 \fontsize{13}{15}\sf\vspace*{-0.2cm}
@@ -481,8 +505,8 @@ tar_read(rips_kde)
 2. $\hat{\bm{\Sigma}}=$ orthogonalized Gnanadesikan-Kettenring estimate of $\text{Cov}(\bm{Y})$, with eigendecomposition $\hat{\bm{\Sigma}} = \bm{U}\bm{D}\bm{U}^\top$.
 3. Rotate and scale the data: $\bm{Z} = \bm{U}\bm{Y}$.
 4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
-5. $d^* = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
-6. Compute kde: $f_i = \hat{f}(\bm{z}_i)$, $i=1,\dots,n$, where $\bm{H} = (d^*)^{2/m}\bm{I}_m$.
+5. $d^*_\gamma = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
+6. Compute kde: $f_i = \hat{f}(\bm{z}_i)$, $i=1,\dots,n$, where $\bm{H} = (d_\gamma^*)^{2/m}\bm{I}_m$.
 7. Compute LOO kde values $f_{-i} = \frac{1}{n-1} \big( n f_i - \bm{H}^{-1/2} K(\bm{0}) \big)$, $i=1,\dots,n$.
 8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
 9. $p_i = (1-\beta)P(-\log f_{-i} \mid \hat{\mu}, \hat{\sigma}, \hat{\xi})$, $P$ = GPD cdf.
@@ -490,24 +514,28 @@ tar_read(rips_kde)
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_old-faithful
 tar_read(fig_old_faithful)
 ```
 
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_old-faithful2
 tar_read(fig_old_faithful2)
 ```
 
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_old-faithful3
 tar_read(fig_old_faithful3)
 ```
 
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_old-faithful4
 tar_read(fig_old_faithful4)
 ```
 
@@ -520,6 +548,7 @@ $\alpha = 0.01$
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_old-faithful5
 tar_read(fig_old_faithful5)
 ```
 
@@ -533,8 +562,30 @@ $\alpha = 0.01$
 \fontsize{12}{15}\sf\vspace*{-0.3cm}\tabcolsep=0.1cm
 
 ```{r}
+#| label: of-looks
 tar_read(of_lookout_prob) |>
   kableExtra::kbl(booktabs = TRUE, linesep="")
+```
+
+## Experiment 1
+
+```{r}
+#| label: fig_exp1
+tar_read(fig_exp1)
+```
+
+## Experiment 2
+
+```{r}
+#| label: fig_exp2
+tar_read(fig_exp2)
+```
+
+## Experiment 3
+
+```{r}
+#| label: fig_showcase
+tar_read(fig_showcase)
 ```
 
 # Conclusions

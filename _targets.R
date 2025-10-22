@@ -260,6 +260,70 @@ list(
     create_notouts_plot(notouts_aug)
   ),
 
+  # ------------------------------------------------------
+  # Experiment 1: Gamma distribution
+  # ------------------------------------------------------
+
+  tar_target(
+    exp1_results,
+    run_synthetic_exp1(scale, alpha, beta, gamma)
+  ),
+  tar_target(
+    fig_exp1,
+    create_figure_exp1(exp1_results)
+  ),
+
+  # ------------------------------------------------------
+  # Experiment 2: Normal distribution
+  # ------------------------------------------------------
+
+  tar_target(
+    exp2_results,
+    run_synthetic_exp2(scale, alpha, beta, gamma)
+  ),
+  tar_target(
+    fig_exp2,
+    create_figure_exp2(exp2_results)
+  ),
+
+  # ------------------------------------------------------
+  # Experiment 3: Increasing N with normal distribution
+  # ------------------------------------------------------
+
+  tar_target(
+    exp3_results,
+    run_synthetic_exp3(scale, alpha, beta, gamma)
+  ),
+  tar_target(
+    fig_exp3,
+    create_figure_exp3(exp3_results)
+  ),
+
+  # ------------------------------------------------------
+  # Experiment 4: Increasing N with gamma distribution
+  # ------------------------------------------------------
+
+  tar_target(
+    exp4_results,
+    run_synthetic_exp4(scale, alpha, beta, gamma)
+  ),
+  tar_target(
+    fig_exp4,
+    create_figure_exp4(exp4_results)
+  ),
+
+  # ------------------------------------------------------
+  # SHOWCASE EXAMPLES
+  # ------------------------------------------------------
+
+  tar_target(
+    showcase_results,
+    generate_showcase_examples(scale, alpha, beta, gamma)
+  ),
+  tar_target(
+    fig_showcase,
+    create_showcase_figure(showcase_results)
+  ),
   # Slides ------------------------------------------------
   tar_quarto(
     slides,
