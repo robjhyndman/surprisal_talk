@@ -391,14 +391,48 @@ tar_read(not_outs_plot_jma)
 
 \notoutmodel
 
-## Experiment 1
+## Univariate experiment
+\fontsize{13}{14}\sf\vspace*{-0.3cm}
+
+What happens when the distribution used to compute surprisals is mis-specified?
+
+\begin{block}{Data N(0,1)}
+\vspace*{-0.1cm}
+\begin{itemize}\tightlist
+\item 1000 observations from a N(0,1) distribution
+\item Surprisals computed using a t(4) distribution.
+\item Estimate surprisal probabilities using N(0,1), t(4), surprisal ranks, GPD
+\end{itemize}
+\end{block}\vspace*{-0.15cm}\pause
+
+### Data t(4)
+\vspace*{-0.15cm}
+* 1000 observations from a t(4) distribution
+* Surprisals computed using a N(0,1) distribution.
+* Estimate surprisal probabilities using N(0,1), t(4), surprisal ranks, GPD
+
+
+## Univariate experiment 
 
 ```{r}
 #| label: fig_expt1
 tar_read(fig_expt1)
 ```
 
-## Experiment 1
+## Bivariate experiment
+
+* Data: 2 independent Gamma(2,2) variables
+* Sample size: $n = 100, \dots, 100000$
+* Surprisals computed using:
+  * Gamma(2,2) x 2
+  * Gamma(1,1) x 2
+  * Bivariate normal with correct mean and variance
+  * Bivariate non-central t(4) with correct mean
+* Surprisal probabilities computed using:
+  * Surprisal ranks
+  * GPD fit to top 10\% surprisals
+
+## Bivariate experiment 
 
 ```{r}
 #| label: fig_expt2

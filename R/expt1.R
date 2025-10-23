@@ -26,8 +26,8 @@ get_expt1_prob <- function(y) {
 
 create_fig_expt1 <- function(norm, t4) {
   bind_rows(
-    norm |> get_expt1_prob() |> mutate(Model = "Normal"),
-    t4 |> get_expt1_prob() |> mutate(Model = "t(4)")
+    norm |> get_expt1_prob() |> mutate(Model = "Data: Normal"),
+    t4 |> get_expt1_prob() |> mutate(Model = "Data: t(4)")
   ) |>
     filter(y > 2.5) |>
     tidyr::pivot_longer(
