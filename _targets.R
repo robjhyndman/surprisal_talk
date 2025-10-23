@@ -260,6 +260,37 @@ list(
     create_notouts_plot(notouts_aug)
   ),
 
+  # Experiment 1 - theory
+  tar_target(
+    norm_data,
+    rnorm(1000)
+  ),
+  tar_target(
+    t4_data,
+    rt(1000, df = 4)
+  ),
+  tar_target(
+    fig_expt1,
+    create_fig_expt1(norm_data, t4_data)
+  ),
+  # Experiment 2 - theory
+  tar_target(
+    expt2_prob,
+    get_expt2_prob()
+  ),
+  tar_target(
+    fig_expt2,
+    create_fig_expt2(expt2_prob)
+  ),
+  tar_target(
+    gpd_shape_estimates,
+    get_gpd_shape()
+  ),
+  tar_target(
+    fig_gpd_shape,
+    create_gpd_shape_fig(gpd_shape_estimates)
+  ),
+
   # ------------------------------------------------------
   # Experiment 1: Gamma distribution
   # ------------------------------------------------------

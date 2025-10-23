@@ -110,7 +110,6 @@ set_up_diff_metrics <- function(nrows) {
   as_tibble(df[rep(1, nrows), ])
 }
 
-
 # Convert lookout object to a data frame with outlier labels
 as.data.frame.lookoutliers <- function(object, ...) {
   varnames <- colnames(object$data)
@@ -144,7 +143,6 @@ get_legend <- function(plot) {
     return(patchwork::plot_spacer())
   }
 }
-
 
 # Function to plot data on left, anomaly rates on right with legend in bottom left quadrant
 experiment_plot <- function(g1, g2, filename, height = 5, width = 8, ...) {

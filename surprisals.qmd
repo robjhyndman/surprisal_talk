@@ -391,6 +391,20 @@ tar_read(not_outs_plot_jma)
 
 \notoutmodel
 
+## Experiment 1
+
+```{r}
+#| label: fig_expt1
+tar_read(fig_expt1)
+```
+
+## Experiment 1
+
+```{r}
+#| label: fig_expt2
+tar_read(fig_expt2)
+```
+
 # Lookout algorithm
 
 ## Lookout algorithm
