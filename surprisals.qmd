@@ -106,13 +106,13 @@ tar_read(fig_old_faithful)
 ## Definitions of anomalies
 \fontsize{14}{16}\selectfont
 \begin{alertblock}{Definition: Anomaly}
-  Given a set of observations $\{y_{1},\dots,y_n\}$ drawn from probability distribution $F$, the \textbf{anomaly score} of $y_i$ is
-  $$p_i = \Pr(f(Y) < f(y_i))$$
-  where $Y\sim F$ and $f$ is the generalized density of $F$. An observation is an \textbf{anomaly} if $p_i<\alpha$ for some threshold $\alpha > 0$.
+  Given a set of observations $\{y_{1},\dots,y_n\}$ and a generalized probability density $f$, the \textbf{anomaly score} of $y_i$ wrt $f$ is
+  $$p_i = \Pr(f(Y) \le f(y_i))$$
+  where $Y\sim f$. An observation is an \textbf{anomaly} wrt $f$ if $p_i<\alpha$ for some threshold $\alpha > 0$.
 \end{alertblock}\pause
 
 * $y_i$ can be a scalar, vector or a more complex object
-* $f$ can be a conditional density, and can be known or estimated
+* $f$ can be a conditional density, and can be known, assumed or estimated
 
 ## Definitions of anomalies
 
@@ -131,7 +131,7 @@ tar_read(fig61)
 ## Anomaly detection: Normal distribution
 \vspace*{-0.2cm}
 
-If $F\sim N(\mu,\sigma^2)$, then $p_i = 2\left[1 - \Phi(|y_i - \mu|/\sigma)\right]$\newline
+If $f\sim N(\mu,\sigma^2)$, then $p_i = 2\left[1 - \Phi(|y_i - \mu|/\sigma)\right]$\newline
 Equivalent to a two-sided p-value from a z-score test.
 
 ```{r}
@@ -157,7 +157,7 @@ tar_read(fig_hdr)
 ## Surprisals
 
 \begin{alertblock}{Definition: Surprisal}
-  The \textbf{surprisal} of an observation $y_i$ drawn from probability distribution $F$ with generalized density $f$ is defined as
+  The \textbf{surprisal} of an observation $y_i$ drawn from a probability distribution with density $f$ is defined as
   $$s_i = -\log f(y_i)$$
 \end{alertblock}
 
@@ -168,12 +168,12 @@ tar_read(fig_hdr)
 
 ## Anomaly detection using surprisals
 
-Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y \sim F$. 
+Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y \sim f$. 
 $$G(s) = \Pr(-\log f(Y) \le s) = \Pr(f(Y) \ge e^{-s})$$
 Then $p_i = 1-G(s_i)$.\pause
 
 * An anomaly is an extreme value of the surprisal distribution.
-* It is not necessarily extreme in the sample space of $F$.
+* It is not necessarily extreme in the sample space of $f$.
 
 # Extreme value theory and surprisals
 
@@ -201,8 +201,8 @@ So in practice, we can approximate the upper tail of many distributions by a GPD
 
 ## Surprisals and EVT
 
-* Suppose we have $n$ iid observations $Y_1,\dots,Y_n$ from distribution $F$ with density $f$.
-* Let $S_i = -\log f(Y_i)$ be the surprisal of $Y_i$.
+* Suppose we have $n$ iid observations $Y_1,\dots,Y_n$ and a density $f$.
+* Let $S_i = -\log f(Y_i)$ be the surprisal of $Y_i$ wrt $f$
 * Then $S_1,\dots,S_n$ are iid from the surprisal distribution $G(s) = \Pr(S \le s)$.
 * If $G$ satisfies the FTG theorem, then we can approximate the upper tail of $G$ by a GPD fitted to the top $1-\beta$ of the surprisal values.
 * In practice, we typically use $\beta = 0.9$.
@@ -221,7 +221,7 @@ $\E \exp\{\lambda(S-\E[S])\} \leq \exp\{\lambda^2\nu^2/ 2\}$ for all $|\lambda|<
 
 ## Three-type theorem for surprisals
 \fontsize{13}{14}\selectfont
-Let $y_1,\dots,y_n$ be an iid sequence from $F$, $S =-\log f(Y)$ where $Y\sim F$, $s_i = -\log f(y_i)$, and $M_n=\max\{s_1,\dots,s_n\}$.
+Let $y_1,\dots,y_n$ be an iid sequence from density $f$, $s_i = -\log f(y_i)$, $M_n=\max\{s_1,\dots,s_n\}$, and $S =-\log f(Y)$ where $Y\sim f$.
 
 1. Under A1:
 $$
@@ -239,7 +239,7 @@ $$
 ## Three-type theorem for surprisals
 
 * If surprisal has Gaussian like tails, then maximum surprisal is a reversed Weibull;
-* If surprisal only has an exponential moment, then maximum surprisal is Gumbel; 
+* If surprisal only has an exponential tail, then maximum surprisal is Gumbel; 
 * If surprisal only has a polynomial moment, then maximum surprisal is Fréchet. 
 
 \vspace*{0.2cm}
@@ -247,7 +247,7 @@ $$
 ### Corollary
 \vspace*{-0.3cm}
 
-upper tail of the surprisal distribution can be approximated by a GPD, even if the assumed distribution $F$ is incorrect, provided one of A1--A3 is satisfied.
+upper tail of the surprisal distribution can be approximated by a GPD, even if the assumed density $f$ is incorrect, provided one of A1--A3 is satisfied.
 
 ## Application to wine quality and prices
 
@@ -537,7 +537,7 @@ For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positiv
 ## KDE bandwidth selection via VR diameters
 \fontsize{13}{14}\sf\vspace*{-0.2cm}
 \begin{theorem}
-  Let $f:\R^p \to \R$ be a Lipschitz density function. For any $\gamma\in (0,1)$, $d_{\gamma}^* \to 0$ a.s., where $d_{\gamma}^* =$  $\gamma$ quantile of finite death times.
+  Let $f:\R^m \to \R$ be a Lipschitz density function. For any $\gamma\in (0,1)$, $d_{\gamma}^* \to 0$ a.s., where $d_{\gamma}^* =$  $\gamma$ quantile of finite death times.
 \end{theorem}\pause\vspace*{-0.15cm}
 \begin{theorem}
   Let $d_k=$ $k$th smallest death time of $0$-homology for Rips filtrations of $n$ points from distribution over $\R^2$ s.t. density  bounded above. Choose any sequence of integers $\{\omega(n)\}$ s.t. $0<\omega(n) <n$ $\forall n$ and $\lim_{n\to \infty} \omega_n =\infty$. Then $nd_{\omega(n)}\to \infty$ as $n\to \infty$.
