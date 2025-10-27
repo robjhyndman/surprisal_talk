@@ -108,7 +108,7 @@ tar_read(fig_old_faithful)
 \begin{alertblock}{Definition: Anomaly}
   Given a set of observations $\{y_{1},\dots,y_n\}$ and a generalized probability density $f$, the \textbf{anomaly score} of $y_i$ wrt $f$ is
   $$p_i = \Pr(f(Y) \le f(y_i))$$
-  where $Y\sim f$. An observation is an \textbf{anomaly} wrt $f$ if $p_i<\alpha$ for some threshold $\alpha > 0$.
+  where $Y$ has density $f$. An observation is an \textbf{anomaly} wrt $f$ if $p_i<\alpha$ for some threshold $\alpha > 0$.
 \end{alertblock}\pause
 
 * $y_i$ can be a scalar, vector or a more complex object
@@ -168,7 +168,7 @@ tar_read(fig_hdr)
 
 ## Anomaly detection using surprisals
 
-Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y \sim f$. 
+Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y$ has density $f$. 
 $$G(s) = \Pr(-\log f(Y) \le s) = \Pr(f(Y) \ge e^{-s})$$
 Then $p_i = 1-G(s_i)$.\pause
 
@@ -339,7 +339,7 @@ tar_read(fig_fr_mortality2)
 ## Application to French mortality 
 \fontsize{14}{16}\selectfont
 
-Model: $\log y_t \sim N(m_t, a_t)$ where $m_t$ and $a_t$ are locally and robustly estimated in a window of size $2h+1$ around time $t$:
+Model: $\log y_t \sim N(m_t, a_t^2)$ where $m_t$ and $a_t$ are locally and robustly estimated in a window of size $2h+1$ around time $t$:
 \begin{align*}
 \hat{m}_t &= \text{median}(\log y_{t-h},\dots,\log y_{t+h}) \\
 \hat{a}_t &= 1.4826 \times \text{median}(|\log y_{t-h}-\hat{m}_t|,\dots,|\log y_{t+h}-\hat{m}_t|)
