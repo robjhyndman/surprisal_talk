@@ -273,6 +273,10 @@ list(
     fig_expt1,
     create_fig_expt1(norm_data, t4_data)
   ),
+  tar_target(
+    fig_expt1b,
+    create_fig_expt1(norm_data, t4_data, empirical = FALSE)
+  ),
   # Experiment 2 - theory
   tar_target(
     expt2_prob,
@@ -281,6 +285,10 @@ list(
   tar_target(
     fig_expt2,
     create_fig_expt2(expt2_prob)
+  ),
+  tar_target(
+    fig_expt2b,
+    create_fig_expt2(expt2_prob, empirical = FALSE)
   ),
   tar_target(
     gpd_shape_estimates,
@@ -359,6 +367,12 @@ list(
   tar_quarto(
     slides,
     "surprisals.qmd",
+    quiet = FALSE,
+    extra_files = c("header.tex")
+  ),
+  tar_quarto(
+    slides_fsi,
+    "surprisals_fsi2025.qmd",
     quiet = FALSE,
     extra_files = c("header.tex")
   )

@@ -39,8 +39,8 @@ get_expt2_prob <- function(n = 10^seq(2, 5, by = 0.1), nrep = 500) {
   )
 }
 
-create_fig_expt2 <- function(expt2_prob) {
-  expt2_prob |>
+create_fig_expt2 <- function(expt2_prob, empirical = TRUE) {
+  df <- expt2_prob |>
     mutate(anomaly_rate = count / n) |>
     group_by(Method, n) |>
     mutate(
@@ -56,7 +56,12 @@ create_fig_expt2 <- function(expt2_prob) {
         GPD4 = "GPD (Gamma11)"
       )
     ) |>
-    ungroup() |>
+    ungroup() 
+  if(!empirical) {
+    df <- df |>
+      filter(!grepl("Empirical", Method))
+  }
+  df |>
     ggplot(aes(x = log10(n), y = anomaly_rate, col = Method)) +
     geom_smooth(method = "loess", span = 0.6) +
     geom_hline(aes(yintercept = 0.01)) +
