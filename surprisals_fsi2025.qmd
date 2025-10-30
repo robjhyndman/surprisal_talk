@@ -463,4 +463,4 @@ tar_read(fig_showcase)
 * Modified lookout algorithm due to Hyndman, Kandanaarachichi & Turner (in preparation)
 * R packages `lookout` and `weird` available on CRAN
 * Book in preparation at <https://OTexts.com/weird>
-* Slides and links: <https://robjhyndman.com/toptime2025>
+* Slides and links: <https://robjhyndman.com/fsi2025>
