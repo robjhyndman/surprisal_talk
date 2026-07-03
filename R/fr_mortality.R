@@ -31,7 +31,7 @@ hampel_anomalies <- function(
   }
   # Find anomalies
   s <- -dnorm(abs((y - m) / mad) * qnorm(0.75), log = TRUE)
-  p <- weird:::surprisal_prob(
+  p <- weird:::surprisal_prob_from_s(
     s,
     distribution = dist_normal(),
     approximation = approximation

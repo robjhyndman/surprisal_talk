@@ -69,7 +69,7 @@ create_old_faithful_figure <- function(
 get_of_lookout_prob <- function(oldfaithful, alpha = 0.01) {
   of <- oldfaithful |>
     select(duration, waiting)
-  oldfaithful$prob <- lookout_prob(of)
+  oldfaithful$prob <- surprisals_prob(of, loo = TRUE, approximation = "gpd", method = "lookout")
   oldfaithful |>
     filter(prob < alpha) |>
     arrange(duration)
