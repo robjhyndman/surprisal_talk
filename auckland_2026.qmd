@@ -1,8 +1,15 @@
 ---
-title: Anomaly detection using&nbsp;surprisals 
+title: Spotting the weird ones
 author: Rob J Hyndman
 date: 6 August 2026
-abstract: "I will discuss a probabilistic approach to anomaly detection based on extreme 'surprisal values' aka log scores, equal to minus the log density at each observation. The surprisal approach can be used for any collection of data objects, provided a probability density can be defined on the sample space. It can distinguish anomalies from legitimate observations in a heavy tail, and will identify anomalies that are undetected using methods based on distance measures. I will demonstrate the idea in various real data examples including univariate, multivariate and regression contexts, and when exploring more complicated data objects. I will also briefly outline the underlying theory when the density is known, and when it is estimated using a kernel density estimate. In the latter case, an innovative bandwidth selection method is used based on persistent homology."
+abstract: >-
+  Data analysis is about finding the stories hidden in the mass of information that make up a data set.
+  Usually we are interested in understanding the major patterns — the relationships that hold true for most of the data.
+  But sometimes we need to look at the weird observations, the mavericks, the ones that don’t follow the crowd and behave differently.
+  These observations are called “anomalies”.
+  Many anomaly detection methods have been developed, but they are often based on ad hoc rules and hidden assumptions, and can lead to misleading conclusions.
+  Instead, I will describe a principled statistical approach to identifying anomalies in diverse data sets, from simple numerical data to complex high-dimensional data objects.
+  The ideas will be illustrated using the weird package for R applied to several data analysis problems, including spotting over-priced wines, identifying errors in the records of the Old Faithful Geyser, and uncovering forgotten epidemics in 19th century France.
 toc: true
 format:
   presentation-beamer:
@@ -25,43 +32,23 @@ execute:
 
 ```{r}
 #| label: load-packages
+
 library(targets)
 library(ggplot2)
 tar_source("R/functions.R")
 set_ggplot_options()
 ```
 
-## Coauthors
-
-\placefig{0.2}{1.4}{height=5cm}{figs/sevvandi.png}
-\begin{textblock}{5}(0.2,6.7)\centering
-  Sevvandi\\ 
-  Kandanaarachchi\\
-  \emph{CSIRO}
-\end{textblock}
-\placefig{5.5}{1.4}{height=5cm}{figs/kate.png}
-\begin{textblock}{5}(5.5,6.7)\centering
- Kate\\ 
- Turner\\
- \emph{ANU}
-\end{textblock}
-\placefig{10.8}{1.4}{height=5cm}{figs/david.png}
-\begin{textblock}{5}(10.8,6.7)\centering
-  David\\ 
-  Frazier \\
-  \emph{Monash U}
-\end{textblock}
-
 ## Outline
 \vspace*{0.7cm}
 \tableofcontents[hideallsubsections]
 
-# Anomalies
+# What is an anomaly?
 
-## Definitions of anomalies
+## What do we mean by "weird"?
 
-\begin{block}{} 
-\emph{an observation (or a subset of observations) which appears to be inconsistent with the remainder of that set of data.}\\\mbox{}\hfill (Barnett \& Lewis, 1978) 
+\begin{block}{}
+\emph{an observation (or a subset of observations) which appears to be inconsistent with the remainder of that set of data.}\\\mbox{}\hfill (Barnett \& Lewis, 1978)
 \end{block}\pause
 
 \begin{block}{}
@@ -73,7 +60,8 @@ set_ggplot_options()
 ```{r}
 #| label: anomaly_check1
 #| fig-height: 1
-tar_read(figchisq1)
+
+tar_read(figchisq3)
 ```
 
 \pause
@@ -81,7 +69,8 @@ tar_read(figchisq1)
 ```{r}
 #| label: anomaly_check2
 #| fig-height: 1
-tar_read(figchisq2)
+
+tar_read(figchisq1)
 ```
 
 \pause
@@ -89,165 +78,92 @@ tar_read(figchisq2)
 ```{r}
 #| label: anomaly_check3
 #| fig-height: 1
-tar_read(figchisq3)
+
+tar_read(figchisq2)
 ```
 
 \pause
 
-All points randomly generated from a $\chi^2_5$ distribution.
+All points were randomly generated from the **same** $\chi^2_5$ distribution.
 
-## Are there any anomalies?
+## Spot the anomaly
+
+```{r}
+#| label: anomaly_check4
+#| out-width: "55%"
+
+library(ggplot2)
+library(dplyr)
+set.seed(2)
+x <- runif(2500, -1, 1)
+y <- runif(2500, -1, 1)
+df <- tibble(x=x, y=y) |> 
+  mutate(r = x^2 + y^2) |>
+  filter(r < 1)
+df |>
+  ggplot(aes(x=x,y=y)) + 
+  geom_point(alpha=0.5) +
+  geom_point(data=data.frame(x=0.75,y=-0.75), aes(x=x,y=y), alpha = 0.5) +
+  coord_fixed()
+```
+
+## Spot the anomaly
+
+```{r}
+#| label: anomaly_check5
+#| out-width: "55%"
+
+df |>
+  filter(r > 0.025 | r == min(r)) |>
+  ggplot(aes(x=x,y=y)) + geom_point(alpha = 0.5) + coord_fixed()
+```
+
+## Are there any anomalies here?
 
 ```{r}
 #| label: anomaly_check_of
-tar_read(fig_old_faithful) 
+
+tar_read(fig_old_faithful)
 ```
 
-## Definitions of anomalies
-\fontsize{14}{16}\selectfont
-\begin{alertblock}{Definition: Anomaly}
-  Given a set of observations $\{y_{1},\dots,y_n\}$ and a generalized probability density $f$, the \textbf{anomaly score} of $y_i$ wrt $f$ is
-  $$p_i = \Pr(f(Y) \le f(y_i))$$
-  where $Y$ has density $f$. An observation is an \textbf{anomaly} wrt $f$ if $p_i<\alpha$ for some threshold $\alpha > 0$.
-\end{alertblock}\pause
-
-* $y_i$ can be a scalar, vector or a more complex object
-* $f$ can be a conditional density, and can be known, assumed or estimated
-
-## Definitions of anomalies
+## Are there any anomalies here?
 
 ```{r}
-#| label: figchisq5
-tar_read(figchisq5)
-```
+#| label: fig_wine0
 
-## Definitions of anomalies
-
-```{r}
-#| label: fig61
-tar_read(fig61)
-```
-
-## Anomaly detection: Normal distribution
-\vspace*{-0.2cm}
-
-If $f\sim N(\mu,\sigma^2)$, then $p_i = 2\left[1 - \Phi(|y_i - \mu|/\sigma)\right]$\newline
-Equivalent to a two-sided p-value from a z-score test.
-
-```{r}
-#| label: fig_normal
-#| fig-height: 3.5
-tar_read(fig_normal)
-```
-
-## Anomaly detection: Highest density regions
-\vspace*{-0.2cm}
-
-HDR with probability $1-\alpha$ is $R_\alpha = \{y: f(y) \ge c_\alpha\}$ where $c_\alpha$ is largest constant s.t. $\Pr(Y \in R_\alpha) \ge 1-\alpha$.\newline
-An observation is an anomaly if $y_i \notin R_\alpha$.
-
-```{r}
-#| label: fig_hdr
-#| fig-height: 3.1
-tar_read(fig_hdr)
+tar_read(fig_wine)
 ```
 
 # Surprisals
 
-## Surprisals
+## Surprisal probabilities
+\vspace*{-0.3cm}\fontsize{14}{15}\sf
 
-\begin{alertblock}{Definition: Surprisal}
-  The \textbf{surprisal} of an observation $y_i$ drawn from a probability distribution with density $f$ is defined as
-  $$s_i = -\log f(y_i)$$
-\end{alertblock}
+- a likely observation $\rightarrow$ tiny surprise
+- an unlikely observation $\rightarrow$ large surprise\pause
+- The \textbf{surprisal probability} of $y_i$ is the probability of an observation that is less likely under model $f$:
 
-* Better known as "log scores" in statistics.
-* "Surprisal" coined by Tribus (1961).
-* Expected surprisal = entropy of random variable
-* Sum of surprisals = negative log likelihood
+\begin{alertblock}{Surprisal probability}
+  \centerline{$\displaystyle p_i = \Pr(f(Y) \le f(y_i))$ \qquad where $Y$ has density $f$}
+\end{alertblock}\vspace*{-0.1cm}
 
-## Anomaly detection using surprisals
+- An observation is an **anomaly with respect to $f$** if $p_i<\alpha$ for some threshold $\alpha > 0$.\pause
+- $y_i$ can be a scalar, vector or a more complex object\pause
+- $f$ can be a conditional density, and can be known, assumed or estimated
 
-Let $G(s) = \Pr(S \le s)$ be the **surprisal distribution** where $S = -\log f(Y)$ and $Y$ has density $f$. 
-$$G(s) = \Pr(-\log f(Y) \le s) = \Pr(f(Y) \ge e^{-s})$$
-Then $p_i = 1-G(s_i)$.\pause
+## Extreme surprisals
 
-* An anomaly is an extreme value of the surprisal distribution.
-* It is not necessarily extreme in the sample space of $f$.
+- But what if we don't know $f$, or if our $f$ is wrong?\pause
+- We can use \alert{extreme value theory}!\pause
 
-# Extreme value theory and surprisals
+\begin{alertblock}{Surprisal}
+\centerline{$s_i = -\log f(y_i)$}
+\end{alertblock}\vspace*{-0.1cm}
 
-## Fisher-Tippett-Gnedenko theorem
-\fontsize{13}{14}\selectfont
-Consider $n$ iid rvs $S_1, \dots, S_n$ with cdf $G$ and $M_n = \max \{S_1, \dots, S_n\}$. If there exist sequences of constants $\{a_n>0\}$ and $\{b_n\}$ such that
-$$\Pr\left\{ (M_n - b_n)/a_n \leq z \right\} \rightarrow H(z) \quad \text{as} \quad n \to \infty,$$
-for a non-degenerate cdf $H$, then 
-$$H(z) = \exp\left\{ -\left[ 1 + \xi\left(\frac{z - \mu}{\sigma} \right)\right]^{-1/\xi} \right\}$$
+- In almost all cases, the upper tail of the distribution of $s_i$ can be approximated by a Generalized Pareto Distribution, even if the assumed density $f$ is incorrect\pause
+- So $p_i = \Pr(-\log f(Y) \ge s_i ) \approx 1 - F_{GPD}(s_i)$
 
-* $\xi<0$: Weibull distribution ($G$ bounded upper tail)
-* $\xi\rightarrow0$: Gumbel distribution ($G$ light-tailed)
-* $\xi>0$: Fréchet distribution ($G$ heavy-tailed)
-
-## Pickands-Balkema-De Haan theorem
-
-If $G$ satisfies the FTG theorem, then the upper tail of $G$ can be approximated by the Generalized Pareto Distribution (GPD): 
-$$\Pr(S \le u+s \mid S > u) = 1 - \left( 1 + \frac{\xi s}{\sigma_u} \right)^{-1/\xi}$$
-for large enough $u$, where $\sigma_u = \sigma + \xi(u- \mu)$.\pause\vspace*{0.6cm}
-
-### 
-\vspace*{-0.3cm}
-
-So in practice, we can approximate the upper tail of many distributions by a GPD.
-
-## Surprisals and EVT
-
-* Suppose we have $n$ iid observations $Y_1,\dots,Y_n$ and a density $f$.
-* Let $S_i = -\log f(Y_i)$ be the surprisal of $Y_i$ wrt $f$
-* Then $S_1,\dots,S_n$ are iid from the surprisal distribution $G(s) = \Pr(S \le s)$.
-* If $G$ satisfies the FTG theorem, then we can approximate the upper tail of $G$ by a GPD fitted to the top $1-\beta$ of the surprisal values.
-* In practice, we typically use $\beta = 0.9$.
-
-## Three-type theorem for surprisals
-
-**A1: Sub-Gaussian**: $S =-\log f(Y)$ satisfies, for all $\lambda\in\mathbb{R}$, and some $\nu>0$,
-$\E \exp\{\lambda (S-\E[S])\}\le \exp\{\lambda^2 \nu^2/2\}$.`\\`{=latex}
-**A2: Sub-exponential**: $S$ is sub-exponential with parameters $\nu$ and $b$, i.e.,
-$\E \exp\{\lambda(S-\E[S])\} \leq \exp\{\lambda^2\nu^2/ 2\}$ for all $|\lambda|< 1/b$.`\\`{=latex}
-**A3: Polynomial**: $|S|$ has polynomial moments of order $p\ge 1$; i.e., $\mathbb{E}[|S|^p] \le C^p$ for some $C>0$ such that $C^p-1>0$.
-
-* A1 satisfied when $f$ has bounded support
-* A2 satisfied when log $f$ unbounded below, and light tails (e.g., Gaussian)
-* A3 satisfied when $f$ has heavy tails (e.g., t with df $\ge 3$)
-
-## Three-type theorem for surprisals
-\fontsize{13}{14}\selectfont
-Let $y_1,\dots,y_n$ be an iid sequence from density $f$, $s_i = -\log f(y_i)$, $M_n=\max\{s_1,\dots,s_n\}$, and $S =-\log f(Y)$ where $Y\sim f$.
-
-1. Under A1:
-$$
-  \sup_{s:s>0}\left|\Pr\left\{\big|M_n-\E[S]\big|\ge \sqrt{2\nu^2 s}+\sqrt{2\nu^2\log(2n)}\right\}-e^{-s}\right|=o(1).
-$$
-2. Under A2:
-$$
-  \sup_{s:s>1/b}\left|\Pr\Big\{\big|M_n-\E[S]\big|\ge (2b)s+(2b)\log(2n)\Big\}-e^{-e^{-s}}\right|=o(1).
-$$
-3. Under A3:
-$$
-	\sup_{s:s>C}\left|\Pr\Big\{\big|M_n-\E[S]\big|\ge (Csn^{1/p})\Big\}-e^{-s^{-p}}\right|=o(1).
-$$
-
-## Three-type theorem for surprisals
-
-* If surprisal has Gaussian like tails, then maximum surprisal is a reversed Weibull;
-* If surprisal only has an exponential tail, then maximum surprisal is Gumbel; 
-* If surprisal only has a polynomial moment, then maximum surprisal is Fréchet. 
-
-\vspace*{0.2cm}
- 
-### Corollary
-\vspace*{-0.3cm}
-
-upper tail of the surprisal distribution can be approximated by a GPD, even if the assumed density $f$ is incorrect, provided one of A1--A3 is satisfied.
+# Over-priced wine?
 
 ## Application to wine quality and prices
 
@@ -322,242 +238,7 @@ tar_read(wine_anomalies) |>
   kableExtra::kbl(booktabs = TRUE, linesep="")
 ```
 
-## French mortality
-
-```{r}
-#| label: fig_fr-mortality
-tar_read(fig_fr_mortality)
-```
-
-## French mortality
-
-```{r}
-#| label: fig_fr-mortality2
-tar_read(fig_fr_mortality2)
-```
-
-## Application to French mortality 
-\fontsize{14}{16}\selectfont
-
-Model: $\log y_t \sim N(m_t, a_t^2)$ where $m_t$ and $a_t$ are locally and robustly estimated in a window of size $2h+1$ around time $t$:
-\begin{align*}
-\hat{m}_t &= \text{median}(\log y_{t-h},\dots,\log y_{t+h}) \\
-\hat{a}_t &= 1.4826 \times \text{median}(|\log y_{t-h}-\hat{m}_t|,\dots,|\log y_{t+h}-\hat{m}_t|)
-\end{align*}\pause\vspace*{-0.8cm}
-
-* Male and female data from 1816--1999, over ages 0--85: `r NROW(tar_read(fr_mortality))` observations.
-* Compute surprisals under model, and surprisal probabilities under a GPD with $\alpha=0.01$
-* Identify when at least three age groups are anomalous in same year/sex.
-
-## Application to French mortality 
-
-```{r}
-#| label: fig_fr-anomalies
-tar_read(fig_fr_anomalies)
-```
-
-## Application to French mortality 
-
-* 1832, 1849: Cholera outbreaks
-* 1870: Franco--Prussian war
-* 1871: Repression of the ‘Commune de Paris’
-* 1914--1918: World War I
-* 1918: Spanish flu outbreak
-* 1940: World War II
-
-## Application to test cricket not-outs 
-
-```{r}
-#| label: fig_notouts0
-tar_read(not_outs_plot)
-```
-
-\only<2>{\notoutmodel}
-
-## Application to test cricket not-outs 
-
-```{r}
-#| label: fig_notouts1
-tar_read(not_outs_plot_smooth)
-```
-\notoutmodel
-
-## Application to test cricket not-outs 
-
-```{r}
-#| label: fig_notouts2
-tar_read(not_outs_plot_jma)
-```
-
-\notoutmodel
-
-## Univariate experiment
-\fontsize{13}{14}\sf\vspace*{-0.3cm}
-
-What happens when the distribution used to compute surprisals is mis-specified?
-
-\begin{block}{Data N(0,1)}
-\vspace*{-0.1cm}
-\begin{itemize}\tightlist
-\item 1000 observations from a N(0,1) distribution
-\item Surprisals computed using a t(4) distribution.
-\item Estimate surprisal probabilities using N(0,1), t(4), surprisal ranks, GPD
-\end{itemize}
-\end{block}\vspace*{-0.15cm}\pause
-
-### Data t(4)
-\vspace*{-0.15cm}
-* 1000 observations from a t(4) distribution
-* Surprisals computed using a N(0,1) distribution.
-* Estimate surprisal probabilities using N(0,1), t(4), surprisal ranks, GPD
-
-
-## Univariate experiment 
-
-```{r}
-#| label: fig_expt1
-tar_read(fig_expt1)
-```
-
-## Bivariate experiment
-
-* Data: 2 independent Gamma(2,2) variables
-* Sample size: $n = 100, \dots, 100000$
-* Surprisals computed using:
-  * Gamma(2,2) x 2
-  * Gamma(1,1) x 2
-  * Bivariate normal with correct mean and variance
-  * Bivariate non-central t(4) with correct mean
-* Surprisal probabilities computed using:
-  * Surprisal ranks
-  * GPD fit to top 10\% surprisals
-
-## Bivariate experiment 
-
-```{r}
-#| label: fig_expt2
-tar_read(fig_expt2)
-```
-
-# Lookout algorithm
-
-## Lookout algorithm
-
-* Compute Kernel Density Estimate (KDE) of the observations, with a bandwidth matrix chosen using persistent homology.
-* Compute surprisals from KDE values
-* Fit a Generalized Pareto Distribution (GPD) to the largest $1-\beta$ surprisals
-* Compute surprisal probabilities $p_i$ from the fitted GPD.
-* An observation is an anomaly if $p_i < \alpha$.
-
-## Kernel density estimation
-\fontsize{14}{15}\sf\vspace*{-0.3cm}
-
-Observations: $\bm{y}_{i} \in \mathbb{R}^m$ for $i \in \{1, \dots, n\}$. 
-
-\begin{block}{KDE}
-\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big),$}
-\end{block}\vspace*{-0.25cm}
-
-* $K$ is a square-integrable spherically-symmetric function, bounded below by 0, with a finite second-order moment and unit integral.
-* $\bm{H}$ is a symmetric $m\times m$ positive-definite matrix.
-
-\pause\vspace*{0.1cm}
-
-### LOO KDE values
-
-\centerline{$\displaystyle f_{-i} = \frac{1}{n-1} \big( n \hat{f}(\bm{y}_i) - \bm{H}^{-1/2} K(\bm{0}) \big)$}
-
-## Kernel density estimation 
-\vspace*{-0.3cm}
-
-\begin{block}{}
-\centerline{$\displaystyle\hat{f}(\bm{y}) = \frac{1}{n} \sum_{i=1}^n |\bm{H}|^{-1/2} K\big(\bm{H}^{-1/2}(\bm{y} - \bm{y}_i)\big)$}
-\end{block}
-
-\centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
-    {6}{"figs/kde_"}{1}{99}}
-
-## GPD fitted to KDE surprisals
-
-* Compute surprisals from KDE values: $s_i = -\log f_{i}$, $i=1,\dots,n$.
-* $f_{i}$ are bounded above and below, so the surprisals are sub-Gaussian.
-* Fit GPD to largest $1-\beta$ of $\{s_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
-
-## Persistent homology
-
-\centerline{\animategraphics[controls,buttonsize=0.3cm,width=12.5cm]
-    {6}{"figs/rips_"}{1}{99}}
-
-## Persistent homology
-
-```{r}
-#| label: barcode
-tar_read(barcode)
-```
-
-## KDE bandwidth selection via VR diameters
-\vspace*{-0.2cm}
-
-1. Compute persistence homology barcode of data for dimension 0 using Vietoris-Rips diameter.
-2. Obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
-3. Let $d^*_{\gamma} = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$, for some large $\gamma < 1$
-4. Set bandwidth matrix $\bm{H} = (d^*_{\gamma})^{2/m}\bm{I}_m$.
-
-\vspace*{0.4cm}
-
-###
-\vspace*{-0.3cm}
-* Assumes each dimension has the same scale.
-* Ensures that persistently connected components have large weights in the KDE at each observed point.
-* In practice, we use $\gamma = 0.97$.
-
-## KDE bandwidth selection via VR diameters
-
-```{r}
-#| label: rips_kde
-tar_read(rips_kde)
-```
-
-## Kernel density estimation (consistency)
-
-Let $Y_1,\dots,Y_n$ be iid from square integrable density function $f$. Then KDE is a *consistent* estimator of $f$ if
-  $$
-  \lim_{n\rightarrow0} \text{E}\left[\left(\hat{f}(\bm{u}) - f(\bm{u})\right)^2 du\right] = 0
-  $$
-
-\vspace*{0.2cm}
-
-###
-\vspace*{-0.3cm}
-For $\hat{f}$ to be a consistent estimator, $\bm{H}$ must be a symmetric positive-definite matrix that satisfies the following conditions:
-
-  * All elements of $\bm{H}$ approach zero as $n\rightarrow\infty$
-  * $n^{-1}|\bm{H}|^{-1/2} \rightarrow 0$ as $n\rightarrow\infty$
-
-## KDE bandwidth selection via VR diameters
-\fontsize{13}{14}\sf\vspace*{-0.2cm}
-\begin{theorem}
-  Let $f:\R^m \to \R$ be a Lipschitz density function. For any $\gamma\in (0,1)$, $d_{\gamma}^* \to 0$ a.s., where $d_{\gamma}^* =$  $\gamma$ quantile of finite death times.
-\end{theorem}\pause\vspace*{-0.15cm}
-\begin{theorem}
-  Let $d_k=$ $k$th smallest death time of $0$-homology for Rips filtrations of $n$ points from distribution over $\R^2$ s.t. density  bounded above. Choose any sequence of integers $\{\omega(n)\}$ s.t. $0<\omega(n) <n$ $\forall n$ and $\lim_{n\to \infty} \omega_n =\infty$. Then $nd_{\omega(n)}\to \infty$ as $n\to \infty$.
-\end{theorem}\pause\vspace*{-0.15cm}
-\begin{theorem}
-  Let $d_1=$ smallest death time of $0$-homology for Rips filtrations of $n$ points from distribution over $\R^m$, $m\geq 3$, s.t. density bounded above. Then $nd_{1}\to \infty$ as $n\to \infty$.
-\end{theorem}
-
-## Lookout algorithm
-\fontsize{13}{15}\sf\vspace*{-0.2cm}
-
-1. $\bm{Y}=$ data matrix with rows $\bm{y}_1, \dots, \bm{y}_n$. 
-2. $\hat{\bm{\Sigma}}=$ orthogonalized Gnanadesikan-Kettenring estimate of $\text{Cov}(\bm{Y})$, with eigendecomposition $\hat{\bm{\Sigma}} = \bm{U}\bm{D}\bm{U}^\top$.
-3. Rotate and scale the data: $\bm{Z} = \bm{U}\bm{Y}$.
-4. Compute persistence homology barcode of $\bm{Z}$ for dim zero using Vietoris-Rips diameter; obtain ordered death diameters $\{d_i\}_{i = 1}^n$.
-5. $d^*_\gamma = \gamma$ sample quantile computed from $\{ d_i \}_{i=1}^n$.
-6. Compute kde: $f_i = \hat{f}(\bm{z}_i)$, $i=1,\dots,n$, where $\bm{H} = (d_\gamma^*)^{2/m}\bm{I}_m$.
-7. Compute LOO kde values $f_{-i} = \frac{1}{n-1} \big( n f_i - \bm{H}^{-1/2} K(\bm{0}) \big)$, $i=1,\dots,n$.
-8. Fit GPD to largest $1-\beta$ of surprisals $\{-\log f_i\}_{i=1}^n$, constraining shape parameter to be non-positive.
-9. $p_i = (1-\beta)P(-\log f_{-i} \mid \hat{\mu}, \hat{\sigma}, \hat{\xi})$, $P$ = GPD cdf.
+# Old Faithful recording errors?
 
 ## Old Faithful eruptions
 
@@ -615,36 +296,85 @@ tar_read(of_lookout_prob) |>
   kableExtra::kbl(booktabs = TRUE, linesep="")
 ```
 
-## Experiment 1
+
+# Forgotten epidemics
+
+## Forgotten epidemics
 
 ```{r}
-#| label: fig_exp1
-tar_read(fig_exp1)
+#| label: fig_fr-mortality
+
+tar_read(fig_fr_mortality)
 ```
 
-## Experiment 2
+## Forgotten epidemics
 
 ```{r}
-#| label: fig_exp2
-tar_read(fig_exp2)
+#| label: fig_fr-mortality2
+
+tar_read(fig_fr_mortality2)
 ```
 
-## Experiment 3
+## Surprises through history
 
 ```{r}
-#| label: fig_showcase
-tar_read(fig_showcase)
+#| label: fig_fr-anomalies
+
+tar_read(fig_fr_anomalies)
 ```
+
+## What were they?
+\vspace*{0.2cm}
+
+- 1832, 1849: Cholera outbreaks
+- 1870: Franco--Prussian war
+- 1871: Repression of the 'Commune de Paris'
+- 1914--1918: World War I
+- 1918: Spanish flu outbreak
+- 1940: World War II
 
 # Conclusions
 
-## Conclusions
+## The idea in one sentence
+\vspace*{0.6cm}
+
+\begin{alertblock}{}
+\centering\large
+A weird observation isn't one with an extreme \emph{value} ---\\[0.2cm]
+it's one that is extremely \emph{surprising}.\\[0.2cm]
+And surprise is something we can \alert{measure}.
+\end{alertblock}
+
+\vspace*{0.4cm}
+
+- Works for numbers, curves, images --- any kind of data object.
+- One principled idea in place of a grab-bag of ad hoc rules.
+
+## Find out more
 \fontsize{13}{15.5}\sf\vspace*{-0.25cm}
 
-* Surprisal-based anomaly detection is a flexible, probabilistic approach that can be used in any context where a probability distribution can be defined on the space of observations
-* EVT theory on surprisals due to Hyndman & Frazier (in preparation)
-* Original lookout algorithm due to Kandanaarachichi & Hyndman (*JCGS*, 2022). <https://robjhyndman.com/publications/lookout>
-* Modified lookout algorithm due to Hyndman, Kandanaarachichi & Turner (in preparation)
-* R packages `lookout` and `weird` available on CRAN
-* Book in preparation at <https://OTexts.com/weird>
-* Slides and links: <https://robjhyndman.com/toptime2025>
+- R packages `lookout` and `weird` available on CRAN
+- Book in preparation at <https://OTexts.com/weird>
+- Slides and links: <https://robjhyndman.com/toptime2025>
+
+\vspace*{0.3cm}
+
+\alert{Underlying methods:}
+
+- Original lookout algorithm: Kandanaarachchi \& Hyndman (*JCGS*, 2022).
+  <https://robjhyndman.com/publications/lookout>
+- Extreme value theory for surprisals: Hyndman \& Frazier (in preparation)
+
+## Coauthors
+
+\placefig{0.2}{1.4}{height=5cm}{figs/sevvandi.png}
+\begin{textblock}{5}(0.2,6.7)\centering
+Sevvandi\\ Kandanaarachchi\\ \emph{CSIRO} \end{textblock} \placefig{5.5}{1.4}{height=5cm}{figs/kate.png}
+\begin{textblock}{5}(5.5,6.7)\centering
+ Kate\\
+ Turner\\
+ \emph{ANU}
+\end{textblock}
+\placefig{10.8}{1.4}{height=5cm}{figs/david.png}
+\begin{textblock}{5}(10.8,6.7)\centering
+David\\ Frazier \\ \emph{Monash U} \end{textblock}

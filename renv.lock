@@ -4157,6 +4157,7 @@
       "Suggests": [
         "mgcv",
         "mclust",
+        "rrcov",
         "testthat (>= 3.0.0)",
         "tidyr"
       ],
@@ -4170,16 +4171,14 @@
       "Config/testthat/edition": "3",
       "Config/roxygen2/version": "8.0.0",
       "Config/Needs/website": "tidyverse/tidytemplate",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "weird",
-      "RemoteUsername": "robjhyndman",
-      "RemotePkgRef": "robjhyndman/weird",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "3870824541ed05af0423c351a4c4eb44cfb8f616",
-      "NeedsCompilation": "no",
       "Author": "Rob Hyndman [aut, cre, cph] (ORCID: <https://orcid.org/0000-0002-2140-5352>), RStudio [cph]",
-      "Maintainer": "Rob Hyndman <Rob.Hyndman@monash.edu>"
+      "Maintainer": "Rob Hyndman <Rob.Hyndman@monash.edu>",
+      "RemoteType": "github",
+      "RemoteUsername": "robjhyndman",
+      "RemoteRepo": "weird",
+      "RemoteRef": "main",
+      "RemoteSha": "538fe9942cbb5bfe2b6671580d46d095c180bd06",
+      "RemoteHost": "api.github.com"
     },
     "withr": {
       "Package": "withr",
