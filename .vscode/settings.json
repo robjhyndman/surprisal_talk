@@ -2,5 +2,6 @@
   "cSpell.words": [
     "figchisq",
     "JCGS"
-  ]
+  ],
+  "editor.formatOnSave": true
 }

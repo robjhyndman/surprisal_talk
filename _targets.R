@@ -40,6 +40,18 @@ list(
     create_fig_density(dist_chisq(5), y = 9, shading = FALSE)
   ),
   tar_target(
+    fig_sp0,
+    create_fig_surprisal_prob(step = 0L)
+  ),
+  tar_target(
+    fig_sp1,
+    create_fig_surprisal_prob(step = 1L)
+  ),
+  tar_target(
+    fig_sp2,
+    create_fig_surprisal_prob(step = 2L)
+  ),
+  tar_target(
     fig61,
     create_fig_density(dist_chisq(5), y = 9)
   ),
