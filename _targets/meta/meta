@@ -13,7 +13,6 @@ slides_fsi|stem|90980107b113dc1c|67323381f96b3b2d|a2a03a88cddc3d46|-1110546317|s
 norm_data|stem|7da4e9903ffb5923|ca0c7b832947058a|2c530c1562a7fbd1|199291849||t20637.0605094562s|s7750b|7750|rds|local|vector|||0.022||
 rips_data|stem|fa129f46b4c05c7d|b5668219c1f30507|2c530c1562a7fbd1|1557698455||t20637.0605097166s|s479b|479|rds|local|vector|||0.001||
 fr_mortality|stem|a69f78b44382efa7|b80d086a10275110|2c530c1562a7fbd1|1658610472||t20637.0605102005s|s176946b|176946|rds|local|vector|||0.005||
-wine_reviews|stem|0cb0fd9262bee8c6|eacf55ed53c0a509|2c530c1562a7fbd1|-1024037250||t20637.0605339471s|s56758b|56758|rds|local|vector|||2.039||
 alpha|stem|2bf4883432722e1c|a423581c2cc925ec|2c530c1562a7fbd1|-1209573786||t20637.0605341993s|s55b|55|rds|local|vector|||0.001||
 beta|stem|1757138e6a2d932e|c0dc9518d5b0aae3|2c530c1562a7fbd1|-492926814||t20637.0605342864s|s53b|53|rds|local|vector|||0||
 gamma|stem|4b376b50eb344f10|e8db2899c4f2c5f7|2c530c1562a7fbd1|-1635482996||t20637.0605343593s|s55b|55|rds|local|vector|||0||
@@ -232,7 +231,6 @@ rip_file_0.3_59|stem|35b4a73effb4cb6a|8c80b065f3c99cb2|d752cb747c330ff3|-1417717
 fig_fr_mortality2|stem|7fd11deb917e23fe|d61efa7715953698|a40e953a56206216|-1520667586||t20637.0771120396s|s942218b|942218|rds|local|vector|||0.015||
 fr_anomalies|stem|e26517f167a0dab6|59353db7eff907e3|58e8a49262166824|-1599032977||t20637.0771214335s|s2940b|2940|rds|local|vector|||0.789|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22`, `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
 fig_fr_mortality|stem|9189e2ebd7abfe76|c01530452deb5324|a40e953a56206216|-1049618713||t20637.077122549s|s942218b|942218|rds|local|vector|||0.004||
-wine_aug|stem|482d2860af8236b5|0b7679edc6d3417a|ed6c6011b021c4b8|476847258||t20637.0771232007s|s244098b|244098|rds|local|vector|||0.023||
 rips_kde_bandwidth|stem|6b0812d6ad7f4aed|02c226dbaf70402f|f8882138a4f51923|-475240671||t20637.0771234631s|s55b|55|rds|local|vector|||0.011||
 exp3_results|stem|88b77c7fc776b606|40a76564fdf395b0|b0bdbd3e08b901cd|1691492671||t20637.0895572519s|s1695b|1695|rds|local|vector|||1074.264||
 showcase_results|stem|393ff08a2425efe5|74482a27d9b3bc1f|b7b32d66cb68a9a5|-1633236555||t20637.0895643703s|s84164b|84164|rds|local|vector|||0.599||
@@ -247,18 +245,9 @@ fig_expt2|stem|8f019758bdd8daee|ec7e77e02ec1fb83|2821a224241efd8c|1829689275||t2
 not_outs|stem|6ece1050830a5070|bd3772fa630134d6|11b0b5ad1cc08f38|-295725273||t20637.0996642467s|s90573b|90573|rds|local|vector|||0.002||
 fig_expt1|stem|45178e103a695d9d|21003c6016fa5f81|99f1abe539c493bb|259389283||t20637.0996649421s|s157382b|157382|rds|local|vector|||0.027||
 fig_expt1b|stem|f3b4bc1348a53a4a|96d9c5faaed2a058|99f1abe539c493bb|-1786410210||t20637.0996655189s|s156994b|156994|rds|local|vector|||0.017||
-figchisq1|stem|c0b201fd769fc496|594d11180f31769b|af81a5dcc6ffee33|-1572525649||t20637.0996661788s|s202450b|202450|rds|local|vector|||0.009||
-figchisq2|stem|794d62149dca0341|ca1cc995669ce460|93430095cd093d4a|1109503496||t20637.0996668754s|s203359b|203359|rds|local|vector|||0.015||
-figchisq3|stem|380304534ca30f73|79ea0df6dad11e5f|854ee0428dc64168|-243547568||t20637.0996674749s|s203367b|203367|rds|local|vector|||0.007||
 fig_fr_mortality3|stem|c14296a11b50801e|dfccf4b212371ac9|f8bb3ceb48f6dc24|-994436003||t20637.0996685685s|s960297b|960297|rds|local|vector|||0.01||
 fig_fr_mortality4|stem|5babf1931f718456|e869329106e942f5|f8bb3ceb48f6dc24|-1402271646||t20637.099669755s|s960298b|960298|rds|local|vector|||0.015||
 fig_fr_anomalies|stem|fc24f18d48467e01|7de4a73bb331bccd|fe225485907f18cf|670799851||t20637.0996712074s|s293598b|293598|rds|local|vector|||0.058||
-fig_wine|stem|43beb066e7582b26|7c832c6b48b9fbf4|9046972b254dbc22|1853383857||t20637.0996725675s|s1100424b|1100424|rds|local|vector|||0.012||
-fig_wine2|stem|dd49d10641808b0e|2ee5a880de499c92|9046972b254dbc22|-1729682820||t20637.0996755999s|s2697446b|2697446|rds|local|vector|||0.008||
-wine_loo_anomalies|stem|d50265bbb4e5a293|a4aa75624f05f745|520c005cf02dfa59|-810878057||t20637.0996785398s|s2673318b|2673318|rds|local|vector|||0.01||
-wine_model_plot|stem|7dc1b688a49e4fbd|cd8fe372f4f2bed7|02433915346c2628|-1252684200||t20637.0996814102s|s2488584b|2488584|rds|local|vector|||0.012||
-wine_anomalies|stem|3ed6943507d4c71d|846dd205dbbcc9f7|7998fac04d014279|-302782258||t20637.0996817231s|s164b|164|rds|local|vector|||0.009||
-wine_loo_surprisals|stem|d71f9b8d0757ff00|2e605dcad3fa0ace|520c005cf02dfa59|-1421290143||t20637.0996847898s|s2670075b|2670075|rds|local|vector|||0.023||
 rips_kde|stem|79fd5933b1fe885e|74cd510d64929400|0f93421fa0e9d015|-1356057470||t20637.0996870133s|s1312158b|1312158|rds|local|vector|||0.083||
 fig_exp3|stem|aa7bc2f6b4166f51|89ff3de051f5889e|654b4c59bdb3e4c7|954333348||t20637.0996885278s|s1841314b|1841314|rds|local|vector|||0.024||
 fig_showcase|stem|9c8a9e969bc44a46|9a822d5cc887d730|56bbae0b9bc50831|1469136141||t20637.0996898158s|s1096088b|1096088|rds|local|vector|||0.011||
@@ -278,6 +267,21 @@ not_outs_plot|stem|4c48cc0b5505b74f|aa5ba3d3bade3b46|8c998ae7ca9bd628|-865269473
 fig_sp0|stem|708c1c4fa1872670|f5dcd79359174156|4a1203fbf62655e1|-1433420519||t20640.2807408056s|s228602b|228602|rds|local|vector|||2.815||
 fig_sp1|stem|79252a5e8a81b6ef|e581f884a1f54f39|4a1203fbf62655e1|-389765719||t20640.2807731786s|s253399b|253399|rds|local|vector|||2.738||
 fig_sp2|stem|ba4faa55193e07fc|b7e190c9cd76a0c9|4a1203fbf62655e1|-1640226396||t20640.2808069172s|s266960b|266960|rds|local|vector|||2.83||
+figchisq1|stem|0b45479ac4ecc41f|594d11180f31769b|a4ca22188e47cc40|-1572525649||t20641.2322916315s|s202467b|202467|rds|local|vector|||0.03||
+figchisq2|stem|b8651d77ed86f7f5|ca1cc995669ce460|df1e1ab46a95dc98|1109503496||t20641.2322939369s|s203369b|203369|rds|local|vector|||0.135||
+figchisq3|stem|0e74f34a0aaf5c85|79ea0df6dad11e5f|dd8e4507fe4c9bd3|-243547568||t20641.2322947966s|s203377b|203377|rds|local|vector|||0.012||
+spot_anomaly_data|stem|4cb96494835c3568|a13993e7139a75f5|e4de03a5af0490bc|-764459334||t20641.2520667143s|s36728b|36728|rds|local|vector|||0.027||
+fig_spot_anomaly1|stem|3a2a39714f6d67bb|27643aab95099ed0|93d8b4a17aa895cb|1828931490||t20641.2520675361s|s224777b|224777|rds|local|vector|||0.017||
+fig_spot_anomaly2|stem|bb027e6ed1f4ca91|59fdb6a13b3026e4|95a4d18b20b279e9|217533196||t20641.2520684244s|s221493b|221493|rds|local|vector|||0.003||
+wine_reviews|stem|2a649b8748af60ae|a93cd505d3dcd730|2c530c1562a7fbd1|-1024037250||t20641.30273825s|s48200b|48200|rds|local|vector|||1.556||
+wine_aug|stem|c587374acc76e4fb|0b7679edc6d3417a|73c83497fc591289|476847258||t20641.3027410876s|s238640b|238640|rds|local|vector|||0.023||
+wine_model_plot|stem|22d4e9f86f96c7bd|cd8fe372f4f2bed7|ced43a05a5b98a24|-1252684200||t20641.3027444825s|s2415584b|2415584|rds|local|vector|||0.034||
+fig_wine|stem|dc59124da871aae1|7c832c6b48b9fbf4|1a610deb31094eea|1853383857||t20641.3027458498s|s1058652b|1058652|rds|local|vector|||0.019||
+fig_wine1|stem|3df40f89c326fe1c|e2617f9a7e9b57c0|1a610deb31094eea|-1104339166||t20641.3027472778s|s1138948b|1138948|rds|local|vector|||0.004||
+fig_wine2|stem|e4b40723ebfd5af3|2ee5a880de499c92|1a610deb31094eea|-1729682820||t20641.3027499132s|s2609528b|2609528|rds|local|vector|||0.007||
+wine_anomalies|stem|3ed6943507d4c71d|846dd205dbbcc9f7|09e8bc35b6ed019e|-302782258||t20641.302750142s|s164b|164|rds|local|vector|||0.007||
+wine_loo_anomalies|stem|40a468b0a438d3b4|a4aa75624f05f745|98b44076434ab2d7|-810878057||t20641.3027528913s|s2615540b|2615540|rds|local|vector|||0.012||
+wine_loo_surprisals|stem|ea5bed60ecaafc1d|2e605dcad3fa0ace|98b44076434ab2d7|-1421290143||t20641.302755746s|s2614202b|2614202|rds|local|vector|||0.016||
 get_expt2_prob_single|function|e59c7cf56bb14731
 augment_wine|function|58b4e8ba9cfe2f5a
 create_showcase_figure|function|30460ff456b5d230
@@ -294,7 +298,7 @@ noutouts_anomalies|function|87a06cc95c72f089
 rips|function|70c5e8526e720c1d
 kde_kernels|function|85b39385f2005d5a
 augment_notouts|function|120c6b036fc687e5
-make_figchisq1|function|b5127fd2d41550ab
+make_figchisq1|function|7a1ad1babde30f99
 generate_exp1|function|428ae308d8401455
 get_expt1_prob|function|9bb13fbb1f610943
 create_fig_surprisal_prob|function|8eea0aa0348fba62
@@ -307,10 +311,13 @@ gpd_shape|function|0a6db284fcb2693c
 create_gpd_shape_fig|function|fdbcc432fcd3fbc4
 fit_notouts|function|02b1342331ef627b
 hampel_anomalies|function|49fdea8f79f5db32
-create_wine_figure|function|b0e6f0564cf64efa
+create_wine_figure|function|6ed6e9034deefa69
+make_spot_anomaly_data|function|07117f74786de401
+create_fig_spot_anomaly1|function|023f63826912cf5d
+create_fig_spot_anomaly2|function|688cff08acfab454
 of_labels|object|0b7caf9ec2dd45e5
-truncated_smooth|function|2209345bcc71d09a
 create_fig_expt2|function|23ac8fd40308dc84
+truncated_smooth|function|2209345bcc71d09a
 create_wine_model_plot|function|302d3f46ba996ccf
 create_fr_anomaly_plot|function|28e72f88ffd2bf2f
 get_of_lookout_prob|function|5b3b7c7a98b9ce5f
@@ -334,4 +341,4 @@ run_synthetic_exp4|function|b77b799c986ff3f3
 analyse_old_faithful|function|2200323710e43aa1
 analyse_wine_data|function|6e2210dcd1e2ea14
 get_gpd_shape|function|0a98f77fe790965a
-slides|stem|000487c3a64a7edd|e91e0a65a1460594|cc72651fdf23487a|1331386099|auckland_2026_files*auckland_2026.pdf*auckland_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*header.tex|t20640.2946571966s|s18548285b|18548285|file|local|vector|||14.417||
+slides|stem|80dd63a9dea7be13|4a45ab3368930f15|1dc9a1145bd744e4|1331386099|auckland_2026_files*auckland_2026.pdf*attach_weird.txt*auckland_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*header.tex|t20641.3091207575s|s16893567b|16893567|file|local|vector|||17.747||

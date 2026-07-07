@@ -21,7 +21,7 @@ format:
     fig-height: 4.25
     titlegraphic: bg-13.png
     titlecolor: white
-    keep-tex: false
+    keep-tex: true
 include-in-header: header.tex
 highlight-style: tango
 execute:
@@ -38,6 +38,7 @@ library(targets)
 library(weird)
 tar_source("R/functions.R")
 set_ggplot_options()
+tar_load(wine_reviews)
 ```
 
 ## Outline
@@ -228,7 +229,7 @@ tibble(
   arrange(p)
 ```
 
-# Over-priced wine
+# Wine quality and prices
 
 ## Application to wine quality and prices
 
@@ -248,76 +249,73 @@ tar_read(fig_wine1)
 
 ## Application to wine quality and prices
 \vspace*{-0.3cm}\fontsize{13}{14}\sf
-Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+Model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+
+```{r}
+#| label: wine_model
+#| echo: true
+
+wine_lm <- lm(log(price) ~ points, data = wine_reviews)
+wine_reviews <- wine_reviews |>
+  mutate(p = surprisals_prob(wine_lm))
+wine_reviews |> arrange(p)
+```
+
+## Application to wine quality and prices
+
+\begin{textblock}{1.85}(13.9,0.05)
+\begin{block}{}\small
+\textcolor{Orange}{$p_i < 0.001$}
+\end{block}
+\end{textblock}
 
 ```{r}
 #| label: fig_wine-model
 #| fig-height: 3.8
+#| 
 
-tar_read(wine_model_plot)
+wine_reviews |>
+  ggplot(aes(x = points, y = price)) +
+  geom_point(aes(colour = p > 0.001), alpha = 0.5) +
+  geom_line(aes(y = exp(predict(wine_lm))), color = "blue") +
+  scale_y_log10() +
+  guides(colour = "none")
 ```
 
 ## Application to wine quality and prices
-\vspace*{-0.3cm}\fontsize{13}{14}\sf
-Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
-```{r}
-#| label: fig_wine-loo
-#| fig-height: 3.8
-
-tar_read(wine_loo_surprisals)
-```
-
-## Application to wine quality and prices
-\vspace*{-0.3cm}\fontsize{13}{14}\sf
-Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
-
-```{r}
-#| label: fig_wine-loo-anomalies
-#| fig-height: 3.8
-
-tar_read(wine_loo_anomalies)
-```
-
-\begin{textblock}{4.9}(1.9,2.0)
-\begin{block}{}\footnotesize
-GPD fitted to top 10\% of surprisals computed from LOO predictive densities.
-\end{block}
-\end{textblock}
-
-\begin{textblock}{1.85}(13.9,0.95)
+\begin{textblock}{1.85}(13.9,0.05)
 \begin{block}{}\small
-\textcolor{red}{$\alpha = 0.001$}
+\textcolor{Orange}{$p_i < 0.001$}
 \end{block}
 \end{textblock}
 
-## Application to wine quality and prices
-
 ```{r}
-#| label: fig_wine2
+#| label: fig_wine-model2
+#| fig-height: 3.8
+#| 
 
-tar_read(fig_wine2)
+wine_reviews |>
+  ggplot(aes(x = points, y = price)) +
+  geom_point(aes(colour = p > 0.001), alpha = 0.5) +
+  geom_line(aes(y = exp(predict(wine_lm))), color = "blue") +
+  guides(colour = "none")
 ```
 
-\begin{textblock}{1.85}(13.9,0.95)
-\begin{block}{}\small
-\textcolor{red}{$\alpha = 0.001$}
-\end{block}
-\end{textblock}
-
 ## Application to wine quality and prices
-\vspace*{-0.2cm}
-\structure{Anomalies detected ($\alpha=0.001$):}
-\fontsize{12}{14}\selectfont\vspace*{-0.3cm}
+
+\alert{Weirdly low priced wines}
 
 ```{r}
-#| label: wine-anomalies
+#| label: bargains
+#| echo: true
 
-tar_read(wine_anomalies) |>
-  kableExtra::kbl(booktabs = TRUE, linesep = "")
+wine_reviews |>
+  filter(p < 0.001, log(price) < fitted(wine_lm)) |>
+  arrange(points, price) 
 ```
 
-# Old Faithful recording errors?
+# Old Faithful recording errors
 
 ## Old Faithful eruptions
 

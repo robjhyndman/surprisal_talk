@@ -180,7 +180,8 @@ list(
   tar_target(
     wine_reviews,
     weird::fetch_wine_reviews() |>
-      filter(variety %in% c("Shiraz", "Syrah"))
+      filter(variety %in% c("Shiraz", "Syrah")) |>
+      select(-variety, -region)
   ),
   tar_target(
     wine_aug,
