@@ -169,6 +169,8 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 \vspace*{10cm}
 ```
 
+# weird R package
+
 ## weird R package
 \placefig{12.5}{5.1}{width=3cm}{figs/weird-hex.png}
 
@@ -176,8 +178,19 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 library(weird)
 ```
 
+\pause
+
 ```txt
 {{< include attach_weird.txt >}}
+```
+
+```{=latex}
+\only<3>{\begin{textblock}{10.6}(0.5, 5.2)
+\begin{itemize}\tightlist
+\item Functions and data sets required for \textit{That's Weird: Anomaly Detection Using R} \href{https://OTexts.com/weird/}{\texttt{OTexts.com/weird}}
+\item All packages needed to run the examples are also loaded
+\end{itemize}
+\end{textblock}}
 ```
 
 ## weird R package
@@ -205,12 +218,12 @@ set.seed(2026)
 #| label: weird_eg
 #| echo: true
 #| 
-f <- dist_normal(mean = 0, sd = 1)
+N01 <- dist_normal(mean = 0, sd = 1)
 tibble(
-  y = generate(f, times = 1000)[[1]],
-  s = surprisals(y, distribution = f),
-  p = surprisals_prob(y, distribution = f),
-  p_approx = surprisals_prob(y, distribution = f, approximation = "gpd")
+  y = generate(N01, times = 1000)[[1]],
+  s = surprisals(y, distribution = N01),
+  p = surprisals_prob(y, distribution = N01),
+  p_approx = surprisals_prob(y, distribution = N01, approximation = "gpd")
 ) |>
   arrange(p)
 ```
