@@ -92,23 +92,7 @@ All points were randomly generated from the **same** $\chi^2_5$ distribution.
 #| label: anomaly_check4
 #| out-width: "55%"
 
-library(ggplot2)
-library(dplyr)
-set.seed(2)
-x <- runif(2500, -1, 1)
-y <- runif(2500, -1, 1)
-df <- tibble(x = x, y = y) |>
-  mutate(r = x^2 + y^2) |>
-  filter(r < 1)
-df |>
-  ggplot(aes(x = x, y = y)) +
-  geom_point(alpha = 0.5) +
-  geom_point(
-    data = data.frame(x = 0.75, y = -0.75),
-    aes(x = x, y = y),
-    alpha = 0.5
-  ) +
-  coord_fixed()
+tar_read(fig_spot_anomaly1)
 ```
 
 ## Spot the anomaly
@@ -117,11 +101,7 @@ df |>
 #| label: anomaly_check5
 #| out-width: "55%"
 
-df |>
-  filter(r > 0.025 | r == min(r)) |>
-  ggplot(aes(x = x, y = y)) +
-  geom_point(alpha = 0.5) +
-  coord_fixed()
+tar_read(fig_spot_anomaly2)
 ```
 
 ## Are there any anomalies here?

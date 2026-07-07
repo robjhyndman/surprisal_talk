@@ -81,3 +81,32 @@ create_fig_density <- function(distribution, y, shading = TRUE) {
       minor_breaks = NULL
     )
 }
+
+make_spot_anomaly_data <- function() {
+  set.seed(2)
+  x <- runif(2500, -1, 1)
+  y <- runif(2500, -1, 1)
+  tibble(x = x, y = y) |>
+    mutate(r = x^2 + y^2) |>
+    filter(r < 1)
+}
+
+create_fig_spot_anomaly1 <- function(data) {
+  data |>
+    ggplot(aes(x = x, y = y)) +
+    geom_point(alpha = 0.5) +
+    geom_point(
+      data = data.frame(x = 0.75, y = -0.75),
+      aes(x = x, y = y),
+      alpha = 0.5
+    ) +
+    coord_fixed()
+}
+
+create_fig_spot_anomaly2 <- function(data) {
+  data |>
+    filter(r > 0.025 | r == min(r)) |>
+    ggplot(aes(x = x, y = y)) +
+    geom_point(alpha = 0.5) +
+    coord_fixed()
+}

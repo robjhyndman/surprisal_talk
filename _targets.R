@@ -40,6 +40,18 @@ list(
     create_fig_density(dist_chisq(5), y = 9, shading = FALSE)
   ),
   tar_target(
+    spot_anomaly_data,
+    make_spot_anomaly_data()
+  ),
+  tar_target(
+    fig_spot_anomaly1,
+    create_fig_spot_anomaly1(spot_anomaly_data)
+  ),
+  tar_target(
+    fig_spot_anomaly2,
+    create_fig_spot_anomaly2(spot_anomaly_data)
+  ),
+  tar_target(
     fig_sp0,
     create_fig_surprisal_prob(step = 0L)
   ),
