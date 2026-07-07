@@ -3,6 +3,18 @@
 \usepackage{algpseudocode}%
 \usepackage{bm,bbm}
 \usepackage{animate}
+\usepackage{newunicodechar}
+\newfontfamily\dejavusansmono{DejaVu Sans Mono}
+\newunicodechar{✔}{{\dejavusansmono ✔}}
+\newunicodechar{✖}{{\dejavusansmono ✖}}
+\AtBeginDocument{%
+  \let\OldStringTok\StringTok
+  \renewcommand{\StringTok}[1]{{\dejavusansmono\OldStringTok{#1}}}%
+  \let\OldSpecialStringTok\SpecialStringTok
+  \renewcommand{\SpecialStringTok}[1]{{\dejavusansmono\OldSpecialStringTok{#1}}}%
+  \let\OldVerbatimStringTok\VerbatimStringTok
+  \renewcommand{\VerbatimStringTok}[1]{{\dejavusansmono\OldVerbatimStringTok{#1}}}%
+}
 
 \def\E{\mathbb{E}}
 \def\Pr{\mathbb{P}}

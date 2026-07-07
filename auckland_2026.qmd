@@ -13,6 +13,7 @@ abstract: >-
 toc: true
 format:
   presentation-beamer:
+    pdf-engine: xelatex
     knitr:
       opts_chunk:
         dev: "CairoPDF"
