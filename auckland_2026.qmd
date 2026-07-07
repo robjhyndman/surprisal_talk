@@ -156,7 +156,7 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 
 - $y_i$ can be multivariate, functional, image, \dots\pause
 
-- $f$ can be assumed, estimated, conditional, \dots
+- $f$ can be assumed, estimated, conditional, \dots\pause
 
 - We can use \alert{extreme value theory} when $f$ is wrong:
 
@@ -168,7 +168,41 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 \vspace*{10cm}
 ```
 
-# Over-priced wine?
+## weird R package
+
+\placefig{0.5}{1.5}{width=3cm}{figs/weird-hex.png}
+
+\begin{textblock}{11.8}(3.8, 1.2)
+\begin{itemize}\tightlist
+\item \texttt{surprisals()} computes surprisal values for any data object using a user-specified density function, or a kernel density estimate. It also works with linear models, GLMs, and GAMs.
+\item \texttt{surprisals\_prob()} computes the corresponding surprisal probabilities, using extreme value theory if necessary.
+\item Distributions can be specified as \texttt{distributional} objects from the \texttt{distributional} package.
+\end{itemize}
+\end{textblock}
+
+## weird R package
+\placefig{12.5}{.1}{width=3cm}{figs/weird-hex.png}
+
+```{r}
+#| label: seed-for-weird_eg
+#| 
+set.seed(2026)
+```
+
+```{r}
+#| label: weird_eg
+#| echo: true
+#| 
+library(weird)
+f <- dist_normal(mean = 0, sd = 1)
+tibble(
+  y = generate(f, times = 1000)[[1]],
+  s = surprisals(y, distribution = f),
+  p = surprisals_prob(y, distribution = f),
+  p_approx = surprisals_prob(y, distribution = f, approximation = "gpd")
+) |>
+  arrange(p)
+```
 
 ## Application to wine quality and prices
 
