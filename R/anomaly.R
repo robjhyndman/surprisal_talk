@@ -6,7 +6,7 @@ make_figchisq1 <- function(data) {
     geom_point(
       data = data |> filter(x == max(x)),
       aes(x = x, y = 1),
-      color = "red"
+      color = "#cc5900"
     ) +
     labs(y = "", x = "y") +
     xlim(0, 26)
