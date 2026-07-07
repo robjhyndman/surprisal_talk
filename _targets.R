@@ -207,6 +207,10 @@ list(
     create_wine_figure(wine_aug, show_anomalies = FALSE)
   ),
   tar_target(
+    fig_wine1,
+    create_wine_figure(wine_aug, show_anomalies = FALSE, log = TRUE)
+  ),
+  tar_target(
     fig_wine2,
     create_wine_figure(wine_aug, show_anomalies = TRUE)
   ),

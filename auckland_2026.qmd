@@ -204,6 +204,8 @@ tibble(
   arrange(p)
 ```
 
+# Over-priced wine
+
 ## Application to wine quality and prices
 
 ```{r}
@@ -213,7 +215,15 @@ tar_read(fig_wine)
 ```
 
 ## Application to wine quality and prices
-\vspace*{-0.3cm}
+
+```{r}
+#| label: fig_wine1
+#| 
+tar_read(fig_wine1)
+```
+
+## Application to wine quality and prices
+\vspace*{-0.3cm}\fontsize{13}{14}\sf
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}
@@ -224,7 +234,7 @@ tar_read(wine_model_plot)
 ```
 
 ## Application to wine quality and prices
-\vspace*{-0.3cm}
+\vspace*{-0.3cm}\fontsize{13}{14}\sf
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}
@@ -235,7 +245,7 @@ tar_read(wine_loo_surprisals)
 ```
 
 ## Application to wine quality and prices
-\vspace*{-0.3cm}
+\vspace*{-0.3cm}\fontsize{13}{14}\sf
 Proposed model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
 
 ```{r}

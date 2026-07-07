@@ -11,7 +11,12 @@ analyse_wine_data <- function(wine_reviews, scale, alpha, beta, gamma) {
     mutate(method = "New Lookout")
 }
 
-create_wine_figure <- function(results, show_anomalies = TRUE, alpha = 0.001) {
+create_wine_figure <- function(
+  results,
+  show_anomalies = TRUE,
+  log = FALSE,
+  alpha = 0.001
+) {
   if (
     show_anomalies &
       !("outliers" %in% colnames(results)) &
@@ -35,6 +40,9 @@ create_wine_figure <- function(results, show_anomalies = TRUE, alpha = 0.001) {
   } else {
     p <- p +
       geom_point(alpha = 0.4)
+  }
+  if (log) {
+    p <- p + scale_y_log10()
   }
   p +
     labs(
