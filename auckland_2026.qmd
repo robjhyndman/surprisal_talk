@@ -35,7 +35,7 @@ execute:
 #| label: load-packages
 
 library(targets)
-library(ggplot2)
+library(weird)
 tar_source("R/functions.R")
 set_ggplot_options()
 ```
@@ -170,6 +170,17 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 ```
 
 ## weird R package
+\placefig{12.5}{5.1}{width=3cm}{figs/weird-hex.png}
+
+```r
+library(weird)
+```
+
+```txt
+{{< include attach_weird.txt >}}
+```
+
+## weird R package
 
 \placefig{0.5}{1.5}{width=3cm}{figs/weird-hex.png}
 
@@ -182,7 +193,7 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 \end{textblock}
 
 ## weird R package
-\placefig{12.5}{.1}{width=3cm}{figs/weird-hex.png}
+\placefig{12.5}{5.1}{width=3cm}{figs/weird-hex.png}
 
 ```{r}
 #| label: seed-for-weird_eg
@@ -194,7 +205,6 @@ set.seed(2026)
 #| label: weird_eg
 #| echo: true
 #| 
-library(weird)
 f <- dist_normal(mean = 0, sd = 1)
 tibble(
   y = generate(f, times = 1000)[[1]],
