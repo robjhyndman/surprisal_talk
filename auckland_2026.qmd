@@ -42,7 +42,7 @@ tar_load(wine_reviews)
 ```
 
 ## Outline
-\vspace*{0.7cm}
+\vspace*{0.3cm}
 \tableofcontents[hideallsubsections]
 
 # What is an anomaly?
