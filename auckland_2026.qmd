@@ -14,6 +14,7 @@ toc: true
 format:
   presentation-beamer:
     pdf-engine: xelatex
+    latex-min-runs: 2
     knitr:
       opts_chunk:
         dev: "CairoPDF"
