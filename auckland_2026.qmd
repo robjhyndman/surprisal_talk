@@ -136,7 +136,7 @@ if (FALSE) {
   tar_load(c(fig_sp0, fig_sp1, fig_sp2))
 }
 for (step in 0:2) {
-  if(step < 2) {
+  if (step < 2) {
     cat(sprintf("\n```{=latex}\n\\only<%d>{\n```\n", step + 2))
   } else {
     cat("\n```{=latex}\n\\only<4->{\n```\n")
@@ -153,45 +153,26 @@ An observation is an \textbf{anomaly with respect to $f$} if $p_i<\alpha$.
 \end{alertblock}\end{textblock}}
 ```
 
-## Surprisal probabilities
-\surprisalheader
-
-- $y_i$ can be multivariate, functional, image, \dots\pause
-
-- $f$ can be assumed, estimated, conditional, \dots\pause
-
-- We can use \alert{extreme value theory} when $f$ is wrong:
-
-  - Surprisal: $s_i = -\log f(y_i)$\pause
-  - The upper tail of the distribution of $s_i$ is approximately Generalized Pareto Distribution, even if $f$ is incorrect\pause
-  - So $p_i = \Pr(-\log f(Y) \ge s_i ) \approx 1 - F_{GPD}(s_i)$
-
-```{=latex}
-\vspace*{10cm}
-```
-
 # weird R package
 
 ## weird R package
-\placefig{12.5}{5.1}{width=3cm}{figs/weird-hex.png}
+\placefig{12.5}{1.2}{width=3cm}{figs/weird-hex.png}
+
+```{=latex}
+\begin{textblock}{10.6}(0.5, 1.2)
+\begin{itemize}\tightlist
+\item Functions and data sets required for \textit{That's Weird: Anomaly Detection Using R} \href{https://OTexts.com/weird/}{\texttt{OTexts.com/weird}}
+\item All packages needed to run the examples are also loaded
+\end{itemize}
+\end{textblock}\pause\vspace*{3.7cm}
+```
 
 ```r
 library(weird)
 ```
 
-\pause
-
 ```txt
 {{< include attach_weird.txt >}}
-```
-
-```{=latex}
-\only<3>{\begin{textblock}{10.6}(0.5, 5.2)
-\begin{itemize}\tightlist
-\item Functions and data sets required for \textit{That's Weird: Anomaly Detection Using R} \href{https://OTexts.com/weird/}{\texttt{OTexts.com/weird}}
-\item All packages needed to run the examples are also loaded
-\end{itemize}
-\end{textblock}}
 ```
 
 ## weird R package
@@ -200,31 +181,27 @@ library(weird)
 
 \begin{textblock}{11.8}(3.8, 1.2)
 \begin{itemize}\tightlist
-\item \texttt{surprisals()} computes surprisal values for any data object using a user-specified density function, or a kernel density estimate. It also works with linear models, GLMs, and GAMs.
-\item \texttt{surprisals\_prob()} computes the corresponding surprisal probabilities, using extreme value theory if necessary.
+\item \texttt{surprisals\_prob()} is an S3 generic that computes surprisal probabilities for any data object using a user-specified density function, or a kernel density estimate. It also works with linear models, GLMs, and GAMs.
 \item Distributions can be specified as \texttt{distributional} objects from the \texttt{distributional} package.
 \end{itemize}
 \end{textblock}
 
 ## weird R package
-\placefig{12.5}{5.1}{width=3cm}{figs/weird-hex.png}
 
 ```{r}
 #| label: seed-for-weird_eg
-#| 
+
 set.seed(2026)
 ```
 
 ```{r}
 #| label: weird_eg
 #| echo: true
-#| 
+
 N01 <- dist_normal(mean = 0, sd = 1)
 tibble(
   y = generate(N01, times = 1000)[[1]],
-  s = surprisals(y, distribution = N01),
-  p = surprisals_prob(y, distribution = N01),
-  p_approx = surprisals_prob(y, distribution = N01, approximation = "gpd")
+  p = surprisals_prob(y, distribution = N01)
 ) |>
   arrange(p)
 ```
@@ -243,7 +220,7 @@ tar_read(fig_wine)
 
 ```{r}
 #| label: fig_wine1
-#| 
+
 tar_read(fig_wine1)
 ```
 
@@ -272,7 +249,6 @@ wine_reviews |> arrange(p)
 ```{r}
 #| label: fig_wine-model
 #| fig-height: 3.8
-#| 
 
 wine_reviews |>
   ggplot(aes(x = points, y = price)) +
@@ -293,7 +269,6 @@ wine_reviews |>
 ```{r}
 #| label: fig_wine-model2
 #| fig-height: 3.8
-#| 
 
 wine_reviews |>
   ggplot(aes(x = points, y = price)) +
@@ -311,8 +286,8 @@ wine_reviews |>
 #| echo: true
 
 wine_reviews |>
-  filter(p < 0.001, log(price) < fitted(wine_lm)) |>
-  arrange(points, price) 
+  filter(log(price) < fitted(wine_lm)) |>
+  arrange(p, points, price)
 ```
 
 # Old Faithful recording errors
@@ -328,55 +303,64 @@ tar_read(fig_old_faithful)
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_old-faithful2
+#| label: of1
+#| echo: true
 
-tar_read(fig_old_faithful2)
+oldfaithful
+```
+
+```{=latex}
+\begin{textblock}{6.8}(1,7.8)
+\begin{block}{}\small
+Downloaded from \href{https://geysertimes.org}{\texttt{geysertimes.org}}
+\end{block}\end{textblock}
 ```
 
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_old-faithful3
+#| label: of2
+#| echo: true
+#| warning: false
 
-tar_read(fig_old_faithful3)
+oldfaithful |>
+  mutate(p = surprisals_prob(oldfaithful[, c("duration", "waiting")])) |>
+  arrange(p)
 ```
 
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_old-faithful4
+#| label: fig_of-kde1
+#| echo: true
+#| eval: false
 
-tar_read(fig_old_faithful4)
+oldfaithful[, c("duration", "waiting")] |>
+  dist_kde() |>
+  gg_density(show_points = TRUE)
 ```
 
-\begin{textblock}{1.4}(2.2,1.75)
-\begin{block}{}\footnotesize\color{red}
-$\alpha = 0.01$
-\end{block}
-\end{textblock}
+```{r}
+#| label: fig_of-kde2
+#| echo: false
+#| fig-height: 3.5
+
+oldfaithful |>
+  select(duration, waiting) |>
+  dist_kde() |>
+  gg_density(color = "black", show_points = TRUE, alpha = 0.15) +
+  labs(x = "duration", y = "waiting")
+```
 
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_old-faithful5
+#| label: fig_of-hdrboxplot
+#| echo: true
+#| fig-height: 3.7
 
-tar_read(fig_old_faithful5)
-```
-
-\begin{textblock}{1.4}(2.2,1.75)
-\begin{block}{}\footnotesize\color{red}
-$\alpha = 0.01$
-\end{block}
-\end{textblock}
-
-## Old Faithful eruptions
-\fontsize{12}{15}\sf\vspace*{-0.3cm}\tabcolsep=0.1cm
-
-```{r}
-#| label: of-looks
-
-tar_read(of_lookout_prob) |>
-  kableExtra::kbl(booktabs = TRUE, linesep = "")
+oldfaithful |>
+  gg_hdrboxplot(duration, waiting)
 ```
 
 # Forgotten epidemics
@@ -414,6 +398,23 @@ tar_read(fig_fr_anomalies)
 - 1914--1918: World War I
 - 1918: Spanish flu outbreak
 - 1940: World War II
+
+## Surprisal probabilities
+\surprisalheader
+
+- $y_i$ can be multivariate, functional, image, \dots\pause
+
+- $f$ can be assumed, estimated, conditional, \dots\pause
+
+- We can use \alert{extreme value theory} when $f$ is wrong:
+
+  - Surprisal: $s_i = -\log f(y_i)$\pause
+  - The upper tail of the distribution of $s_i$ is approximately Generalized Pareto Distribution, even if $f$ is incorrect\pause
+  - So $p_i = \Pr(-\log f(Y) \ge s_i ) \approx 1 - F_{GPD}(s_i)$
+
+```{=latex}
+\vspace*{10cm}
+```
 
 # Conclusions
 
