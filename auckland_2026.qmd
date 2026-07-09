@@ -329,6 +329,63 @@ wine_reviews |> arrange(p)
 
 # Cricket not-outs
 
+## Cricket not-outs
+
+```{r}
+#| label: df_no
+#| echo: true
+
+df_no <- cricket_batting |>
+  filter(Innings > 0, Average != Inf, Gender == "Men") |>
+  mutate(prop_no = NotOuts / Innings)
+df_no
+```
+
+## Cricket not-outs
+
+```{r}
+#| label: fig_no
+
+df_no |>
+  ggplot(aes(x = Average, y = prop_no)) +
+  geom_point(alpha = 0.15) +
+  labs(y = "Proportion of not-outs", x = "Batting average")
+```
+
+## Cricket not-outs
+
+```{r}
+#| label: fit_notouts
+#| echo: true
+
+fit_notouts <- mgcv::gam(
+  prop_no ~ s(Average) + s(Start),
+  data = df_no,
+  family = binomial(link = logit),
+  weights = Innings
+)
+```
+
+## Cricket not-outs
+
+```{r}
+#| label: fig_gam
+
+gratia::draw(fit_notouts)
+```
+
+## Cricket not-outs
+
+```{r}
+#| label: notouts_surprisal
+#| echo: true
+
+augment(fit_notouts, data = df_no) |>
+  mutate(p = surprisals_prob(fit_notouts, approximation = "gpd")) |>
+  select(Player:End, Innings, NotOuts, Average, p) |>
+  arrange(p)
+```
+
 # Old Faithful eruptions
 
 ## Old Faithful eruptions
