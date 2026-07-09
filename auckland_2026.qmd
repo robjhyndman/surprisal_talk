@@ -374,8 +374,7 @@ oldfaithful[, c("duration", "waiting")] |>
 oldfaithful |>
   select(duration, waiting) |>
   dist_kde() |>
-  gg_density(color = "black", show_points = TRUE, alpha = 0.15) +
-  labs(x = "duration", y = "waiting")
+  gg_density(color = "black", show_points = TRUE, alpha = 0.15)
 ```
 
 ## Old Faithful eruptions
@@ -394,6 +393,12 @@ oldfaithful |>
 \end{textblock}
 
 # French mortality rates
+
+## French mortality rates
+
+```{r}
+fr_mortality
+```
 
 ## French mortality rates
 
@@ -424,12 +429,62 @@ e_t &= |y_t - m_t|/a_t
 - Anomaly if  $e_t > k/0.6745$\pause
 - Implicit model: $y_t \sim N(m_t, \sigma_t^2)$\pause
 - Anomaly if $y_t$ is more than $k\sigma_t$ from $m_t$\pause
-- Equivalent to surprisal probability threshold of $\alpha = 0.00135$ for $k=3$\pause
+- Equivalent to surprisal probability threshold of $\alpha = 0.0027$ for $k=3$\pause
 - $e_t$ values are not independent
 
 ## French mortality rates
 
-\begin{textblock}{0.9}(13.7,0.0)
+::: {.columns}
+::::: {.column width="0.5"}
+```{r}
+#| label: fr_anomalies
+#| echo: true
+
+fr_anomalies <- fr_mortality |>
+  group_by(Age, Sex) |>
+  mutate(
+    hampel = hampel_anomalies(
+      Mortality,
+      bandwidth = 7,
+      alpha = 0.01,
+      approximation = "gpd"
+    )
+  ) |>
+  ungroup() |>
+  filter(hampel)
+```
+
+\pause
+
+```{r}
+#| label: fr_anomalies1
+#| echo: true
+#| eval: false
+
+fr_anomalies |>
+  count(Year, Sex) |>
+  filter(n >= 3)
+```
+:::::
+::::: {.column width="0.5"}
+`\vspace*{-0.3cm}`{=latex}
+
+```{r}
+#| label: fr-anomalies2
+#| echo: false
+#| eval: true
+
+fr_anomalies |>
+  count(Year, Sex) |>
+  filter(n >= 3) |>
+  as.data.frame()
+```
+:::::
+:::
+
+## French mortality rates
+
+\begin{textblock}{1.0}(13.7,0.0)
 \begin{block}{}\small$k=6$\end{block}
 \end{textblock}
 
