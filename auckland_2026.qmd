@@ -42,6 +42,22 @@ set_ggplot_options()
 tar_load(wine_reviews)
 ```
 
+## Thanks Ross!
+
+\begin{textblock}{7.5}(0, 1.2)
+\begin{itemize}\tightlist
+\item Ross Ihaka is my academic great uncle
+\item 1987: I first used S
+\item 1988: I switched to S+
+\item 1994: I heard Ross and Robert give a talk on R at ASC
+\item 2000: I switched to R
+\item 2006: My first CRAN package
+\item 2026: Coauthored 63 \rlap{R packages}
+\end{itemize}
+\end{textblock}
+
+\placefig{7.7}{1.1}{width=9.7cm}{figs/ihaka.jpg}
+
 ## weird R package
 \placefig{12.5}{1.2}{width=3cm}{figs/weird-hex.png}
 
