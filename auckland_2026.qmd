@@ -513,35 +513,19 @@ But what happened to:
 
 # Conclusions
 
-## The idea in one sentence
-\vspace*{0.6cm}
-
-\begin{alertblock}{}
-\centering\large
-A weird observation isn't one with an extreme \emph{value} ---\\[0.2cm]
-it's one that is extremely \emph{surprising}.\\[0.2cm]
-And surprise is something we can \alert{measure}.
-\end{alertblock}
-
-\vspace*{0.4cm}
-
-- Works for numbers, curves, images --- any kind of data object.
-- One principled idea in place of a grab-bag of ad hoc rules.
-
 ## Find out more
 \fontsize{13}{15.5}\sf\vspace*{-0.25cm}
 
-- R packages `lookout` and `weird` available on CRAN
-- Book in preparation at <https://OTexts.com/weird>
-- Slides and links: <https://robjhyndman.com/toptime2025>
+- R package `weird` available on CRAN
+- *That's weird* book in preparation at <https://OTexts.com/weird>
+- Slides and links: <https://robjhyndman.com/ihaka2026>
 
 \vspace*{0.3cm}
 
 \alert{Underlying methods:}
 
-- Original lookout algorithm: Kandanaarachchi \& Hyndman (*JCGS*, 2022).
-  <https://robjhyndman.com/publications/lookout>
-- Extreme value theory for surprisals: Hyndman \& Frazier (in preparation)
+- Extreme value theory for surprisals: Hyndman \& Frazier (2026)
+- Surprisals with KDE: Kandanaarachchi \& Hyndman (*JCGS*, 2022), Hyndman, Kandanaarachchi \& Turner  (2026)
 
 ## Coauthors
 
