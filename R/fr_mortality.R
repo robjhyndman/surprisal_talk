@@ -1,44 +1,5 @@
 library(weird)
 
-# Replacement for weird::hampel_anomalies to allow approximations to be used.
-hampel_anomalies <- function(
-  y,
-  bandwidth,
-  alpha = 0.01,
-  approximation = c("none", "gpd", "empirical")
-) {
-  approximation = match.arg(approximation)
-  if (abs(bandwidth - round(bandwidth)) > 1e-8) {
-    stop("Bandwidth must be an integer")
-  }
-  bandwidth <- as.integer(round(bandwidth))
-  n <- length(y)
-  # Running medians
-  m <- stats::runmed(
-    y,
-    2 * bandwidth + 1,
-    endrule = "keep",
-    na.action = "na.omit"
-  )
-  # Set MAD to Inf so end points are not considered anomalies
-  mad <- rep(Inf, n)
-  # Running MADs
-  for (i in (bandwidth + 1):(n - bandwidth)) {
-    mad[i] <- stats::median(
-      abs(y[(i - bandwidth):(i + bandwidth)] - m[i]),
-      na.rm = TRUE
-    )
-  }
-  # Find anomalies
-  s <- -dnorm(abs((y - m) / mad) * qnorm(0.75), log = TRUE)
-  p <- weird:::surprisal_prob_from_s(
-    s,
-    distribution = dist_normal(),
-    approximation = approximation
-  )
-  return(p < alpha)
-}
-
 create_fr_mortality_plot <- function(
   fr_mortality,
   type = c("functional", "timeseries"),
