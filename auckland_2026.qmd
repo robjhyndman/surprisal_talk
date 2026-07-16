@@ -20,10 +20,12 @@ format:
         dev: "CairoPDF"
     fig-width: 8
     fig-height: 4.25
-    titlegraphic: bg-13.png
-    titlecolor: white
+    titlegraphic: figs/title.pdf
+    titlecolor: Orange
     keep-tex: true
 include-in-header: header.tex
+template-partials:
+  - before-title.tex
 highlight-style: tango
 execute:
   echo: false
