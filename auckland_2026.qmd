@@ -50,11 +50,12 @@ tar_load(wine_reviews)
 \begin{itemize}\tightlist
 \item Ross Ihaka is my academic great uncle
 \item 1987: I first used S
-\item 1988: I switched to S+
+\item 1988: I switched to S-PLUS
 \item 1994: I heard Ross and Robert give a talk on R at ASC
 \item 2000: I switched to R
 \item 2006: My first CRAN package
-\item 2026: Coauthored 63 \rlap{R packages}
+\item 2026: Coauthor of 63 \rlap{R packages}
+\item 2023--2026: Executive Editor, \rlap{\emph{R Journal}}
 \end{itemize}
 \end{textblock}
 
