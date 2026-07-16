@@ -150,7 +150,9 @@ experiment_plot <- function(g1, g2, filename, height = 5, width = 8, ...) {
   #legend2 <- get_legend(g2)
   #combined_legends <- patchwork::wrap_plots(legend1, legend2, ncol = 2)
 
-  left <- g1 + theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 2, byrow = TRUE))
+  left <- g1 +
+    theme(legend.position = "bottom") +
+    guides(color = guide_legend(nrow = 2, byrow = TRUE))
   right <- g2 + theme(legend.position = "none")
 
   # Create figure

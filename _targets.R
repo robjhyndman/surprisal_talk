@@ -406,6 +406,6 @@ list(
     slides,
     "auckland_2026.qmd", #"surprisals.qmd",  "surprisals_fsi2025.qmd",
     quiet = FALSE,
-    extra_files = c("header.tex")
+    extra_files = c("header.tex", "before-title.tex")
   )
 )

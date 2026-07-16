@@ -274,12 +274,11 @@ wine_reviews |> arrange(p)
 
 ```{r}
 #| label: fig_wine-model
-#| fig-height: 3.8
 
 wine_reviews |>
   ggplot(aes(x = points, y = price)) +
   geom_point(aes(colour = p > 0.001), alpha = 0.5) +
-  geom_line(aes(y = exp(predict(wine_lm))), color = "blue") +
+  geom_line(aes(y = exp(predict(wine_lm))), color = "#555555") +
   scale_y_log10() +
   guides(colour = "none")
 ```
@@ -294,12 +293,11 @@ wine_reviews |>
 
 ```{r}
 #| label: fig_wine-model2
-#| fig-height: 3.8
 
 wine_reviews |>
   ggplot(aes(x = points, y = price)) +
   geom_point(aes(colour = p > 0.001), alpha = 0.5) +
-  geom_line(aes(y = exp(predict(wine_lm))), color = "blue") +
+  geom_line(aes(y = exp(predict(wine_lm))), color = "#555555") +
   guides(colour = "none")
 ```
 
@@ -313,6 +311,8 @@ wine_reviews |>
   filter(log(price) < fitted(wine_lm)) |>
   arrange(p, points, price)
 ```
+
+# Approximate extreme surprisal probabilities
 
 ## Surprisal probabilities
 \surprisalheader
@@ -597,21 +597,16 @@ But what happened to:
 - infant mortality in 1834?
 - elder mortality in 1837?
 
-# Conclusions
-
 ## Find out more
-\fontsize{13}{15.5}\sf\vspace*{-0.25cm}
-
-- R package `weird` available on CRAN
-- *That's weird* book in preparation at <https://OTexts.com/weird>
-- Slides and links: <https://robjhyndman.com/ihaka2026>
-
-\vspace*{0.3cm}
-
-\alert{Underlying methods:}
-
-- Extreme value theory for surprisals: Hyndman \& Frazier (2026)
-- Surprisals with KDE: Kandanaarachchi \& Hyndman (*JCGS*, 2022), Hyndman, Kandanaarachchi \& Turner (2026)
+\placefig{0.5}{1.4}{width=3cm}{figs/weird-hex.png}
+\placefig{11.5}{4.5}{width=4.8cm}{figs/ihaka2026.png}
+\begin{textblock}{10}(3.8, 1.4)
+\begin{itemize}
+\item R package \textbf{weird} available on CRAN
+\item \emph{That's weird} book in preparation at \texttt{\href{https://OTexts.com/weird}{OTexts.com/weird}}
+\item Slides, links and related papers: \texttt{\href{https://robjhyndman.com/ihaka2026}{robjhyndman.com/ihaka2026}}
+\end{itemize}
+\end{textblock}
 
 ## Coauthors
 
