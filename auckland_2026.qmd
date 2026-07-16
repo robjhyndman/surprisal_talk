@@ -3,13 +3,7 @@ title: Spotting the weird ones
 author: Rob J Hyndman
 date: 6 August 2026
 abstract: >-
-  Data analysis is about finding the stories hidden in the mass of information that make up a data set.
-  Usually we are interested in understanding the major patterns — the relationships that hold true for most of the data.
-  But sometimes we need to look at the weird observations, the mavericks, the ones that don’t follow the crowd and behave differently.
-  These observations are called “anomalies”.
-  Many anomaly detection methods have been developed, but they are often based on ad hoc rules and hidden assumptions, and can lead to misleading conclusions.
-  Instead, I will describe a principled statistical approach to identifying anomalies in diverse data sets, from simple numerical data to complex high-dimensional data objects.
-  The ideas will be illustrated using the weird package for R applied to several data analysis problems, including spotting over-priced wines, identifying errors in the records of the Old Faithful Geyser, and uncovering forgotten epidemics in 19th century France.
+  Data analysis is about finding the stories hidden in the mass of information that make up a data set. Usually we are interested in understanding the major patterns — the relationships that hold true for most of the data. But sometimes we need to look at the weird observations, the mavericks, the ones that don’t follow the crowd and behave differently. These observations are called “anomalies”. Many anomaly detection methods have been developed, but they are often based on ad hoc rules and hidden assumptions, and can lead to misleading conclusions. Instead, I will describe a principled statistical approach to identifying anomalies in diverse data sets, from simple numerical data to complex high-dimensional data objects. The ideas will be illustrated using the weird package for R applied to several data analysis problems, including spotting over-priced wines, identifying errors in the records of the Old Faithful Geyser, and uncovering forgotten epidemics in 19th century France.
 toc: true
 format:
   presentation-beamer:
@@ -325,7 +319,7 @@ wine_reviews |>
 
 - $y_i$ can be multivariate, functional, image, \dots\pause
 - $f$ can be assumed, estimated, conditional, \dots\pause
-- Surprisal: $s_i = -\log f(y_i)$. Anomalies are extreme values in surprisal space.\pause
+- \alert{Surprisal}: $s_i = -\log f(y_i)$. Anomalies are extreme values in surprisal space.\pause
 - We can use \alert{extreme value theory} when $f$ is wrong: the upper tail of the distribution of $s_i$ is approximately Generalized Pareto Distribution, even if $f$ is incorrect\pause
 - So $p_i = \Pr(-\log f(Y) \ge s_i ) \approx 1 - F_{GPD}(s_i)$
 
@@ -518,7 +512,7 @@ a_t &= \text{median}(|y_{t-h}-m_t|, \dots, |y_{t+h}-m_t|)\\
 e_t &= |y_t - m_t|/a_t
 \end{align*}
 
-- Anomaly if  $e_t > k/0.6745$\pause
+- Anomaly if $e_t > k/0.6745$\pause
 - Implicit model: $y_t \sim N(m_t, \sigma_t^2)$\pause
 - Anomaly if $y_t$ is more than $k\sigma_t$ from $m_t$\pause
 - Equivalent to surprisal probability threshold of $\alpha = 0.0027$ for $k=3$\pause
@@ -617,7 +611,7 @@ But what happened to:
 \alert{Underlying methods:}
 
 - Extreme value theory for surprisals: Hyndman \& Frazier (2026)
-- Surprisals with KDE: Kandanaarachchi \& Hyndman (*JCGS*, 2022), Hyndman, Kandanaarachchi \& Turner  (2026)
+- Surprisals with KDE: Kandanaarachchi \& Hyndman (*JCGS*, 2022), Hyndman, Kandanaarachchi \& Turner (2026)
 
 ## Coauthors
 
