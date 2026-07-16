@@ -42,6 +42,18 @@ library(weird)
 tar_source("R/functions.R")
 set_ggplot_options()
 tar_load(wine_reviews)
+strip_comments <- function(code, ...) {
+  lines <- unlist(strsplit(paste(code, collapse = "\n"), "\n"))
+  cm <- subset(
+    utils::getParseData(parse(text = lines, keep.source = TRUE)),
+    token == "COMMENT"
+  )
+  for (i in seq_len(nrow(cm))) {
+    lines[cm$line1[i]] <- substr(lines[cm$line1[i]], 1, cm$col1[i] - 1)
+  }
+  lines <- sub("[ \t]+$", "", lines)
+  lines[nzchar(lines) | !seq_along(lines) %in% cm$line1] # drop comment-only lines
+}
 ```
 
 ## Thanks Ross!
@@ -362,19 +374,21 @@ df_no |>
 ```{r}
 #| label: fit_notouts
 #| echo: true
+#| tidy: !expr strip_comments
 
+# fmt: skip
 fit_notouts <- mgcv::gam(
   prop_no ~ s(Average) + s(Start),
-  data = df_no,
+  data = df_no, weights = Innings,
   family = binomial(link = logit),
-  weights = Innings
 )
 ```
 
-## Cricket not-outs
+\pause
 
 ```{r}
 #| label: fig_gam
+#| fig-height: 3.35
 
 gratia::draw(fit_notouts)
 ```
