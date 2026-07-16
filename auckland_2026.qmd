@@ -168,7 +168,7 @@ tar_read(fig_wine)
 ````{r}
 #| label: fig_sp
 #| results: asis
-#| fig-height: 3.2
+#| fig-height: 3.1
 
 if (FALSE) {
   # Never runs; lets tar_quarto() detect these as dependencies
@@ -223,6 +223,8 @@ tibble(
 ) |>
   arrange(p)
 ```
+
+\placefig{6}{4.2}{width=9.1cm}{figs/dist_normal.pdf}
 
 # Wine quality and prices
 

@@ -64,6 +64,15 @@ list(
     create_fig_surprisal_prob(step = 2L)
   ),
   tar_target(
+    fig_sp_normal,
+    create_fig_surprisal_prob(
+      step = 2L,
+      den = dist_normal(),
+      clean = TRUE,
+      size = 98
+    )
+  ),
+  tar_target(
     fig61,
     create_fig_density(dist_chisq(5), y = 9)
   ),
