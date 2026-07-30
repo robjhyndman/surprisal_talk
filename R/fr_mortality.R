@@ -52,14 +52,10 @@ find_fr_anomalies <- function(fr_mortality) {
     ungroup() |>
     filter(hampel) |>
     arrange(Year, Age)
-  # Keep only those years where there is at least 2 age groups
+  # Keep only those year-sex combinations where there is at least 3 age groups
   yrs <- fr_anomalies |>
-    group_by(Year, Sex) |>
-    mutate(n = n()) |>
-    ungroup() |>
-    filter(n >= 3) |>
-    select(Year, Sex) |>
-    distinct()
+    count(Year, Sex) |>
+    filter(n >= 3)
   fr_anomalies |> right_join(yrs, by = c("Year", "Sex"))
 }
 
@@ -83,8 +79,8 @@ create_fr_anomaly_plot <- function(fr_anomalies) {
     ) +
     geom_point(col = "#478cb2") +
     ggrepel::geom_text_repel(
-      data = yrs |>
-        filter(Sex == "Male", !Year %in% 1915:1918),
+      data = yrs[yrs$Sex == "Male", ],
+      #yrs |> filter(Sex == "Male", !Year %in% 1915:1918),
       aes(y = 75, label = Year),
       col = "#478cb2",
       size = 3,
