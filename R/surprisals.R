@@ -57,13 +57,13 @@ create_fig_surprisal_prob <- function(
           aes(x = x, xend = x, y = 0, yend = falpha),
           col = "#D55E00",
           linetype = "dashed"
-        ) +
-        geom_segment(
-          data = tibble(x = hdr[1], falpha = falpha),
-          aes(x = x, xend = x, y = 0, yend = falpha),
-          col = "#D55E00",
-          linetype = "dashed"
-        )
+        ) # +
+      #geom_segment(
+      #  data = tibble(x = hdr[1], falpha = falpha),
+      #  aes(x = x, xend = x, y = 0, yend = falpha),
+      #  col = "#D55E00",
+      #  linetype = "dashed"
+      #)
     }
     if (!clean) {
       p <- p +
