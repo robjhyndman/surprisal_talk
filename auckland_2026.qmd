@@ -366,8 +366,28 @@ df_no
 
 df_no |>
   ggplot(aes(x = Average, y = prop_no)) +
-  geom_point(alpha = 0.15) +
+  geom_point(alpha = 0.5) +
   labs(y = "Proportion of not-outs", x = "Batting average")
+```
+
+## Cricket not-outs
+
+```{r}
+#| label: fig_no2
+#| echo: false
+
+df_no |>
+  ggplot(
+    aes(
+      x = Average,
+      y = prop_no,
+      colour = Innings > 20,
+      alpha = 0.5 * (1 + Innings > 20)
+    )
+  ) +
+  geom_point() +
+  labs(y = "Proportion of not-outs", x = "Batting average") +
+  guides(alpha = "none")
 ```
 
 ## Cricket not-outs
