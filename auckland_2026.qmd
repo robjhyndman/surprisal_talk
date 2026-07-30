@@ -557,7 +557,7 @@ tar_read(fig_fr_mortality)
 - Anomaly if $e_t > k/0.6745$\pause
 - Implicit model: $y_t \sim N(m_t, \sigma_t^2)$\pause
 - Anomaly if $y_t$ is more than $k\sigma_t$ from $m_t$\pause
-- Equivalent to surprisal probability threshold of $\alpha = 0.0027$ for $k = 3$\pause
+- Equivalent to surprisal probability threshold of $\alpha = `r sprintf("%.4f", 2*pnorm(-3))`$ for $k = 3$\pause
 - $e_t$ values are not independent
 
 ## French mortality rates
@@ -611,10 +611,6 @@ fr_anomalies |>
 :::
 
 ## French mortality rates
-
-\begin{textblock}{1.0}(13.7,0.0)
-\begin{block}{}\small$k=6$\end{block}
-\end{textblock}
 
 ```{r}
 #| label: fig_fr-anomalies

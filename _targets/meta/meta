@@ -227,7 +227,6 @@ fig_expt2b|stem|6563d205367335cf|ea1567097c548f74|2821a224241efd8c|819361688||t2
 not_outs|stem|6ece1050830a5070|bd3772fa630134d6|11b0b5ad1cc08f38|-295725273||t20643.1944560559s|s90573b|90573|rds|local|vector|||0.001||
 fig_fr_mortality|stem|7e112983e620c421|c01530452deb5324|a40e953a56206216|-1049618713||t20643.1944571024s|s938245b|938245|rds|local|vector|||0.015||
 fig_fr_mortality2|stem|abec5bfb50073ad9|d61efa7715953698|a40e953a56206216|-1520667586||t20643.1944581056s|s938243b|938243|rds|local|vector|||0.009||
-fr_anomalies|stem|e26517f167a0dab6|59353db7eff907e3|ca7a172a42456e2c|-1599032977||t20643.1944645521s|s2940b|2940|rds|local|vector|||0.544|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22`, `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
 fig_spot_anomaly1|stem|3a2a39714f6d67bb|27643aab95099ed0|93d8b4a17aa895cb|1828931490||t20643.1944650153s|s224777b|224777|rds|local|vector|||0.004||
 fig_spot_anomaly2|stem|bb027e6ed1f4ca91|59fdb6a13b3026e4|95a4d18b20b279e9|217533196||t20643.1944654551s|s221493b|221493|rds|local|vector|||0.003||
 rips_kde_bandwidth|stem|6b0812d6ad7f4aed|02c226dbaf70402f|f8882138a4f51923|-475240671||t20643.1944678071s|s55b|55|rds|local|vector|||0.025||
@@ -240,9 +239,6 @@ wine_aug|stem|c587374acc76e4fb|0b7679edc6d3417a|73c83497fc591289|476847258||t206
 old_faithful_results|stem|65beb0a8f50eb1d2|b9a8801bba0fafdc|c48ba77b4d6ca83b|1780095663||t20643.2165267241s|s7416b|7416|rds|local|vector|||0.344||
 of_lookout_prob|stem|4fd8fb0ac3d9d6bb|e03f2d1761eda855|02921a4edebb74f1|-1751518801||t20643.2165278498s|s775b|775|rds|local|vector|||0.083||
 fit_no|stem|188b24454c404ed1|1b8f533835546fdd|c2902447e8080d35|1222719752||t20643.2165289894s|s306595b|306595|rds|local|vector|||0.067||
-fig_fr_mortality3|stem|852150a6c785a102|dfccf4b212371ac9|f8bb3ceb48f6dc24|-994436003||t20643.2165300922s|s955061b|955061|rds|local|vector|||0.01||
-fig_fr_mortality4|stem|204532f3a8dd3be9|e869329106e942f5|f8bb3ceb48f6dc24|-1402271646||t20643.2165312945s|s955062b|955062|rds|local|vector|||0.013||
-fig_fr_anomalies|stem|8c60c0254dea4f67|7de4a73bb331bccd|fe225485907f18cf|670799851||t20643.2165326848s|s289280b|289280|rds|local|vector|||0.053||
 rips_kde|stem|832318d7f12bd33e|74cd510d64929400|0f93421fa0e9d015|-1356057470||t20643.2165360413s|s1312319b|1312319|rds|local|vector|||0.181||
 fig_exp2|stem|b60da72c52b1c6a9|a9a7d1c1168ec846|5ee75081c7dd938e|-1620803153||t20643.2165378585s|s759001b|759001|rds|local|vector|||0.064||
 fig_exp3|stem|47897d4ad8bb3420|89ff3de051f5889e|654b4c59bdb3e4c7|954333348||t20643.2165393831s|s1841315b|1841315|rds|local|vector|||0.029||
@@ -272,7 +268,10 @@ fig_sp0|stem|befbd5a783a9e88b|f5dcd79359174156|64bb0e97859907ce|-1433420519||t20
 fig_sp1|stem|9725acf033c6c40b|e581f884a1f54f39|64bb0e97859907ce|-389765719||t20664.0488484186s|s256549b|256549|rds|local|vector|||2.83||
 fig_sp2|stem|cc29c9fa9274fd31|b7e190c9cd76a0c9|64bb0e97859907ce|-1640226396||t20664.048882279s|s266069b|266069|rds|local|vector|||2.846||
 fig_sp_normal|stem|98450efdc4ba7bd3|cb507431523213e2|64bb0e97859907ce|59612374||t20664.0488864646s|s73b|73|rds|local|vector|||0.337||
-slides|stem|e60a7db2f980fb25|22538bfe02b46f08|43981f048110d7b4|1331386099|auckland_2026_files*auckland_2026.pdf*attach_weird.txt*auckland_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*before-title.tex*header.tex|t20664.0742779935s|s14083394b|14083394|file|local|vector|||17.369||
+fr_anomalies|stem|44dc9373c61f7f90|59353db7eff907e3|98a77802613586f7|-1599032977||t20664.2267057104s|s3053b|3053|rds|local|vector|||0.8|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22`, `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
+fig_fr_anomalies|stem|2edab3640fbd7289|7de4a73bb331bccd|fbd3a272f9d75228|670799851||t20664.2267075126s|s288836b|288836|rds|local|vector|||0.075||
+fig_fr_mortality3|stem|f0068db229204a59|dfccf4b212371ac9|3b92a8699a98f250|-994436003||t20664.2267091754s|s950652b|950652|rds|local|vector|||0.027||
+fig_fr_mortality4|stem|6547dc71efb34703|e869329106e942f5|3b92a8699a98f250|-1402271646||t20664.2267102588s|s950654b|950654|rds|local|vector|||0.014||
 get_expt2_prob_single|function|e59c7cf56bb14731
 augment_wine|function|58b4e8ba9cfe2f5a
 create_showcase_figure|function|30460ff456b5d230
@@ -305,12 +304,12 @@ create_wine_figure|function|6ed6e9034deefa69
 make_spot_anomaly_data|function|07117f74786de401
 create_fig_spot_anomaly1|function|023f63826912cf5d
 create_fig_spot_anomaly2|function|688cff08acfab454
-find_fr_anomalies|function|aec4fba237c8fe67
+find_fr_anomalies|function|7fbebe92c5cb7687
 of_labels|object|0b7caf9ec2dd45e5
 truncated_smooth|function|2209345bcc71d09a
 create_fig_expt2|function|23ac8fd40308dc84
 create_wine_model_plot|function|302d3f46ba996ccf
-create_fr_anomaly_plot|function|28e72f88ffd2bf2f
+create_fr_anomaly_plot|function|4e6ff2a8fe654b63
 get_of_lookout_prob|function|5b3b7c7a98b9ce5f
 plot_wine_loo_surprisals|function|bc1c7db550d19480
 get_expt2_prob|function|407cd187893abbfb
@@ -331,3 +330,4 @@ run_synthetic_exp4|function|b77b799c986ff3f3
 analyse_old_faithful|function|2200323710e43aa1
 analyse_wine_data|function|6e2210dcd1e2ea14
 get_gpd_shape|function|0a98f77fe790965a
+slides|stem|c3b9015462c7c087|22538bfe02b46f08|6b6fb92d0e1cc9d5|1331386099|auckland_2026_files*auckland_2026.pdf*attach_weird.txt*auckland_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*before-title.tex*header.tex|t20664.2559396569s|s14083294b|14083294|file|local|vector|||17.424||
