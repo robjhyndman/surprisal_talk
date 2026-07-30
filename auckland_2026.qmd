@@ -256,9 +256,15 @@ tar_read(fig_wine)
 tar_read(fig_wine1)
 ```
 
+\only<2>{\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
+\centerline{$\log(\text{Price}) \sim \text{N}(a + b\text{Points}, \sigma^2)$}
+\end{alertblock}\end{textblock}}
+
 ## Wine quality and prices
-\vspace*{-0.3cm}\fontsize{13}{14}\sf
-Model: $\log \text{Price} \mid \text{Points} \sim N(a + b\text{Points}, \sigma^2)$.
+\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
+\centerline{$\log(\text{Price}) \sim \text{N}(a + b\text{Points}, \sigma^2)$}
+\end{alertblock}\end{textblock}
+\vspace*{0.2cm}
 
 ```{r}
 #| label: wine_model
@@ -390,6 +396,11 @@ df_no |>
   guides(alpha = "none")
 ```
 
+\only<2>{\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
+\centerline{$\text{NotOuts} \sim \text{Binomial}(\text{Innings},~ q)$}
+\centerline{$\log(q/(1 - q)) = g_1(\text{Average}) + g_2(\text{Start})$}
+\end{alertblock}\end{textblock}}
+
 ## Cricket not-outs
 
 ```{r}
@@ -405,6 +416,10 @@ fit_notouts <- mgcv::gam(
 )
 ```
 
+\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
+\centerline{$\text{NotOuts} \sim \text{Binomial}(\text{Innings},~ q)$}
+\centerline{$\log(q/(1 - q)) = g_1(\text{Average}) + g_2(\text{Start})$}
+\end{alertblock}\end{textblock}
 \pause
 
 ```{r}
