@@ -360,7 +360,7 @@ wine_reviews |> arrange(p)
 #| echo: true
 
 df_no <- cricket_batting |>
-  filter(Innings > 0, Average != Inf, Gender == "Men") |>
+  filter(Innings > 0, Innings > NotOuts, Gender == "Men") |>
   mutate(prop_no = NotOuts / Innings)
 df_no
 ```
