@@ -14,9 +14,14 @@ create_fr_mortality_plot <- function(
         by = c("Year", "Age", "Sex")
       )
   }
-  if (type == "functional") {
+  if (type == "timeseries") {
     p <- fr_mortality |>
-      ggplot(aes(x = Year, y = Mortality, color = Age, group = Age))
+      ggplot(aes(
+        x = Year,
+        y = Mortality,
+        color = Age,
+        group = factor(Age, levels = sort(unique(Age), decreasing = TRUE))
+      ))
   } else {
     p <- fr_mortality |>
       ggplot(aes(x = Age, y = Mortality, color = Year, group = Year))
