@@ -545,7 +545,7 @@ oldfaithful |>
 ```{r}
 #| label: fig_of-hdrboxplot
 #| echo: false
-#| fig-height: 3.7
+#| fig-height: 3.5
 
 oldfaithful |>
   gg_hdrboxplot(duration, waiting, color = "#65775c")
@@ -569,17 +569,17 @@ fr_mortality
 ## French mortality rates
 
 ```{r}
-#| label: fig_fr-mortality2
+#| label: fig_fr-mortality
 
-tar_read(fig_fr_mortality2)
+tar_read(fig_fr_mortality)
 ```
 
 ## French mortality rates
 
 ```{r}
-#| label: fig_fr-mortality
+#| label: fig_fr-mortality2
 
-tar_read(fig_fr_mortality)
+tar_read(fig_fr_mortality2)
 ```
 
 ## French mortality rates
