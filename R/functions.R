@@ -4,13 +4,13 @@
 
 set_ggplot_options <- function() {
   colours <- c(
-    "#D55E00",
-    "#0072B2",
+    "#F39B00",
+    "#65775c",
     "#009E73",
     "#CC79A7",
     "#E69F00",
     "#56B4E9",
-    "#F0E442"
+    "#C14b14"
   )
   options(
     ggplot2.discrete.colour = colours,

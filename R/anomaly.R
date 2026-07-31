@@ -54,11 +54,11 @@ create_fig_density <- function(distribution, y, shading = TRUE) {
       p <- p +
         geom_hline(
           aes(yintercept = falpha),
-          col = "#D55E00",
+          col = "#F39B00",
           linetype = "dashed"
         ) +
         geom_polygon(
-          fill = "#D55E00",
+          fill = "#F39B00",
           data = bind_rows(
             tibble(y = hdr_inverse[i, ]$lower, fy = 0),
             df_subset,

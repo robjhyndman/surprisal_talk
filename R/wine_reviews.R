@@ -82,7 +82,7 @@ create_wine_model_plot <- function(wine_aug) {
     geom_line(aes(y = exp(.fitted)), color = "#666666") +
     scale_y_log10() +
     guides(fill = "none", col = "none") +
-    scale_color_manual(values = c("#0072B2", "#D55E00", "#AAAAAA")) +
+    scale_color_manual(values = c("#0072B2", "#F39B00", "#AAAAAA")) +
     labs(y = "Price", x = "Points")
 }
 
@@ -100,7 +100,7 @@ plot_wine_loo_surprisals <- function(
   } else {
     p <- wine_aug |>
       ggplot(aes(x = points, y = std_loo_res, col = location)) +
-      scale_color_manual(values = c("#0072B2", "#D55E00", "#AAAAAA"))
+      scale_color_manual(values = c("#0072B2", "#F39B00", "#AAAAAA"))
   }
   p +
     geom_jitter(height = 0, width = 0, alpha = 0.5) +

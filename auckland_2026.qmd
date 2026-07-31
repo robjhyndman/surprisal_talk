@@ -36,6 +36,7 @@ execute:
 
 ```{r}
 #| label: load-packages
+#| cache: false
 
 library(targets)
 library(weird)
@@ -383,17 +384,19 @@ df_no |>
 #| echo: false
 
 df_no |>
+  mutate(inngt20 = Innings > 20, alpha = 1 - 0.72 * !inngt20) |>
+  arrange(inngt20) |>
   ggplot(
     aes(
       x = Average,
       y = prop_no,
       colour = Innings > 20,
-      alpha = 0.5 * (1 + Innings > 20)
+      alpha = alpha
     )
   ) +
   geom_point() +
-  labs(y = "Proportion of not-outs", x = "Batting average") +
-  guides(alpha = "none")
+  scale_alpha_identity() +
+  labs(y = "Proportion of not-outs", x = "Batting average")
 ```
 
 \only<2>{\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
@@ -508,12 +511,22 @@ oldfaithful |>
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_of-hdrboxplot
+#| label: fig_of-hdrboxplot0
 #| echo: true
-#| fig-height: 3.7
+#| eval: false
 
 oldfaithful |>
   gg_hdrboxplot(duration, waiting)
+```
+
+
+```{r}
+#| label: fig_of-hdrboxplot
+#| echo: false
+#| fig-height: 3.7
+
+oldfaithful |>
+  gg_hdrboxplot(duration, waiting, color = "#65775c")
 ```
 
 \begin{textblock}{1.8}(13.7,0.0)

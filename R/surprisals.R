@@ -55,13 +55,13 @@ create_fig_surprisal_prob <- function(
         geom_segment(
           data = tibble(x = hdr[2], falpha = falpha),
           aes(x = x, xend = x, y = 0, yend = falpha),
-          col = "#D55E00",
+          col = "#F39B00",
           linetype = "dashed"
         ) # +
       #geom_segment(
       #  data = tibble(x = hdr[1], falpha = falpha),
       #  aes(x = x, xend = x, y = 0, yend = falpha),
-      #  col = "#D55E00",
+      #  col = "#F39B00",
       #  linetype = "dashed"
       #)
     }
@@ -69,7 +69,7 @@ create_fig_surprisal_prob <- function(
       p <- p +
         geom_hline(
           aes(yintercept = falpha),
-          col = "#D55E00",
+          col = "#F39B00",
           linetype = "dashed"
         )
       p$layers <- append(
@@ -82,7 +82,7 @@ create_fig_surprisal_prob <- function(
   if (step == 2L) {
     p <- p +
       geom_polygon(
-        fill = "#D55E00",
+        fill = "#F39B00",
         data = df |>
           filter(y >= hdr[2]) |>
           bind_rows(
@@ -91,7 +91,7 @@ create_fig_surprisal_prob <- function(
           arrange(fy, y)
       ) +
       geom_polygon(
-        fill = "#D55E00",
+        fill = "#F39B00",
         data = df |>
           filter(y <= hdr["lower"]) |>
           bind_rows(
