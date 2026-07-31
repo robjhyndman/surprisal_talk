@@ -253,6 +253,10 @@ tibble(
 
 ## Wine quality and prices
 
+\placefig{0}{1.1}{height=8cm}{grapes.jpg}
+
+## Wine quality and prices
+
 ```{r}
 #| label: fig_wine
 
@@ -366,6 +370,10 @@ wine_reviews |> arrange(p)
 
 ## Cricket not-outs
 
+\placefig{0}{1.1}{width=16.2cm}{batting.jpg}
+
+## Cricket not-outs
+
 ```{r}
 #| label: df_no
 #| echo: true
@@ -458,6 +466,10 @@ augment(fit_notouts, data = df_no) |>
 
 ## Old Faithful eruptions
 
+\placefig{0}{1.1}{width=16.5cm}{oldfaithful.jpg}
+
+## Old Faithful eruptions
+
 ```{r}
 #| label: fig_old-faithful
 
@@ -544,6 +556,9 @@ oldfaithful |>
 \end{textblock}
 
 # French mortality rates
+
+## French mortality rates
+\placefig{0}{1.1}{height=8.2cm}{french_cemetery.jpg}
 
 ## French mortality rates
 
@@ -642,21 +657,29 @@ tar_read(fig_fr_anomalies)
 ```
 
 ## French mortality rates
-\vspace*{0.2cm}
+\placefig{0}{1}{width=16cm}{commune_de_paris.jpg}
+\begin{textblock}{8}(0.3, 1.1)
+\begin{block}{}
+\begin{itemize}\tightlist
+\item 1832, 1849: Cholera outbreaks
+\item  1870: Franco--Prussian war
+\item  1871: Repression of the `Commune de Paris'
+\item  1914--1918: World War I
+\item  1918: Spanish flu outbreak
+\item  1940--1944: World War II
+\end{itemize}
+\end{block}
+\end{textblock}
 
-- 1832, 1849: Cholera outbreaks
-- 1870: Franco--Prussian war
-- 1871: Repression of the 'Commune de Paris'
-- 1914--1918: World War I
-- 1918: Spanish flu outbreak
-- 1940-1944: World War II
-
-\pause
-
+\only<2>{\begin{textblock}{8}(0.3, 6.2)
+\begin{block}{}
 But what happened to:
-
-- infant mortality in 1834?
-- elder mortality in 1837?
+\begin{itemize}\tightlist
+\item infant mortality in 1834?
+\item elder mortality in 1837?
+\end{itemize}
+\end{block}
+\end{textblock}}
 
 ## Find out more
 \placefig{0.5}{1.4}{width=3cm}{figs/weird-hex.png}
