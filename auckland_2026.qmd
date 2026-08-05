@@ -379,8 +379,8 @@ wine_reviews |> arrange(p)
 #| echo: true
 
 df_no <- cricket_batting |>
-  filter(Innings > 0, Innings > NotOuts, Gender == "Men") |>
-  mutate(prop_no = NotOuts / Innings)
+  filter(Innings > 0, Gender == "Men") |>
+  mutate(prop_no = NotOuts / Innings, RPI = Runs / Innings)
 df_no
 ```
 
@@ -390,9 +390,9 @@ df_no
 #| label: fig_no
 
 df_no |>
-  ggplot(aes(x = Average, y = prop_no)) +
+  ggplot(aes(x = RPI, y = prop_no)) +
   geom_point(alpha = 0.5) +
-  labs(y = "Proportion of not-outs", x = "Batting average")
+  labs(y = "Proportion of not-outs", x = "Runs per innings")
 ```
 
 ## Cricket not-outs
@@ -406,7 +406,7 @@ df_no |>
   arrange(inngt20) |>
   ggplot(
     aes(
-      x = Average,
+      x = RPI,
       y = prop_no,
       colour = Innings > 20,
       alpha = alpha
@@ -414,12 +414,12 @@ df_no |>
   ) +
   geom_point() +
   scale_alpha_identity() +
-  labs(y = "Proportion of not-outs", x = "Batting average")
+  labs(y = "Proportion of not-outs", x = "Runs per innings")
 ```
 
 \only<2>{\begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
 \centerline{$\text{NotOuts} \sim \text{Binomial}(\text{Innings},~ q)$}
-\centerline{$\log(q/(1 - q)) = g_1(\text{Average}) + g_2(\text{Start})$}
+\centerline{$\log(q/(1 - q)) = g_1(\text{RPI}) + g_2(\text{Start})$}
 \end{alertblock}\end{textblock}}
 
 ## Cricket not-outs
@@ -431,7 +431,7 @@ df_no |>
 
 # fmt: skip
 fit_notouts <- mgcv::gam(
-  prop_no ~ s(Average) + s(Start),
+  prop_no ~ s(RPI) + s(Start),
   data = df_no, weights = Innings,
   family = binomial(link = logit),
 )
@@ -439,7 +439,7 @@ fit_notouts <- mgcv::gam(
 
 \begin{textblock}{8.1}(7.6, -0.1)\begin{alertblock}{Statistical model}\fontsize{13}{14}\sf
 \centerline{$\text{NotOuts} \sim \text{Binomial}(\text{Innings},~ q)$}
-\centerline{$\log(q/(1 - q)) = g_1(\text{Average}) + g_2(\text{Start})$}
+\centerline{$\log(q/(1 - q)) = g_1(\text{RPI}) + g_2(\text{Start})$}
 \end{alertblock}\end{textblock}
 \pause
 
@@ -458,8 +458,8 @@ gratia::draw(fit_notouts)
 
 augment(fit_notouts, data = df_no) |>
   mutate(p = surprisals_prob(fit_notouts, approximation = "gpd")) |>
-  select(Player:End, Innings, NotOuts, Average, p) |>
-  arrange(p)
+  select(Player:End, Innings, NotOuts, RPI, p) |>
+  filter(p < 0.001)
 ```
 
 # Old Faithful eruptions
