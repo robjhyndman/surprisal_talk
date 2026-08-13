@@ -26,7 +26,6 @@ format:
 include-in-header: header.tex
 template-partials:
   - before-title.tex
-highlight-style: tango
 execute:
   echo: false
   message: false

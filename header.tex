@@ -4,16 +4,20 @@
 \usepackage{bm,bbm}
 \usepackage{animate}
 \usepackage{newunicodechar}
+\newfontfamily\hack{Hack FC Ligatured CCG}[Contextuals=Alternate]
 \newfontfamily\dejavusansmono{DejaVu Sans Mono}
 \newunicodechar{✔}{{\dejavusansmono ✔}}
 \newunicodechar{✖}{{\dejavusansmono ✖}}
+\makeatletter
+\let\@noligs\relax
+\makeatother
 \AtBeginDocument{%
   \let\OldStringTok\StringTok
-  \renewcommand{\StringTok}[1]{{\dejavusansmono\OldStringTok{#1}}}%
+  \renewcommand{\StringTok}[1]{{\hack\OldStringTok{#1}}}%
   \let\OldSpecialStringTok\SpecialStringTok
-  \renewcommand{\SpecialStringTok}[1]{{\dejavusansmono\OldSpecialStringTok{#1}}}%
+  \renewcommand{\SpecialStringTok}[1]{{\hack\OldSpecialStringTok{#1}}}%
   \let\OldVerbatimStringTok\VerbatimStringTok
-  \renewcommand{\VerbatimStringTok}[1]{{\dejavusansmono\OldVerbatimStringTok{#1}}}%
+  \renewcommand{\VerbatimStringTok}[1]{{\hack\OldVerbatimStringTok{#1}}}%
 }
 
 \def\E{\mathbb{E}}
