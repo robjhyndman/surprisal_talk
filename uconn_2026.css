@@ -8,9 +8,10 @@
   --navy: #0f2a44;
   --navy-2: #173b5e;
   --blue: #1d6fa5;
-  --orange: #e0601a;
+  --orange: #c14b14; /* Rob's signature colour, also used in the plots */
+  --orange-light: #e0601a; /* for accents on the navy slides */
   --amber: #f2b33d;
-  --amber-tint: #fdf1dc;
+  --amber-tint: #f6e9e0; /* the orange at ~9% on paper */
   --code-bg: #13202f;
   --output-bg: #efebe3;
   --r-main-font-size: 34px;
@@ -140,17 +141,20 @@ body.quarto-light,
 .reveal .block,
 .reveal .alertblock {
   margin: 0.3em 0;
-  padding: 0.45em 0.8em;
+  padding: 0.45em 0.8em 0.45em calc(0.8em + 6px);
   text-align: left;
   border-radius: 10px;
-  border-left: 6px solid var(--blue);
-  background-color: var(--card);
+  /* Left stripe painted as a straight band in the background, which the rounded
+     corners clip cleanly (a thick border-left tapers into slivers along the edges) */
+  --stripe: var(--blue);
+  --fill: var(--card);
+  background: linear-gradient(to right, var(--stripe) 6px, var(--fill) 6px);
   box-shadow: 0 4px 18px rgba(15, 42, 68, 0.12);
 }
 
 .reveal .alertblock {
-  border-left-color: var(--orange);
-  background-color: var(--amber-tint);
+  --stripe: var(--orange);
+  --fill: var(--amber-tint);
 }
 
 .reveal .block-title {
@@ -310,7 +314,7 @@ body.quarto-light,
   height: 7px;
   margin: 0.35em 0 0.5em 0;
   border-radius: 4px;
-  background: var(--orange);
+  background: var(--orange-light);
 }
 
 #title-slide .quarto-title-author-name,
@@ -343,6 +347,7 @@ body.quarto-light,
 .reveal .section-slide h2::after {
   width: 110px;
   height: 7px;
+  background: var(--orange-light);
 }
 
 .reveal .section-number {
@@ -419,10 +424,22 @@ body.quarto-light,
 
 /* ---- Figures ---- */
 
-.reveal .r-stack img {
-  width: 960px;
-  max-width: none;
+/* Stacked figures: reveal.js sizes an .r-stretch stack to the height left on
+   the slide; each figure then fills it (capped at the slide width) */
+.reveal .slides section .r-stack.r-stretch > div,
+.reveal .slides section .r-stack.r-stretch > div > p {
+  height: 100%;
+  margin: 0;
+}
+
+.reveal .slides section .r-stack.r-stretch img {
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
   max-height: none;
+  object-fit: contain;
 }
 
 /* ---- Coauthors ---- */
