@@ -1,0 +1,23 @@
+<script src="katex/katex.min.js"></script>
+<script>
+  // Render maths with the bundled KaTeX so the slides work offline.
+  // Quarto also loads KaTeX from a CDN and renders on that script's load event;
+  // block that handler so the maths is not rendered twice.
+  document.addEventListener("load", function (e) {
+    if (e.target.tagName === "SCRIPT" && /katex\.min\.js/.test(e.target.src)) {
+      e.stopImmediatePropagation();
+    }
+  }, true);
+  document.addEventListener("DOMContentLoaded", function () {
+    var macros = {};
+    document.querySelectorAll("span.math").forEach(function (el) {
+      var tex = el.firstChild;
+      if (!tex || tex.nodeType !== Node.TEXT_NODE) return;
+      katex.render(tex.data, el, {
+        displayMode: el.classList.contains("display"),
+        throwOnError: false,
+        macros: macros
+      });
+    });
+  });
+</script>
