@@ -3,7 +3,10 @@ library(tarchetypes)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble", "weird", "lookout", "dplyr", "ggplot2", "ggtda")
+  packages = c(
+    "tibble", "weird", "lookout", "dplyr", "ggplot2", "ggtda",
+    "tsibble", "fable", "feasts"
+  )
 )
 
 tar_source()
@@ -401,10 +404,40 @@ list(
     fig_showcase,
     create_showcase_figure(showcase_results)
   ),
+  # Time series examples --------------------------------
+  tar_target(
+    fig_tsparadigms,
+    create_fig_tsparadigms(fr_mortality)
+  ),
+  tar_target(
+    pbs_features,
+    compute_pbs_features(tsibbledata::PBS)
+  ),
+  tar_target(
+    pbs,
+    make_pbs(tsibbledata::PBS)
+  ),
+  # compute_pbs_scores(pbs) takes about an hour, so use the cached
+  # result from the book (OTexts/weird/rds/pbs_scores.rds)
+  tar_target(
+    pbs_scores_file,
+    "data/pbs_scores.rds",
+    format = "file"
+  ),
+  tar_target(
+    pbs_scores,
+    readRDS(pbs_scores_file)
+  ),
   # Slides ------------------------------------------------
   tar_quarto(
     slides,
     "auckland_2026.qmd", #"surprisals.qmd",  "surprisals_fsi2025.qmd",
+    quiet = FALSE,
+    extra_files = c("header.tex", "before-title.tex")
+  ),
+  tar_quarto(
+    slides_uconn,
+    "uconn_2026.qmd",
     quiet = FALSE,
     extra_files = c("header.tex", "before-title.tex")
   )
