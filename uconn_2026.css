@@ -501,3 +501,21 @@ body.quarto-light,
   text-align: center;
   margin: 0.3em 0;
 }
+
+/* ---- Rows of small cards ---- */
+
+.reveal .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7em;
+  margin-top: 0.5em;
+}
+
+.reveal .cards.cards-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.reveal .cards > .block,
+.reveal .cards > .alertblock {
+  margin: 0;
+}
