@@ -408,20 +408,6 @@ body.quarto-light,
   margin: 0.5em 0;
 }
 
-/* ---- Photo slides: title on a dark band over a full-bleed image ---- */
-
-.reveal .photo h2 {
-  display: inline-block;
-  color: white;
-  background: rgba(15, 42, 68, 0.85);
-  padding: 0.2em 0.6em;
-  border-radius: 8px;
-}
-
-.reveal .photo h2::after {
-  display: none;
-}
-
 /* ---- Figures ---- */
 
 /* Stacked figures: reveal.js sizes an .r-stretch stack to the height left on
@@ -520,13 +506,14 @@ body.quarto-light,
   margin: 0;
 }
 
-/* ---- Card showing the label for the year under the mouse ---- */
+/* ---- Card showing the label for the item under the mouse ---- */
 
-.reveal .year-card {
+.reveal .hover-card {
   position: absolute;
   top: 0;
   right: 0;
-  max-width: 560px;
+  max-width: 660px;
+  font-size: 0.85em;
   padding: 0.35em 0.8em 0.35em calc(0.8em + 6px);
   border-radius: 10px;
   background: linear-gradient(to right, var(--blue) 6px, var(--card) 6px);
@@ -536,11 +523,11 @@ body.quarto-light,
   pointer-events: none;
 }
 
-.reveal .year-card.show {
+.reveal .hover-card.show {
   opacity: 1;
 }
 
-.reveal .year-card.unknown {
+.reveal .hover-card.is-alert {
   background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
 }
 
@@ -557,4 +544,43 @@ body.quarto-light,
 
 .reveal .math-left ul {
   margin-top: 0;
+}
+
+/* ---- US mortality zoom: static plot, video and interactive plot occupy
+   exactly the same box so the sequence looks like one zooming plot ---- */
+
+.reveal .slides section .us-fig p,
+.reveal .slides section .us-fig img,
+.reveal .slides section .us-fig video,
+.reveal .slides section .us-fig .girafe {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
+.reveal .zoom-video {
+  background: var(--paper);
+}
+
+.reveal section.zoom-done .zoom-video {
+  visibility: hidden;
+}
+
+/* ---- Outputs that follow progressive code highlighting (see script in qmd) ---- */
+
+.reveal .step-output {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.reveal .step-output.current {
+  opacity: 1;
+}
+
+/* Keep each inline formula on one line (KaTeX otherwise allows breaks after
+   operators, splitting a formula across lines) */
+.reveal .katex {
+  white-space: nowrap;
 }

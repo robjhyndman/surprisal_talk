@@ -126,3 +126,148 @@ pbs_plot <- function(pbs, anomalies, series) {
     geom_line() +
     labs(y = "Scripts (thousands)", title = paste("Scripts for ATC group", series))
 }
+
+
+# US weekly mortality by age group, with STL anomalies (prob < threshold) as
+# points, restricted to weeks in [from, to]. Anomalies are grouped into
+# `episodes` (a tibble with columns start, end [yearweek] and episode [label]),
+# shown as shaded bands with opacity `band_alpha`. The same function draws the
+# static, animated and interactive (ggiraph) versions, so they match exactly.
+us_mortality_plot <- function(
+  us_stmf,
+  stmf_scores,
+  episodes = NULL,
+  from = min(us_stmf$Week),
+  to = max(us_stmf$Week),
+  threshold = 0.02,
+  band_alpha = 0,
+  interactive = FALSE,
+  anomaly_colour = "#c14b14"
+) {
+  episode_of <- function(week) {
+    if (is.null(episodes)) {
+      return(rep(NA_character_, length(week)))
+    }
+    i <- vapply(
+      week,
+      \(w) {
+        k <- which(episodes$start <= w & w <= episodes$end)
+        if (length(k) == 0) NA_integer_ else k[1]
+      },
+      integer(1)
+    )
+    episodes$episode[i]
+  }
+  series <- us_stmf |>
+    tibble::as_tibble() |>
+    filter(Week >= from, Week <= to)
+  anomalies <- stmf_scores |>
+    tibble::as_tibble() |>
+    filter(Week >= from, Week <= to, prob < threshold) |>
+    mutate(
+      episode = episode_of(Week),
+      tooltip = paste0("Week: ", format(Week), "<br>Age: ", `Age group`)
+    )
+  geom_rect_ <- if (interactive) ggiraph::geom_rect_interactive else geom_rect
+  geom_point_ <- if (interactive) ggiraph::geom_point_interactive else geom_point
+  p <- ggplot(series, aes(x = as.Date(Week), y = Mortality))
+  if (!is.null(episodes) && band_alpha > 0) {
+    bands <- episodes |>
+      filter(start >= from, end <= to) |>
+      mutate(xmin = as.Date(start) - 3, xmax = as.Date(end) + 4)
+    p <- p +
+      geom_rect_(
+        data = bands,
+        aes(
+          xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf,
+          data_id = episode, tooltip = episode
+        ),
+        inherit.aes = FALSE,
+        fill = anomaly_colour,
+        alpha = band_alpha
+      )
+  }
+  p +
+    geom_line(aes(colour = `Age group`)) +
+    geom_point_(
+      data = anomalies,
+      aes(data_id = episode, tooltip = tooltip),
+      colour = anomaly_colour,
+      size = 2
+    ) +
+    facet_grid(`Age group` ~ ., scales = "free_y") +
+    guides(colour = "none") +
+    labs(x = NULL, y = "Mortality")
+}
+
+# Interactive version of us_mortality_plot(): hovering over an anomaly or an
+# episode's band highlights the whole episode in every age group
+us_mortality_girafe <- function(
+  ...,
+  width = 9,
+  height = 4.25,
+  tooltip_css = paste(
+    "background:#0f2a44; color:white; padding:6px 10px; border-radius:6px;",
+    "font-family:'Fira Sans', sans-serif; font-size:20px;"
+  )
+) {
+  ggiraph::girafe(
+    ggobj = us_mortality_plot(..., interactive = TRUE),
+    width_svg = width,
+    height_svg = height,
+    options = list(
+      ggiraph::opts_tooltip(css = tooltip_css, use_fill = FALSE),
+      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:1.5px;"),
+      ggiraph::opts_hover_inv(css = "opacity:0.25;"),
+      ggiraph::opts_sizing(rescale = TRUE, width = 1),
+      ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
+    )
+  )
+}
+
+# MP4 of us_mortality_plot() zooming from the full period into [from, to]:
+# the window shrinks with an ease-in-out, each panel's y-axis follows the data
+# in view, and the episode bands fade in at the end. The first and last frames
+# match us_mortality_plot() for the full period and for [from, to].
+us_mortality_zoom_video <- function(
+  us_stmf,
+  stmf_scores,
+  episodes,
+  from,
+  to,
+  file = tempfile(fileext = ".mp4"),
+  seconds = 2,
+  fps = 30,
+  band_alpha = 0.08,
+  width = 9,
+  height = 4.25,
+  res = 200,
+  background = "#fbf9f4"
+) {
+  n <- seconds * fps
+  start <- as.numeric(as.Date(min(us_stmf$Week)))
+  end <- as.numeric(as.Date(max(us_stmf$Week)))
+  ease <- (1 - cos(pi * seq(0, 1, length.out = n))) / 2
+  lo <- start + ease * (as.numeric(as.Date(from)) - start)
+  hi <- end + ease * (as.numeric(as.Date(to)) - end)
+  fade <- pmax(0, (seq_len(n) - 0.75 * n) / (0.25 * n))
+  dir <- tempfile("frames")
+  dir.create(dir)
+  frames <- file.path(dir, sprintf("frame%03d.png", seq_len(n)))
+  for (i in seq_len(n)) {
+    week_lo <- if (i == n) from else tsibble::yearweek(as.Date(lo[i], origin = "1970-01-01"))
+    week_hi <- if (i == n) to else tsibble::yearweek(as.Date(hi[i], origin = "1970-01-01"))
+    p <- us_mortality_plot(
+      us_stmf, stmf_scores, episodes,
+      from = week_lo, to = week_hi,
+      band_alpha = band_alpha * fade[i]
+    )
+    ragg::agg_png(frames[i], width = width, height = height, units = "in",
+      res = res, background = background)
+    print(p)
+    grDevices::dev.off()
+  }
+  av::av_encode_video(frames, file, framerate = fps, verbose = FALSE)
+  unlink(dir, recursive = TRUE)
+  file
+}

@@ -167,34 +167,6 @@ create_fr_anomaly_girafe <- function(
   )
 }
 
-# Card that shows a label for the year under the mouse in an interactive
-# (ggiraph) plot on the same slide. `labels` is a named vector keyed by year;
-# labels equal to `unknown` are shown in the alert style.
-year_card <- function(labels, unknown = NULL) {
-  htmltools::tagList(
-    htmltools::div(
-      class = "year-card",
-      `data-labels` = jsonlite::toJSON(as.list(labels), auto_unbox = TRUE),
-      `data-unknown` = unknown
-    ),
-    htmltools::tags$script(htmltools::HTML(
-      "
-document.addEventListener('mouseover', function (e) {
-  var item = e.target.closest('.girafe [data-id]');
-  var section = e.target.closest('section');
-  var card = section && section.querySelector('.year-card');
-  if (!card) return;
-  if (!item) { card.classList.remove('show'); return; }
-  var year = item.getAttribute('data-id');
-  var label = JSON.parse(card.dataset.labels)[year];
-  if (!label) { card.classList.remove('show'); return; }
-  card.innerHTML = '<strong>' + year + ':</strong> ' + label;
-  card.classList.toggle('unknown', label === card.dataset.unknown);
-  card.classList.add('show');
-});"
-    ))
-  )
-}
 
 # Illustration of the Hampel identifier for one series: the window of 2w+1
 # observations centred on t, the moving median, and the implied Normal
@@ -269,4 +241,3 @@ create_hampel_fig <- function(
     labs(x = "Year", y = "Mortality", title = paste0(sex, ", age ", age)) +
     theme(plot.title = element_text(face = "plain"))
 }
-

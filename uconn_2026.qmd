@@ -335,8 +335,6 @@ tar_read(fig_expt1b)
 
 `r section("Weird times")`
 
-## French mortality rates {.photo background-image="figs/french_cemetery.jpg" background-size="cover"}
-
 ## French mortality rates
 
 ```{r}
@@ -457,21 +455,27 @@ fr_causes <- c(
   "1918" = "Spanish flu outbreak",
   "1940" = "World War II"
 )
-year_card(fr_causes, unknown = "unknown cause")
+hover_card(fr_causes, alert = names(fr_causes)[fr_causes == "unknown cause"])
 ```
 
 ## US weekly mortality rates
 
 ```{r}
 #| label: stmf
-#| echo: true
+#| echo: false
 
 us_stmf <- us_mortality |>
   filter(Sex == "Total", Age != "Total") |>
   mutate(Week = yearweek(paste0(Year, "-W", Week))) |>
   select(Week, `Age group` = Age, Mortality) |>
   as_tsibble(index = Week, key = `Age group`)
-us_stmf |> print(n = 5)
+```
+
+```{r}
+#| echo: true
+#| label: stmf-print
+
+us_stmf
 ```
 
 ## US weekly mortality rates
@@ -485,18 +489,18 @@ us_stmf |>
   guides(colour = "none")
 ```
 
-## Surprisals from an STL decomposition
+## Surprisals from an STL decomposition {.small}
 
+::: {.columns}
+::::: {.column width="36%"}
 Local medians fail with seasonality.
 Replace by a better signal estimate.
 
-- STL: $y_t = T_t + S_t + R_t$ (Cleveland et al., 1990; Bandara et al., 2025)
-- $m_t = T_t + S_t$, residual $R_t = y_t - m_t$
-- $a_t$: robust $Q_n$ scale estimate of $\{R_t\}$, separately for each age group
+- STL: $y_t = T_t + S_t + R_t$ (Cleveland et al., 1990; Bandara\ et al., 2025)
+- $a_t$: robust estimate of $\{R_t\}$ stdev, separately for each age group
 - $e_t = R_t / a_t$; surprisals under N(0,1), probabilities from GPD
-
-## Surprisals from an STL decomposition
-
+:::::
+::::: {.column width="64%"}
 ```{r}
 #| label: stl-stmf
 #| echo: true
@@ -507,61 +511,135 @@ stmf_scores <- us_stmf |>
   group_by(`Age group`) |>
   mutate(e = .resid / robustbase::s_Qn(.resid)) |>
   ungroup() |>
-  mutate(
-    prob = surprisals_prob(
-      e,
-      distribution = dist_normal(),
-      approximation = "gpd"
-    )
-  )
+  mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal()))
 ```
 
-## US weekly mortality rates
-
 ```{r}
-#| label: stmf_anomalies
-#| echo: true
+#| label: stmf_scores_print
 
 stmf_scores |>
-  filter(prob < 0.02) |>
-  arrange(prob) |>
-  select(Week, `Age group`, Mortality, .fitted, e, prob)
+  select(Week, `Age group`, Mortality, .fitted, e, prob) |>
+  arrange(prob)
 ```
+:::::
+:::
 
-## US weekly mortality rates
+## US weekly mortality rates {.nostretch}
 
+::: {.absolute .us-fig top="95" left="0" width="1280"}
 ```{r}
 #| label: fig_stl_anomalies
+#| fig-width: 9
+#| fig-height: 4.25
 
-us_stmf |>
-  autoplot(Mortality) +
-  facet_grid(`Age group` ~ ., scales = "free_y") +
-  geom_point(data = stmf_scores |> filter(prob < 0.02), colour = "#C14b14") +
-  guides(colour = "none")
+us_mortality_plot(us_stmf, stmf_scores)
+```
+:::
+
+## US weekly mortality rates {#us-zoom .nostretch}
+
+```{r}
+#| label: us_episodes
+
+# Episodes of anomalous weeks (from the STL surprisals) and their causes
+us_episodes <- tibble::tribble(
+  ~start                                                                          , ~end       , ~episode            , ~cause ,
+  "2020 W03"                                                                      , "2020 W04" , "2020 W03–W04"      ,
+  "artefact (75+): STL trend pulled up by the COVID-19 peak a few weeks later"    ,
+  "2020 W14"                                                                      , "2020 W18" , "2020 W14–W18"      ,
+  "first wave (New York, April 2020): all adult age groups"                       ,
+  "2020 W49"                                                                      , "2021 W03" , "2020 W49–2021 W03" ,
+  "winter 2020–21, the deadliest wave: 65+ only"                                  ,
+  "2021 W13"                                                                      , "2021 W15" , "2021 W13–W15"      ,
+  "low mortality (75+): restricted movement, vaccination, mortality displacement" ,
+  "2021 W33"                                                                      , "2021 W39" , "2021 W33–W39"      ,
+  "Delta: only 15–64 and 65–74 (older people vaccinated)"                         ,
+  "2022 W02"                                                                      , "2022 W05" , "2022 W02–W05"      ,
+  "Omicron: mostly 65+"
+) |>
+  mutate(start = yearweek(start), end = yearweek(end))
+us_zoom <- list(from = yearweek("2019 W40"), to = yearweek("2022 W26"))
 ```
 
-## US weekly mortality rates
+::: {.absolute .us-fig top="95" left="0" width="1280"}
+```{r}
+#| label: fig_us_covid
 
-Four anomalous peaks, each a major COVID-19 wave:
+us_mortality_girafe(
+  us_stmf,
+  stmf_scores,
+  us_episodes,
+  from = us_zoom$from,
+  to = us_zoom$to,
+  band_alpha = 0.08
+)
+```
+:::
 
-- 2020 W14--W18: first wave (New York, April 2020): all adult age groups
-- 2020 W49--2021 W03: winter 2020--21: mostly 65+
-- 2021 W33--W39: Delta: only 15--64 and 65--74 (older people vaccinated)
-- 2022 W02--W05: Omicron: mostly 65+
+::: {.absolute .us-fig .zoom-video top="95" left="0" width="1280"}
+```{r}
+#| label: us_zoom_video
 
-## US weekly mortality rates
+# Animation zooming in from the previous slide's plot; it is replaced by the
+# interactive plot (identical to its last frame) when it finishes
+video <- us_mortality_zoom_video(
+  us_stmf,
+  stmf_scores,
+  us_episodes,
+  from = us_zoom$from,
+  to = us_zoom$to
+)
+htmltools::tags$video(
+  src = paste0("data:video/mp4;base64,", base64enc::base64encode(video)),
+  muted = NA,
+  playsinline = NA,
+  preload = "auto"
+)
+```
+:::
 
-Low anomalies in 2020 W03--W04 (75+) are an [artefact]{.alert}:
+```{r}
+#| label: us_causes
 
-- rates almost identical to the same weeks of 2019
-- STL trend pulled upwards by the COVID-19 peak a few weeks later
-- not flagged if STL is fitted only to data up to early March 2020
+hover_card(
+  setNames(us_episodes$cause, us_episodes$episode),
+  alert = c("2020 W03–W04", "2021 W13–W15")
+)
+```
 
-## Multivariate time series: first PC {.small}
+```{=html}
+<script>
+// Play the zoom when arriving from the previous slide; otherwise (or once it
+// has finished) show the interactive plot
+window.addEventListener("load", function () {
+  var slide = document.getElementById("us-zoom");
+  var video = slide.querySelector(".zoom-video video");
+  video.addEventListener("ended", function () {
+    slide.classList.add("zoom-done");
+  });
+  Reveal.on("slidechanged", function (e) {
+    if (e.currentSlide !== slide) return;
+    var prev = e.previousSlide && Reveal.getIndices(e.previousSlide).h;
+    if (prev === Reveal.getIndices(slide).h - 1) {
+      slide.classList.remove("zoom-done");
+      video.currentTime = 0;
+      video.play();
+    } else {
+      slide.classList.add("zoom-done");
+    }
+  });
+});
+</script>
+```
 
+## Multivariate time series: first PC {.small .code-steps}
+
+::: {.columns}
+::::: {.column width="50%"}
 ```{r}
 #| label: us_stmf_pcs
 #| echo: true
+#| code-line-numbers: "1-8|1-12|1-24"
 
 us_wide <- us_stmf |>
   as_tibble() |>
@@ -588,6 +666,36 @@ pc_anomalies <- pcs |>
   ) |>
   filter(prob < 0.05)
 ```
+:::::
+::::: {.column width="50%"}
+::::::: {.r-stack}
+::::::::: {.step-output}
+```{r}
+#| label: us_wide_print
+
+us_wide |> print(n = 8, width = 48)
+```
+:::::::::
+::::::::: {.step-output}
+```{r}
+#| label: pcs_print
+
+pcs |> print(n = 8)
+```
+:::::::::
+::::::::: {.step-output}
+```{r}
+#| label: pc_anomalies_print
+
+pc_anomalies |>
+  as_tibble() |>
+  select(Week, .fittedPC1, .resid, prob) |>
+  print(n = 8)
+```
+:::::::::
+:::::::
+:::::
+:::
 
 ## Multivariate time series
 
@@ -1049,3 +1157,24 @@ Frazier\
 *Monash U*
 :::::
 :::
+
+```{=html}
+<script>
+// On slides with class "code-steps", show the n-th ".step-output" block when n
+// code-highlight steps have been revealed, so outputs follow the code
+window.addEventListener("load", function () {
+  function update() {
+    document.querySelectorAll("section.code-steps").forEach(function (slide) {
+      var step = slide.querySelectorAll("code.fragment.visible").length;
+      slide.querySelectorAll(".step-output").forEach(function (out, i) {
+        out.classList.toggle("current", i === step);
+      });
+    });
+  }
+  ["ready", "slidechanged", "fragmentshown", "fragmenthidden"].forEach(function (e) {
+    Reveal.on(e, update);
+  });
+  update();
+});
+</script>
+```
