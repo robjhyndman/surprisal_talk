@@ -19,3 +19,7 @@ p <- us_mortality |>
 cairo_pdf("figs/title_ts.pdf", width = 8, height = 4.5)
 print(p)
 dev.off()
+# PNG version for revealjs title slide
+ragg::agg_png("figs/title_ts.png", width = 8, height = 4.5, units = "in", res = 200)
+print(p)
+dev.off()

@@ -1,0 +1,139 @@
+/* Beamer-like styling for the UConn talk (revealjs+letterbox) */
+
+:root {
+  --monash-blue: #1969aa;
+  --orange: #cc5900;
+  --dark-yellow: #e6ac00;
+  --block-bg: #d9d9d9;
+  --r-main-font-size: 32px;
+}
+
+.reveal .alert {
+  color: var(--orange);
+  font-weight: bold;
+}
+
+.reveal ul > li::marker {
+  color: var(--orange);
+}
+
+.reveal .slide ul,
+.reveal .slide ol {
+  margin-top: 0.2em;
+}
+
+.reveal .slide {
+  line-height: 1.25;
+}
+
+.reveal .slide li {
+  margin-bottom: 0.2em;
+}
+
+/* Blocks: a heading (optional) followed by body */
+.reveal .block,
+.reveal .alertblock {
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0.3em 0;
+  padding: 0.3em 0.6em;
+  background-color: var(--block-bg);
+  text-align: left;
+}
+
+.reveal .alertblock {
+  background-color: var(--dark-yellow);
+}
+
+.reveal .block-title {
+  display: block;
+  margin: -0.5em -0.6em 0.3em -0.6em;
+  padding: 0.2em 0.6em;
+  color: white;
+  background-color: var(--monash-blue);
+}
+
+.reveal .alertblock .block-title {
+  background-color: black;
+}
+
+.reveal .block p,
+.reveal .alertblock p {
+  margin: 0.2em 0;
+}
+
+.reveal .block ul,
+.reveal .block ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Smaller text for dense slides */
+.reveal .small {
+  font-size: 0.9em;
+}
+
+/* Code and output at roughly the beamer size (10pt vs 14pt) */
+.reveal .slide pre {
+  font-size: 0.62em;
+  line-height: 1.25;
+}
+
+.reveal .slide pre code {
+  font-size: 1em;
+  max-height: none;
+}
+
+.reveal .katex-display {
+  margin: 0.4em 0;
+}
+
+/* Outline slides with orange numbered squares */
+.reveal .outline ol {
+  list-style: none;
+  counter-reset: section;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.reveal .outline li {
+  counter-increment: section;
+  margin: 0.5em 0;
+  color: var(--orange);
+}
+
+.reveal .outline li::before {
+  content: counter(section);
+  display: inline-block;
+  width: 1.4em;
+  margin-right: 0.6em;
+  text-align: center;
+  color: white;
+  background-color: var(--orange);
+}
+
+.reveal .outline li:has(.shaded) {
+  opacity: 0.4;
+}
+
+/* Images with captions on the coauthors slide */
+.reveal .coauthor {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.reveal .coauthor img {
+  height: 400px;
+  margin: 0 auto 0.2em auto;
+}
+
+.reveal .r-stack img {
+  width: 960px;
+  max-width: none;
+  max-height: none;
+}
+
+/* Title in orange, as in the beamer version */
+#title-slide .title {
+  color: var(--orange);
+}
