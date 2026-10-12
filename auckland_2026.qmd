@@ -2,6 +2,7 @@
 title: Spotting the weird ones
 author: Rob J Hyndman
 date: 6 August 2026
+url: robjhyndman.com/ihaka2026
 abstract: >-
   Data analysis is about finding the stories hidden in the mass of information that make up a data set.
   Usually we are interested in understanding the major patterns — the relationships that hold true for most of the data.
