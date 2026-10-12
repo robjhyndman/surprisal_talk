@@ -3,10 +3,10 @@ library(weird)
 get_expt1_prob <- function(y, empirical = TRUE) {
   df <- tibble(
     y = y,
-    p = surprisals(y, distribution = dist_normal()),
-    p_gpd = surprisals(y, distribution = dist_normal(), approximation = "gpd"),
-    pt = surprisals(y, distribution = dist_student_t(4)),
-    pt_gpd = surprisals(
+    p = surprisals_prob(y, distribution = dist_normal()),
+    p_gpd = surprisals_prob(y, distribution = dist_normal(), approximation = "gpd"),
+    pt = surprisals_prob(y, distribution = dist_student_t(4)),
+    pt_gpd = surprisals_prob(
       y,
       distribution = dist_student_t(4),
       approximation = "gpd"
@@ -15,15 +15,15 @@ get_expt1_prob <- function(y, empirical = TRUE) {
   if (empirical) {
     df <- df |>
       mutate(
-        p_emp = surprisals(
+        p_emp = surprisals_prob(
           y,
           distribution = dist_normal(),
-          approximation = "empirical"
+          approximation = "rank"
         ),
-        pt_emp = surprisals(
+        pt_emp = surprisals_prob(
           y,
           distribution = dist_student_t(4),
-          approximation = "empirical"
+          approximation = "rank"
         ),
       )
   }
