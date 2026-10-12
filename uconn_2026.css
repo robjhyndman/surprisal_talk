@@ -412,6 +412,10 @@ body.quarto-light,
 
 /* Stacked figures: reveal.js sizes an .r-stretch stack to the height left on
    the slide; each figure then fills it (capped at the slide width) */
+.reveal .slides section .r-stack.r-stretch {
+  margin-top: 0.9em;
+}
+
 .reveal .slides section .r-stack.r-stretch > div,
 .reveal .slides section .r-stack.r-stretch > div > p {
   height: 100%;

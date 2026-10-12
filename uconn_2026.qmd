@@ -1,5 +1,7 @@
 ---
-title: Surprises in time series analysis
+title: |
+  Surprises in\
+  time series analysis
 author: Rob J Hyndman
 date: 26 October 2026
 url: robjhyndman.com/uconn2026
@@ -492,15 +494,16 @@ us_stmf |>
 ## Surprisals from an STL decomposition {.small}
 
 ::: {.columns}
-::::: {.column width="36%"}
+::::: {.column width="34%"}
 Local medians fail with seasonality.
+
 Replace by a better signal estimate.
 
 - STL: $y_t = T_t + S_t + R_t$ (Cleveland et al., 1990; Bandara\ et al., 2025)
 - $a_t$: robust estimate of $\{R_t\}$ stdev, separately for each age group
 - $e_t = R_t / a_t$; surprisals under N(0,1), probabilities from GPD
 :::::
-::::: {.column width="64%"}
+::::: {.column width="66%"}
 ```{r}
 #| label: stl-stmf
 #| echo: true
@@ -511,15 +514,15 @@ stmf_scores <- us_stmf |>
   group_by(`Age group`) |>
   mutate(e = .resid / robustbase::s_Qn(.resid)) |>
   ungroup() |>
-  mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal()))
+  mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal())) |>
+  arrange(prob)
 ```
 
 ```{r}
 #| label: stmf_scores_print
 
 stmf_scores |>
-  select(Week, `Age group`, Mortality, .fitted, e, prob) |>
-  arrange(prob)
+  select(Week, `Age group`, Mortality, .fitted, e, prob)
 ```
 :::::
 :::
@@ -631,93 +634,6 @@ window.addEventListener("load", function () {
 });
 </script>
 ```
-
-## Multivariate time series: first PC {.small .code-steps}
-
-::: {.columns}
-::::: {.column width="50%"}
-```{r}
-#| label: us_stmf_pcs
-#| echo: true
-#| code-line-numbers: "1-8|1-12|1-24"
-
-us_wide <- us_stmf |>
-  as_tibble() |>
-  mutate(logm = log(Mortality)) |>
-  tidyr::pivot_wider(
-    id_cols = Week,
-    names_from = `Age group`,
-    values_from = logm
-  )
-pcs <- us_wide |>
-  select(-Week) |>
-  prcomp(rank = 1) |>
-  broom::augment(us_wide |> select(Week))
-pc_anomalies <- pcs |>
-  as_tsibble(index = Week) |>
-  model(stl = STL(.fittedPC1)) |>
-  augment() |>
-  mutate(
-    prob = surprisals_prob(
-      .resid,
-      distribution = dist_normal(),
-      approximation = "gpd"
-    )
-  ) |>
-  filter(prob < 0.05)
-```
-:::::
-::::: {.column width="50%"}
-::::::: {.r-stack}
-::::::::: {.step-output}
-```{r}
-#| label: us_wide_print
-
-us_wide |> print(n = 8, width = 48)
-```
-:::::::::
-::::::::: {.step-output}
-```{r}
-#| label: pcs_print
-
-pcs |> print(n = 8)
-```
-:::::::::
-::::::::: {.step-output}
-```{r}
-#| label: pc_anomalies_print
-
-pc_anomalies |>
-  as_tibble() |>
-  select(Week, .fittedPC1, .resid, prob) |>
-  print(n = 8)
-```
-:::::::::
-:::::::
-:::::
-:::
-
-## Multivariate time series
-
-```{r}
-#| label: fig_us_stmf_pcs
-
-pcs |>
-  ggplot(aes(x = Week, y = .fittedPC1)) +
-  geom_line() +
-  labs(y = "First principal component scores") +
-  geom_point(data = pc_anomalies, colour = "#C14b14")
-```
-
-::: {.absolute .fragment top="90" left="640" width="620"}
-::::: {.block .small}
-Low mortality in 2021 W13 and W15: 85+ rate lower than same weeks in every year 2016--2019.
-
-- restricted movement
-- early vaccination of older people
-- mortality displacement after the winter wave
-:::::
-:::
 
 ## Weird series {#part-weird-series .section-slide background-color="#0f2a44"}
 
