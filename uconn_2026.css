@@ -1,20 +1,96 @@
-/* Beamer-like styling for the UConn talk (revealjs+letterbox) */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css");
+
+/* Design for the UConn talk (revealjs+letterbox) */
 
 :root {
-  --monash-blue: #1969aa;
-  --orange: #cc5900;
-  --dark-yellow: #e6ac00;
-  --block-bg: #d9d9d9;
-  --r-main-font-size: 32px;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --paper: #fbf9f4;
+  --card: #ffffff;
+  --navy: #0f2a44;
+  --navy-2: #173b5e;
+  --blue: #1d6fa5;
+  --orange: #e0601a;
+  --amber: #f2b33d;
+  --amber-tint: #fdf1dc;
+  --code-bg: #13202f;
+  --output-bg: #efebe3;
+  --r-main-font-size: 34px;
+  --r-main-font: "Fira Sans", sans-serif;
+  --r-heading-font: "Fira Sans", sans-serif;
+  --r-code-font: "Hack", "Hack FC Ligatured CCG", monospace;
+  --r-main-color: var(--ink);
+  --r-heading-color: var(--navy);
+  --r-link-color: var(--blue);
+  --r-background-color: var(--paper);
+}
+
+/* ---- Stage and slide surface ---- */
+
+body.quarto-light,
+.quarto-light {
+  background-color: #262b33;
+}
+
+.reveal .slides {
+  background-color: var(--paper);
+  border-color: var(--paper);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 40px 0;
+}
+
+.reveal {
+  color: var(--ink);
+  font-family: var(--r-main-font);
+}
+
+.reveal .slide {
+  line-height: 1.3;
+}
+
+.reveal .progress {
+  color: var(--orange);
+}
+
+.reveal .slide-number {
+  color: var(--muted);
+  background: transparent;
+  font-size: 14px;
+}
+
+/* ---- Headings ---- */
+
+.reveal h2 {
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 1.35em;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.55em;
+}
+
+.reveal h2::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin-top: 0.22em;
+  border-radius: 3px;
+  background: var(--orange);
+}
+
+/* ---- Text ---- */
+
+.reveal strong {
+  font-weight: 600;
 }
 
 .reveal .alert {
   color: var(--orange);
-  font-weight: bold;
+  font-weight: 600;
 }
 
-.reveal ul > li::marker {
-  color: var(--orange);
+.reveal a {
+  color: var(--blue);
 }
 
 .reveal .slide ul,
@@ -22,39 +98,61 @@
   margin-top: 0.2em;
 }
 
-.reveal .slide {
-  line-height: 1.25;
-}
-
 .reveal .slide li {
-  margin-bottom: 0.2em;
+  margin-bottom: 0.3em;
 }
 
-/* Blocks: a heading (optional) followed by body */
+.reveal ul > li::marker {
+  content: "■  ";
+  color: var(--orange);
+  font-size: 0.7em;
+}
+
+.reveal ol > li::marker {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.reveal .katex-display {
+  margin: 0.4em 0;
+}
+
+.reveal .small {
+  font-size: 0.87em;
+}
+
+.reveal .slide.small h2 {
+  font-size: 1.55em;
+}
+
+/* ---- Blocks as cards ---- */
+
 .reveal .block,
 .reveal .alertblock {
-  border-radius: 8px;
-  overflow: hidden;
   margin: 0.3em 0;
-  padding: 0.3em 0.6em;
-  background-color: var(--block-bg);
+  padding: 0.45em 0.8em;
   text-align: left;
+  border-radius: 10px;
+  border-left: 6px solid var(--blue);
+  background-color: var(--card);
+  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.12);
 }
 
 .reveal .alertblock {
-  background-color: var(--dark-yellow);
+  border-left-color: var(--orange);
+  background-color: var(--amber-tint);
 }
 
 .reveal .block-title {
   display: block;
-  margin: -0.5em -0.6em 0.3em -0.6em;
-  padding: 0.2em 0.6em;
-  color: white;
-  background-color: var(--monash-blue);
+  margin-bottom: 0.1em;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--blue);
 }
 
 .reveal .alertblock .block-title {
-  background-color: black;
+  color: var(--orange);
 }
 
 .reveal .block p,
@@ -68,64 +166,248 @@
   margin-bottom: 0;
 }
 
-/* Smaller text for dense slides */
-.reveal .small {
-  font-size: 0.9em;
+/* ---- Code and output ---- */
+
+.reveal code,
+.reveal pre,
+.reveal pre code,
+.reveal div.sourceCode pre code,
+.reveal div.sourceCode code span,
+.reveal .cell-output pre code {
+  font-family: var(--r-code-font);
 }
 
-/* Code and output at roughly the beamer size (10pt vs 14pt) */
+.reveal p code,
+.reveal li code {
+  font-size: 0.85em;
+  color: var(--navy-2);
+  background: var(--output-bg);
+  padding: 0.05em 0.3em;
+  border-radius: 4px;
+}
+
+.reveal a code {
+  color: var(--blue);
+}
+
 .reveal .slide pre {
-  font-size: 0.62em;
-  line-height: 1.25;
+  font-size: 0.6em;
+  line-height: 1.35;
+  width: 100%;
+  margin: 0.4em 0;
+  box-shadow: none;
 }
 
 .reveal .slide pre code {
   font-size: 1em;
   max-height: none;
+  padding: 0.6em 0.9em;
 }
 
-.reveal .katex-display {
-  margin: 0.4em 0;
+.reveal div.sourceCode {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--code-bg);
+  overflow: hidden;
 }
 
-/* Outline slides with orange numbered squares */
+.reveal div.sourceCode pre,
+.reveal div.sourceCode pre code {
+  background-color: var(--code-bg);
+  color: #e6edf3;
+  border: none;
+}
+
+.reveal div.sourceCode code span { color: #e6edf3; }
+.reveal div.sourceCode code span.fu { color: #7dcfff; }
+.reveal div.sourceCode code span.st,
+.reveal div.sourceCode code span.ss,
+.reveal div.sourceCode code span.vs,
+.reveal div.sourceCode code span.ch { color: #a6da7b; }
+.reveal div.sourceCode code span.dv,
+.reveal div.sourceCode code span.bn,
+.reveal div.sourceCode code span.fl,
+.reveal div.sourceCode code span.cn { color: #ffa86b; }
+.reveal div.sourceCode code span.kw,
+.reveal div.sourceCode code span.cf { color: #c3a6ff; }
+.reveal div.sourceCode code span.op { color: #89ddff; }
+.reveal div.sourceCode code span.at,
+.reveal div.sourceCode code span.sc { color: #f2c66d; }
+.reveal div.sourceCode code span.ot { color: #8fb8ff; }
+.reveal div.sourceCode code span.co,
+.reveal div.sourceCode code span.do,
+.reveal div.sourceCode code span.cv,
+.reveal div.sourceCode code span.an { color: #7d8ca3; font-style: italic; }
+
+.reveal .cell-output pre,
+.reveal .cell-output pre code,
+.reveal .cell-output-stdout pre code {
+  background-color: var(--output-bg);
+  color: var(--ink);
+  border: none;
+  border-radius: 10px;
+}
+
+.reveal .cell-output pre code {
+  padding: 0.6em 0.9em;
+}
+
+/* ---- Tables ---- */
+
+.reveal table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal table th {
+  color: var(--navy);
+  border-bottom: 3px solid var(--orange) !important;
+}
+
+.reveal table td,
+.reveal table th {
+  padding: 0.25em 0.9em !important;
+}
+
+.reveal table tbody tr:nth-child(odd) {
+  background: rgba(15, 42, 68, 0.05);
+}
+
+/* ---- Title slide ---- */
+
+#title-slide {
+  color: white;
+}
+
+#title-slide-text {
+  margin-top: 60px;
+  width: 80%;
+}
+
+#title-slide .title {
+  color: white;
+  font-size: 2.3em;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+#title-slide .title::after {
+  content: "";
+  display: block;
+  width: 110px;
+  height: 7px;
+  margin: 0.35em 0 0.5em 0;
+  border-radius: 4px;
+  background: var(--orange);
+}
+
+#title-slide .quarto-title-author-name,
+#title-slide .date {
+  color: #dbe4ee;
+  margin: 0.15em 0;
+}
+
+#title-slide .quarto-title-author-name {
+  font-weight: 600;
+}
+
+#title-slide .url,
+#title-slide .url a,
+#title-slide .url code {
+  color: var(--amber);
+  background: none;
+  font-size: 0.85em;
+}
+
+/* ---- Section slides ---- */
+
+.reveal .section-slide h2 {
+  color: white;
+  font-size: 2.2em;
+  font-weight: 800;
+  margin-top: 220px;
+}
+
+.reveal .section-slide h2::after {
+  width: 110px;
+  height: 7px;
+}
+
+.reveal .section-number {
+  position: absolute;
+  top: 120px;
+  left: 0;
+  font-size: 2em;
+  font-weight: 300;
+  color: var(--amber);
+}
+
+.reveal .section-slide .outline {
+  position: absolute;
+  top: 120px;
+  right: 0;
+  width: 380px;
+  padding-left: 1.2em;
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.8em;
+}
+
 .reveal .outline ol {
   list-style: none;
   counter-reset: section;
-  margin-left: 0;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .reveal .outline li {
   counter-increment: section;
-  margin: 0.5em 0;
-  color: var(--orange);
+  margin: 0.6em 0;
+  color: white;
 }
 
 .reveal .outline li::before {
-  content: counter(section);
+  content: counter(section, decimal-leading-zero);
   display: inline-block;
-  width: 1.4em;
-  margin-right: 0.6em;
-  text-align: center;
-  color: white;
-  background-color: var(--orange);
+  width: 2em;
+  color: var(--amber);
+  font-weight: 300;
 }
 
 .reveal .outline li:has(.shaded) {
-  opacity: 0.4;
+  opacity: 0.45;
 }
 
-/* Images with captions on the coauthors slide */
-.reveal .coauthor {
-  text-align: center;
-  line-height: 1.2;
+.reveal .outline .current {
+  font-weight: 700;
 }
 
-.reveal .coauthor img {
-  height: 400px;
-  margin: 0 auto 0.2em auto;
+/* Agenda slide: outline in the main area */
+.reveal .agenda .outline {
+  margin-top: 40px;
+  font-size: 1.15em;
 }
+
+.reveal .agenda .outline li {
+  margin: 0.5em 0;
+}
+
+/* ---- Photo slides: title on a dark band over a full-bleed image ---- */
+
+.reveal .photo h2 {
+  display: inline-block;
+  color: white;
+  background: rgba(15, 42, 68, 0.85);
+  padding: 0.2em 0.6em;
+  border-radius: 8px;
+}
+
+.reveal .photo h2::after {
+  display: none;
+}
+
+/* ---- Figures ---- */
 
 .reveal .r-stack img {
   width: 960px;
@@ -133,7 +415,25 @@
   max-height: none;
 }
 
-/* Title in orange, as in the beamer version */
-#title-slide .title {
-  color: var(--orange);
+/* ---- Coauthors ---- */
+
+.reveal .coauthor {
+  text-align: center;
+  line-height: 1.25;
+}
+
+.reveal .coauthor img {
+  height: 360px;
+  margin: 0 auto 0.4em auto;
+  box-shadow: 0 6px 22px rgba(15, 42, 68, 0.25);
+  border-radius: 50%;
+}
+
+.reveal .coauthor p:first-of-type + p {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.reveal .agenda .outline li {
+  color: var(--navy);
 }

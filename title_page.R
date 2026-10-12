@@ -19,7 +19,15 @@ p <- us_mortality |>
 cairo_pdf("figs/title_ts.pdf", width = 8, height = 4.5)
 print(p)
 dev.off()
-# PNG version for revealjs title slide
-ragg::agg_png("figs/title_ts.png", width = 8, height = 4.5, units = "in", res = 200)
+# PNG version for revealjs title slide: light line in the lower half of a
+# transparent image, to sit on a dark background below the title text
+p <- p +
+  aes(y = Mortality) +
+  scale_y_continuous(expand = expansion(mult = c(0.03, 1.1)))
+p$layers[[1]]$aes_params$colour <- "#4f86b5"
+ragg::agg_png(
+  "figs/title_ts.png", width = 8, height = 4.5, units = "in", res = 240,
+  background = "transparent"
+)
 print(p)
 dev.off()

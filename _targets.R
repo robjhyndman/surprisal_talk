@@ -439,6 +439,8 @@ list(
     slides_uconn,
     "uconn_2026.qmd",
     quiet = FALSE,
-    extra_files = c("uconn_2026.css", "title-slide.html", "figs/title_ts.png")
+    extra_files = c(
+      "uconn_2026.css", "title-slide.html", "figs/title_ts.png", "katex/katex.min.css"
+    )
   )
 )

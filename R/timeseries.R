@@ -7,31 +7,25 @@ create_fig_tsparadigms <- function(fr_mortality) {
     group_by(ATC2) |>
     summarise(Scripts = sum(Scripts) / 1e3) |>
     ungroup() |>
-    filter(ATC2 == "A12", Month <= yearmonth("2006 Feb")) |>
-    mutate(paradigm = "Surveillance")
+    filter(ATC2 == "A12", Month <= yearmonth("2006 Feb"))
   p1 <- fr_mortality |>
     filter(Age == 25, Sex == "Male") |>
-    mutate(paradigm = "Weird times") |>
     ggplot(aes(x = Year, y = Mortality)) +
     geom_line() +
-    facet_grid(paradigm ~ .) +
     theme(axis.title = element_blank()) +
     scale_x_continuous(breaks = NULL) +
     scale_y_continuous(breaks = NULL)
   p2 <- fr_mortality |>
     filter(Age %in% c(2:6, 60), Sex == "Female") |>
-    mutate(paradigm = "Weird series") |>
     ggplot(aes(x = Year, y = Mortality, colour = as.factor(Age))) +
     geom_line() +
     guides(col = "none") +
-    facet_grid(paradigm ~ .) +
     theme(axis.title = element_blank()) +
     scale_x_continuous(breaks = NULL) +
     scale_y_log10(breaks = NULL)
   p3 <- a12 |>
     autoplot(Scripts) +
     geom_point(data = tail(a12, 1)) +
-    facet_grid(paradigm ~ .) +
     theme(axis.title = element_blank()) +
     scale_x_yearmonth(breaks = NULL) +
     scale_y_continuous(breaks = NULL)
