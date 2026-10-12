@@ -1,0 +1,1553 @@
+manifest_fingerprint = "sha256:0c2631686f1c998407ac2c9e0867c38ea6dc0c5ad179be36bb9a7fe84045e42d"
+
+[r]
+version = "4.6.1"
+
+[[package]]
+name = "BH"
+version = "1.90.0-4.1"
+source = "ppm"
+raw_version = "1.90.0-1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/BH_1.90.0-1.tar.gz"
+
+[[package]]
+name = "Cairo"
+version = "1.7.0"
+source = "ppm"
+raw_version = "1.7-0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/Cairo_1.7-0.tar.gz"
+system_requirements = "cairo (>= 1.2 http://www.cairographics.org/)"
+
+[[package]]
+name = "DEoptimR"
+version = "1.2.2"
+source = "ppm"
+raw_version = "1.2-2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/DEoptimR_1.2-2.tar.gz"
+
+[[package]]
+name = "FNN"
+version = "1.1.4-4.1"
+source = "ppm"
+raw_version = "1.1.4.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/FNN_1.1.4.1.tar.gz"
+
+[[package]]
+name = "KernSmooth"
+version = "2.23.27"
+source = "ppm"
+raw_version = "2.23-27"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/KernSmooth_2.23-27.tar.gz"
+
+[[package]]
+name = "Matrix"
+version = "1.7.6"
+source = "ppm"
+raw_version = "1.7-6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/Matrix_1.7-6.tar.gz"
+requires = ["lattice"]
+
+[[package]]
+name = "R6"
+version = "2.6.1"
+source = "ppm"
+raw_version = "2.6.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/R6_2.6.1.tar.gz"
+
+[[package]]
+name = "RANN"
+version = "2.6.3"
+source = "ppm"
+raw_version = "2.6.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/RANN_2.6.3.tar.gz"
+
+[[package]]
+name = "RColorBrewer"
+version = "1.1.3"
+source = "ppm"
+raw_version = "1.1-3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/RColorBrewer_1.1-3.tar.gz"
+
+[[package]]
+name = "Rcpp"
+version = "1.1.2"
+source = "ppm"
+raw_version = "1.1.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/Rcpp_1.1.2.tar.gz"
+
+[[package]]
+name = "RcppArmadillo"
+version = "15.6.0-4.1"
+source = "ppm"
+raw_version = "15.6.0-1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/RcppArmadillo_15.6.0-1.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "RcppEnsmallen"
+version = "0.3.11-4.0.1"
+source = "ppm"
+raw_version = "0.3.11.0.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/RcppEnsmallen_0.3.11.0.1.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+    "RcppArmadillo",
+]
+
+[[package]]
+name = "S7"
+version = "0.2.2"
+source = "ppm"
+raw_version = "0.2.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/S7_0.2.2.tar.gz"
+
+[[package]]
+name = "TDAstats"
+version = "0.4.2"
+source = "ppm"
+raw_version = "0.4.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/TDAstats_0.4.2.tar.gz"
+requires = [
+    "ggplot2",
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "anytime"
+version = "0.3.13"
+source = "ppm"
+raw_version = "0.3.13"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/anytime_0.3.13.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+    "BH",
+]
+
+[[package]]
+name = "aplpack"
+version = "1.3.5"
+source = "ppm"
+raw_version = "1.3.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/aplpack_1.3.5.tar.gz"
+
+[[package]]
+name = "backports"
+version = "1.5.1"
+source = "ppm"
+raw_version = "1.5.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/backports_1.5.1.tar.gz"
+
+[[package]]
+name = "base64enc"
+version = "0.1.6"
+source = "ppm"
+raw_version = "0.1-6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/base64enc_0.1-6.tar.gz"
+
+[[package]]
+name = "base64url"
+version = "1.4.0"
+source = "ppm"
+raw_version = "1.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/base64url_1.4.tar.gz"
+requires = ["backports"]
+
+[[package]]
+name = "broom"
+version = "1.0.13"
+source = "ppm"
+raw_version = "1.0.13"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/broom_1.0.13.tar.gz"
+requires = [
+    "backports",
+    "cli",
+    "dplyr",
+    "generics",
+    "glue",
+    "lifecycle",
+    "purrr",
+    "rlang",
+    "stringr",
+    "tibble",
+    "tidyr",
+]
+
+[[package]]
+name = "bslib"
+version = "0.12.0"
+source = "ppm"
+raw_version = "0.12.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/bslib_0.12.0.tar.gz"
+requires = [
+    "base64enc",
+    "cachem",
+    "fastmap",
+    "htmltools",
+    "jquerylib",
+    "jsonlite",
+    "lifecycle",
+    "memoise",
+    "mime",
+    "rlang",
+    "sass",
+]
+
+[[package]]
+name = "cachem"
+version = "1.1.0"
+source = "ppm"
+raw_version = "1.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/cachem_1.1.0.tar.gz"
+requires = [
+    "rlang",
+    "fastmap",
+]
+
+[[package]]
+name = "callr"
+version = "3.8.0"
+source = "ppm"
+raw_version = "3.8.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/callr_3.8.0.tar.gz"
+requires = [
+    "otel",
+    "processx",
+    "R6",
+]
+
+[[package]]
+name = "cli"
+version = "3.6.6"
+source = "ppm"
+raw_version = "3.6.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/cli_3.6.6.tar.gz"
+
+[[package]]
+name = "codetools"
+version = "0.2.20"
+source = "ppm"
+raw_version = "0.2-20"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/codetools_0.2-20.tar.gz"
+
+[[package]]
+name = "colorspace"
+version = "2.1.4"
+source = "ppm"
+raw_version = "2.1-4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/colorspace_2.1-4.tar.gz"
+
+[[package]]
+name = "cpp11"
+version = "0.5.5"
+source = "ppm"
+raw_version = "0.5.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/cpp11_0.5.5.tar.gz"
+
+[[package]]
+name = "crop"
+version = "0.0.3"
+source = "ppm"
+raw_version = "0.0-3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/crop_0.0-3.tar.gz"
+
+[[package]]
+name = "data.table"
+version = "1.18.6-4.1"
+source = "ppm"
+raw_version = "1.18.6.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/data.table_1.18.6.1.tar.gz"
+
+[[package]]
+name = "dbscan"
+version = "1.2.7"
+source = "ppm"
+raw_version = "1.2.7"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/dbscan_1.2.7.tar.gz"
+requires = [
+    "generics",
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "digest"
+version = "0.6.39"
+source = "ppm"
+raw_version = "0.6.39"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/digest_0.6.39.tar.gz"
+
+[[package]]
+name = "distributional"
+version = "0.9.0"
+source = "ppm"
+raw_version = "0.9.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/distributional_0.9.0.tar.gz"
+requires = [
+    "vctrs",
+    "rlang",
+    "generics",
+    "numDeriv",
+    "lifecycle",
+    "pillar",
+]
+
+[[package]]
+name = "dobin"
+version = "1.0.5"
+source = "ppm"
+raw_version = "1.0.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/dobin_1.0.5.tar.gz"
+requires = [
+    "dbscan",
+    "ggplot2",
+    "pracma",
+]
+
+[[package]]
+name = "dplyr"
+version = "1.2.1"
+source = "ppm"
+raw_version = "1.2.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/dplyr_1.2.1.tar.gz"
+requires = [
+    "cli",
+    "generics",
+    "glue",
+    "lifecycle",
+    "magrittr",
+    "pillar",
+    "R6",
+    "rlang",
+    "tibble",
+    "tidyselect",
+    "vctrs",
+]
+
+[[package]]
+name = "evaluate"
+version = "1.0.5"
+source = "ppm"
+raw_version = "1.0.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/evaluate_1.0.5.tar.gz"
+
+[[package]]
+name = "evd"
+version = "2.3.7-4.1"
+source = "ppm"
+raw_version = "2.3-7.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/evd_2.3-7.1.tar.gz"
+
+[[package]]
+name = "fable"
+version = "0.5.0"
+source = "ppm"
+raw_version = "0.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fable_0.5.0.tar.gz"
+requires = [
+    "fabletools",
+    "Rcpp",
+    "rlang",
+    "dplyr",
+    "tsibble",
+    "tibble",
+    "tidyr",
+    "distributional",
+    "cli",
+    "Rcpp",
+]
+
+[[package]]
+name = "fabletools"
+version = "0.8.0"
+source = "ppm"
+raw_version = "0.8.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fabletools_0.8.0.tar.gz"
+requires = [
+    "tsibble",
+    "tibble",
+    "ggplot2",
+    "tidyselect",
+    "rlang",
+    "dplyr",
+    "tidyr",
+    "generics",
+    "R6",
+    "vctrs",
+    "distributional",
+    "progressr",
+    "lifecycle",
+    "ggdist",
+    "scales",
+    "cli",
+]
+
+[[package]]
+name = "farver"
+version = "2.1.2"
+source = "ppm"
+raw_version = "2.1.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/farver_2.1.2.tar.gz"
+
+[[package]]
+name = "fastmap"
+version = "1.2.0"
+source = "ppm"
+raw_version = "1.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fastmap_1.2.0.tar.gz"
+
+[[package]]
+name = "feasts"
+version = "0.5.0"
+source = "ppm"
+raw_version = "0.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/feasts_0.5.0.tar.gz"
+requires = [
+    "fabletools",
+    "rlang",
+    "tibble",
+    "tsibble",
+    "ggplot2",
+    "dplyr",
+    "tidyr",
+    "vctrs",
+    "lubridate",
+    "slider",
+    "lifecycle",
+    "ggtime",
+]
+
+[[package]]
+name = "fontawesome"
+version = "0.5.3"
+source = "ppm"
+raw_version = "0.5.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fontawesome_0.5.3.tar.gz"
+requires = [
+    "rlang",
+    "htmltools",
+]
+
+[[package]]
+name = "fs"
+version = "2.1.0"
+source = "ppm"
+raw_version = "2.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fs_2.1.0.tar.gz"
+system_requirements = "libuv: libuv-devel (rpm) or libuv1-dev (deb). Alternatively to build the vendored libuv 'cmake' is required. GNU make."
+
+[[package]]
+name = "generics"
+version = "0.1.4"
+source = "ppm"
+raw_version = "0.1.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/generics_0.1.4.tar.gz"
+
+[[package]]
+name = "ggdist"
+version = "3.3.3"
+source = "ppm"
+raw_version = "3.3.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggdist_3.3.3.tar.gz"
+requires = [
+    "ggplot2",
+    "scales",
+    "rlang",
+    "cli",
+    "tibble",
+    "vctrs",
+    "withr",
+    "glue",
+    "gtable",
+    "distributional",
+    "numDeriv",
+    "quadprog",
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "ggokabeito"
+version = "0.1.0"
+source = "ppm"
+raw_version = "0.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggokabeito_0.1.0.tar.gz"
+requires = ["ggplot2"]
+
+[[package]]
+name = "ggplot2"
+version = "4.0.3"
+source = "ppm"
+raw_version = "4.0.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggplot2_4.0.3.tar.gz"
+requires = [
+    "cli",
+    "gtable",
+    "isoband",
+    "lifecycle",
+    "rlang",
+    "S7",
+    "scales",
+    "vctrs",
+    "withr",
+]
+
+[[package]]
+name = "ggrepel"
+version = "0.9.8"
+source = "ppm"
+raw_version = "0.9.8"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggrepel_0.9.8.tar.gz"
+requires = [
+    "ggplot2",
+    "Rcpp",
+    "rlang",
+    "S7",
+    "scales",
+    "withr",
+    "Rcpp",
+]
+
+[[package]]
+name = "ggtda"
+version = "0.1.0"
+source = "github"
+url = "https://api.github.com/repos/tdaverse/ggtda/tarball/aa90e28ac854c141fb526c04bd01cb62704231da"
+checksum = "git:aa90e28ac854c141fb526c04bd01cb62704231da"
+requires = [
+    "rlang",
+    "ggplot2",
+]
+
+[[package]]
+name = "ggtime"
+version = "1.0.0"
+source = "ppm"
+raw_version = "1.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtime_1.0.0.tar.gz"
+requires = [
+    "ggplot2",
+    "gtable",
+    "lifecycle",
+    "rlang",
+    "scales",
+    "tsibble",
+    "fabletools",
+    "dplyr",
+    "lubridate",
+    "tidyr",
+    "vctrs",
+    "cli",
+    "vecvec",
+    "mixtime",
+    "S7",
+]
+
+[[package]]
+name = "glue"
+version = "1.8.1"
+source = "ppm"
+raw_version = "1.8.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/glue_1.8.1.tar.gz"
+
+[[package]]
+name = "gratia"
+version = "0.11.2"
+source = "ppm"
+raw_version = "0.11.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gratia_0.11.2.tar.gz"
+requires = [
+    "mgcv",
+    "ggplot2",
+    "tibble",
+    "dplyr",
+    "tidyr",
+    "rlang",
+    "patchwork",
+    "vctrs",
+    "mvnfast",
+    "purrr",
+    "stringr",
+    "tidyselect",
+    "lifecycle",
+    "pillar",
+    "cli",
+    "nlme",
+    "ggokabeito",
+    "withr",
+    "scales",
+    "mirai",
+    "tweedie",
+]
+
+[[package]]
+name = "gtable"
+version = "0.3.6"
+source = "ppm"
+raw_version = "0.3.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gtable_0.3.6.tar.gz"
+requires = [
+    "cli",
+    "glue",
+    "lifecycle",
+    "rlang",
+]
+
+[[package]]
+name = "highr"
+version = "0.12.0"
+source = "ppm"
+raw_version = "0.12"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/highr_0.12.tar.gz"
+requires = ["xfun"]
+
+[[package]]
+name = "htmltools"
+version = "0.5.9"
+source = "ppm"
+raw_version = "0.5.9"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/htmltools_0.5.9.tar.gz"
+requires = [
+    "base64enc",
+    "digest",
+    "fastmap",
+    "rlang",
+]
+
+[[package]]
+name = "htmlwidgets"
+version = "1.6.4"
+source = "ppm"
+raw_version = "1.6.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/htmlwidgets_1.6.4.tar.gz"
+requires = [
+    "htmltools",
+    "jsonlite",
+    "knitr",
+    "rmarkdown",
+    "yaml",
+]
+
+[[package]]
+name = "igraph"
+version = "2.3.4"
+source = "ppm"
+raw_version = "2.3.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/igraph_2.3.4.tar.gz"
+requires = [
+    "cli",
+    "lifecycle",
+    "magrittr",
+    "Matrix",
+    "pkgconfig",
+    "rlang",
+    "vctrs",
+    "cpp11",
+]
+system_requirements = "libxml2 (optional), glpk (>= 4.57, optional)"
+
+[[package]]
+name = "isoband"
+version = "0.3.0"
+source = "ppm"
+raw_version = "0.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/isoband_0.3.0.tar.gz"
+requires = [
+    "cli",
+    "rlang",
+    "cpp11",
+]
+
+[[package]]
+name = "jquerylib"
+version = "0.1.4"
+source = "ppm"
+raw_version = "0.1.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/jquerylib_0.1.4.tar.gz"
+requires = ["htmltools"]
+
+[[package]]
+name = "jsonlite"
+version = "2.0.0"
+source = "ppm"
+raw_version = "2.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/jsonlite_2.0.0.tar.gz"
+
+[[package]]
+name = "kableExtra"
+version = "1.4.1"
+source = "ppm"
+raw_version = "1.4.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/kableExtra_1.4.1.tar.gz"
+requires = [
+    "knitr",
+    "magrittr",
+    "stringr",
+    "xml2",
+    "rmarkdown",
+    "scales",
+    "viridisLite",
+    "htmltools",
+    "rstudioapi",
+    "digest",
+    "svglite",
+]
+
+[[package]]
+name = "kernlab"
+version = "0.9.33"
+source = "ppm"
+raw_version = "0.9-33"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/kernlab_0.9-33.tar.gz"
+
+[[package]]
+name = "knitr"
+version = "1.52.0"
+source = "ppm"
+raw_version = "1.52"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/knitr_1.52.tar.gz"
+requires = [
+    "evaluate",
+    "highr",
+    "xfun",
+    "yaml",
+]
+system_requirements = "Package vignettes based on R Markdown v2 or reStructuredText require Pandoc (http://pandoc.org). The function rst2pdf() requires rst2pdf (https://github.com/rst2pdf/rst2pdf)."
+
+[[package]]
+name = "ks"
+version = "1.15.3"
+source = "ppm"
+raw_version = "1.15.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ks_1.15.3.tar.gz"
+requires = [
+    "FNN",
+    "kernlab",
+    "KernSmooth",
+    "Matrix",
+    "mclust",
+    "mgcv",
+    "multicool",
+    "mvtnorm",
+    "pracma",
+]
+
+[[package]]
+name = "labeling"
+version = "0.4.3"
+source = "ppm"
+raw_version = "0.4.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/labeling_0.4.3.tar.gz"
+
+[[package]]
+name = "later"
+version = "1.4.8"
+source = "ppm"
+raw_version = "1.4.8"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/later_1.4.8.tar.gz"
+requires = [
+    "Rcpp",
+    "rlang",
+    "Rcpp",
+]
+
+[[package]]
+name = "latex2exp"
+version = "0.9.8"
+source = "ppm"
+raw_version = "0.9.8"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/latex2exp_0.9.8.tar.gz"
+
+[[package]]
+name = "lattice"
+version = "0.23.1"
+source = "ppm"
+raw_version = "0.23-1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/lattice_0.23-1.tar.gz"
+
+[[package]]
+name = "lifecycle"
+version = "1.0.5"
+source = "ppm"
+raw_version = "1.0.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/lifecycle_1.0.5.tar.gz"
+requires = [
+    "cli",
+    "rlang",
+]
+
+[[package]]
+name = "lookout"
+version = "2.0.2"
+source = "ppm"
+raw_version = "2.0.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/lookout_2.0.2.tar.gz"
+requires = [
+    "evd",
+    "ggplot2",
+    "mlpack",
+    "RANN",
+    "robustbase",
+    "tidyr",
+]
+
+[[package]]
+name = "lubridate"
+version = "1.9.5"
+source = "ppm"
+raw_version = "1.9.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/lubridate_1.9.5.tar.gz"
+requires = [
+    "generics",
+    "timechange",
+]
+system_requirements = "A system with zoneinfo data (e.g. /usr/share/zoneinfo). On Windows the zoneinfo included with R is used."
+
+[[package]]
+name = "magrittr"
+version = "2.0.5"
+source = "ppm"
+raw_version = "2.0.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/magrittr_2.0.5.tar.gz"
+
+[[package]]
+name = "mclust"
+version = "6.1.3"
+source = "ppm"
+raw_version = "6.1.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mclust_6.1.3.tar.gz"
+
+[[package]]
+name = "memoise"
+version = "2.0.1"
+source = "ppm"
+raw_version = "2.0.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/memoise_2.0.1.tar.gz"
+requires = [
+    "rlang",
+    "cachem",
+]
+
+[[package]]
+name = "mgcv"
+version = "1.9.4"
+source = "ppm"
+raw_version = "1.9-4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mgcv_1.9-4.tar.gz"
+requires = [
+    "nlme",
+    "Matrix",
+]
+
+[[package]]
+name = "mime"
+version = "0.13.0"
+source = "ppm"
+raw_version = "0.13"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mime_0.13.tar.gz"
+
+[[package]]
+name = "mirai"
+version = "2.7.3"
+source = "ppm"
+raw_version = "2.7.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mirai_2.7.3.tar.gz"
+requires = ["nanonext"]
+
+[[package]]
+name = "mixtime"
+version = "0.3.0"
+source = "ppm"
+raw_version = "0.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mixtime_0.3.0.tar.gz"
+requires = [
+    "lifecycle",
+    "vctrs",
+    "rlang",
+    "cli",
+    "S7",
+    "vecvec",
+    "tzdb",
+    "cpp11",
+    "tzdb",
+]
+
+[[package]]
+name = "mlpack"
+version = "4.8.0-4.1"
+source = "ppm"
+raw_version = "4.8.0-1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mlpack_4.8.0-1.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+    "RcppArmadillo",
+    "RcppEnsmallen",
+]
+
+[[package]]
+name = "multicool"
+version = "1.0.1"
+source = "ppm"
+raw_version = "1.0.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/multicool_1.0.1.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "mvnfast"
+version = "0.2.8"
+source = "ppm"
+raw_version = "0.2.8"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mvnfast_0.2.8.tar.gz"
+requires = [
+    "Rcpp",
+    "Rcpp",
+    "RcppArmadillo",
+    "BH",
+]
+
+[[package]]
+name = "mvtnorm"
+version = "1.4.2"
+source = "ppm"
+raw_version = "1.4-2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mvtnorm_1.4-2.tar.gz"
+
+[[package]]
+name = "nanonext"
+version = "1.10.3"
+source = "ppm"
+raw_version = "1.10.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/nanonext_1.10.3.tar.gz"
+system_requirements = "'libnng' >= 1.12 and 'libmbedtls' >= 3.0 (optional, bundled sources compiled otherwise)"
+
+[[package]]
+name = "nlme"
+version = "3.1.171"
+source = "ppm"
+raw_version = "3.1-171"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/nlme_3.1-171.tar.gz"
+requires = ["lattice"]
+
+[[package]]
+name = "numDeriv"
+version = "2016.8.1-4.1"
+source = "ppm"
+raw_version = "2016.8-1.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/numDeriv_2016.8-1.1.tar.gz"
+
+[[package]]
+name = "otel"
+version = "0.2.0"
+source = "ppm"
+raw_version = "0.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/otel_0.2.0.tar.gz"
+
+[[package]]
+name = "patchwork"
+version = "1.3.2"
+source = "ppm"
+raw_version = "1.3.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/patchwork_1.3.2.tar.gz"
+requires = [
+    "ggplot2",
+    "gtable",
+    "rlang",
+    "cli",
+    "farver",
+]
+
+[[package]]
+name = "pcaPP"
+version = "2.0.7"
+source = "ppm"
+raw_version = "2.0-7"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/pcaPP_2.0-7.tar.gz"
+requires = ["mvtnorm"]
+
+[[package]]
+name = "pillar"
+version = "1.11.1"
+source = "ppm"
+raw_version = "1.11.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/pillar_1.11.1.tar.gz"
+requires = [
+    "cli",
+    "glue",
+    "lifecycle",
+    "rlang",
+    "utf8",
+    "vctrs",
+]
+
+[[package]]
+name = "pkgconfig"
+version = "2.0.3"
+source = "ppm"
+raw_version = "2.0.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/pkgconfig_2.0.3.tar.gz"
+
+[[package]]
+name = "pracma"
+version = "2.4.6"
+source = "ppm"
+raw_version = "2.4.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/pracma_2.4.6.tar.gz"
+
+[[package]]
+name = "prettyunits"
+version = "1.2.0"
+source = "ppm"
+raw_version = "1.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/prettyunits_1.2.0.tar.gz"
+
+[[package]]
+name = "processx"
+version = "3.9.0"
+source = "ppm"
+raw_version = "3.9.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/processx_3.9.0.tar.gz"
+requires = [
+    "ps",
+    "R6",
+]
+
+[[package]]
+name = "progressr"
+version = "1.0.0"
+source = "ppm"
+raw_version = "1.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/progressr_1.0.0.tar.gz"
+requires = ["digest"]
+
+[[package]]
+name = "ps"
+version = "1.9.3"
+source = "ppm"
+raw_version = "1.9.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ps_1.9.3.tar.gz"
+
+[[package]]
+name = "purrr"
+version = "1.2.2"
+source = "ppm"
+raw_version = "1.2.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/purrr_1.2.2.tar.gz"
+requires = [
+    "cli",
+    "lifecycle",
+    "magrittr",
+    "rlang",
+    "vctrs",
+    "cli",
+]
+
+[[package]]
+name = "quadprog"
+version = "1.5.8"
+source = "ppm"
+raw_version = "1.5-8"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/quadprog_1.5-8.tar.gz"
+
+[[package]]
+name = "quarto"
+version = "1.5.1"
+source = "ppm"
+raw_version = "1.5.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/quarto_1.5.1.tar.gz"
+requires = [
+    "cli",
+    "fs",
+    "htmltools",
+    "jsonlite",
+    "later",
+    "lifecycle",
+    "processx",
+    "rlang",
+    "rmarkdown",
+    "rstudioapi",
+    "xfun",
+    "yaml",
+]
+system_requirements = "Quarto command line tool (<https://github.com/quarto-dev/quarto-cli>)."
+
+[[package]]
+name = "rappdirs"
+version = "0.3.4"
+source = "ppm"
+raw_version = "0.3.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/rappdirs_0.3.4.tar.gz"
+
+[[package]]
+name = "rlang"
+version = "1.3.0"
+source = "ppm"
+raw_version = "1.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/rlang_1.3.0.tar.gz"
+
+[[package]]
+name = "rmarkdown"
+version = "2.32.0"
+source = "ppm"
+raw_version = "2.32"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/rmarkdown_2.32.tar.gz"
+requires = [
+    "bslib",
+    "evaluate",
+    "fontawesome",
+    "htmltools",
+    "jquerylib",
+    "jsonlite",
+    "knitr",
+    "tinytex",
+    "xfun",
+    "yaml",
+]
+system_requirements = "pandoc (>= 2.8) - http://pandoc.org"
+
+[[package]]
+name = "robustbase"
+version = "0.99.7"
+source = "ppm"
+raw_version = "0.99-7"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/robustbase_0.99-7.tar.gz"
+requires = ["DEoptimR"]
+
+[[package]]
+name = "rstudioapi"
+version = "0.19.0"
+source = "ppm"
+raw_version = "0.19.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/rstudioapi_0.19.0.tar.gz"
+
+[[package]]
+name = "sass"
+version = "0.4.10"
+source = "ppm"
+raw_version = "0.4.10"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/sass_0.4.10.tar.gz"
+requires = [
+    "fs",
+    "rlang",
+    "htmltools",
+    "R6",
+    "rappdirs",
+]
+system_requirements = "GNU make"
+
+[[package]]
+name = "scales"
+version = "1.4.0"
+source = "ppm"
+raw_version = "1.4.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/scales_1.4.0.tar.gz"
+requires = [
+    "cli",
+    "farver",
+    "glue",
+    "labeling",
+    "lifecycle",
+    "R6",
+    "RColorBrewer",
+    "rlang",
+    "viridisLite",
+]
+
+[[package]]
+name = "secretbase"
+version = "1.3.1"
+source = "ppm"
+raw_version = "1.3.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/secretbase_1.3.1.tar.gz"
+
+[[package]]
+name = "slider"
+version = "0.3.3"
+source = "ppm"
+raw_version = "0.3.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/slider_0.3.3.tar.gz"
+requires = [
+    "cli",
+    "rlang",
+    "vctrs",
+    "warp",
+    "vctrs",
+]
+
+[[package]]
+name = "statmod"
+version = "1.5.2"
+source = "ppm"
+raw_version = "1.5.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/statmod_1.5.2.tar.gz"
+
+[[package]]
+name = "stray"
+version = "0.1.1"
+source = "ppm"
+raw_version = "0.1.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/stray_0.1.1.tar.gz"
+requires = [
+    "FNN",
+    "ggplot2",
+    "colorspace",
+    "pcaPP",
+    "ks",
+]
+
+[[package]]
+name = "stringi"
+version = "1.8.9"
+source = "ppm"
+raw_version = "1.8.9"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/stringi_1.8.9.tar.gz"
+system_requirements = "ICU4C (>= 61, optional)"
+
+[[package]]
+name = "stringr"
+version = "1.6.0"
+source = "ppm"
+raw_version = "1.6.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/stringr_1.6.0.tar.gz"
+requires = [
+    "cli",
+    "glue",
+    "lifecycle",
+    "magrittr",
+    "rlang",
+    "stringi",
+    "vctrs",
+]
+
+[[package]]
+name = "svglite"
+version = "2.2.2"
+source = "ppm"
+raw_version = "2.2.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/svglite_2.2.2.tar.gz"
+requires = [
+    "base64enc",
+    "cli",
+    "lifecycle",
+    "rlang",
+    "systemfonts",
+    "textshaping",
+    "cpp11",
+    "systemfonts",
+    "textshaping",
+]
+system_requirements = "libpng"
+
+[[package]]
+name = "systemfonts"
+version = "1.3.2"
+source = "ppm"
+raw_version = "1.3.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/systemfonts_1.3.2.tar.gz"
+requires = [
+    "base64enc",
+    "jsonlite",
+    "lifecycle",
+    "cpp11",
+]
+system_requirements = "fontconfig, freetype2"
+
+[[package]]
+name = "tarchetypes"
+version = "0.14.1"
+source = "ppm"
+raw_version = "0.14.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tarchetypes_0.14.1.tar.gz"
+requires = [
+    "dplyr",
+    "fs",
+    "rlang",
+    "secretbase",
+    "targets",
+    "tibble",
+    "tidyselect",
+    "vctrs",
+    "withr",
+]
+
+[[package]]
+name = "targets"
+version = "1.12.0"
+source = "ppm"
+raw_version = "1.12.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/targets_1.12.0.tar.gz"
+requires = [
+    "base64url",
+    "callr",
+    "cli",
+    "codetools",
+    "data.table",
+    "igraph",
+    "knitr",
+    "prettyunits",
+    "ps",
+    "R6",
+    "rlang",
+    "secretbase",
+    "tibble",
+    "tidyselect",
+    "vctrs",
+    "yaml",
+]
+
+[[package]]
+name = "textshaping"
+version = "1.0.5"
+source = "ppm"
+raw_version = "1.0.5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/textshaping_1.0.5.tar.gz"
+requires = [
+    "lifecycle",
+    "stringi",
+    "systemfonts",
+    "cpp11",
+    "systemfonts",
+]
+system_requirements = "freetype2, harfbuzz, fribidi"
+
+[[package]]
+name = "tibble"
+version = "3.3.1"
+source = "ppm"
+raw_version = "3.3.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tibble_3.3.1.tar.gz"
+requires = [
+    "cli",
+    "lifecycle",
+    "magrittr",
+    "pillar",
+    "pkgconfig",
+    "rlang",
+    "vctrs",
+]
+
+[[package]]
+name = "tidyr"
+version = "1.3.2"
+source = "ppm"
+raw_version = "1.3.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tidyr_1.3.2.tar.gz"
+requires = [
+    "cli",
+    "dplyr",
+    "glue",
+    "lifecycle",
+    "magrittr",
+    "purrr",
+    "rlang",
+    "stringr",
+    "tibble",
+    "tidyselect",
+    "vctrs",
+    "cpp11",
+]
+
+[[package]]
+name = "tidyselect"
+version = "1.2.1"
+source = "ppm"
+raw_version = "1.2.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tidyselect_1.2.1.tar.gz"
+requires = [
+    "cli",
+    "glue",
+    "lifecycle",
+    "rlang",
+    "vctrs",
+    "withr",
+]
+
+[[package]]
+name = "timechange"
+version = "0.4.0"
+source = "ppm"
+raw_version = "0.4.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/timechange_0.4.0.tar.gz"
+requires = ["cpp11"]
+system_requirements = "A system with zoneinfo data (e.g. /usr/share/zoneinfo). On Windows the zoneinfo included with R is used."
+
+[[package]]
+name = "tinytex"
+version = "0.61.0"
+source = "ppm"
+raw_version = "0.61"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tinytex_0.61.tar.gz"
+requires = ["xfun"]
+
+[[package]]
+name = "tsibble"
+version = "1.2.0"
+source = "ppm"
+raw_version = "1.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tsibble_1.2.0.tar.gz"
+requires = [
+    "anytime",
+    "dplyr",
+    "generics",
+    "lifecycle",
+    "lubridate",
+    "rlang",
+    "tibble",
+    "tidyselect",
+    "vctrs",
+]
+
+[[package]]
+name = "tsibbledata"
+version = "0.4.1"
+source = "ppm"
+raw_version = "0.4.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tsibbledata_0.4.1.tar.gz"
+requires = [
+    "tsibble",
+    "vctrs",
+    "rappdirs",
+]
+
+[[package]]
+name = "tweedie"
+version = "3.1.0"
+source = "ppm"
+raw_version = "3.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tweedie_3.1.0.tar.gz"
+requires = [
+    "lifecycle",
+    "statmod",
+]
+
+[[package]]
+name = "tzdb"
+version = "0.5.0"
+source = "ppm"
+raw_version = "0.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tzdb_0.5.0.tar.gz"
+requires = ["cpp11"]
+
+[[package]]
+name = "utf8"
+version = "1.2.6"
+source = "ppm"
+raw_version = "1.2.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/utf8_1.2.6.tar.gz"
+
+[[package]]
+name = "vctrs"
+version = "0.7.3"
+source = "ppm"
+raw_version = "0.7.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/vctrs_0.7.3.tar.gz"
+requires = [
+    "cli",
+    "glue",
+    "lifecycle",
+    "rlang",
+]
+
+[[package]]
+name = "vecvec"
+version = "1.3.0"
+source = "ppm"
+raw_version = "1.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/vecvec_1.3.0.tar.gz"
+requires = [
+    "cli",
+    "rlang",
+    "S7",
+    "vctrs",
+]
+
+[[package]]
+name = "viridisLite"
+version = "0.4.3"
+source = "ppm"
+raw_version = "0.4.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/viridisLite_0.4.3.tar.gz"
+
+[[package]]
+name = "visNetwork"
+version = "2.1.4"
+source = "ppm"
+raw_version = "2.1.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/visNetwork_2.1.4.tar.gz"
+requires = [
+    "htmlwidgets",
+    "htmltools",
+    "jsonlite",
+    "magrittr",
+]
+
+[[package]]
+name = "warp"
+version = "0.2.3"
+source = "ppm"
+raw_version = "0.2.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/warp_0.2.3.tar.gz"
+
+[[package]]
+name = "weird"
+version = "3.1.0-4.9000"
+source = "github"
+url = "https://api.github.com/repos/robjhyndman/weird/tarball/565c3df7543a22087975acd0d14ddf5ef0b6325d"
+checksum = "git:565c3df7543a22087975acd0d14ddf5ef0b6325d"
+requires = [
+    "aplpack",
+    "broom",
+    "cli",
+    "dbscan",
+    "distributional",
+    "dplyr",
+    "evd",
+    "ggplot2",
+    "ks",
+    "mlpack",
+    "RANN",
+    "robustbase",
+    "stray",
+    "vctrs",
+]
+
+[[package]]
+name = "withr"
+version = "3.0.3"
+source = "ppm"
+raw_version = "3.0.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/withr_3.0.3.tar.gz"
+
+[[package]]
+name = "xfun"
+version = "0.61.0"
+source = "ppm"
+raw_version = "0.61"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/xfun_0.61.tar.gz"
+
+[[package]]
+name = "xml2"
+version = "1.6.0"
+source = "ppm"
+raw_version = "1.6.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/xml2_1.6.0.tar.gz"
+requires = [
+    "cli",
+    "rlang",
+]
+system_requirements = "libxml2: libxml2-dev (deb), libxml2-devel (rpm)"
+
+[[package]]
+name = "yaml"
+version = "2.3.12"
+source = "ppm"
+raw_version = "2.3.12"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/yaml_2.3.12.tar.gz"
