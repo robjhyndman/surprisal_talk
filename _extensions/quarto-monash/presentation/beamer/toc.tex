@@ -3,6 +3,10 @@ $if(toc-title)$
 \renewcommand*\contentsname{$toc-title$}
 $endif$
 $if(beamer)$
+\begin{frame}{$if(toc-title)$$toc-title$$else$Outline$endif$}
+  \vspace*{0.7cm}
+  \tableofcontents[hideallsubsections]
+\end{frame}
 $else$
 {
 $if(colorlinks)$

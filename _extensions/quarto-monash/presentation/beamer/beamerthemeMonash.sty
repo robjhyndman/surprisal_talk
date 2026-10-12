@@ -8,17 +8,17 @@
 
 % Fonts
 \ifPDFTeX
-  \usepackage[scaled=0.85]{beramono}
-  \usepackage[sfdefault,lining,tabular]{FiraSans}
+  \usepackage[scaled=0.9]{beramono}
+  \usepackage[sfdefault,lf,t]{FiraSans}
   \usepackage{etoolbox}
   \patchcmd{\@verbatim}
     {\verbatim@font}
-    {\verbatim@font\fontsize{10}{10}\tt}
+    {\verbatim@font\fontsize{10}{11}\tt}
     {}{}
 \else % if luatex or xetex
   \usepackage[fira]{fontsetup}
-  \setmonofont[Scale=0.85,Contextuals=Alternate]{Hack FC Ligatured CCG}
-  \def\verbatim@font{\fontsize{10}{10}\tt}%
+  \setmonofont[Scale=0.85]{SourceCodePro-Regular.otf}
+  \def\verbatim@font{\fontsize{10}{11}\tt}%
 \fi
 \usepackage{mathrsfs}
 
@@ -28,7 +28,7 @@
 \definecolor{grey}{RGB}{191,191,191}
 \definecolor{LightGrey}{RGB}{231,231,231}
 \definecolor{MonashBlue}{HTML}{1969AA}
-\definecolor{Orange}{RGB}{193, 75, 20}
+\definecolor{Orange}{RGB}{204, 89, 0}
 \definecolor{shadecolor}{RGB}{225,225,225}
 
 \setbeamercolor{alerted text}{fg=Orange}
@@ -54,12 +54,6 @@
 \setbeamercolor{title}{fg=white,bg=MonashBlue}
 \usebeamercolor[fg]{normal text}
 \def\shadecolor{\relax}
-
-\definecolor{weird1}{HTML}{65775c}
-\definecolor{weird2}{HTML}{F4BA02}
-\definecolor{weird3}{HTML}{f49b02}
-\setbeamercolor{frametitle}{bg=weird1,fg=white}
-
 
 % No section pages
 \metroset{sectionpage=none,subsectionpage=none}
@@ -133,7 +127,7 @@
 % Redefine shaded environment if it exists (for R plots)
 \ifcsname Shaded\endcsname
   \definecolor{shadecolor}{RGB}{225,225,225}
-  \renewenvironment{Shaded}{\color{black}\fontsize{10}{10}\sf\begin{snugshade}\color{black}}{\end{snugshade}}
+  \renewenvironment{Shaded}{\color{black}\fontsize{10}{11}\sf\begin{snugshade}\color{black}}{\end{snugshade}}
 \fi
 
 \setbeamertemplate{footline}{%

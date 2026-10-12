@@ -1,10 +1,9 @@
 \usetheme{Monash}
-\urlstyle{tt}
 
 $if(toc)$
 % Outline at start of each section
 \AtBeginSection[]{
-   \begin{frame}{Outline}\vspace*{0.3cm}
+   \begin{frame}{Outline}\vspace*{0.7cm}
    \tableofcontents[currentsection,hideallsubsections]
    \end{frame}
   }
@@ -23,8 +22,9 @@ $endif$
 \insertdate}
 \end{textblock}}
 
+
 % Find images
-\graphicspath{{_extensions/presentation/_images/background/}{_extensions/quarto-monash/presentation/_images/background/}{figs/}{figures/}{images/}{img/}}
+\graphicspath{{_extensions/presentation/_images/background/}{_extensions/quarto-monash/presentation/_images/background/}{../_extensions/quarto-monash/presentation/_images/background/}{figs/}{figures/}{images/}{img/}}
 
 % Fix longtable undefined theHtable issue
 \ifdefined\theHtable\else
