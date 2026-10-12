@@ -519,3 +519,27 @@ body.quarto-light,
 .reveal .cards > .alertblock {
   margin: 0;
 }
+
+/* ---- Card showing the label for the year under the mouse ---- */
+
+.reveal .year-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 560px;
+  padding: 0.35em 0.8em 0.35em calc(0.8em + 6px);
+  border-radius: 10px;
+  background: linear-gradient(to right, var(--blue) 6px, var(--card) 6px);
+  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.15);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.reveal .year-card.show {
+  opacity: 1;
+}
+
+.reveal .year-card.unknown {
+  background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
+}

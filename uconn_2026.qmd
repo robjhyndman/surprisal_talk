@@ -50,6 +50,7 @@ library(feasts)
 library(ggtime)
 tar_source("R/functions.R")
 tar_source("R/timeseries.R")
+tar_source("R/fr_mortality.R")
 set_ggplot_options()
 theme_set(
   theme_minimal(base_size = 15, base_family = "Fira Sans") +
@@ -421,30 +422,27 @@ fr_anomalies |>
 ```{r}
 #| label: fig_fr-anomalies
 
-tar_read(fig_fr_anomalies)
+create_fr_anomaly_girafe(tar_read(fr_anomalies))
 ```
 
-## French mortality rates {.photo background-image="figs/commune_de_paris.jpg" background-size="cover"}
+```{r}
+#| label: fr_causes
 
-::: {.absolute top="90" left="20" width="620"}
-::::: {.block}
-- 1832, 1849: Cholera outbreaks
-- 1870: Franco--Prussian war
-- 1871: Repression of the 'Commune de Paris'
-- 1914, 1915: World War I
-- 1918: Spanish flu outbreak
-- 1940: World War II
-:::::
-:::
-
-::: {.absolute .fragment top="90" left="720" width="540"}
-::::: {.block}
-But what happened to:
-
-- infant and child mortality in 1834?
-- elder mortality in 1837?
-:::::
-:::
+# Known causes of the anomalous years, shown in a card when hovering over the plot
+fr_causes <- c(
+  "1832" = "Cholera outbreak",
+  "1834" = "unknown cause",
+  "1837" = "unknown cause",
+  "1849" = "Cholera outbreak",
+  "1870" = "Franco–Prussian war",
+  "1871" = "Repression of the Commune de Paris",
+  "1914" = "World War I",
+  "1915" = "World War I",
+  "1918" = "Spanish flu outbreak",
+  "1940" = "World War II"
+)
+year_card(fr_causes, unknown = "unknown cause")
+```
 
 ## US weekly mortality rates
 

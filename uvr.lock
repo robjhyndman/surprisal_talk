@@ -1,4 +1,4 @@
-manifest_fingerprint = "sha256:0c2631686f1c998407ac2c9e0867c38ea6dc0c5ad179be36bb9a7fe84045e42d"
+manifest_fingerprint = "sha256:3d53d7c1836b766273904dd2c0c661c0baa8029826845d9bbe96b20de035c6b0"
 
 [r]
 version = "4.6.1"
@@ -38,6 +38,13 @@ version = "2.23.27"
 source = "ppm"
 raw_version = "2.23-27"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/KernSmooth_2.23-27.tar.gz"
+
+[[package]]
+name = "MASS"
+version = "7.3.66"
+source = "ppm"
+raw_version = "7.3-66"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/MASS_7.3-66.tar.gz"
 
 [[package]]
 name = "Matrix"
@@ -423,6 +430,20 @@ requires = [
 ]
 
 [[package]]
+name = "fontBitstreamVera"
+version = "0.1.1"
+source = "ppm"
+raw_version = "0.1.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fontBitstreamVera_0.1.1.tar.gz"
+
+[[package]]
+name = "fontLiberation"
+version = "0.1.0"
+source = "ppm"
+raw_version = "0.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fontLiberation_0.1.0.tar.gz"
+
+[[package]]
 name = "fontawesome"
 version = "0.5.3"
 source = "ppm"
@@ -434,12 +455,38 @@ requires = [
 ]
 
 [[package]]
+name = "fontquiver"
+version = "0.2.1"
+source = "ppm"
+raw_version = "0.2.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/fontquiver_0.2.1.tar.gz"
+requires = [
+    "fontBitstreamVera",
+    "fontLiberation",
+]
+
+[[package]]
 name = "fs"
 version = "2.1.0"
 source = "ppm"
 raw_version = "2.1.0"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/fs_2.1.0.tar.gz"
 system_requirements = "libuv: libuv-devel (rpm) or libuv1-dev (deb). Alternatively to build the vendored libuv 'cmake' is required. GNU make."
+
+[[package]]
+name = "gdtools"
+version = "0.5.1"
+source = "ppm"
+raw_version = "0.5.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gdtools_0.5.1.tar.gz"
+requires = [
+    "fontquiver",
+    "htmltools",
+    "Rcpp",
+    "systemfonts",
+    "Rcpp",
+]
+system_requirements = "cairo, freetype2, fontconfig"
 
 [[package]]
 name = "generics"
@@ -470,6 +517,31 @@ requires = [
     "Rcpp",
     "Rcpp",
 ]
+
+[[package]]
+name = "ggiraph"
+version = "0.9.6"
+source = "ppm"
+raw_version = "0.9.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggiraph_0.9.6.tar.gz"
+requires = [
+    "cli",
+    "dplyr",
+    "gdtools",
+    "ggplot2",
+    "htmltools",
+    "htmlwidgets",
+    "MASS",
+    "purrr",
+    "Rcpp",
+    "rlang",
+    "S7",
+    "systemfonts",
+    "vctrs",
+    "Rcpp",
+    "systemfonts",
+]
+system_requirements = "libpng"
 
 [[package]]
 name = "ggokabeito"

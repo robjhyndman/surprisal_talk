@@ -137,6 +137,7 @@ withr = "*"
 xfun = "*"
 xml2 = "*"
 yaml = "*"
+ggiraph = "*"
 
 [dependencies.ggtda]
 git = "tdaverse/ggtda"
