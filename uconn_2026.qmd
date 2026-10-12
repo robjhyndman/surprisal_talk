@@ -51,6 +51,7 @@ library(ggtime)
 tar_source("R/functions.R")
 tar_source("R/timeseries.R")
 tar_source("R/fr_mortality.R")
+tar_source("R/katex.R")
 set_ggplot_options()
 theme_set(
   theme_minimal(base_size = 15, base_family = "Fira Sans") +
@@ -159,9 +160,7 @@ if (FALSE) {
   # since it can't see through tar_read_raw() below.
   tar_load(c(fig_sp0, fig_sp1, fig_sp2))
 }
-cat("\n::: {.r-stack .r-stretch}\n")
-for (step in 0:2) {
-  cat(if (step == 0) "\n::: {.step}\n" else "\n::: {.fragment}\n")
+figs <- lapply(0:2, function(step) {
   p <- tar_read_raw(paste0("fig_sp", step))
   # Once y_i is shown, these figures redraw the vertical grid lines in white
   # (for a white background); drop them so there are no vertical grid lines
@@ -171,7 +170,15 @@ for (step in 0:2) {
     logical(1)
   )
   p$layers <- p$layers[!white]
-  print(p)
+  katex_fig_sp(p)
+})
+# Same panel position in every step, so the figures overlay exactly
+figs <- align_ggplots(figs)
+cat("\n::: {.r-stack .r-stretch}\n")
+for (step in 0:2) {
+  cat(if (step == 0) "\n::: {.step}\n" else "\n::: {.fragment}\n")
+  grid::grid.newpage()
+  grid::grid.draw(figs[[step + 1]])
   cat("\n:::\n")
 }
 cat("\n:::\n")
@@ -191,29 +198,30 @@ The **surprisal** of an observation $y_t$ under density $f$ is $s_t = -\log f(y_
 
 Surprisals are already familiar:
 
-:::: {.cards}
-::: {.block}
+::: {.cards}
+::::: {.block}
 [Forecasting]{.block-title}
 
 Log score for evaluating density forecasts
-:::
+:::::
 
-::: {.block}
+::::: {.block}
 [Information theory]{.block-title}
 
 Expected surprisal = entropy
-:::
+:::::
 
-::: {.block}
+::::: {.block}
 [Likelihood]{.block-title}
 
 Sum of surprisals = $-\log$&nbsp;likelihood
+:::::
 :::
-::::
 
 ## The surprisal distribution
 
-Let $S = -\log f(Y)$ where $Y \sim f$, and $G(s) = \mathbb{P}(S \le s)$. Then
+Let $S = -\log f(Y)$ where $Y \sim f$, and $G(s) = \mathbb{P}(S \le s)$.
+Then
 
 $$
   p_t = \mathbb{P}(S \ge s_t) = 1 - G(s_t).
@@ -221,19 +229,19 @@ $$
 
 An anomaly is an extreme value of the surprisal distribution.
 
-:::: {.cards .cards-2}
-::: {.block .fragment}
-[$f$ may be complicated]{.block-title}
+::: {.cards .cards-2}
+::::: {.block .fragment}
+[$f$may be complicated]{.block-title}
 
 Multimodal, multivariate or conditional: $G$ is still a univariate distribution on $\mathbb{R}$.
-:::
+:::::
 
-::: {.alertblock .fragment}
-[$f$ may be wrong]{.block-title}
+::::: {.alertblock .fragment}
+[$f$may be wrong]{.block-title}
 
 The [upper tail]{.alert} of $G$ can still be estimated using EVT.
+:::::
 :::
-::::
 
 ## Three-type theorem for surprisals
 
@@ -347,24 +355,32 @@ fr_mortality
 tar_read(fig_fr_mortality2)
 ```
 
-## Hampel identifier
+## Hampel identifier {.nostretch}
 
-Window of $2w + 1$ observations centred on time $t$:
+```{r}
+#| label: fig_hampel
+#| fig-height: 2.6
+#| out-width: "100%"
 
+create_hampel_fig(tar_read(fr_mortality))
+```
+
+::: {.columns}
+::::: {.column .math-left width="54%"}
 $$
   \begin{aligned}
     m_t & = \text{median}(y_{t-w}, \dots, y_{t+w})                 \\
     a_t & = \text{median}(|y_{t-w} - m_t|, \dots, |y_{t+w} - m_t|) \\
-    e_t & = (y_t - m_t)/a_t
+    e_t & = (y_t - m_t)/(a_t/0.6745)
   \end{aligned}
 $$
 
-::: {.incremental}
-- Anomaly if $|e_t| > k/0.6745$
-- Implicit model: $y_t \sim \text{N}(\mu_t, \sigma_t^2)$, $\hat\mu_t = m_t$, $\hat\sigma_t = a_t/0.6745$
-- Equivalent to surprisal probability threshold of $\alpha = `r sprintf("%.4f", 2*pnorm(-3))`$ for $k = 3$
-- Better: use N(0,1) for surprisals of $e_t$, and GPD for their probabilities
-- Multiple testing is awkward: the $e_t$ are not independent
+- Anomaly if $|e_t| > k$
+:::::
+::::: {.column .fragment width="46%"}
+- Implicit model: $y_t \sim \text{N}(m_t, \sigma_t^2)$ with $\sigma_t = a_t/0.6745$
+- Better: surprisals of $e_t$ under N(0,1), with probabilities from a GPD
+:::::
 :::
 
 ## French mortality rates

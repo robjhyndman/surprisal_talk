@@ -180,3 +180,17 @@ truncated_smooth <- function(x, y) {
 
   return(pred_data)
 }
+
+# Convert ggplots to grobs with identical widths and heights of their non-panel
+# parts (axis labels, titles, legends), so their panels line up exactly when
+# the plots are overlaid or shown in sequence
+align_ggplots <- function(plots) {
+  grobs <- lapply(plots, ggplotGrob)
+  widths <- do.call(grid::unit.pmax, lapply(grobs, `[[`, "widths"))
+  heights <- do.call(grid::unit.pmax, lapply(grobs, `[[`, "heights"))
+  lapply(grobs, function(g) {
+    g$widths <- widths
+    g$heights <- heights
+    g
+  })
+}

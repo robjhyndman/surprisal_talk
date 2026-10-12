@@ -543,3 +543,18 @@ body.quarto-light,
 .reveal .year-card.unknown {
   background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
 }
+
+/* Display maths aligned left, e.g. in a column beside bullet points */
+.reveal .math-left .katex-display,
+.reveal .math-left .katex-display > .katex {
+  text-align: left;
+}
+
+.reveal .math-left .katex-display {
+  font-size: 0.85em;
+  margin: 0.2em 0 0.3em 0;
+}
+
+.reveal .math-left ul {
+  margin-top: 0;
+}

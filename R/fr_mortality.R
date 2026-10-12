@@ -195,3 +195,78 @@ document.addEventListener('mouseover', function (e) {
     ))
   )
 }
+
+# Illustration of the Hampel identifier for one series: the window of 2w+1
+# observations centred on t, the moving median, and the implied Normal
+# distribution N(m_t, sigma_t^2) at time t
+create_hampel_fig <- function(
+  fr_mortality,
+  age = 50,
+  sex = "Female",
+  t = 1849,
+  w = 7,
+  years = c(1828, 1872),
+  colours = c(series = "#1e293b", median = "#1d6fa5", normal = "#c14b14")
+) {
+  df <- fr_mortality |>
+    filter(Age == age, Sex == sex) |>
+    arrange(Year) |>
+    mutate(m = stats::runmed(Mortality, 2 * w + 1, endrule = "keep"))
+  window <- df |> filter(Year >= t - w, Year <= t + w)
+  m_t <- df$m[df$Year == t]
+  y_t <- df$Mortality[df$Year == t]
+  sigma_t <- stats::median(abs(window$Mortality - m_t)) / 0.6745
+  # Normal density drawn sideways to the right of t, scaled to `width` years
+  width <- 5
+  yy <- seq(m_t - 4 * sigma_t, m_t + 4 * sigma_t, length.out = 201)
+  normal <- tibble(
+    y = yy,
+    x = t + width * stats::dnorm(yy, m_t, sigma_t) / stats::dnorm(0, 0, sigma_t)
+  )
+  df <- df |> filter(Year >= years[1], Year <= years[2])
+  register_katex_font()
+  # Maths labels in KaTeX fonts, to match the maths on the slides
+  math_label <- function(label, ...) {
+    annotate("text", label = label, parse = TRUE, family = "KaTeX", ...)
+  }
+  ggplot(df, aes(x = Year, y = Mortality)) +
+    annotate(
+      "rect",
+      xmin = t - w - 0.5, xmax = t + w + 0.5, ymin = -Inf, ymax = Inf,
+      fill = colours[["median"]], alpha = 0.1
+    ) +
+    geom_line(colour = colours[["series"]]) +
+    geom_line(aes(y = m), colour = colours[["median"]], linetype = "dashed") +
+    geom_polygon(
+      data = normal, aes(x = x, y = y),
+      fill = colours[["normal"]], alpha = 0.3, colour = colours[["normal"]]
+    ) +
+    annotate("segment", x = t, xend = t, y = min(yy), yend = max(yy),
+      colour = colours[["normal"]]) +
+    annotate("point", x = t, y = y_t, colour = colours[["normal"]], size = 3) +
+    math_label("italic(y)[italic(t)]", x = t - 0.4, y = y_t,
+      hjust = 1, colour = colours[["normal"]], size = 7) +
+    math_label(
+      "N(italic(m)[italic(t)]*','~italic('\u03c3')[italic(t)]^2)",
+      x = t + 0.6, y = m_t - 3.2 * sigma_t,
+      hjust = 0, colour = colours[["normal"]], size = 6.5
+    ) +
+    math_label("italic(m)[italic(t)]", x = t - w + 2,
+      y = df$m[df$Year == t - w + 2], vjust = -0.5,
+      colour = colours[["median"]], size = 7) +
+    # Words in the slide font, maths in KaTeX
+    ggtext::geom_richtext(
+      data = data.frame(x = t, y = Inf),
+      aes(x = x, y = y),
+      label = paste0(
+        "window of ", katex_up("2"), katex_it("w"), katex_up(" + 1"), " years"
+      ),
+      vjust = 1.2, colour = colours[["median"]], size = 5.5,
+      fill = NA, label.colour = NA, inherit.aes = FALSE
+    ) +
+    scale_y_continuous(expand = expansion(mult = c(0.08, 0.2))) +
+    coord_cartesian(clip = "off") +
+    labs(x = "Year", y = "Mortality", title = paste0(sex, ", age ", age)) +
+    theme(plot.title = element_text(face = "plain"))
+}
+

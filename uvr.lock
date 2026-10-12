@@ -1,4 +1,4 @@
-manifest_fingerprint = "sha256:3d53d7c1836b766273904dd2c0c661c0baa8029826845d9bbe96b20de035c6b0"
+manifest_fingerprint = "sha256:3252d27e6daaed334c8f91fc87a55b7b1c1dcb246b36eb769eb2e309264479a9"
 
 [r]
 version = "4.6.1"
@@ -250,6 +250,13 @@ raw_version = "2.1-4"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/colorspace_2.1-4.tar.gz"
 
 [[package]]
+name = "commonmark"
+version = "2.0.0"
+source = "ppm"
+raw_version = "2.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/commonmark_2.0.0.tar.gz"
+
+[[package]]
 name = "cpp11"
 version = "0.5.5"
 source = "ppm"
@@ -262,6 +269,14 @@ version = "0.0.3"
 source = "ppm"
 raw_version = "0.0-3"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/crop_0.0-3.tar.gz"
+
+[[package]]
+name = "curl"
+version = "8.0.0"
+source = "ppm"
+raw_version = "8.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/curl_8.0.0.tar.gz"
+system_requirements = "libcurl (>= 7.73): libcurl-devel (rpm) or libcurl4-openssl-dev (deb)"
 
 [[package]]
 name = "data.table"
@@ -597,6 +612,19 @@ requires = [
 ]
 
 [[package]]
+name = "ggtext"
+version = "0.2.0"
+source = "ppm"
+raw_version = "0.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtext_0.2.0.tar.gz"
+requires = [
+    "ggplot2",
+    "gridtext",
+    "rlang",
+    "scales",
+]
+
+[[package]]
 name = "ggtime"
 version = "1.0.0"
 source = "ppm"
@@ -655,6 +683,24 @@ requires = [
     "scales",
     "mirai",
     "tweedie",
+]
+
+[[package]]
+name = "gridtext"
+version = "0.1.6"
+source = "ppm"
+raw_version = "0.1.6"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gridtext_0.1.6.tar.gz"
+requires = [
+    "curl",
+    "markdown",
+    "rlang",
+    "Rcpp",
+    "png",
+    "jpeg",
+    "stringr",
+    "xml2",
+    "Rcpp",
 ]
 
 [[package]]
@@ -734,6 +780,14 @@ requires = [
     "rlang",
     "cpp11",
 ]
+
+[[package]]
+name = "jpeg"
+version = "0.1.11"
+source = "ppm"
+raw_version = "0.1-11"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/jpeg_0.1-11.tar.gz"
+system_requirements = "libjpeg"
 
 [[package]]
 name = "jquerylib"
@@ -854,6 +908,17 @@ requires = [
 ]
 
 [[package]]
+name = "litedown"
+version = "0.11.0"
+source = "ppm"
+raw_version = "0.11"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/litedown_0.11.tar.gz"
+requires = [
+    "commonmark",
+    "xfun",
+]
+
+[[package]]
 name = "lookout"
 version = "2.0.2"
 source = "ppm"
@@ -886,6 +951,17 @@ version = "2.0.5"
 source = "ppm"
 raw_version = "2.0.5"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/magrittr_2.0.5.tar.gz"
+
+[[package]]
+name = "markdown"
+version = "2.0.0"
+source = "ppm"
+raw_version = "2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/markdown_2.0.tar.gz"
+requires = [
+    "xfun",
+    "litedown",
+]
 
 [[package]]
 name = "mclust"
@@ -1066,6 +1142,14 @@ version = "2.0.3"
 source = "ppm"
 raw_version = "2.0.3"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/pkgconfig_2.0.3.tar.gz"
+
+[[package]]
+name = "png"
+version = "0.1.9"
+source = "ppm"
+raw_version = "0.1-9"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/png_0.1-9.tar.gz"
+system_requirements = "libpng"
 
 [[package]]
 name = "pracma"

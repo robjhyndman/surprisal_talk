@@ -138,6 +138,7 @@ xfun = "*"
 xml2 = "*"
 yaml = "*"
 ggiraph = "*"
+ggtext = "*"
 
 [dependencies.ggtda]
 git = "tdaverse/ggtda"
