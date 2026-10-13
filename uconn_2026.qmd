@@ -490,7 +490,8 @@ Replace by a better signal estimate for each age group:
 #| eval: false
 
 stmf_scores <- us_stmf |>
-  model(stl = STL(Mortality)) |> augment() |>
+  model(stl = STL(Mortality)) |>
+  augment() |>
   group_by(`Age group`) |>
   mutate(
     a = robustbase::s_Qn(.resid),
@@ -502,7 +503,7 @@ stmf_scores <- us_stmf |>
 ```
 :::::::
 
-```{r}
+`````{r}
 #| label: stmf_scores_print
 #| results: asis
 
@@ -513,7 +514,11 @@ cat("\n::: {.r-stack .output-steps}\n\n")
 for (k in seq_along(tables)) {
   last <- k == length(tables)
   cat(
-    "::: {.fragment", if (!last) " .current-visible", " fragment-index=\"", k + 1, "\"}\n",
+    "::: {.fragment",
+    if (!last) " .current-visible",
+    " fragment-index=\"",
+    k + 1,
+    "\"}\n",
     "::::: {.cell-output .cell-output-stdout}\n````\n",
     sep = ""
   )
@@ -521,7 +526,7 @@ for (k in seq_along(tables)) {
   cat("\n````\n:::::\n:::\n\n")
 }
 cat(":::\n")
-```
+`````
 :::::
 :::
 
@@ -609,15 +614,6 @@ window.addEventListener("load", function () {
 
 `r section("Weird series")`
 
-## Feature-based anomaly detection
-
-- Comparing whole time series directly is awkward: different scales, lengths, and offsets.
-- Summarise each series by a vector of [features]{.alert}: strength of trend and seasonality, autocorrelations, spectral entropy, level shifts, ...
-- Each series becomes a point in $\mathbb{R}^d$.
-  A weird series is a multivariate anomaly in feature space.
-- Most features are scale-free, so series are flagged for their shape and dynamics, not their size.
-- A series that is unusual in a way not captured by any feature will not be found.
-
 ## Australian Pharmaceutical Benefits Scheme
 
 ```{r}
@@ -625,14 +621,58 @@ window.addEventListener("load", function () {
 #| echo: true
 #| eval: false
 
-tsibbledata::PBS |> print(n = 8)
+tsibbledata::PBS
 ```
 
 ```{r}
 #| label: pbs_data_print
 
-tar_read(pbs_raw) |> print(n = 8)
+tar_read(pbs_raw) |> print(n = 10)
 ```
+
+## How do we compare 336 time series?
+
+```{r}
+#| label: fig_pbs_spaghetti
+#| results: asis
+
+files <- tar_read(fig_pbs_build_png)
+cat_png_stack(grep("spaghetti", files, value = TRUE))
+```
+
+## Feature: strength of trend
+
+```{r}
+#| label: fig_pbs_trend
+#| results: asis
+
+cat_png_stack(grep("trend", files, value = TRUE))
+```
+
+## Feature: strength of seasonality
+
+```{r}
+#| label: fig_pbs_season
+#| results: asis
+
+cat_png_stack(grep("season", files, value = TRUE))
+```
+
+## Feature space
+
+```{r}
+#| label: fig_pbs_space
+#| results: asis
+
+cat_png_stack(grep("space", files, value = TRUE))
+```
+
+::: {.fragment}
+::::: {.alertblock}
+A weird series is an anomaly in feature space.
+Features are mostly scale-free, so series are flagged for their shape and dynamics, not their size.
+:::::
+:::
 
 ## Australian Pharmaceutical Benefits Scheme
 

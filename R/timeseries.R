@@ -440,3 +440,175 @@ pbs_joint_table <- function(pbs_joint, threshold = 0.001) {
       `$\\mathbb{P}(N_t \\ge n_t)$` = prob
     )
 }
+
+# Feature-space build-up ------------------------------------------------------
+
+# PBS series rescaled to [0,1], dropping constant series
+pbs_rescale <- function(PBS) {
+  PBS |>
+    as_tibble() |>
+    group_by(Concession, Type, ATC2) |>
+    filter(max(Scripts) > min(Scripts)) |>
+    mutate(
+      Scripts = (Scripts - min(Scripts)) / (max(Scripts) - min(Scripts)),
+      Month = as.Date(Month),
+      id = paste(Concession, Type, ATC2)
+    ) |>
+    ungroup()
+}
+
+# Overlaid rescaled series, adding more in each stage (in random order and colour)
+pbs_spaghetti_stages <- function(scaled, n = c(1, 2, 5, 20, 100, Inf), seed = 2026) {
+  set.seed(seed)
+  ids <- sample(unique(scaled$id))
+  colours <- setNames(hcl(h = runif(length(ids), 0, 360), c = 70, l = 55), ids)
+  lapply(n, function(k) {
+    scaled |>
+      filter(id %in% head(ids, k)) |>
+      ggplot(aes(x = Month, y = Scripts, group = id, colour = id)) +
+      geom_line(linewidth = if (k > 50) 0.25 else 0.6) +
+      scale_colour_manual(values = colours, guide = "none") +
+      scale_y_continuous(limits = c(0, 1), breaks = NULL) +
+      labs(x = NULL, y = NULL)
+  })
+}
+
+# Small time plot of one PBS series, for insets
+pbs_inset <- function(scaled, key, title) {
+  scaled |>
+    filter(id == key) |>
+    ggplot(aes(x = Month, y = Scripts)) +
+    geom_line(colour = "#c14b14", linewidth = 0.5) +
+    labs(title = title, subtitle = key, x = NULL, y = NULL) +
+    theme_void(base_family = "Fira Sans") +
+    theme(
+      plot.background = element_rect(fill = "white", colour = "#c14b14", linewidth = 0.8),
+      plot.margin = margin(6, 8, 6, 8),
+      plot.title = element_text(face = "bold", colour = "#0f2a44", size = 12),
+      plot.subtitle = element_text(colour = "#64748b", size = 10)
+    )
+}
+
+# Histogram of one feature across the PBS series; later stages mark the
+# series with the lowest and highest values and show them as insets
+pbs_feature_stages <- function(features, scaled, feature, label) {
+  feat <- features |>
+    filter(!is.na(.data[[feature]])) |>
+    mutate(id = paste(Concession, Type, ATC2))
+  # Examples from series without zeros, which have uninformative extremes
+  ex <- feat |> filter(zero_run_mean == 0)
+  lo <- ex |> slice_min(.data[[feature]], n = 1)
+  hi <- ex |> slice_max(.data[[feature]], n = 1)
+  counts <- table(cut(feat[[feature]], seq(0, 1, by = 0.025), include.lowest = TRUE))
+  top <- max(counts)
+  # Bars faded so the orange arrows stand out. The y range is fixed so the
+  # insets (from 58% of the panel height up) sit just above the tallest bar.
+  base <- feat |>
+    ggplot(aes(x = .data[[feature]])) +
+    geom_histogram(binwidth = 0.025, boundary = 0, fill = "#1d6fa5", alpha = 0.5, colour = "#fbf9f4") +
+    scale_x_continuous(limits = c(0, 1)) +
+    scale_y_continuous(limits = c(0, 2.3 * top), expand = c(0, 0), breaks = pretty(c(0, top))) +
+    labs(x = label, y = "Number of series")
+  # Arrow from the bottom of the inset down to the bar containing the example
+  mark <- function(p, ex) {
+    bar <- counts[[findInterval(ex[[feature]], seq(0, 1, by = 0.025), rightmost.closed = TRUE)]]
+    p + annotate("segment",
+      x = ex[[feature]], xend = ex[[feature]], y = 0.58 * 2.3 * top, yend = bar + 0.05 * top,
+      colour = "#c14b14", linewidth = 1,
+      arrow = grid::arrow(length = unit(8, "pt"), type = "closed")
+    )
+  }
+  inset_lo <- pbs_inset(scaled, lo$id, paste("Low", tolower(label)))
+  inset_hi <- pbs_inset(scaled, hi$id, paste("High", tolower(label)))
+  inset <- function(p, left) {
+    patchwork::inset_element(p, left, 0.58, left + 0.44, 0.98)
+  }
+  # An empty, transparent inset in the first stage gives it the same patchwork
+  # layout as the others
+  blank <- patchwork::plot_spacer() + theme(plot.background = element_blank())
+  list(
+    base + inset(blank, 0.02),
+    mark(base, lo) + inset(inset_lo, 0.02),
+    mark(mark(base, lo), hi) + inset(inset_lo, 0.02) + inset(inset_hi, 0.54)
+  )
+}
+
+# Schematic: series -> features -> principal components, built up in stages.
+# The last stage highlights the anomalous series and their points in PC space.
+# Returns grobs (build them with the slide theme set).
+pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001, seed = 1) {
+  weird <- pbs_pca |>
+    filter(prob < threshold) |>
+    mutate(id = paste(Concession, Type, ATC2)) |>
+    pull(id)
+  set.seed(seed)
+  ids <- c(weird, sample(setdiff(unique(scaled$id), weird), n - length(weird)))
+  ids <- sample(ids)
+  sample_plot <- function(highlight) {
+    scaled |>
+      filter(id %in% ids) |>
+      mutate(
+        id = factor(id, levels = ids),
+        weird = highlight & id %in% weird
+      ) |>
+      ggplot(aes(x = Month, y = Scripts, colour = weird)) +
+      geom_line(linewidth = 0.4) +
+      facet_wrap(~id, ncol = 3) +
+      scale_colour_manual(values = c(`FALSE` = "#1e293b", `TRUE` = "#c14b14"), guide = "none") +
+      theme_void() +
+      theme(strip.text = element_blank(), panel.spacing = unit(4, "pt"))
+  }
+  vars <- c(
+    Trend = "trend_strength", Season = "seasonal_strength_year",
+    Entropy = "spectral_entropy", ACF1 = "acf1"
+  )
+  pairs <- pbs_pca |>
+    select(all_of(vars)) |>
+    GGally::ggpairs(
+      lower = list(continuous = GGally::wrap("points", size = 0.3, alpha = 0.5)),
+      upper = list(continuous = "blank"),
+      diag = list(continuous = GGally::wrap("densityDiag", colour = "#1d6fa5")),
+      axisLabels = "none"
+    ) +
+    theme(
+      strip.text = element_text(size = 10, face = "plain", hjust = 0.5),
+      panel.grid.major = element_blank(),
+      panel.border = element_rect(fill = NA, colour = "#e4dfd4")
+    )
+  pc_plot <- function(highlight) {
+    pbs_pca |>
+      mutate(weird = highlight & prob < threshold) |>
+      arrange(weird) |>
+      ggplot(aes(x = .fittedPC1, y = .fittedPC2, colour = weird, size = weird)) +
+      geom_point() +
+      scale_colour_manual(values = c(`FALSE` = "#1e293b", `TRUE` = "#c14b14"), guide = "none") +
+      scale_size_manual(values = c(`FALSE` = 0.6, `TRUE` = 2), guide = "none") +
+      labs(x = "PC1", y = "PC2") +
+      theme(axis.text = element_blank(), text = element_text(size = 11))
+  }
+  at <- function(g, x, w) {
+    grid::grobTree(g, vp = grid::viewport(x = x, y = 0.5, width = w, height = 0.94, just = "left"))
+  }
+  step_arrow <- function(x0, x1, label) {
+    grid::grobTree(
+      grid::segmentsGrob(x0, 0.5, x1, 0.5,
+        arrow = grid::arrow(length = unit(8, "pt"), type = "closed"),
+        gp = grid::gpar(col = "#c14b14", fill = "#c14b14", lwd = 2.5)
+      ),
+      grid::textGrob(label, x = (x0 + x1) / 2, y = 0.56, vjust = 0,
+        gp = grid::gpar(fontfamily = "Fira Sans", fontsize = 11, col = "#0f2a44", lineheight = 0.9)
+      )
+    )
+  }
+  series <- function(h) at(ggplotGrob(sample_plot(h)), 0, 0.22)
+  arrow1 <- step_arrow(0.235, 0.335, "Compute\nfeatures")
+  pairs_g <- at(GGally::ggmatrix_gtable(pairs), 0.345, 0.33)
+  arrow2 <- step_arrow(0.665, 0.765, "Principal\ncomponents")
+  pc <- function(h) at(ggplotGrob(pc_plot(h)), 0.775, 0.225)
+  list(
+    grid::grobTree(series(FALSE)),
+    grid::grobTree(series(FALSE), arrow1, pairs_g),
+    grid::grobTree(series(FALSE), arrow1, pairs_g, arrow2, pc(FALSE)),
+    grid::grobTree(series(TRUE), arrow1, pairs_g, arrow2, pc(TRUE))
+  )
+}

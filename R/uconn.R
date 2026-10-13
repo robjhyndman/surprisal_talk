@@ -110,3 +110,15 @@ save_aligned_pngs <- function(plots, files, width = 9, height = 4.4, res = 400) 
 include_png <- function(file, retina = 2) {
   knitr::include_graphics(file, dpi = 96 * retina)
 }
+
+# Write markdown for PNGs stacked on top of each other, each after the first
+# revealed as a fragment (call from a chunk with `results: asis`)
+cat_png_stack <- function(files) {
+  cat("\n::: {.r-stack .r-stretch}\n")
+  for (step in seq_along(files)) {
+    cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
+    cat("![](", files[step], "){width=1800}\n", sep = "")
+    cat("\n:::\n")
+  }
+  cat("\n:::\n")
+}

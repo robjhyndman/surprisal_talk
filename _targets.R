@@ -692,6 +692,34 @@ list(
   ),
   tar_png(fig_stmf),
   tar_png(fig_stl_anomalies, height = 4.25),
+  # Feature-space build-up: stages of each figure, overlaid as fragments
+  tar_target(pbs_scaled, pbs_rescale(pbs_raw)),
+  tar_target(
+    fig_pbs_build_png,
+    {
+      stages <- list(
+        spaghetti = pbs_spaghetti_stages(pbs_scaled),
+        trend = pbs_feature_stages(pbs_features, pbs_scaled, "trend_strength", "Strength of trend"),
+        season = pbs_feature_stages(pbs_features, pbs_scaled, "seasonal_strength_year", "Strength of seasonality"),
+        # Grobs are built with a PNG device open, so text is measured as drawn
+        space = {
+          tmp <- tempfile(fileext = ".png")
+          ragg::agg_png(tmp, width = 9, height = 3.6, units = "in", res = 400)
+          grobs <- with_uconn_style(pbs_feature_space_stages(pbs_scaled, pbs_pca))
+          grDevices::dev.off()
+          unlink(tmp)
+          grobs
+        }
+      )
+      heights <- c(spaghetti = 4.4, trend = 4.4, season = 4.4, space = 3.6)
+      unlist(lapply(names(stages), function(s) {
+        files <- file.path("figs", "uconn", paste0("fig_pbs_", s, seq_along(stages[[s]]), ".png"))
+        unname(mapply(save_png, stages[[s]], files, MoreArgs = list(height = heights[[s]])))
+      }))
+    },
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext", "patchwork", "GGally")
+  ),
   tar_png(fig_pbs_pca),
   tar_png(fig_pbs_outliers),
   tar_png(fig_pbs_missing),
