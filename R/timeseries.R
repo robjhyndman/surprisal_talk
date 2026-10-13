@@ -615,7 +615,7 @@ pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001,
       facet_wrap(~id, ncol = 3) +
       scale_colour_manual(values = c(`FALSE` = "#1e293b", `TRUE` = "#c14b14"), guide = "none") +
       theme_void() +
-      theme(strip.text = element_blank(), panel.spacing = unit(4, "pt"))
+      theme(strip.text = element_blank(), panel.spacing = unit(4, "pt"), plot.background = element_blank())
   }
   vars <- c(
     Trend = "trend_strength", Season = "seasonal_strength_year",
@@ -632,7 +632,8 @@ pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001,
     theme(
       strip.text = element_text(size = 10, face = "plain", hjust = 0.5),
       panel.grid.major = element_blank(),
-      panel.border = element_rect(fill = NA, colour = "#e4dfd4")
+      panel.border = element_rect(fill = NA, colour = "#e4dfd4"),
+      plot.background = element_blank()
     )
   pc_plot <- function(highlight) {
     pbs_pca |>
@@ -643,10 +644,13 @@ pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001,
       scale_colour_manual(values = c(`FALSE` = "#1e293b", `TRUE` = "#c14b14"), guide = "none") +
       scale_size_manual(values = c(`FALSE` = 0.6, `TRUE` = 2), guide = "none") +
       labs(x = "PC1", y = "PC2") +
-      theme(axis.text = element_blank(), text = element_text(size = 11))
+      theme(
+        axis.text = element_blank(), text = element_text(size = 11),
+        plot.background = element_blank(), aspect.ratio = 1
+      )
   }
-  at <- function(g, x, w) {
-    grid::grobTree(g, vp = grid::viewport(x = x, y = 0.5, width = w, height = 0.94, just = "left"))
+  at <- function(g, x, w, h = 0.94) {
+    grid::grobTree(g, vp = grid::viewport(x = x, y = 0.5, width = w, height = h, just = "left"))
   }
   step_arrow <- function(x0, x1, label) {
     grid::grobTree(
@@ -655,15 +659,41 @@ pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001,
         gp = grid::gpar(col = "#c14b14", fill = "#c14b14", lwd = 2.5)
       ),
       grid::textGrob(label, x = (x0 + x1) / 2, y = 0.56, vjust = 0,
-        gp = grid::gpar(fontfamily = "Fira Sans", fontsize = 11, col = "#0f2a44", lineheight = 0.9)
+        gp = grid::gpar(fontfamily = "Fira Sans", fontsize = 11, fontface = "bold",
+          col = "#0f2a44", lineheight = 0.9)
       )
     )
   }
-  series <- function(h) at(ggplotGrob(sample_plot(h)), 0, 0.22)
-  arrow1 <- step_arrow(0.235, 0.335, "Compute\nfeatures")
-  pairs_g <- at(GGally::ggmatrix_gtable(pairs), 0.345, 0.33)
-  arrow2 <- step_arrow(0.665, 0.765, "Principal\ncomponents")
-  pc <- function(h) at(ggplotGrob(pc_plot(h)), 0.775, 0.225)
+  # White card behind each graph, styled like the slides' blocks, with a soft
+  # shadow faked by a few stacked translucent cards
+  card <- function(x0, x1, y0 = 0.03, y1 = 0.97) {
+    shade <- function(i) {
+      grid::roundrectGrob(
+        x = unit(x0, "npc") - unit(i, "pt"), y = unit(y0, "npc") - unit(1.5 * i + 1, "pt"),
+        width = unit(x1 - x0, "npc") + unit(2 * i, "pt"),
+        height = unit(y1 - y0, "npc") + unit(2 * i, "pt"),
+        r = unit(8 + i, "pt"), just = c("left", "bottom"),
+        gp = grid::gpar(col = NA, fill = grDevices::rgb(15, 42, 68, 5, maxColorValue = 255))
+      )
+    }
+    do.call(grid::grobTree, c(
+      lapply(seq(0.5, 4, by = 0.5), shade),
+      list(grid::roundrectGrob(x0, y0, x1 - x0, y1 - y0, r = unit(8, "pt"),
+        just = c("left", "bottom"), gp = grid::gpar(col = NA, fill = "white")))
+    ))
+  }
+  series <- function(h) {
+    grid::grobTree(card(0.005, 0.19), at(ggplotGrob(sample_plot(h)), 0.018, 0.159, 0.86))
+  }
+  arrow1 <- step_arrow(0.2, 0.29, "Compute\nfeatures")
+  pairs_g <- grid::grobTree(
+    card(0.3, 0.625),
+    at(GGally::ggmatrix_gtable(pairs), 0.31, 0.305, 0.88)
+  )
+  arrow2 <- step_arrow(0.635, 0.725, "Principal\ncomponents")
+  pc <- function(h) {
+    grid::grobTree(card(0.735, 0.995), at(ggplotGrob(pc_plot(h)), 0.745, 0.24, 0.88))
+  }
   list(
     grid::grobTree(series(FALSE)),
     grid::grobTree(series(FALSE), arrow1, pairs_g),

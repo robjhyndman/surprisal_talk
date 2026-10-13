@@ -711,7 +711,7 @@ tar_load(c(pbs_features, pbs_missing))
 #| label: pbs_feat_print
 
 tar_read(pbs_features_table) |>
-  print(n = 5, width = 75, max_extra_cols = 0)
+  print(n = 3, width = 75)
 ```
 
 - `r NROW(pbs_features)` series, `r ncol(pbs_features) - 4` features each; `r NROW(pbs_missing)` series have missing features.
