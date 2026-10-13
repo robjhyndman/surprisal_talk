@@ -437,7 +437,10 @@ list(
     fig_hampel_stages,
     {
       stages <- c("series", "window", "difference", "normal")
-      setNames(lapply(stages, \(s) create_hampel_fig(fr_mortality, stage = s)), stages)
+      figs <- setNames(lapply(stages, \(s) create_hampel_fig(fr_mortality, stage = s)), stages)
+      # Window stage shows the first full window, where the video starts
+      figs$window <- create_hampel_fig(fr_mortality, stage = "window", centre = 1823)
+      figs
     }
   ),
   # Window sliding over the series, tracing out the moving median

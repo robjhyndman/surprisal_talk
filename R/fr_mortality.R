@@ -171,7 +171,7 @@ create_fr_anomaly_girafe <- function(
 # Illustration of the Hampel identifier for one series, built up in stages:
 #   "series":     the series alone
 #   "window":     the window of 2w+1 observations centred on `centre`, and the
-#                 moving median traced up to `centre`
+#                 moving median traced from the first full window up to `centre`
 #   "difference": the observation y_t and its difference from m_t (a segment)
 #   "normal":     the implied Normal distribution N(m_t, sigma_t^2) at time t
 # All stages have the same axes, so they overlay exactly on the slides.
@@ -183,7 +183,7 @@ create_hampel_fig <- function(
   sex = "Female",
   t = 1849,
   w = 7,
-  years = c(1828, 1872),
+  years = c(1816, 1872),
   colours = c(series = "#1e293b", median = "#1d6fa5", normal = "#c14b14")
 ) {
   stage <- match.arg(stage)
@@ -204,9 +204,10 @@ create_hampel_fig <- function(
     x = t + width * stats::dnorm(yy, m_t, sigma_t) / stats::dnorm(0, 0, sigma_t)
   )
   df <- df |> filter(Year >= years[1], Year <= years[2])
-  # Moving median from the left edge up to the window centre
+  # Moving median from the centre of the first full window up to the window centre
   m_at <- function(x) stats::approx(df$Year, df$m, x)$y
-  traced <- tibble(Year = c(df$Year[df$Year < centre], centre)) |>
+  start <- years[1] + w
+  traced <- tibble(Year = c(df$Year[df$Year >= start & df$Year < centre], centre)) |>
     mutate(m = m_at(Year))
   # Visible x range (ggplot's default 5% expansion), to clip the window to
   xrange <- years + c(-1, 1) * 0.05 * diff(years)
@@ -233,11 +234,13 @@ create_hampel_fig <- function(
   }
   p <- p + geom_line(colour = colours[["series"]])
   if (level >= 2) {
-    m_label_x <- max(centre - w + 2, years[1])
     p <- p +
       geom_line(data = traced, aes(y = m), colour = colours[["median"]],
         linetype = "dashed") +
-      math_label("italic(m)[italic(t)]", x = m_label_x, y = m_at(m_label_x),
+      annotate("point", x = centre, y = m_at(centre), colour = colours[["median"]],
+        size = 2) +
+      # Label fixed at the start of the median line, so it stays still in the video
+      math_label("italic(m)[italic(t)]", x = start, y = m_at(start),
         vjust = -0.5, colour = colours[["median"]], size = 7) +
       # Words in the slide font, maths in KaTeX
       ggtext::geom_richtext(
@@ -246,7 +249,7 @@ create_hampel_fig <- function(
         label = paste0(
           "window of ", katex_up("2"), katex_it("w"), katex_up(" + 1"), " years"
         ),
-        vjust = 1.2, colour = colours[["median"]], size = 5.5,
+        vjust = 1.2, colour = colours[["median"]], size = 4.5,
         fill = NA, label.colour = NA, inherit.aes = FALSE
       )
   }
@@ -281,12 +284,13 @@ create_hampel_fig <- function(
 }
 
 # MP4 of the "window" stage of create_hampel_fig(), with the window sliding
-# from `from` to `to` and tracing out the moving median. The last frame
-# matches create_hampel_fig(stage = "window", centre = to).
+# from `from` to `to` and tracing out the moving median. The first and last
+# frames match create_hampel_fig(stage = "window") with centre = from and to.
+# The default `from` puts the first full window of 2w+1 years at the left edge.
 hampel_window_video <- function(
   fr_mortality,
   file,
-  from = 1828,
+  from = 1823,
   to = 1849,
   seconds = 3,
   fps = 30,

@@ -301,8 +301,8 @@ include_png(tar_read(fig_fr_mortality2_png))
 #| label: fig_hampel
 #| results: asis
 
-# Stages: series; window tracing the median (video); difference; Normal.
-# Fragment indices match the equations and bullets below (a_t is index 2).
+# Stages: series; first window; window tracing the median (video);
+# difference; Normal. Fragment indices match the equations and bullets below.
 files <- tar_read(fig_hampel_png)
 video <- htmltools::tagAppendAttributes(
   video_tag(tar_read(hampel_video)),
@@ -310,14 +310,16 @@ video <- htmltools::tagAppendAttributes(
 )
 cat("\n::: {.r-stack}\n\n")
 cat("![](", files[1], "){width=100%}\n\n", sep = "")
+cat("::: {.fragment fragment-index=\"1\"}\n")
+cat("![](", files[2], "){width=100%}\n:::\n\n", sep = "")
 cat(
-  "::: {.fragment fragment-index=\"1\"}\n```{=html}\n",
+  "::: {.fragment fragment-index=\"2\"}\n```{=html}\n",
   as.character(video),
   "\n```\n:::\n\n",
   sep = ""
 )
 for (i in 3:4) {
-  cat("::: {.fragment fragment-index=\"", i, "\"}\n", sep = "")
+  cat("::: {.fragment fragment-index=\"", i + 1, "\"}\n", sep = "")
   cat("![](", files[i], "){width=100%}\n:::\n\n", sep = "")
 }
 cat(":::\n")
@@ -350,25 +352,27 @@ window.addEventListener("load", function () {
 
 ::: {.columns}
 ::::: {.column .math-left width="52%"}
+::::::: {.fragment fragment-index="1"}
 $$
   m_t = \text{median}(y_{t-w}, \dots, y_{t+w})
 $$
+:::::::
 
-::::::: {.fragment fragment-index="2"}
+::::::: {.fragment fragment-index="3"}
 $$
   a_t = \text{median}(|y_{t-w} - m_t|, \dots, |y_{t+w} - m_t|)
 $$
 :::::::
 
-::::::: {.fragment fragment-index="3"}
+::::::: {.fragment fragment-index="4"}
 - Anomaly if $|y_t - m_t| > ka_t$
 :::::::
 :::::
 ::::: {.column width="48%"}
-::::::: {.fragment fragment-index="4"}
+::::::: {.fragment fragment-index="5"}
 - Implicit model: $y_t \sim \text{N}(m_t, \sigma_t^2)$ with $\sigma_t = a_t/0.6745$
 :::::::
-::::::: {.fragment fragment-index="5"}
+::::::: {.fragment fragment-index="6"}
 - Better: compute surprisals under Normal, with probabilities from GPD
 :::::::
 :::::
