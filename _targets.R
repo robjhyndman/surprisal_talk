@@ -723,6 +723,16 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext", "patchwork", "GGally")
   ),
+  # Spaghetti plot continued, adding the remaining series
+  tar_target(
+    pbs_spaghetti_video_files,
+    with_uconn_style(pbs_spaghetti_video(
+      pbs_scaled,
+      file = file.path("figs", "uconn", "pbs_spaghetti.mp4"),
+      poster = file.path("figs", "uconn", "pbs_spaghetti_all.png")
+    )),
+    format = "file"
+  ),
   tar_png(fig_pbs_pca),
   tar_png(fig_pbs_outliers),
   tar_png(fig_pbs_missing),

@@ -457,20 +457,79 @@ pbs_rescale <- function(PBS) {
     ungroup()
 }
 
-# Overlaid rescaled series, adding more in each stage (in random order and colour)
-pbs_spaghetti_stages <- function(scaled, n = c(1, 2, 5, 20, 100, Inf), seed = 2026) {
+# Series in the order they are added to the spaghetti plot: three similar
+# series (near the centre of the PCA feature space), one very different
+# (among the most anomalous), then the rest in random order
+pbs_spaghetti_ids <- function(
+  scaled,
+  first = c(
+    "Concessional Co-payments C08",
+    "Concessional Co-payments H02",
+    "Concessional Co-payments N02",
+    "General Co-payments C05"
+  ),
+  seed = 2026
+) {
   set.seed(seed)
-  ids <- sample(unique(scaled$id))
+  c(first, sample(setdiff(unique(scaled$id), first)))
+}
+
+# Overlaid rescaled series: the first k of ids, each in its own random colour,
+# with thinner lines as more series are added
+pbs_spaghetti_plot <- function(scaled, ids, k, seed = 2026) {
+  set.seed(seed)
   colours <- setNames(hcl(h = runif(length(ids), 0, 360), c = 70, l = 55), ids)
-  lapply(n, function(k) {
-    scaled |>
-      filter(id %in% head(ids, k)) |>
-      ggplot(aes(x = Month, y = Scripts, group = id, colour = id)) +
-      geom_line(linewidth = if (k > 50) 0.25 else 0.6) +
-      scale_colour_manual(values = colours, guide = "none") +
-      scale_y_continuous(limits = c(0, 1), breaks = NULL) +
-      labs(x = NULL, y = NULL)
-  })
+  linewidth <- 0.6 - 0.35 * min(1, max(0, log(k / 4) / log(25)))
+  scaled |>
+    filter(id %in% head(ids, k)) |>
+    mutate(id = factor(id, levels = ids)) |>
+    arrange(id) |>
+    ggplot(aes(x = Month, y = Scripts, group = id, colour = id)) +
+    geom_line(linewidth = linewidth) +
+    scale_colour_manual(values = colours, guide = "none") +
+    scale_y_continuous(limits = c(0, 1), breaks = NULL) +
+    labs(x = NULL, y = NULL)
+}
+
+# Spaghetti plot with the first one to four series of pbs_spaghetti_ids()
+pbs_spaghetti_stages <- function(scaled) {
+  ids <- pbs_spaghetti_ids(scaled)
+  lapply(1:4, \(k) pbs_spaghetti_plot(scaled, ids, k))
+}
+
+# MP4 continuing pbs_spaghetti_stages(), adding the remaining series at an
+# accelerating rate. The first frame matches the last stage; the last frame
+# (also saved as `poster`) shows all series.
+pbs_spaghetti_video <- function(
+  scaled,
+  file,
+  poster,
+  seconds = 4,
+  fps = 30,
+  width = 9,
+  height = 4.4,
+  res = 200,
+  background = "#fbf9f4"
+) {
+  ids <- pbs_spaghetti_ids(scaled)
+  n <- seconds * fps
+  k <- unique(round(4 * (length(ids) / 4)^seq(0, 1, length.out = n)))
+  # Repeat the last frame so the complete plot is held briefly
+  k <- c(k, rep(length(ids), n - length(k)))
+  dir <- tempfile("frames")
+  dir.create(dir)
+  dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
+  frames <- file.path(dir, sprintf("frame%03d.png", seq_along(k)))
+  for (i in seq_along(k)) {
+    ragg::agg_png(frames[i], width = width, height = height, units = "in",
+      res = res, background = background)
+    print(pbs_spaghetti_plot(scaled, ids, k[i]))
+    grDevices::dev.off()
+  }
+  file.copy(frames[length(frames)], poster, overwrite = TRUE)
+  av::av_encode_video(frames, file, framerate = fps, verbose = FALSE)
+  unlink(dir, recursive = TRUE)
+  c(file, poster)
 }
 
 # Small time plot of one PBS series, for insets

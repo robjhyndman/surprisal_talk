@@ -641,7 +641,10 @@ tar_read(pbs_raw) |> print(n = 10)
 #| results: asis
 
 files <- tar_read(fig_pbs_build_png)
-cat_png_stack(grep("spaghetti", files, value = TRUE))
+cat_png_stack(
+  grep("spaghetti", files, value = TRUE),
+  video = tar_read(pbs_spaghetti_video_files)
+)
 ```
 
 ## Feature: strength of trend

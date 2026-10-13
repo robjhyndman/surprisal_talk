@@ -112,13 +112,23 @@ include_png <- function(file, retina = 2) {
 }
 
 # Write markdown for PNGs stacked on top of each other, each after the first
-# revealed as a fragment (call from a chunk with `results: asis`)
-cat_png_stack <- function(files) {
+# revealed as a fragment (call from a chunk with `results: asis`). An optional
+# video (MP4 file and poster PNG of its last frame) is added as a final
+# fragment, played when shown by the script on the Hampel slide.
+cat_png_stack <- function(files, video = NULL) {
   cat("\n::: {.r-stack .r-stretch}\n")
   for (step in seq_along(files)) {
     cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
     cat("![](", files[step], "){width=1800}\n", sep = "")
     cat("\n:::\n")
+  }
+  if (!is.null(video)) {
+    tag <- htmltools::tagAppendAttributes(
+      video_tag(video[1]),
+      poster = paste0("data:image/png;base64,", base64enc::base64encode(video[2])),
+      width = 1800
+    )
+    cat("\n::: {.fragment}\n```{=html}\n", as.character(tag), "\n```\n:::\n", sep = "")
   }
   cat("\n:::\n")
 }

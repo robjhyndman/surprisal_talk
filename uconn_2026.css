@@ -422,7 +422,8 @@ body.quarto-light,
   margin: 0;
 }
 
-.reveal .slides section .r-stack.r-stretch img {
+.reveal .slides section .r-stack.r-stretch img,
+.reveal .slides section .r-stack.r-stretch video {
   display: block;
   margin: 0 auto;
   height: 100%;
