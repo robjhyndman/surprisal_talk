@@ -149,7 +149,7 @@ Expected surprisal = entropy
 ::::: {.block}
 [Likelihood]{.block-title}
 
-Sum of surprisals = $-\log$&nbsp;likelihood
+Sum of surprisals = $-$log\ likelihood
 :::::
 :::
 

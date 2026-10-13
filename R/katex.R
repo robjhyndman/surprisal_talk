@@ -34,13 +34,15 @@ katex_sub <- function(x, sub) paste0(x, "<sub>", sub, "</sub>")
 
 # Restyle the surprisal probability figures (fig_sp0, fig_sp1, fig_sp2): axis
 # titles and the observation's tick labels (y_i, f(y_i) in the figures) in KaTeX
-# fonts, with subscript `sub`
-katex_fig_sp <- function(p, sub = "t") {
+# fonts, with subscript `sub`. The observation's tick labels are set in
+# `obs_size` points (the axis title size), as they are smaller than the others.
+katex_fig_sp <- function(p, sub = "t", obs_size = 15) {
   y <- katex_it("y")
   f_of <- function(x) paste0(katex_it("f"), katex_up("("), x, katex_up(")"))
   y_obs <- katex_sub(y, katex_it(sub))
+  obs_label <- function(x) sprintf("<span style='font-size:%spt'>%s</span>", obs_size, x)
   p <- p +
-    labs(x = y, y = paste0("Probability Density Function: ", f_of(y))) +
+    labs(x = y, y = f_of(y)) +
     # Position-specific elements, as complete themes such as theme_minimal()
     # set these and they would not inherit from axis.text.x etc.
     theme(
@@ -61,9 +63,9 @@ katex_fig_sp <- function(p, sub = "t") {
   }
   p$scales$scales <- lapply(p$scales$scales, function(scale) {
     if ("x" %in% scale$aesthetics) {
-      relabel(scale, y_obs)
+      relabel(scale, obs_label(y_obs))
     } else if ("y" %in% scale$aesthetics) {
-      relabel(scale, f_of(y_obs))
+      relabel(scale, obs_label(f_of(y_obs)))
     } else {
       scale
     }
