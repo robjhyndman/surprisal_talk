@@ -271,3 +271,169 @@ us_mortality_zoom_video <- function(
   unlink(dir, recursive = TRUE)
   file
 }
+
+# Surprisal probability figures (fig_sp0, fig_sp1, fig_sp2) with maths in KaTeX fonts
+make_fig_sp_katex <- function(figs) {
+  lapply(figs, function(p) {
+    # Once y_i is shown, these figures redraw the vertical grid lines in white
+    # (for a white background); drop them so there are no vertical grid lines
+    white <- vapply(
+      p$layers,
+      \(l) identical(l$aes_params$colour, "white"),
+      logical(1)
+    )
+    p$layers <- p$layers[!white]
+    katex_fig_sp(p)
+  })
+}
+
+# US weekly mortality rates by age group
+make_us_stmf <- function(us_mortality) {
+  us_mortality |>
+    filter(Sex == "Total", Age != "Total") |>
+    mutate(Week = yearweek(paste0(Year, "-W", Week))) |>
+    select(Week, `Age group` = Age, Mortality) |>
+    as_tsibble(index = Week, key = `Age group`)
+}
+
+# Surprisal probabilities of the standardised STL remainders
+compute_stmf_scores <- function(us_stmf) {
+  us_stmf |>
+    model(stl = STL(Mortality)) |>
+    augment() |>
+    group_by(`Age group`) |>
+    mutate(e = .resid / robustbase::s_Qn(.resid)) |>
+    ungroup() |>
+    mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal())) |>
+    arrange(prob)
+}
+
+# Episodes of anomalous weeks (from the STL surprisals) and their causes
+make_us_episodes <- function() {
+  tibble::tribble(
+    ~start, ~end, ~episode, ~cause,
+    "2020 W03", "2020 W04", "2020 W03–W04",
+    "artefact (75+): STL trend pulled up by the COVID-19 peak a few weeks later",
+    "2020 W14", "2020 W18", "2020 W14–W18",
+    "first wave (New York, April 2020): all adult age groups",
+    "2020 W49", "2021 W03", "2020 W49–2021 W03",
+    "winter 2020–21, the deadliest wave: 65+ only",
+    "2021 W13", "2021 W15", "2021 W13–W15",
+    "low mortality (75+): restricted movement, vaccination, mortality displacement",
+    "2021 W33", "2021 W39", "2021 W33–W39",
+    "Delta: only 15–64 and 65–74 (older people vaccinated)",
+    "2022 W02", "2022 W05", "2022 W02–W05",
+    "Omicron: mostly 65+"
+  ) |>
+    mutate(start = yearweek(start), end = yearweek(end))
+}
+
+# Weird series: first two principal components of the scaled PBS features,
+# with LOO KDE surprisal probabilities
+compute_pbs_pca <- function(pbs_features) {
+  feat <- pbs_features |> na.omit()
+  pca <- feat |>
+    select(-Concession, -Type, -ATC1, -ATC2) |>
+    prcomp(scale = TRUE, rank = 2) |>
+    broom::augment(feat)
+  pca |>
+    mutate(
+      prob = surprisals_prob(
+        pca |> select(.fittedPC1, .fittedPC2),
+        loo = TRUE,
+        approximation = "gpd"
+      )
+    )
+}
+
+# PBS series matching the keys in `series`, one panel each
+pbs_series_plot <- function(PBS, series, title) {
+  PBS |>
+    semi_join(series, by = c("Concession", "Type", "ATC2")) |>
+    autoplot(Scripts) +
+    facet_grid(vars(Concession, Type, ATC2), scales = "free_y") +
+    labs(title = title) +
+    guides(colour = "none")
+}
+
+# Surveillance: one-step ETS forecasts from the first `i` months, for series
+# with at least 36 observations from their first non-zero value
+pbs_forecast <- function(pbs, i = 36) {
+  pbs |>
+    filter(t <= i) |>
+    group_by_key() |>
+    filter(cumsum(Scripts) > 0, n() >= 36) |>
+    ungroup() |>
+    model(ets = ETS(Scripts)) |>
+    forecast(h = 1)
+}
+
+# Surprisal probabilities of the observations at time i + 1 under the
+# forecasts `pbs_fc` made at time i
+pbs_forecast_probs <- function(pbs_fc, pbs, i = 36) {
+  pbs_fc |>
+    rename(fcast = Scripts) |>
+    left_join(pbs |> filter(t == i + 1), by = c("Month", "ATC2")) |>
+    mutate(prob = surprisals_prob(Scripts, distribution = fcast)) |>
+    as_tibble() |>
+    select(ATC2, Scripts, fcast, prob) |>
+    arrange(prob)
+}
+
+# Forecast of one series at time i, with the observation at time i + 1
+pbs_forecast_plot <- function(pbs_fc, pbs, series = "S01", i = 36) {
+  obs <- pbs |> filter(ATC2 == series, t <= i + 1)
+  pbs_fc |>
+    filter(ATC2 == series) |>
+    autoplot(obs) +
+    geom_point(data = obs |> filter(t == i + 1), aes(x = Month, y = Scripts)) +
+    labs(
+      y = "Scripts (thousands)",
+      title = paste0(
+        "Forecast of ", series, " scripts: ", format(max(obs$Month), format = "%b %Y")
+      )
+    ) +
+    theme(legend.position = "none")
+}
+
+# Surveillance across series: number of flagged series each month, and the
+# probability of at least that many under a Binomial with pi estimated from
+# all previous months
+compute_pbs_joint <- function(pbs_scores, threshold = 0.001) {
+  pbs_scores |>
+    as_tibble() |>
+    filter(!is.na(prob)) |>
+    group_by(Month) |>
+    summarise(M = n(), n = sum(prob < threshold), .groups = "drop") |>
+    mutate(
+      pi = (cumsum(n) - n) / (cumsum(M) - M),
+      prob = pbinom(n - 1, M, pi, lower.tail = FALSE)
+    ) |>
+    filter(row_number() > 12)
+}
+
+pbs_joint_plot <- function(pbs_joint, threshold = 0.001) {
+  pbs_joint |>
+    ggplot(aes(x = Month, y = n)) +
+    geom_col(aes(fill = prob < threshold), show.legend = FALSE) +
+    scale_fill_manual(values = c(`FALSE` = "grey35", `TRUE` = "#C14b14")) +
+    scale_x_yearmonth(date_breaks = "2 years", date_labels = "%Y") +
+    labs(y = "Number of flagged ATC groups")
+}
+
+# Months with a significant number of flagged series, formatted for a table
+pbs_joint_table <- function(pbs_joint, threshold = 0.001) {
+  pbs_joint |>
+    filter(prob < threshold) |>
+    mutate(
+      Month = format(Month),
+      pi = sprintf("%.4f", pi),
+      prob = sprintf("%.1e", prob)
+    ) |>
+    rename(
+      `$M_t$` = M,
+      `$n_t$` = n,
+      `$\\hat\\pi_t$` = pi,
+      `$\\mathbb{P}(N_t \\ge n_t)$` = prob
+    )
+}

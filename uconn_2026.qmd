@@ -50,57 +50,13 @@ library(tsibble)
 library(fable)
 library(feasts)
 library(ggtime)
-tar_source("R/functions.R")
-tar_source("R/timeseries.R")
-tar_source("R/fr_mortality.R")
-tar_source("R/katex.R")
+library(ggiraph)
+library(ggtext)
+tar_source(c("R/functions.R", "R/katex.R", "R/uconn.R"))
 set_ggplot_options()
-theme_set(
-  theme_minimal(base_size = 15, base_family = "Fira Sans") +
-    theme(
-      plot.background = element_rect(fill = "#fbf9f4", colour = NA),
-      panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(colour = "#e4dfd4", linewidth = 0.4),
-      text = element_text(colour = "#1e293b"),
-      axis.text = element_text(colour = "#64748b"),
-      strip.text = element_text(face = "bold", hjust = 0, colour = "#0f2a44"),
-      plot.title = element_text(face = "bold", colour = "#0f2a44"),
-      plot.title.position = "plot"
-    )
-)
+theme_set(uconn_theme())
+register_katex_font()
 options(pillar.width = 75)
-
-# Outline listing all sections, with the current one highlighted
-sections <- c(
-  "Surprisals",
-  "Weird times",
-  "Weird series",
-  "Surveillance",
-  "Summary"
-)
-outline <- function(current = NULL) {
-  ids <- paste0("part-", gsub(" ", "-", tolower(sections)))
-  status <- if (is.null(current)) {
-    ""
-  } else {
-    ifelse(sections == current, " .current", " .shaded")
-  }
-  items <- paste0("[", sections, "](#", ids, "){.outline-link", status, "}")
-  paste0(
-    "\n\n::: {.outline}\n\n",
-    paste0(seq_along(sections), ". ", items, collapse = "\n"),
-    "\n\n:::\n\n"
-  )
-}
-# Body of a section divider slide: section number and outline
-section <- function(current) {
-  paste0(
-    "\n\n::: {.section-number}\n",
-    sprintf("%02d", match(current, sections)),
-    "\n:::\n",
-    outline(current)
-  )
-}
 ```
 
 ## Three types of surprise
@@ -157,30 +113,13 @@ $$
 #| results: asis
 #| fig-height: 3.6
 
-if (FALSE) {
-  # Never runs; lets tar_quarto() detect these as dependencies
-  # since it can't see through tar_read_raw() below.
-  tar_load(c(fig_sp0, fig_sp1, fig_sp2))
-}
-figs <- lapply(0:2, function(step) {
-  p <- tar_read_raw(paste0("fig_sp", step))
-  # Once y_i is shown, these figures redraw the vertical grid lines in white
-  # (for a white background); drop them so there are no vertical grid lines
-  white <- vapply(
-    p$layers,
-    \(l) identical(l$aes_params$colour, "white"),
-    logical(1)
-  )
-  p$layers <- p$layers[!white]
-  katex_fig_sp(p)
-})
 # Same panel position in every step, so the figures overlay exactly
-figs <- align_ggplots(figs)
+figs <- align_ggplots(tar_read(fig_sp_katex))
 cat("\n::: {.r-stack .r-stretch}\n")
-for (step in 0:2) {
-  cat(if (step == 0) "\n::: {.step}\n" else "\n::: {.fragment}\n")
+for (step in seq_along(figs)) {
+  cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
   grid::grid.newpage()
-  grid::grid.draw(figs[[step + 1]])
+  grid::grid.draw(figs[[step]])
   cat("\n:::\n")
 }
 cat("\n:::\n")
@@ -342,9 +281,16 @@ tar_read(fig_expt1b)
 ```{r}
 #| label: fr_mortality
 #| echo: true
+#| eval: false
 
 library(weird)
 fr_mortality
+```
+
+```{r}
+#| label: fr_mortality_print
+
+tar_read(fr_mortality)
 ```
 
 ## French mortality rates
@@ -362,7 +308,7 @@ tar_read(fig_fr_mortality2)
 #| fig-height: 2.6
 #| out-width: "100%"
 
-create_hampel_fig(tar_read(fr_mortality))
+tar_read(fig_hampel)
 ```
 
 ::: {.columns}
@@ -390,6 +336,7 @@ $$
 ```{r}
 #| label: fr_anomalies
 #| echo: true
+#| eval: false
 
 fr_anomalies <- fr_mortality |>
   group_by(Age, Sex) |>
@@ -424,10 +371,7 @@ fr_anomalies |>
 #| echo: false
 #| eval: true
 
-fr_anomalies |>
-  count(Year, Sex) |>
-  filter(n >= 3) |>
-  as.data.frame()
+tar_read(fr_anomaly_years)
 ```
 :::::::
 :::::
@@ -438,46 +382,29 @@ fr_anomalies |>
 ```{r}
 #| label: fig_fr-anomalies
 
-create_fr_anomaly_girafe(tar_read(fr_anomalies))
+tar_read(fr_anomalies_girafe)
 ```
 
 ```{r}
 #| label: fr_causes
 
-# Known causes of the anomalous years, shown in a card when hovering over the plot
-fr_causes <- c(
-  "1832" = "Cholera outbreak",
-  "1834" = "unknown cause",
-  "1837" = "unknown cause",
-  "1849" = "Cholera outbreak",
-  "1870" = "Franco–Prussian war",
-  "1871" = "Repression of the Commune de Paris",
-  "1914" = "World War I",
-  "1915" = "World War I",
-  "1918" = "Spanish flu outbreak",
-  "1940" = "World War II"
-)
-hover_card(fr_causes, alert = names(fr_causes)[fr_causes == "unknown cause"])
+tar_read(fr_causes_card)
 ```
 
 ## US weekly mortality rates
 
 ```{r}
-#| label: stmf
-#| echo: false
-
-us_stmf <- us_mortality |>
-  filter(Sex == "Total", Age != "Total") |>
-  mutate(Week = yearweek(paste0(Year, "-W", Week))) |>
-  select(Week, `Age group` = Age, Mortality) |>
-  as_tsibble(index = Week, key = `Age group`)
-```
-
-```{r}
 #| echo: true
+#| eval: false
 #| label: stmf-print
 
 us_stmf
+```
+
+```{r}
+#| label: stmf-print-output
+
+tar_read(us_stmf)
 ```
 
 ## US weekly mortality rates
@@ -485,10 +412,7 @@ us_stmf
 ```{r}
 #| label: fig_stmf
 
-us_stmf |>
-  autoplot(Mortality) +
-  facet_grid(`Age group` ~ ., scales = "free_y") +
-  guides(colour = "none")
+tar_read(fig_stmf)
 ```
 
 ## Surprisals from an STL decomposition {.small}
@@ -507,6 +431,7 @@ Replace by a better signal estimate.
 ```{r}
 #| label: stl-stmf
 #| echo: true
+#| eval: false
 
 stmf_scores <- us_stmf |>
   model(stl = STL(Mortality)) |>
@@ -521,8 +446,7 @@ stmf_scores <- us_stmf |>
 ```{r}
 #| label: stmf_scores_print
 
-stmf_scores |>
-  select(Week, `Age group`, Mortality, .fitted, e, prob)
+tar_read(stmf_scores_table)
 ```
 :::::
 :::
@@ -535,47 +459,17 @@ stmf_scores |>
 #| fig-width: 9
 #| fig-height: 4.25
 
-us_mortality_plot(us_stmf, stmf_scores)
+tar_read(fig_stl_anomalies)
 ```
 :::
 
 ## US weekly mortality rates {#us-zoom .nostretch}
 
-```{r}
-#| label: us_episodes
-
-# Episodes of anomalous weeks (from the STL surprisals) and their causes
-us_episodes <- tibble::tribble(
-  ~start                                                                          , ~end       , ~episode            , ~cause ,
-  "2020 W03"                                                                      , "2020 W04" , "2020 W03–W04"      ,
-  "artefact (75+): STL trend pulled up by the COVID-19 peak a few weeks later"    ,
-  "2020 W14"                                                                      , "2020 W18" , "2020 W14–W18"      ,
-  "first wave (New York, April 2020): all adult age groups"                       ,
-  "2020 W49"                                                                      , "2021 W03" , "2020 W49–2021 W03" ,
-  "winter 2020–21, the deadliest wave: 65+ only"                                  ,
-  "2021 W13"                                                                      , "2021 W15" , "2021 W13–W15"      ,
-  "low mortality (75+): restricted movement, vaccination, mortality displacement" ,
-  "2021 W33"                                                                      , "2021 W39" , "2021 W33–W39"      ,
-  "Delta: only 15–64 and 65–74 (older people vaccinated)"                         ,
-  "2022 W02"                                                                      , "2022 W05" , "2022 W02–W05"      ,
-  "Omicron: mostly 65+"
-) |>
-  mutate(start = yearweek(start), end = yearweek(end))
-us_zoom <- list(from = yearweek("2019 W40"), to = yearweek("2022 W26"))
-```
-
 ::: {.absolute .us-fig top="95" left="0" width="1280"}
 ```{r}
 #| label: fig_us_covid
 
-us_mortality_girafe(
-  us_stmf,
-  stmf_scores,
-  us_episodes,
-  from = us_zoom$from,
-  to = us_zoom$to,
-  band_alpha = 0.08
-)
+tar_read(us_covid_girafe)
 ```
 :::
 
@@ -585,29 +479,14 @@ us_mortality_girafe(
 
 # Animation zooming in from the previous slide's plot; it is replaced by the
 # interactive plot (identical to its last frame) when it finishes
-video <- us_mortality_zoom_video(
-  us_stmf,
-  stmf_scores,
-  us_episodes,
-  from = us_zoom$from,
-  to = us_zoom$to
-)
-htmltools::tags$video(
-  src = paste0("data:video/mp4;base64,", base64enc::base64encode(video)),
-  muted = NA,
-  playsinline = NA,
-  preload = "auto"
-)
+video_tag(tar_read(us_zoom_video))
 ```
 :::
 
 ```{r}
 #| label: us_causes
 
-hover_card(
-  setNames(us_episodes$cause, us_episodes$episode),
-  alert = c("2020 W03–W04", "2021 W13–W15")
-)
+tar_read(us_causes_card)
 ```
 
 ```{=html}
@@ -653,8 +532,15 @@ window.addEventListener("load", function () {
 ```{r}
 #| label: pbs_data
 #| echo: true
+#| eval: false
 
 tsibbledata::PBS |> print(n = 8)
+```
+
+```{r}
+#| label: pbs_data_print
+
+tar_read(pbs_raw) |> print(n = 8)
 ```
 
 ## Australian Pharmaceutical Benefits Scheme
@@ -671,23 +557,17 @@ PBS_feat <- PBS |>
 ```{r}
 #| label: weirdseries_run
 
-PBS_feat <- tar_read(pbs_features)
-PBS_feat_nomissing <- PBS_feat |> na.omit()
-PBS_prcomp <- PBS_feat_nomissing |>
-  select(-Concession, -Type, -ATC1, -ATC2) |>
-  prcomp(scale = TRUE, rank = 2) |>
-  broom::augment(PBS_feat_nomissing)
+tar_load(c(pbs_features, pbs_missing))
 ```
 
 ```{r}
 #| label: pbs_feat_print
 
-PBS_feat |>
-  select(-Concession, -Type, -ATC1) |>
+tar_read(pbs_features_table) |>
   print(n = 5, width = 75, max_extra_cols = 0)
 ```
 
-- `r NROW(PBS_feat)` series, `r ncol(PBS_feat) - 4` features each; `r NROW(PBS_feat) - NROW(PBS_feat_nomissing)` series have missing features.
+- `r NROW(pbs_features)` series, `r ncol(pbs_features) - 4` features each; `r NROW(pbs_missing)` series have missing features.
 - Reduce to 2 principal components of the scaled features.
 
 ## Australian Pharmaceutical Benefits Scheme
@@ -695,10 +575,7 @@ PBS_feat |>
 ```{r}
 #| label: fig_weirdseries_pca
 
-PBS_prcomp |>
-  ggplot(aes(x = .fittedPC1, y = .fittedPC2)) +
-  geom_point() +
-  labs(x = "Principal component 1", y = "Principal component 2")
+tar_read(fig_pbs_pca)
 ```
 
 ## Kernel density surprisals {.small}
@@ -733,6 +610,7 @@ $$
 ```{r}
 #| label: weirdseries_kde
 #| echo: true
+#| eval: false
 
 PBS_prcomp |>
   mutate(
@@ -750,15 +628,7 @@ PBS_prcomp |>
 ```{r}
 #| label: weirdseries_kde_run
 
-PBS_prcomp <- PBS_prcomp |>
-  mutate(
-    prob = surprisals_prob(
-      PBS_prcomp |> select(.fittedPC1, .fittedPC2),
-      loo = TRUE,
-      approximation = "gpd"
-    )
-  )
-outliers <- PBS_prcomp |> filter(prob < 0.001)
+tar_read(pbs_pca_table) |> print(n = 5)
 ```
 
 ## Australian Pharmaceutical Benefits Scheme
@@ -766,12 +636,7 @@ outliers <- PBS_prcomp |> filter(prob < 0.001)
 ```{r}
 #| label: fig_weirdseries_anomalies
 
-tsibbledata::PBS |>
-  semi_join(outliers, by = c("Concession", "Type", "ATC2")) |>
-  autoplot(Scripts) +
-  facet_grid(vars(Concession, Type, ATC2), scales = "free_y") +
-  labs(title = "Outlying time series in PC space") +
-  guides(colour = "none")
+tar_read(fig_pbs_outliers)
 ```
 
 ## Australian Pharmaceutical Benefits Scheme
@@ -779,15 +644,7 @@ tsibbledata::PBS |>
 ```{r}
 #| label: fig_pbs_missing
 
-missing <- PBS_feat |>
-  anti_join(PBS_feat_nomissing, by = c("Concession", "Type", "ATC1", "ATC2")) |>
-  select(ATC2, Type, Concession)
-tsibbledata::PBS |>
-  semi_join(missing, by = c("Concession", "Type", "ATC2")) |>
-  autoplot(Scripts) +
-  facet_grid(vars(Concession, Type, ATC2), scales = "free_y") +
-  labs(title = "Time series with missing features") +
-  guides(colour = "none")
+tar_read(fig_pbs_missing)
 ```
 
 ## Surveillance {#part-surveillance .section-slide background-color="#0f2a44"}
@@ -810,14 +667,7 @@ pbs <- PBS |>
 #| label: fig_a12
 #| fig-height: 3.2
 
-pbs <- tar_read(pbs)
-pbs |>
-  filter(ATC2 == "A12") |>
-  autoplot(Scripts) +
-  labs(
-    y = "Scripts (thousands)",
-    title = "Scripts for ATC group A12 (Mineral supplements)"
-  )
+tar_read(fig_a12)
 ```
 
 ## Surveillance using forecast distributions
@@ -835,8 +685,7 @@ For each $t = I, I + 1, \dots$, and each series $i = 1,\dots,M$:
 ```{r}
 #| label: fig_tscv
 
-tscv_plot(.init = 8, .step = 1, h = 1) +
-  annotate("text", x = 9, y = 0, label = "h = 1", colour = "#c14b14")
+tar_read(fig_tscv)
 ```
 
 ## Surveillance using forecast distributions
@@ -857,6 +706,7 @@ tscv_plot(.init = 8, .step = 1, h = 1) +
 ```{r}
 #| label: pbsfc
 #| echo: true
+#| eval: false
 
 pbs_fc <- pbs |>
   filter(t <= 36) |>
@@ -872,6 +722,7 @@ pbs_fc <- pbs |>
 ```{r}
 #| label: pbsfc_compare
 #| echo: true
+#| eval: false
 
 pbs_fc |>
   rename(fcast = Scripts) |>
@@ -883,18 +734,18 @@ pbs_fc |>
   print(n = 5, width = Inf)
 ```
 
+```{r}
+#| label: pbsfc_compare_print
+
+tar_read(pbs_fc_probs) |> print(n = 5, width = Inf)
+```
+
 ## A first iteration: $t = 36$
 
 ```{r}
 #| label: fig_s01_forecast
 
-s01 <- pbs |> filter(ATC2 == "S01", t <= 37)
-pbs_fc |>
-  filter(ATC2 == "S01") |>
-  autoplot(s01) +
-  geom_point(data = s01 |> filter(t == 37), aes(x = Month, y = Scripts)) +
-  labs(y = "Scripts (thousands)", title = "Forecast of S01 scripts: Jul 1994") +
-  theme(legend.position = "none")
+tar_read(fig_s01_forecast)
 ```
 
 ## Rolling forward through the data
@@ -920,8 +771,7 @@ for (i in seq(36, max(pbs$t) - 1)) {
 ```{r}
 #| label: pbs_scores
 
-pbs_scores <- tar_read(pbs_scores)
-pbs_anomalies <- pbs_scores |> filter(prob < 0.001)
+tar_load(c(pbs_scores, pbs_anomalies))
 ```
 
 - `r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
@@ -931,7 +781,7 @@ pbs_anomalies <- pbs_scores |> filter(prob < 0.001)
 ```{r}
 #| label: fig_pbs_a12
 
-pbs_plot(pbs, pbs_anomalies, "A12")
+tar_read(fig_pbs_a12)
 ```
 
 ## Surveillance anomalies
@@ -939,7 +789,7 @@ pbs_plot(pbs, pbs_anomalies, "A12")
 ```{r}
 #| label: fig_pbs_n07
 
-pbs_plot(pbs, pbs_anomalies, "N07")
+tar_read(fig_pbs_n07)
 ```
 
 ## Surveillance anomalies
@@ -947,7 +797,7 @@ pbs_plot(pbs, pbs_anomalies, "N07")
 ```{r}
 #| label: fig_pbs_r05
 
-pbs_plot(pbs, pbs_anomalies, "R05")
+tar_read(fig_pbs_r05)
 ```
 
 ## Surveillance across several series {.small}
@@ -970,22 +820,7 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 ```{r}
 #| label: pbs_joint
 
-pbs_joint <- pbs_scores |>
-  as_tibble() |>
-  filter(!is.na(prob)) |>
-  group_by(Month) |>
-  summarise(M = n(), n = sum(prob < 0.001), .groups = "drop") |>
-  mutate(
-    pi = (cumsum(n) - n) / (cumsum(M) - M),
-    prob = pbinom(n - 1, M, pi, lower.tail = FALSE)
-  ) |>
-  filter(row_number() > 12)
-pbs_joint |>
-  ggplot(aes(x = Month, y = n)) +
-  geom_col(aes(fill = prob < 0.001), show.legend = FALSE) +
-  scale_fill_manual(values = c(`FALSE` = "grey35", `TRUE` = "#C14b14")) +
-  scale_x_yearmonth(date_breaks = "2 years", date_labels = "%Y") +
-  labs(y = "Number of flagged ATC groups")
+tar_read(fig_pbs_joint)
 ```
 
 ## Surveillance across several series {.small}
@@ -993,26 +828,14 @@ pbs_joint |>
 ```{r}
 #| label: pbs_joint_table
 
-pbs_joint |>
-  filter(prob < 0.001) |>
-  mutate(
-    Month = format(Month),
-    pi = sprintf("%.4f", pi),
-    prob = sprintf("%.1e", prob)
-  ) |>
-  rename(
-    `$M_t$` = M,
-    `$n_t$` = n,
-    `$\\hat\\pi_t$` = pi,
-    `$\\mathbb{P}(N_t \\ge n_t)$` = prob
-  ) |>
+tar_read(pbs_joint_anomalies) |>
   knitr::kable(format = "pipe", align = "lrrrr")
-feb08 <- pbs_joint |> filter(Month == yearmonth("2008 Feb"))
+tar_load(pbs_feb08)
 ```
 
 - Dec 1997, Dec 2001: unusually large end-of-year stockpiling spikes
 - Mar 1999: no obvious explanation
-- Feb 2008: `r feb08$n` of `r feb08$M` groups flagged.
+- Feb 2008: `r pbs_feb08$n` of `r pbs_feb08$M` groups flagged.
   Usual February fall did not occur, but Jan + Feb in line with previous years.
   A change in timing, not demand.
 

@@ -410,12 +410,187 @@ list(
     create_fig_tsparadigms(fr_mortality)
   ),
   tar_target(
-    pbs_features,
-    compute_pbs_features(tsibbledata::PBS)
+    fig_sp_katex,
+    make_fig_sp_katex(list(fig_sp0, fig_sp1, fig_sp2))
+  ),
+  # Weird times: French mortality
+  tar_target(
+    fig_hampel,
+    create_hampel_fig(fr_mortality)
   ),
   tar_target(
+    fr_anomaly_years,
+    fr_anomalies |>
+      distinct(Year, Sex, n) |>
+      arrange(Year, Sex) |>
+      as.data.frame()
+  ),
+  tar_target(
+    fr_anomalies_girafe,
+    with_uconn_style(create_fr_anomaly_girafe(fr_anomalies))
+  ),
+  # Known causes of the anomalous years, shown in a card when hovering over the plot
+  tar_target(
+    fr_causes_card,
+    {
+      fr_causes <- c(
+        "1832" = "Cholera outbreak",
+        "1834" = "unknown cause",
+        "1837" = "unknown cause",
+        "1849" = "Cholera outbreak",
+        "1870" = "Franco–Prussian war",
+        "1871" = "Repression of the Commune de Paris",
+        "1914" = "World War I",
+        "1915" = "World War I",
+        "1918" = "Spanish flu outbreak",
+        "1940" = "World War II"
+      )
+      hover_card(fr_causes, alert = names(fr_causes)[fr_causes == "unknown cause"])
+    }
+  ),
+  # Weird times: US weekly mortality
+  tar_target(
+    us_stmf,
+    make_us_stmf(weird::us_mortality)
+  ),
+  tar_target(
+    fig_stmf,
+    us_stmf |>
+      autoplot(Mortality) +
+      facet_grid(`Age group` ~ ., scales = "free_y") +
+      guides(colour = "none")
+  ),
+  tar_target(
+    stmf_scores,
+    compute_stmf_scores(us_stmf)
+  ),
+  tar_target(
+    stmf_scores_table,
+    stmf_scores |>
+      select(Week, `Age group`, Mortality, .fitted, e, prob)
+  ),
+  tar_target(
+    fig_stl_anomalies,
+    us_mortality_plot(us_stmf, stmf_scores)
+  ),
+  tar_target(
+    us_episodes,
+    make_us_episodes()
+  ),
+  tar_target(
+    us_zoom,
+    list(from = yearweek("2019 W40"), to = yearweek("2022 W26"))
+  ),
+  tar_target(
+    us_covid_girafe,
+    with_uconn_style(us_mortality_girafe(
+      us_stmf,
+      stmf_scores,
+      us_episodes,
+      from = us_zoom$from,
+      to = us_zoom$to,
+      band_alpha = 0.08
+    ))
+  ),
+  # Animation zooming in from the full period to the interactive plot
+  tar_target(
+    us_zoom_video,
+    with_uconn_style(us_mortality_zoom_video(
+      us_stmf,
+      stmf_scores,
+      us_episodes,
+      from = us_zoom$from,
+      to = us_zoom$to,
+      file = "figs/us_zoom.mp4"
+    )),
+    format = "file"
+  ),
+  tar_target(
+    us_causes_card,
+    hover_card(
+      setNames(us_episodes$cause, us_episodes$episode),
+      alert = c("2020 W03–W04", "2021 W13–W15")
+    )
+  ),
+  # Weird series: PBS
+  tar_target(
+    pbs_raw,
+    tsibbledata::PBS
+  ),
+  tar_target(
+    pbs_features,
+    compute_pbs_features(pbs_raw)
+  ),
+  tar_target(
+    pbs_features_table,
+    pbs_features |>
+      select(-Concession, -Type, -ATC1)
+  ),
+  tar_target(
+    pbs_pca,
+    compute_pbs_pca(pbs_features)
+  ),
+  tar_target(
+    pbs_pca_table,
+    pbs_pca |>
+      select(Concession, Type, ATC2, .fittedPC1, .fittedPC2, prob) |>
+      arrange(prob)
+  ),
+  tar_target(
+    fig_pbs_pca,
+    pbs_pca |>
+      ggplot(aes(x = .fittedPC1, y = .fittedPC2)) +
+      geom_point() +
+      labs(x = "Principal component 1", y = "Principal component 2")
+  ),
+  tar_target(
+    fig_pbs_outliers,
+    pbs_series_plot(
+      pbs_raw,
+      pbs_pca |> filter(prob < 0.001),
+      "Outlying time series in PC space"
+    )
+  ),
+  tar_target(
+    pbs_missing,
+    pbs_features |>
+      anti_join(pbs_pca, by = c("Concession", "Type", "ATC1", "ATC2"))
+  ),
+  tar_target(
+    fig_pbs_missing,
+    pbs_series_plot(pbs_raw, pbs_missing, "Time series with missing features")
+  ),
+  # Surveillance: PBS by ATC2 group
+  tar_target(
     pbs,
-    make_pbs(tsibbledata::PBS)
+    make_pbs(pbs_raw)
+  ),
+  tar_target(
+    fig_a12,
+    pbs |>
+      filter(ATC2 == "A12") |>
+      autoplot(Scripts) +
+      labs(
+        y = "Scripts (thousands)",
+        title = "Scripts for ATC group A12 (Mineral supplements)"
+      )
+  ),
+  tar_target(
+    fig_tscv,
+    tscv_plot(.init = 8, .step = 1, h = 1) +
+      annotate("text", x = 9, y = 0, label = "h = 1", colour = "#c14b14")
+  ),
+  tar_target(
+    pbs_fc,
+    pbs_forecast(pbs, i = 36)
+  ),
+  tar_target(
+    pbs_fc_probs,
+    pbs_forecast_probs(pbs_fc, pbs, i = 36)
+  ),
+  tar_target(
+    fig_s01_forecast,
+    pbs_forecast_plot(pbs_fc, pbs, "S01", i = 36)
   ),
   # compute_pbs_scores(pbs) takes about an hour, so use the cached
   # result from the book (OTexts/weird/rds/pbs_scores.rds)
@@ -427,6 +602,38 @@ list(
   tar_target(
     pbs_scores,
     readRDS(pbs_scores_file)
+  ),
+  tar_target(
+    pbs_anomalies,
+    pbs_scores |> filter(prob < 0.001)
+  ),
+  tar_target(
+    fig_pbs_a12,
+    pbs_plot(pbs, pbs_anomalies, "A12")
+  ),
+  tar_target(
+    fig_pbs_n07,
+    pbs_plot(pbs, pbs_anomalies, "N07")
+  ),
+  tar_target(
+    fig_pbs_r05,
+    pbs_plot(pbs, pbs_anomalies, "R05")
+  ),
+  tar_target(
+    pbs_joint,
+    compute_pbs_joint(pbs_scores)
+  ),
+  tar_target(
+    fig_pbs_joint,
+    pbs_joint_plot(pbs_joint)
+  ),
+  tar_target(
+    pbs_joint_anomalies,
+    pbs_joint_table(pbs_joint)
+  ),
+  tar_target(
+    pbs_feb08,
+    pbs_joint |> filter(Month == yearmonth("2008 Feb"))
   ),
   # Slides ------------------------------------------------
   tar_quarto(
