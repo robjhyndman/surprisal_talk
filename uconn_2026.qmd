@@ -466,35 +466,83 @@ include_png(tar_read(fig_stmf_png))
 ::::: {.column width="34%"}
 Local medians fail with seasonality.
 
-Replace by a better signal estimate.
+::::::: {.fragment fragment-index="1"}
+Replace by a better signal estimate for each age group:
+:::::::
 
+::::::: {.fragment fragment-index="2"}
 - STL: $y_t = T_t + S_t + R_t$ (Cleveland et al., 1990; Bandara\ et al., 2025)
+:::::::
+
+::::::: {.fragment fragment-index="3"}
 - $a_t$: robust estimate of $\{R_t\}$ stdev, separately for each age group
+:::::::
+
+::::::: {.fragment fragment-index="4"}
 - $e_t = R_t / a_t$; surprisals under N(0,1), probabilities from GPD
+:::::::
 :::::
 ::::: {.column width="66%"}
+::::::: {.fragment .code-steps fragment-index="2" data-steps="3-5:3,6-8:4,9:5,10:6"}
 ```{r}
 #| label: stl-stmf
 #| echo: true
 #| eval: false
 
 stmf_scores <- us_stmf |>
-  model(stl = STL(Mortality)) |>
-  augment() |>
+  model(stl = STL(Mortality)) |> augment() |>
   group_by(`Age group`) |>
-  mutate(e = .resid / robustbase::s_Qn(.resid)) |>
+  mutate(
+    a = robustbase::s_Qn(.resid),
+    e = .resid / a
+  ) |>
   ungroup() |>
   mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal())) |>
   arrange(prob)
 ```
+:::::::
 
 ```{r}
 #| label: stmf_scores_print
+#| results: asis
 
-tar_read(stmf_scores_table)
+# Each table adds the columns computed by the code revealed at the same step;
+# all but the last are hidden when the next one appears
+tables <- tar_read(stmf_scores_steps)
+cat("\n::: {.r-stack .output-steps}\n\n")
+for (k in seq_along(tables)) {
+  last <- k == length(tables)
+  cat(
+    "::: {.fragment", if (!last) " .current-visible", " fragment-index=\"", k + 1, "\"}\n",
+    "::::: {.cell-output .cell-output-stdout}\n````\n",
+    sep = ""
+  )
+  cat(capture.output(print(tables[[k]])), sep = "\n")
+  cat("\n````\n:::::\n:::\n\n")
+}
+cat(":::\n")
 ```
 :::::
 :::
+
+```{=html}
+<script>
+// Reveal code lines in steps: data-steps="4-6:3,7:4" makes lines 4-6 a
+// fragment with index 3 and line 7 a fragment with index 4. Runs before
+// Reveal is initialised, so the new fragments are picked up.
+document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
+  var lines = div.querySelectorAll("pre code > span[id]");
+  div.dataset.steps.split(",").forEach(function (step) {
+    var parts = step.split(":");
+    var range = parts[0].split("-").map(Number);
+    for (var i = range[0]; i <= (range[1] || range[0]); i++) {
+      lines[i - 1].classList.add("fragment");
+      lines[i - 1].dataset.fragmentIndex = parts[1];
+    }
+  });
+});
+</script>
+```
 
 ## US weekly mortality rates {.nostretch}
 

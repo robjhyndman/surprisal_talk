@@ -494,10 +494,19 @@ list(
     stmf_scores,
     compute_stmf_scores(us_stmf)
   ),
+  # Output as it is computed on the slide: columns after augment(), a, e and
+  # prob, in time order; then sorted by prob
   tar_target(
-    stmf_scores_table,
-    stmf_scores |>
-      select(Week, `Age group`, Mortality, .fitted, e, prob)
+    stmf_scores_steps,
+    {
+      steps <- lapply(
+        list(character(), "a", c("a", "e"), c("a", "e", "prob")),
+        \(extra) stmf_scores |>
+          arrange(Week, `Age group`) |>
+          select(Week, `Age group`, Mortality, .fitted, all_of(extra))
+      )
+      c(steps, list(arrange(steps[[4]], prob)))
+    }
   ),
   tar_target(
     fig_stl_anomalies,

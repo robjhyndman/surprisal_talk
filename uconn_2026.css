@@ -597,3 +597,10 @@ body.quarto-light,
 .reveal .katex {
   white-space: nowrap;
 }
+
+/* Printed outputs revealed in steps, stacked at the same position (left-aligned,
+   rather than centred as in other r-stacks) */
+.reveal .r-stack.output-steps > * {
+  margin: 0;
+  width: 100%;
+}

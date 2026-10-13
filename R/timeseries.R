@@ -302,7 +302,10 @@ compute_stmf_scores <- function(us_stmf) {
     model(stl = STL(Mortality)) |>
     augment() |>
     group_by(`Age group`) |>
-    mutate(e = .resid / robustbase::s_Qn(.resid)) |>
+    mutate(
+      a = robustbase::s_Qn(.resid),
+      e = .resid / a
+    ) |>
     ungroup() |>
     mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal())) |>
     arrange(prob)
