@@ -71,3 +71,42 @@ video_tag <- function(file) {
     preload = "auto"
   )
 }
+
+# Save a ggplot (or a grob) as a PNG styled as on the slides, matching the
+# knitr options in uconn_2026.qmd (dpi 200, with Quarto's fig-retina 2), so the
+# slides needn't redraw it each render
+save_png <- function(plot, file, width = 9, height = 4.4, res = 400) {
+  dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
+  register_katex_font()
+  with_uconn_style({
+    ragg::agg_png(file, width = width, height = height, units = "in",
+      res = res, background = "#fbf9f4")
+    if (ggplot2::is_ggplot(plot)) {
+      print(plot)
+    } else {
+      grid::grid.newpage()
+      grid::grid.draw(plot)
+    }
+    grDevices::dev.off()
+  })
+  file
+}
+
+# Save ggplots as PNGs with identical panel positions, so they overlay exactly.
+# The grobs are built with a matching PNG device open, as ggtext measures text
+# on the current device.
+save_aligned_pngs <- function(plots, files, width = 9, height = 4.4, res = 400) {
+  register_katex_font()
+  tmp <- tempfile(fileext = ".png")
+  ragg::agg_png(tmp, width = width, height = height, units = "in", res = res)
+  grobs <- with_uconn_style(align_ggplots(plots))
+  grDevices::dev.off()
+  unlink(tmp)
+  mapply(save_png, grobs, files, MoreArgs = list(width = width, height = height, res = res))
+}
+
+# Include a PNG from save_png() in the slides, sized as knitr sizes its own
+# plots: width in pixels / fig-retina
+include_png <- function(file, retina = 2) {
+  knitr::include_graphics(file, dpi = 96 * retina)
+}

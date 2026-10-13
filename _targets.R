@@ -11,6 +11,25 @@ tar_option_set(
 
 tar_source()
 
+# Target saving figure target `fig` as a PNG for uconn_2026.qmd
+tar_png <- function(fig, width = 9, height = 4.4) {
+  fig <- deparse(substitute(fig))
+  tar_target_raw(
+    paste0(fig, "_png"),
+    substitute(
+      save_png(FIG, FILE, width = WIDTH, height = HEIGHT),
+      list(
+        FIG = as.symbol(fig),
+        FILE = file.path("figs", "uconn", paste0(fig, ".png")),
+        WIDTH = width,
+        HEIGHT = height
+      )
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext", "patchwork")
+  )
+}
+
 # Replace the target list below with your own:
 list(
   # Anomaly definition
@@ -634,6 +653,35 @@ list(
   tar_target(
     pbs_feb08,
     pbs_joint |> filter(Month == yearmonth("2008 Feb"))
+  ),
+  # PNGs of the figures in uconn_2026.qmd -----------------
+  tar_png(fig_tsparadigms, width = 7, height = 5.6),
+  tar_png(fig_expt1b),
+  tar_png(fig_fr_mortality2),
+  tar_png(fig_hampel, height = 2.6),
+  tar_png(fig_stmf),
+  tar_png(fig_stl_anomalies, height = 4.25),
+  tar_png(fig_pbs_pca),
+  tar_png(fig_pbs_outliers),
+  tar_png(fig_pbs_missing),
+  tar_png(fig_a12, height = 3.2),
+  tar_png(fig_tscv),
+  tar_png(fig_s01_forecast),
+  tar_png(fig_pbs_a12),
+  tar_png(fig_pbs_n07),
+  tar_png(fig_pbs_r05),
+  tar_png(fig_pbs_joint),
+  # The surprisal probability steps, with the same panel position in every
+  # step so they overlay exactly
+  tar_target(
+    fig_sp_png,
+    save_aligned_pngs(
+      fig_sp_katex,
+      file.path("figs", "uconn", paste0("fig_sp", seq_along(fig_sp_katex), ".png")),
+      height = 3.6
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
   ),
   # Slides ------------------------------------------------
   tar_quarto(

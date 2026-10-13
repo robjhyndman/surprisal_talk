@@ -51,7 +51,6 @@ library(fable)
 library(feasts)
 library(ggtime)
 library(ggiraph)
-library(ggtext)
 tar_source(c("R/functions.R", "R/katex.R", "R/uconn.R"))
 set_ggplot_options()
 theme_set(uconn_theme())
@@ -64,11 +63,9 @@ options(pillar.width = 75)
 ::: {.absolute top="95" left="0" width="760"}
 ```{r}
 #| label: fig_tsparadigms
-#| fig-width: 7
-#| fig-height: 5.6
 #| out-width: "100%"
 
-tar_read(fig_tsparadigms)
+include_png(tar_read(fig_tsparadigms_png))
 ```
 :::
 
@@ -111,15 +108,12 @@ $$
 ```{r}
 #| label: fig_sp
 #| results: asis
-#| fig-height: 3.6
 
-# Same panel position in every step, so the figures overlay exactly
-figs <- align_ggplots(tar_read(fig_sp_katex))
+files <- tar_read(fig_sp_png)
 cat("\n::: {.r-stack .r-stretch}\n")
-for (step in seq_along(figs)) {
+for (step in seq_along(files)) {
   cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
-  grid::grid.newpage()
-  grid::grid.draw(figs[[step]])
+  cat("![](", files[step], "){width=1800}\n", sep = "")
   cat("\n:::\n")
 }
 cat("\n:::\n")
@@ -269,7 +263,7 @@ What happens when the distribution used to compute surprisals is mis-specified?
 ```{r}
 #| label: fig_expt1
 
-tar_read(fig_expt1b)
+include_png(tar_read(fig_expt1b_png))
 ```
 
 ## Weird times {#part-weird-times .section-slide background-color="#0f2a44"}
@@ -298,17 +292,16 @@ tar_read(fr_mortality)
 ```{r}
 #| label: fig_fr-mortality
 
-tar_read(fig_fr_mortality2)
+include_png(tar_read(fig_fr_mortality2_png))
 ```
 
 ## Hampel identifier {.nostretch}
 
 ```{r}
 #| label: fig_hampel
-#| fig-height: 2.6
 #| out-width: "100%"
 
-tar_read(fig_hampel)
+include_png(tar_read(fig_hampel_png))
 ```
 
 ::: {.columns}
@@ -412,7 +405,7 @@ tar_read(us_stmf)
 ```{r}
 #| label: fig_stmf
 
-tar_read(fig_stmf)
+include_png(tar_read(fig_stmf_png))
 ```
 
 ## Surprisals from an STL decomposition {.small}
@@ -456,10 +449,8 @@ tar_read(stmf_scores_table)
 ::: {.absolute .us-fig top="95" left="0" width="1280"}
 ```{r}
 #| label: fig_stl_anomalies
-#| fig-width: 9
-#| fig-height: 4.25
 
-tar_read(fig_stl_anomalies)
+include_png(tar_read(fig_stl_anomalies_png))
 ```
 :::
 
@@ -575,7 +566,7 @@ tar_read(pbs_features_table) |>
 ```{r}
 #| label: fig_weirdseries_pca
 
-tar_read(fig_pbs_pca)
+include_png(tar_read(fig_pbs_pca_png))
 ```
 
 ## Kernel density surprisals {.small}
@@ -636,7 +627,7 @@ tar_read(pbs_pca_table) |> print(n = 5)
 ```{r}
 #| label: fig_weirdseries_anomalies
 
-tar_read(fig_pbs_outliers)
+include_png(tar_read(fig_pbs_outliers_png))
 ```
 
 ## Australian Pharmaceutical Benefits Scheme
@@ -644,7 +635,7 @@ tar_read(fig_pbs_outliers)
 ```{r}
 #| label: fig_pbs_missing
 
-tar_read(fig_pbs_missing)
+include_png(tar_read(fig_pbs_missing_png))
 ```
 
 ## Surveillance {#part-surveillance .section-slide background-color="#0f2a44"}
@@ -665,9 +656,8 @@ pbs <- PBS |>
 
 ```{r}
 #| label: fig_a12
-#| fig-height: 3.2
 
-tar_read(fig_a12)
+include_png(tar_read(fig_a12_png))
 ```
 
 ## Surveillance using forecast distributions
@@ -685,7 +675,7 @@ For each $t = I, I + 1, \dots$, and each series $i = 1,\dots,M$:
 ```{r}
 #| label: fig_tscv
 
-tar_read(fig_tscv)
+include_png(tar_read(fig_tscv_png))
 ```
 
 ## Surveillance using forecast distributions
@@ -745,7 +735,7 @@ tar_read(pbs_fc_probs) |> print(n = 5, width = Inf)
 ```{r}
 #| label: fig_s01_forecast
 
-tar_read(fig_s01_forecast)
+include_png(tar_read(fig_s01_forecast_png))
 ```
 
 ## Rolling forward through the data
@@ -781,7 +771,7 @@ tar_load(c(pbs_scores, pbs_anomalies))
 ```{r}
 #| label: fig_pbs_a12
 
-tar_read(fig_pbs_a12)
+include_png(tar_read(fig_pbs_a12_png))
 ```
 
 ## Surveillance anomalies
@@ -789,7 +779,7 @@ tar_read(fig_pbs_a12)
 ```{r}
 #| label: fig_pbs_n07
 
-tar_read(fig_pbs_n07)
+include_png(tar_read(fig_pbs_n07_png))
 ```
 
 ## Surveillance anomalies
@@ -797,7 +787,7 @@ tar_read(fig_pbs_n07)
 ```{r}
 #| label: fig_pbs_r05
 
-tar_read(fig_pbs_r05)
+include_png(tar_read(fig_pbs_r05_png))
 ```
 
 ## Surveillance across several series {.small}
@@ -820,7 +810,7 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 ```{r}
 #| label: pbs_joint
 
-tar_read(fig_pbs_joint)
+include_png(tar_read(fig_pbs_joint_png))
 ```
 
 ## Surveillance across several series {.small}
