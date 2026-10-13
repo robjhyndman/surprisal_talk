@@ -168,11 +168,17 @@ create_fr_anomaly_girafe <- function(
 }
 
 
-# Illustration of the Hampel identifier for one series: the window of 2w+1
-# observations centred on t, the moving median, and the implied Normal
-# distribution N(m_t, sigma_t^2) at time t
+# Illustration of the Hampel identifier for one series, built up in stages:
+#   "series":     the series alone
+#   "window":     the window of 2w+1 observations centred on `centre`, and the
+#                 moving median traced up to `centre`
+#   "difference": the observation y_t and its difference from m_t (a segment)
+#   "normal":     the implied Normal distribution N(m_t, sigma_t^2) at time t
+# All stages have the same axes, so they overlay exactly on the slides.
 create_hampel_fig <- function(
   fr_mortality,
+  stage = c("normal", "difference", "window", "series"),
+  centre = t,
   age = 50,
   sex = "Female",
   t = 1849,
@@ -180,6 +186,8 @@ create_hampel_fig <- function(
   years = c(1828, 1872),
   colours = c(series = "#1e293b", median = "#1d6fa5", normal = "#c14b14")
 ) {
+  stage <- match.arg(stage)
+  level <- match(stage, c("series", "window", "difference", "normal"))
   df <- fr_mortality |>
     filter(Age == age, Sex == sex) |>
     arrange(Year) |>
@@ -196,48 +204,112 @@ create_hampel_fig <- function(
     x = t + width * stats::dnorm(yy, m_t, sigma_t) / stats::dnorm(0, 0, sigma_t)
   )
   df <- df |> filter(Year >= years[1], Year <= years[2])
+  # Moving median from the left edge up to the window centre
+  m_at <- function(x) stats::approx(df$Year, df$m, x)$y
+  traced <- tibble(Year = c(df$Year[df$Year < centre], centre)) |>
+    mutate(m = m_at(Year))
+  # Visible x range (ggplot's default 5% expansion), to clip the window to
+  xrange <- years + c(-1, 1) * 0.05 * diff(years)
+  xmin <- max(centre - w - 0.5, xrange[1])
+  xmax <- min(centre + w + 0.5, xrange[2])
   register_katex_font()
   # Maths labels in KaTeX fonts, to match the maths on the slides
   math_label <- function(label, ...) {
     annotate("text", label = label, parse = TRUE, family = "KaTeX", ...)
   }
-  ggplot(df, aes(x = Year, y = Mortality)) +
-    annotate(
-      "rect",
-      xmin = t - w - 0.5, xmax = t + w + 0.5, ymin = -Inf, ymax = Inf,
-      fill = colours[["median"]], alpha = 0.1
-    ) +
-    geom_line(colour = colours[["series"]]) +
-    geom_line(aes(y = m), colour = colours[["median"]], linetype = "dashed") +
-    geom_polygon(
-      data = normal, aes(x = x, y = y),
-      fill = colours[["normal"]], alpha = 0.3, colour = colours[["normal"]]
-    ) +
-    annotate("segment", x = t, xend = t, y = min(yy), yend = max(yy),
-      colour = colours[["normal"]]) +
-    annotate("point", x = t, y = y_t, colour = colours[["normal"]], size = 3) +
-    math_label("italic(y)[italic(t)]", x = t - 0.4, y = y_t,
-      hjust = 1, colour = colours[["normal"]], size = 7) +
-    math_label(
-      "N(italic(m)[italic(t)]*','~italic('\u03c3')[italic(t)]^2)",
-      x = t + 0.6, y = m_t - 3.2 * sigma_t,
-      hjust = 0, colour = colours[["normal"]], size = 6.5
-    ) +
-    math_label("italic(m)[italic(t)]", x = t - w + 2,
-      y = df$m[df$Year == t - w + 2], vjust = -0.5,
-      colour = colours[["median"]], size = 7) +
-    # Words in the slide font, maths in KaTeX
-    ggtext::geom_richtext(
-      data = data.frame(x = t, y = Inf),
-      aes(x = x, y = y),
-      label = paste0(
-        "window of ", katex_up("2"), katex_it("w"), katex_up(" + 1"), " years"
-      ),
-      vjust = 1.2, colour = colours[["median"]], size = 5.5,
-      fill = NA, label.colour = NA, inherit.aes = FALSE
-    ) +
+  p <- ggplot(df, aes(x = Year, y = Mortality)) +
+    # Extent of the final stage, so every stage has the same axes
+    geom_blank(data = tibble(
+      Year = range(df$Year, normal$x),
+      Mortality = range(df$Mortality, df$m, yy)
+    ))
+  if (level >= 2) {
+    p <- p +
+      annotate(
+        "rect",
+        xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf,
+        fill = colours[["median"]], alpha = 0.1
+      )
+  }
+  p <- p + geom_line(colour = colours[["series"]])
+  if (level >= 2) {
+    m_label_x <- max(centre - w + 2, years[1])
+    p <- p +
+      geom_line(data = traced, aes(y = m), colour = colours[["median"]],
+        linetype = "dashed") +
+      math_label("italic(m)[italic(t)]", x = m_label_x, y = m_at(m_label_x),
+        vjust = -0.5, colour = colours[["median"]], size = 7) +
+      # Words in the slide font, maths in KaTeX
+      ggtext::geom_richtext(
+        data = data.frame(x = (xmin + xmax) / 2, y = Inf),
+        aes(x = x, y = y),
+        label = paste0(
+          "window of ", katex_up("2"), katex_it("w"), katex_up(" + 1"), " years"
+        ),
+        vjust = 1.2, colour = colours[["median"]], size = 5.5,
+        fill = NA, label.colour = NA, inherit.aes = FALSE
+      )
+  }
+  if (level >= 4) {
+    p <- p +
+      geom_polygon(
+        data = normal, aes(x = x, y = y),
+        fill = colours[["normal"]], alpha = 0.3, colour = colours[["normal"]]
+      ) +
+      annotate("segment", x = t, xend = t, y = min(yy), yend = max(yy),
+        colour = colours[["normal"]]) +
+      math_label(
+        "N(italic(m)[italic(t)]*','~italic('σ')[italic(t)]^2)",
+        x = t + 0.6, y = m_t - 3.2 * sigma_t,
+        hjust = 0, colour = colours[["normal"]], size = 6.5
+      )
+  }
+  if (level >= 3) {
+    p <- p +
+      annotate("segment", x = t, xend = t, y = m_t, yend = y_t,
+        colour = colours[["normal"]], linewidth = 1.2) +
+      annotate("point", x = t, y = m_t, colour = colours[["median"]], size = 2) +
+      annotate("point", x = t, y = y_t, colour = colours[["normal"]], size = 3) +
+      math_label("italic(y)[italic(t)]", x = t - 0.4, y = y_t,
+        hjust = 1, colour = colours[["normal"]], size = 7)
+  }
+  p +
     scale_y_continuous(expand = expansion(mult = c(0.08, 0.2))) +
-    coord_cartesian(clip = "off") +
+    coord_cartesian(xlim = years, clip = "off") +
     labs(x = "Year", y = "Mortality", title = paste0(sex, ", age ", age)) +
     theme(plot.title = element_text(face = "plain"))
+}
+
+# MP4 of the "window" stage of create_hampel_fig(), with the window sliding
+# from `from` to `to` and tracing out the moving median. The last frame
+# matches create_hampel_fig(stage = "window", centre = to).
+hampel_window_video <- function(
+  fr_mortality,
+  file,
+  from = 1828,
+  to = 1849,
+  seconds = 3,
+  fps = 30,
+  width = 9,
+  height = 2.6,
+  res = 200,
+  background = "#fbf9f4"
+) {
+  n <- seconds * fps
+  ease <- (1 - cos(pi * seq(0, 1, length.out = n))) / 2
+  centres <- from + ease * (to - from)
+  dir <- tempfile("frames")
+  dir.create(dir)
+  dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
+  frames <- file.path(dir, sprintf("frame%03d.png", seq_len(n)))
+  for (i in seq_len(n)) {
+    p <- create_hampel_fig(fr_mortality, stage = "window", centre = centres[i], t = to)
+    ragg::agg_png(frames[i], width = width, height = height, units = "in",
+      res = res, background = background)
+    print(p)
+    grDevices::dev.off()
+  }
+  av::av_encode_video(frames, file, framerate = fps, verbose = FALSE)
+  unlink(dir, recursive = TRUE)
+  file
 }

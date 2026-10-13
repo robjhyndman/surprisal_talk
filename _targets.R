@@ -434,8 +434,19 @@ list(
   ),
   # Weird times: French mortality
   tar_target(
-    fig_hampel,
-    create_hampel_fig(fr_mortality)
+    fig_hampel_stages,
+    {
+      stages <- c("series", "window", "difference", "normal")
+      setNames(lapply(stages, \(s) create_hampel_fig(fr_mortality, stage = s)), stages)
+    }
+  ),
+  # Window sliding over the series, tracing out the moving median
+  tar_target(
+    hampel_video,
+    with_uconn_style(
+      hampel_window_video(fr_mortality, file.path("figs", "uconn", "hampel_window.mp4"))
+    ),
+    format = "file"
   ),
   tar_target(
     fr_anomaly_years,
@@ -658,7 +669,18 @@ list(
   tar_png(fig_tsparadigms, width = 7, height = 5.6),
   tar_png(fig_expt1b),
   tar_png(fig_fr_mortality2),
-  tar_png(fig_hampel, height = 2.6),
+  # Stages of the Hampel figure, in the order of fig_hampel_stages
+  tar_target(
+    fig_hampel_png,
+    unname(mapply(
+      save_png,
+      fig_hampel_stages,
+      file.path("figs", "uconn", paste0("fig_hampel_", names(fig_hampel_stages), ".png")),
+      MoreArgs = list(height = 2.6)
+    )),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
   tar_png(fig_stmf),
   tar_png(fig_stl_anomalies, height = 4.25),
   tar_png(fig_pbs_pca),

@@ -550,6 +550,15 @@ body.quarto-light,
   margin-top: 0;
 }
 
+/* A list split into fragments (one item per fragment div) is spaced like one list */
+.reveal div.fragment:has(+ div.fragment > ul) > ul {
+  margin-bottom: 0;
+}
+
+.reveal div.fragment + div.fragment > ul {
+  margin-top: 0;
+}
+
 /* ---- US mortality zoom: static plot, video and interactive plot occupy
    exactly the same box so the sequence looks like one zooming plot ---- */
 

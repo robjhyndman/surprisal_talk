@@ -297,28 +297,80 @@ include_png(tar_read(fig_fr_mortality2_png))
 
 ## Hampel identifier {.nostretch}
 
-```{r}
+````{r}
 #| label: fig_hampel
-#| out-width: "100%"
+#| results: asis
 
-include_png(tar_read(fig_hampel_png))
+# Stages: series; window tracing the median (video); difference; Normal.
+# Fragment indices match the equations and bullets below (a_t is index 2).
+files <- tar_read(fig_hampel_png)
+video <- htmltools::tagAppendAttributes(
+  video_tag(tar_read(hampel_video)),
+  style = "width:100%"
+)
+cat("\n::: {.r-stack}\n\n")
+cat("![](", files[1], "){width=100%}\n\n", sep = "")
+cat(
+  "::: {.fragment fragment-index=\"1\"}\n```{=html}\n",
+  as.character(video),
+  "\n```\n:::\n\n",
+  sep = ""
+)
+for (i in 3:4) {
+  cat("::: {.fragment fragment-index=\"", i, "\"}\n", sep = "")
+  cat("![](", files[i], "){width=100%}\n:::\n\n", sep = "")
+}
+cat(":::\n")
+````
+
+```{=html}
+<script>
+// Play a video when the fragment containing it is shown; rewind it when hidden
+window.addEventListener("load", function () {
+  function videos(e) {
+    return e.fragments.flatMap(function (f) {
+      return Array.from(f.querySelectorAll("video"));
+    });
+  }
+  Reveal.on("fragmentshown", function (e) {
+    videos(e).forEach(function (v) {
+      v.currentTime = 0;
+      v.play();
+    });
+  });
+  Reveal.on("fragmenthidden", function (e) {
+    videos(e).forEach(function (v) {
+      v.pause();
+      v.currentTime = 0;
+    });
+  });
+});
+</script>
 ```
 
 ::: {.columns}
-::::: {.column .math-left width="54%"}
+::::: {.column .math-left width="52%"}
 $$
-  \begin{aligned}
-    m_t & = \text{median}(y_{t-w}, \dots, y_{t+w})                 \\
-    a_t & = \text{median}(|y_{t-w} - m_t|, \dots, |y_{t+w} - m_t|) \\
-    e_t & = (y_t - m_t)/(a_t/0.6745)
-  \end{aligned}
+  m_t = \text{median}(y_{t-w}, \dots, y_{t+w})
 $$
 
-- Anomaly if $|e_t| > k$
+::::::: {.fragment fragment-index="2"}
+$$
+  a_t = \text{median}(|y_{t-w} - m_t|, \dots, |y_{t+w} - m_t|)
+$$
+:::::::
+
+::::::: {.fragment fragment-index="3"}
+- Anomaly if $|y_t - m_t| > ka_t$
+:::::::
 :::::
-::::: {.column .fragment width="46%"}
+::::: {.column width="48%"}
+::::::: {.fragment fragment-index="4"}
 - Implicit model: $y_t \sim \text{N}(m_t, \sigma_t^2)$ with $\sigma_t = a_t/0.6745$
-- Better: surprisals of $e_t$ under N(0,1), with probabilities from a GPD
+:::::::
+::::::: {.fragment fragment-index="5"}
+- Better: compute surprisals under Normal, with probabilities from GPD
+:::::::
 :::::
 :::
 
