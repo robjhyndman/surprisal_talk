@@ -487,15 +487,15 @@ Replace by a better signal estimate for each age group:
 :::::::
 :::::
 ::::: {.column width="66%"}
-::::::: {.fragment .code-steps fragment-index="2" data-steps="3-5:3,6-8:4,9:5,10:6"}
+::::::: {.fragment .code-steps fragment-index="2" data-steps="3-5:3,6-7:4,8-9:5,10:6"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: stl-stmf
 #| echo: true
 #| eval: false
 
 stmf_scores <- us_stmf |>
-  model(stl = STL(Mortality)) |>
-  augment() |>
+  model(stl = STL(Mortality)) |> augment() |>
   group_by(`Age group`) |>
   mutate(
     a = robustbase::s_Qn(.resid),
@@ -505,6 +505,7 @@ stmf_scores <- us_stmf |>
   mutate(prob = surprisals_prob(e, "gpd", distribution = dist_normal())) |>
   arrange(prob)
 ```
+<!-- panache-ignore-format-end -->
 :::::::
 
 `````{r}
@@ -537,8 +538,10 @@ cat(":::\n")
 ```{=html}
 <script>
 // Reveal code lines in steps: data-steps="4-6:3,7:4" makes lines 4-6 a
-// fragment with index 3 and line 7 a fragment with index 4. Runs before
-// Reveal is initialised, so the new fragments are picked up.
+// fragment with index 3 and line 7 a fragment with index 4. A pipe ending
+// the line before each step appears with that step, so the last visible line
+// never ends in a dangling pipe. Runs before Reveal is initialised, so the new
+// fragments are picked up.
 document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
   var lines = div.querySelectorAll("pre code > span[id]");
   div.dataset.steps.split(",").forEach(function (step) {
@@ -547,6 +550,12 @@ document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
     for (var i = range[0]; i <= (range[1] || range[0]); i++) {
       lines[i - 1].classList.add("fragment");
       lines[i - 1].dataset.fragmentIndex = parts[1];
+    }
+    var prev = lines[range[0] - 2];
+    var pipe = prev && Array.from(prev.querySelectorAll("span.sc")).pop();
+    if (pipe && pipe.textContent === "|>" && prev.textContent.trimEnd().endsWith("|>")) {
+      pipe.classList.add("fragment");
+      pipe.dataset.fragmentIndex = parts[1];
     }
   });
 });
