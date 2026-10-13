@@ -4,8 +4,15 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   packages = c(
-    "tibble", "weird", "lookout", "dplyr", "ggplot2", "ggtda",
-    "tsibble", "fable", "feasts"
+    "tibble",
+    "weird",
+    "lookout",
+    "dplyr",
+    "ggplot2",
+    "ggtda",
+    "tsibble",
+    "fable",
+    "feasts"
   )
 )
 
@@ -437,9 +444,16 @@ list(
     fig_hampel_stages,
     {
       stages <- c("series", "window", "difference", "normal")
-      figs <- setNames(lapply(stages, \(s) create_hampel_fig(fr_mortality, stage = s)), stages)
+      figs <- setNames(
+        lapply(stages, \(s) create_hampel_fig(fr_mortality, stage = s)),
+        stages
+      )
       # Window stage shows the first full window, where the video starts
-      figs$window <- create_hampel_fig(fr_mortality, stage = "window", centre = 1823)
+      figs$window <- create_hampel_fig(
+        fr_mortality,
+        stage = "window",
+        centre = 1823
+      )
       figs
     }
   ),
@@ -447,7 +461,10 @@ list(
   tar_target(
     hampel_video,
     with_uconn_style(
-      hampel_window_video(fr_mortality, file.path("figs", "uconn", "hampel_window.mp4"))
+      hampel_window_video(
+        fr_mortality,
+        file.path("figs", "uconn", "hampel_window.mp4")
+      )
     ),
     format = "file"
   ),
@@ -478,7 +495,10 @@ list(
         "1918" = "Spanish flu outbreak",
         "1940" = "World War II"
       )
-      hover_card(fr_causes, alert = names(fr_causes)[fr_causes == "unknown cause"])
+      hover_card(
+        fr_causes,
+        alert = names(fr_causes)[fr_causes == "unknown cause"]
+      )
     }
   ),
   # Weird times: US weekly mortality
@@ -504,11 +524,13 @@ list(
     {
       steps <- lapply(
         list(character(), "a", c("a", "e"), c("a", "e", "prob")),
-        \(extra) stmf_scores |>
-          arrange(Week, `Age group`) |>
-          select(Week, `Age group`, Mortality, .fitted, all_of(extra))
+        \(extra) {
+          # tsibble warns about any sort other than key then index; these are intended
+          suppressWarnings(arrange(stmf_scores, Week, `Age group`)) |>
+            select(Week, `Age group`, Mortality, .fitted, all_of(extra))
+        }
       )
-      c(steps, list(arrange(steps[[4]], prob)))
+      c(steps, list(suppressWarnings(arrange(steps[[4]], prob))))
     }
   ),
   tar_target(
@@ -687,7 +709,11 @@ list(
     unname(mapply(
       save_png,
       fig_hampel_stages,
-      file.path("figs", "uconn", paste0("fig_hampel_", names(fig_hampel_stages), ".png")),
+      file.path(
+        "figs",
+        "uconn",
+        paste0("fig_hampel_", names(fig_hampel_stages), ".png")
+      ),
       MoreArgs = list(height = 2.6)
     )),
     format = "file",
@@ -702,13 +728,26 @@ list(
     {
       stages <- list(
         spaghetti = pbs_spaghetti_stages(pbs_scaled),
-        trend = pbs_feature_stages(pbs_features, pbs_scaled, "trend_strength", "Strength of trend"),
-        season = pbs_feature_stages(pbs_features, pbs_scaled, "seasonal_strength_year", "Strength of seasonality"),
+        trend = pbs_feature_stages(
+          pbs_features,
+          pbs_scaled,
+          "trend_strength",
+          "Strength of trend"
+        ),
+        season = pbs_feature_stages(
+          pbs_features,
+          pbs_scaled,
+          "seasonal_strength_year",
+          "Strength of seasonality"
+        ),
         # Grobs are built with a PNG device open, so text is measured as drawn
         space = {
           tmp <- tempfile(fileext = ".png")
           ragg::agg_png(tmp, width = 9, height = 3.6, units = "in", res = 400)
-          grobs <- with_uconn_style(pbs_feature_space_stages(pbs_scaled, pbs_pca))
+          grobs <- with_uconn_style(pbs_feature_space_stages(
+            pbs_scaled,
+            pbs_pca
+          ))
           grDevices::dev.off()
           unlink(tmp)
           grobs
@@ -716,8 +755,17 @@ list(
       )
       heights <- c(spaghetti = 4.4, trend = 4.4, season = 4.4, space = 3.6)
       unlist(lapply(names(stages), function(s) {
-        files <- file.path("figs", "uconn", paste0("fig_pbs_", s, seq_along(stages[[s]]), ".png"))
-        unname(mapply(save_png, stages[[s]], files, MoreArgs = list(height = heights[[s]])))
+        files <- file.path(
+          "figs",
+          "uconn",
+          paste0("fig_pbs_", s, seq_along(stages[[s]]), ".png")
+        )
+        unname(mapply(
+          save_png,
+          stages[[s]],
+          files,
+          MoreArgs = list(height = heights[[s]])
+        ))
       }))
     },
     format = "file",
@@ -749,26 +797,35 @@ list(
     fig_sp_png,
     save_aligned_pngs(
       fig_sp_katex,
-      file.path("figs", "uconn", paste0("fig_sp", seq_along(fig_sp_katex), ".png")),
+      file.path(
+        "figs",
+        "uconn",
+        paste0("fig_sp", seq_along(fig_sp_katex), ".png")
+      ),
       height = 3.6
     ),
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
   # Slides ------------------------------------------------
-  tar_quarto(
-    slides,
-    "auckland_2026.qmd", #"surprisals.qmd",  "surprisals_fsi2025.qmd",
-    quiet = FALSE,
-    extra_files = c("header.tex", "before-title.tex")
-  ),
+  #tar_quarto(
+  #  slides,
+  #  "auckland_2026.qmd", #"surprisals.qmd",  "surprisals_fsi2025.qmd",
+  #  quiet = FALSE,
+  #  extra_files = c("header.tex", "before-title.tex")
+  #),
   tar_quarto(
     slides_uconn,
     "uconn_2026.qmd",
     quiet = FALSE,
     extra_files = c(
-      "uconn_2026.css", "title-slide.html", "figs/title_ts.png", "katex/katex.min.css", "katex/katex.min.js",
-      "katex/katex-local.html", "fonts/fonts.css"
+      "uconn_2026.css",
+      "title-slide.html",
+      "figs/title_ts.png",
+      "katex/katex.min.css",
+      "katex/katex.min.js",
+      "katex/katex-local.html",
+      "fonts/fonts.css"
     )
   )
 )
