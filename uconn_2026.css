@@ -303,8 +303,10 @@ body.quarto-light,
 
 /* ---- Title slide ---- */
 
+/* Full slide height, so the URL can sit at the bottom */
 #title-slide {
   color: white;
+  height: 100%;
 }
 
 #title-slide-text {
@@ -346,6 +348,22 @@ body.quarto-light,
   color: var(--amber);
   background: none;
   font-size: 0.85em;
+}
+
+/* URL pinned to the bottom left, below the background series (backed in navy
+   so the series never runs through it) */
+#title-slide .url {
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  margin: 0;
+  padding: 0 0.3em 0 0;
+  line-height: 1.2;
+  background: var(--navy);
+}
+
+#title-slide .url code {
+  padding: 0;
 }
 
 /* ---- Section slides ---- */
