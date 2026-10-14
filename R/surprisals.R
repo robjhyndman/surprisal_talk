@@ -187,10 +187,11 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
     }
   }
   if (level >= 4) {
-    area <- d$gpd_den |>
-      filter(x >= d$s_obs) |>
-      bind_rows(tibble(x = c(d$xmax, d$s_obs), y = 0))
     gpd_at <- function(x) approx(d$gpd_den$x, d$gpd_den$y, xout = x)$y
+    # Start the area at the curve above s_obs, so its left edge is vertical
+    area <- tibble(x = d$s_obs, y = gpd_at(d$s_obs)) |>
+      bind_rows(filter(d$gpd_den, x > d$s_obs)) |>
+      bind_rows(tibble(x = c(d$xmax, d$s_obs), y = 0))
     # Arrow from the label down into the shaded region
     tip <- d$s_obs + 0.25
     p <- p +

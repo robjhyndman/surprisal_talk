@@ -235,7 +235,9 @@ cat_png_stack(files[1:4], video = files[5:6], video_after = 2)
 ```
 
 ::: {.fragment}
+::::: {.alertblock}
 Only needs $f$ to get the *ordering* of the extreme surprisals correct.
+:::::
 :::
 
 ## Univariate experiment
