@@ -1,4 +1,4 @@
-manifest_fingerprint = "sha256:3252d27e6daaed334c8f91fc87a55b7b1c1dcb246b36eb769eb2e309264479a9"
+manifest_fingerprint = "sha256:90b56afbe21360cff9446a7e25c925231a09a253387c817ca3d3e5bab730d6df"
 
 [r]
 version = "4.6.1"
@@ -626,10 +626,10 @@ requires = [
 
 [[package]]
 name = "ggtime"
-version = "1.0.0"
+version = "1.1.0"
 source = "ppm"
-raw_version = "1.0.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtime_1.0.0.tar.gz"
+raw_version = "1.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtime_1.1.0.tar.gz"
 requires = [
     "ggplot2",
     "gtable",
@@ -639,7 +639,6 @@ requires = [
     "tsibble",
     "fabletools",
     "dplyr",
-    "lubridate",
     "tidyr",
     "vctrs",
     "cli",
@@ -1614,10 +1613,10 @@ requires = [
 
 [[package]]
 name = "vecvec"
-version = "1.3.0"
+version = "1.4.0"
 source = "ppm"
-raw_version = "1.3.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/vecvec_1.3.0.tar.gz"
+raw_version = "1.4.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/vecvec_1.4.0.tar.gz"
 requires = [
     "cli",
     "rlang",
@@ -1656,8 +1655,8 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/warp_0.2.3.tar.gz
 name = "weird"
 version = "3.1.0-4.9000"
 source = "github"
-url = "https://api.github.com/repos/robjhyndman/weird/tarball/565c3df7543a22087975acd0d14ddf5ef0b6325d"
-checksum = "git:565c3df7543a22087975acd0d14ddf5ef0b6325d"
+url = "https://api.github.com/repos/robjhyndman/weird/tarball/468806426eb857721af0db5e7a80100d3ed03485"
+checksum = "git:468806426eb857721af0db5e7a80100d3ed03485"
 requires = [
     "aplpack",
     "broom",

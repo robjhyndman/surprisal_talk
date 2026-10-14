@@ -146,7 +146,7 @@ rev = "aa90e28ac854c141fb526c04bd01cb62704231da"
 
 [dependencies.weird]
 git = "robjhyndman/weird"
-rev = "565c3df7543a22087975acd0d14ddf5ef0b6325d"
+rev = "468806426eb857721af0db5e7a80100d3ed03485"
 
 [[sources]]
 name = "ppm"
