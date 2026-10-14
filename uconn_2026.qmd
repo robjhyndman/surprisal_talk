@@ -188,26 +188,33 @@ $$
   \mathbb{P}\left( \frac{S - u}{a(u)} \le y \;\middle|\; S > u \right)
   \longrightarrow
   \begin{cases}
-    1 - (1 + \xi y)^{-1/\xi}, & \xi > 0,\\
+    1 - (1 + \xi y)_+^{-1/\xi}, & \xi \ne 0,\\
     1 - e^{-y}, & \xi = 0.
   \end{cases}
 $$
 <!-- panache-ignore-format-end -->
 :::
 
-::: {.cards .cards-2}
+::: {.cards}
 ::::: {.block .fragment}
-[Exponential moment: $\mathbb{E}\,e^{\lambda S} < \infty$]{.block-title}
+[$\xi < 0$: finite endpoint]{.block-title}
 
-$\xi = 0$: exponential tail\
-e.g., Normal $f$
+$S$ bounded above\
+e.g., truncated Normal data
 :::::
 
 ::::: {.block .fragment}
-[Only polynomial moments: $\mathbb{E}\,S^q < \infty$]{.block-title}
+[$\xi = 0$: exponential tail]{.block-title}
 
-$0 < \xi \le 1/q$: Pareto tail\
-e.g., Normal $f$, but $t$ data
+$\mathbb{E}\,e^{\lambda S} < \infty$\
+e.g., Normal or $t$ data
+:::::
+
+::::: {.block .fragment}
+[$\xi > 0$: Pareto tail]{.block-title}
+
+Only $\mathbb{E}\,S^q < \infty$, with $\xi \le 1/q$\
+e.g., $t$ data, Normal $f$
 :::::
 :::
 
