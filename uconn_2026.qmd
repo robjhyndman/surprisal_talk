@@ -425,14 +425,22 @@ fr_anomalies |>
 :::::::
 :::::
 ::::: {.column width="50%"}
-::::::: {.fragment fragment-index="1"}
+::::::: {.r-stack .output-steps}
+::::::::: {.fragment .fade-out fragment-index="1"}
+```{r}
+#| label: fr-anomalies-all
+
+tar_read(fr_hampel) |> print(n = 15)
+```
+:::::::::
+
+::::::::: {.fragment fragment-index="1"}
 ```{r}
 #| label: fr-anomalies2
-#| echo: false
-#| eval: true
 
-tar_read(fr_anomaly_years)
+tar_read(fr_anomaly_years) |> tibble::as_tibble()
 ```
+:::::::::
 :::::::
 :::::
 :::
