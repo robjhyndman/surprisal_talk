@@ -850,21 +850,18 @@ include_png(tar_read(fig_a12_png))
 
 ## Surveillance using forecast distributions
 
-For each $t = I, I + 1, \dots$, and each series $i = 1,\dots,M$:
-
-- Fit a model to $y_{i,1},\dots,y_{i,t}$ giving one-step forecast density $f_{i,t+1}(y \mid \mathcal{F}_{i,t})$
-- Surprisal: $s_{i,t+1} = -\log f_{i,t+1}(y_{i,t+1} \mid \mathcal{F}_{i,t})$
-- Surprisal probability: $p_{i,t+1} = \mathbb{P}(S \ge s_{i,t+1})$, where\
-  $S = -\log f_{i,t+1}(Y \mid \mathcal{F}_{i,t})$ and $Y \sim f_{i,t+1}$
-- Start at $I = 36$ (3 years), one-step ETS forecasts, rolling origin.
-
-## Rolling origin one-step forecasts
-
 ```{r}
-#| label: fig_tscv
+#| label: fig_pbs_roll
+#| results: asis
 
-include_png(tar_read(fig_tscv_png))
+files <- tar_read(fig_pbs_roll_files)
+cat_png_stack(files[1:4], video = files[5:6])
 ```
+
+::: {.fragment}
+ETS refitted monthly for every series.
+Points: [$p < 0.01$]{style="color: #F39B00"}, [$p < 0.001$]{style="color: #c14b14"}.
+:::
 
 ## Surveillance using forecast distributions
 
@@ -916,14 +913,6 @@ pbs_fc |>
 #| label: pbsfc_compare_print
 
 tar_read(pbs_fc_probs) |> print(n = 5, width = Inf)
-```
-
-## A first iteration: $t = 36$
-
-```{r}
-#| label: fig_s01_forecast
-
-include_png(tar_read(fig_s01_forecast_png))
 ```
 
 ## Rolling forward through the data

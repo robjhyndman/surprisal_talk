@@ -32,40 +32,6 @@ create_fig_tsparadigms <- function(fr_mortality) {
   patchwork::wrap_plots(p1, p2, p3, ncol = 1)
 }
 
-# Rolling origin diagram
-tscv_plot <- function(.init, .step, h = 1) {
-  expand.grid(
-    time = seq(26),
-    .id = seq(trunc(11 / .step))
-  ) |>
-    group_by(.id) |>
-    mutate(
-      observation = case_when(
-        time <= ((min(.id) - 1) * .step + .init) ~ "train",
-        time %in% c((min(.id) - 1) * .step + .init + h) ~ "test",
-        TRUE ~ "unused"
-      )
-    ) |>
-    ungroup() |>
-    filter(.id <= 26 - .init) |>
-    ggplot(aes(x = time, y = .id)) +
-    geom_segment(
-      aes(x = 0, xend = 27, y = .id, yend = .id),
-      arrow = arrow(length = unit(0.015, "npc")),
-      col = "black",
-      linewidth = 0.25
-    ) +
-    geom_point(aes(col = observation), size = 2) +
-    scale_y_reverse() +
-    scale_colour_manual(
-      values = c(train = "#65775c", test = "#c14b14", unused = "grey")
-    ) +
-    guides(col = "none") +
-    labs(x = "time", y = "") +
-    theme_void() +
-    theme(axis.title.x = element_text(margin = margin(t = 2)))
-}
-
 # Weird series: features of all PBS series
 compute_pbs_features <- function(PBS) {
   PBS |>
@@ -480,20 +446,178 @@ pbs_forecast_probs <- function(pbs_fc, pbs, i = 36) {
     arrange(prob)
 }
 
-# Forecast of one series at time i, with the observation at time i + 1
-pbs_forecast_plot <- function(pbs_fc, pbs, series = "S01", i = 36) {
-  obs <- pbs |> filter(ATC2 == series, t <= i + 1)
-  pbs_fc |>
-    filter(ATC2 == series) |>
-    autoplot(obs) +
-    geom_point(data = obs |> filter(t == i + 1), aes(x = Month, y = Scripts)) +
-    labs(
-      y = "Scripts (thousands)",
-      title = paste0(
-        "Forecast of ", series, " scripts: ", format(max(obs$Month), format = "%b %Y")
-      )
-    ) +
-    theme(legend.position = "none")
+# Rolling origin surveillance of one series, for the staged figure ----------
+
+# One-step ETS forecasts of one series from each origin in `origins` (as in
+# compute_pbs_scores()): the Normal forecast mean and sd, the observation at
+# the next time and its surprisal probability
+pbs_roll_data <- function(pbs, series = "S01", origins = 36:95) {
+  pbs <- pbs |> filter(ATC2 == series)
+  fc <- lapply(origins, function(i) {
+    fc <- pbs |>
+      filter(t <= i) |>
+      model(ets = ETS(Scripts)) |>
+      forecast(h = 1)
+    obs <- pbs |> filter(t == i + 1)
+    par <- distributional::parameters(fc$Scripts)
+    tibble(
+      origin = i,
+      mu = par$mu,
+      sigma = par$sigma,
+      y = obs$Scripts,
+      prob = surprisals_prob(obs$Scripts, distribution = fc$Scripts)
+    )
+  }) |>
+    bind_rows()
+  list(
+    series = as_tibble(pbs) |> select(t, Month, Scripts),
+    fc = fc
+  )
+}
+
+# One frame of the rolling surveillance figure, at forecast origin `origin`:
+# (1) the data up to the origin; (2) the one-step forecast density, drawn
+# sideways; (3) the observation and its surprisal; (4) the surprisal
+# probability as the shaded tails. With `labels = FALSE` (the video frames)
+# nothing is labelled, and earlier observations are shown coloured by their p.
+pbs_roll_plot <- function(d, origin, level = 4, labels = TRUE, width = 100) {
+  colours <- c(density = "#0f2a44", fill = "#cbd5e1", origin = "#64748b",
+    low = "#94a3b8", mid = "#F39B00", high = "#c14b14")
+  p_colour <- function(p) {
+    unname(colours[ifelse(p < 0.001, "high", ifelse(p < 0.01, "mid", "low"))])
+  }
+  date <- function(t) as.Date(d$series$Month[match(t, d$series$t)])
+  math <- function(label, ...) {
+    annotate("text", label = label, parse = TRUE, family = "KaTeX", size = 6, ...)
+  }
+  fc <- d$fc |> filter(.data$origin == !!origin)
+  x0 <- date(origin + 1)
+  z_obs <- (fc$y - fc$mu) / fc$sigma
+  # Values at least as surprising as the observation: both Normal tails
+  cut <- abs(z_obs)
+  # Sideways Normal density with its peak `width` days wide, evaluated at the
+  # tail boundaries so the shaded tails end exactly there
+  z <- seq(-1, 1, length.out = 401) * max(4, cut + 0.5)
+  dens <- tibble(z = sort(unique(c(z, -cut, cut)))) |>
+    mutate(y = fc$mu + fc$sigma * z, x = x0 + width * exp(-z^2 / 2))
+  # Fixed extents over all origins, so all frames overlay exactly
+  ylim <- range(d$series$Scripts[d$series$t <= max(d$fc$origin) + 1],
+    d$fc$mu - 3 * d$fc$sigma, d$fc$mu + 3 * d$fc$sigma)
+  xlim <- c(date(1) - 30, date(max(d$fc$origin) + 1) + width + 60)
+  ytop <- ylim[2]
+  p <- ggplot(d$series |> filter(t <= origin), aes(x = as.Date(Month), y = Scripts)) +
+    annotate("segment", x = date(origin), xend = date(origin), y = ylim[1], yend = ytop,
+      colour = colours[["origin"]], linetype = "dashed") +
+    math("italic(t)", x = date(origin), y = ytop, hjust = 1.4, vjust = 1,
+      colour = colours[["origin"]]) +
+    geom_line() +
+    scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+    coord_cartesian(xlim = xlim, ylim = ylim, expand = FALSE) +
+    labs(x = NULL, y = "Scripts (thousands)",
+      title = "Scripts for ATC group S01 (Ophthalmologicals)")
+  if (!labels) {
+    past <- d$fc |>
+      filter(.data$origin < !!origin) |>
+      mutate(x = date(.data$origin + 1))
+    p <- p +
+      geom_point(data = past, aes(x = x, y = y), colour = p_colour(past$prob), size = 1.6)
+  }
+  if (level >= 2) {
+    p <- p +
+      geom_polygon(data = bind_rows(dens, tibble(x = x0, y = rev(range(dens$y)))),
+        aes(x = x, y = y), fill = colours[["fill"]], colour = NA) +
+      geom_path(data = dens, aes(x = x, y = y), colour = colours[["density"]]) +
+      annotate("segment", x = x0, xend = x0, y = min(dens$y), yend = max(dens$y),
+        colour = colours[["density"]])
+    if (labels) {
+      p <- p +
+        math("italic(f)[italic(t)+1*\"|\"*italic(t)](italic(y))", x = x0 + width + 20, y = fc$mu,
+          hjust = 0, colour = colours[["density"]])
+    }
+  }
+  if (level >= 4) {
+    tails <- bind_rows(
+      dens |> filter(z <= -cut) |> mutate(tail = "lower"),
+      dens |> filter(z >= cut) |> mutate(tail = "upper")
+    ) |>
+      group_by(tail) |>
+      group_modify(~ bind_rows(.x, tibble(x = x0, y = rev(range(.x$y))))) |>
+      ungroup()
+    p <- p +
+      geom_polygon(data = tails, aes(x = x, y = y, group = tail),
+        fill = p_colour(fc$prob))
+    # Thin tails (p < 0.05) are hard to see, so also trace them along the
+    # curve, which is then nearly vertical, so the trace ends are horizontal
+    if (cut > 2) {
+      p <- p +
+        geom_path(data = dens |> filter(abs(z) >= cut), aes(x = x, y = y, group = z > 0),
+          colour = p_colour(fc$prob), linewidth = 1.5)
+    }
+    if (labels) {
+      p_label <- sprintf("italic(p)[italic(t)+1] == %s",
+        formatC(signif(fc$prob, 2), format = "fg", digits = 2))
+      p <- p +
+        math(p_label, x = x0 + width + 20, y = fc$y - 3.5 * fc$sigma,
+          hjust = 0, colour = p_colour(fc$prob))
+    }
+  }
+  if (level >= 3) {
+    p <- p +
+      geom_point(aes(x = x0, y = fc$y), data = tibble(), colour = p_colour(fc$prob),
+        size = 3)
+    if (labels) {
+      p <- p +
+        math("italic(s)[italic(t)+1] == -log~italic(f)[italic(t)+1*\"|\"*italic(t)](italic(y)[italic(t)+1])",
+          x = x0 + width + 20, y = fc$y, hjust = 0, colour = p_colour(fc$prob))
+    }
+  }
+  p
+}
+
+# PNGs of the four stages at the first origin, then an MP4 rolling the origin
+# forward (slowly at first) and its poster (the last frame). All are drawn
+# from grobs aligned together, at the same resolution, so the video overlays
+# the PNGs exactly; the video is then scaled down to `video_width` pixels.
+pbs_roll_files <- function(d, dir, fps = 20, slow = 4, slow_frames = 10, width = 9,
+                           height = 4.2, res = 400, video_width = 1800,
+                           background = "#fbf9f4") {
+  register_katex_font()
+  origins <- d$fc$origin
+  plots <- c(
+    lapply(1:4, function(level) pbs_roll_plot(d, origins[1], level)),
+    lapply(origins[-1], function(i) pbs_roll_plot(d, i, labels = FALSE))
+  )
+  # ggplotGrob() measures text on the current device, so open a matching one
+  tmp <- tempfile(fileext = ".png")
+  ragg::agg_png(tmp, width = width, height = height, units = "in", res = res)
+  grobs <- with_uconn_style(align_ggplots(plots))
+  grDevices::dev.off()
+  unlink(tmp)
+  dir.create(dir, showWarnings = FALSE, recursive = TRUE)
+  pngs <- file.path(dir, paste0("fig_pbs_roll", 1:4, ".png"))
+  mapply(save_png, grobs[1:4], pngs,
+    MoreArgs = list(width = width, height = height, res = res))
+  # Video starts from stage 4; the first `slow` steps are held for
+  # `slow_frames` frames each, the rest for one frame, and the end for a second
+  frames_dir <- tempfile("frames")
+  dir.create(frames_dir)
+  steps <- c(4, 4 + seq_along(origins[-1]))
+  hold <- c(rep(slow_frames, slow + 1), rep(1, length(steps) - slow - 2), fps)
+  drawn <- file.path(frames_dir, sprintf("step%03d.png", seq_along(steps)))
+  for (i in seq_along(steps)) {
+    ragg::agg_png(drawn[i], width = width, height = height, units = "in",
+      res = res, background = background)
+    grid::grid.draw(grobs[[steps[i]]])
+    grDevices::dev.off()
+  }
+  frames <- rep(drawn, hold)
+  video <- file.path(dir, "fig_pbs_roll.mp4")
+  poster <- file.path(dir, "fig_pbs_roll_end.png")
+  file.copy(drawn[length(drawn)], poster, overwrite = TRUE)
+  av::av_encode_video(frames, video, framerate = fps,
+    vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
+  unlink(frames_dir, recursive = TRUE)
+  c(pngs, video, poster)
 }
 
 # Surveillance across series: number of flagged series each month, and the

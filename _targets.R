@@ -662,11 +662,6 @@ list(
       )
   ),
   tar_target(
-    fig_tscv,
-    tscv_plot(.init = 8, .step = 1, h = 1) +
-      annotate("text", x = 9, y = 0, label = "h = 1", colour = "#c14b14")
-  ),
-  tar_target(
     pbs_fc,
     pbs_forecast(pbs, i = 36)
   ),
@@ -674,9 +669,17 @@ list(
     pbs_fc_probs,
     pbs_forecast_probs(pbs_fc, pbs, i = 36)
   ),
+  # Staged figure: one-step forecasts of S01 from a rolling origin, with a
+  # video rolling the origin forward
   tar_target(
-    fig_s01_forecast,
-    pbs_forecast_plot(pbs_fc, pbs, "S01", i = 36)
+    pbs_roll,
+    pbs_roll_data(pbs, "S01", origins = 36:95)
+  ),
+  tar_target(
+    fig_pbs_roll_files,
+    pbs_roll_files(pbs_roll, file.path("figs", "uconn")),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
   ),
   # compute_pbs_scores(pbs) takes about an hour, so use the cached
   # result from the book (OTexts/weird/rds/pbs_scores.rds)
@@ -805,8 +808,6 @@ list(
   ),
   tar_png(fig_pbs_missing),
   tar_png(fig_a12, height = 3.2),
-  tar_png(fig_tscv),
-  tar_png(fig_s01_forecast),
   tar_png(fig_pbs_a12),
   tar_png(fig_pbs_n07),
   tar_png(fig_pbs_r05),

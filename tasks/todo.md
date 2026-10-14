@@ -159,3 +159,28 @@ fbtsa (github.com/robjhyndman/fbtsa), using the PBS series that the section alre
       PNG resolution (400 dpi) and scaled to 1800 px by ffmpeg, as text layout differs at 200 dpi
 - [x] `cat_png_stack(video_after =)` to place the video between stages
 - [x] First video frame matches stage 2 (RMSE 1.3%); video and PNG boxes identical in Chrome
+
+# Slide 37: surveillance with forecast distributions as a staged figure (14 Oct 2026)
+
+- [x] `pbs_roll_data()`: rolling one-step ETS forecasts for S01 (mean, sd, observation, p)
+- [x] `pbs_roll_plot()` / `pbs_roll_files()`: 4 stages (data → density → surprisal → p) + rolling video
+- [x] Targets `pbs_roll`, `fig_pbs_roll_files`; remove `fig_tscv`, `fig_s01_forecast`
+- [x] qmd: replace slides 37–38 with the stack, drop slide 42, retitle slide 39
+- [x] tar_make, render, check every stage and the video in headless Chrome
+
+## Review
+
+- Slides 37–38 (bullets + rolling-origin dot diagram) are now one staged figure on S01: data to t →
+  sideways ETS forecast density f_{t+1}(y) → observation with s_{t+1} = −log f_{t+1}(y_{t+1}) → tails
+  (traced along the curve, as they are too thin to see) with p_{t+1} = 0.0029 → 6.2 s video rolling the
+  origin to May 1999, past observations coloured by p (Mar 1999: p = 0.000245).
+- Slide 42 (S01 fan chart) dropped; old slide 39 retitled "Why surprisal probabilities?".
+  Removed `tscv_plot()`, `pbs_forecast_plot()` and targets `fig_tscv`, `fig_s01_forecast`.
+- p values from the per-series refit match `pbs_fc_probs` and `pbs_scores` exactly.
+- Headless Chrome: all PNGs and the video share one box (116,167, 1047×489); slide ends 11px inside;
+  stepping with Reveal.next() the video restarts at 0 on its fragment and plays to the end.
+- Every video in the deck already starts playing (hidden) on slide entry; harmless, since the fragment
+  handler rewinds it. Not changed.
+- Follow-up: density labelled f_{t+1|t}; tails evaluated at the exact boundaries (fill edges horizontal),
+  traced only when thin (p < 0.05, curve near vertical), dashed boundary lines dropped.
+
