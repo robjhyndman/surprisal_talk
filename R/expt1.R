@@ -63,7 +63,21 @@ create_fig_expt1 <- function(norm, t4, empirical = TRUE) {
   df |>
     ggplot(aes(x = y, y = Probability, col = Estimate, lty = Distribution)) +
     geom_line() +
+    # The slides' amber, orange and blue
+    scale_colour_manual(
+      values = c(
+        "Assumed distribution" = "#F39B00",
+        "Empirical distribution" = "#C14b14",
+        "GPD" = "#1d6fa5"
+      ),
+      # Short label, so the legend fits the slide
+      labels = c("Assumed distribution" = paste(katex_it("f"), "itself"))
+    ) +
     facet_wrap(~Model, scales = "free_x") +
     labs(lty = paste("Distribution", katex_it("f"))) +
-    theme(legend.position = "bottom", legend.title = ggtext::element_markdown())
+    theme(
+      legend.position = "bottom",
+      legend.title = ggtext::element_markdown(),
+      legend.text = ggtext::element_markdown()
+    )
 }
