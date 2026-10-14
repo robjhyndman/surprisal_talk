@@ -11,7 +11,7 @@
   --orange: #c14b14; /* Rob's signature colour, also used in the plots */
   --orange-light: #e0601a; /* for accents on the navy slides */
   --amber: #f2b33d;
-  --amber-tint: #f6e9e0; /* the orange at ~9% on paper */
+  --amber-tint: #ffffff;
   --code-bg: #13202f;
   --output-bg: #efebe3;
   --r-main-font-size: 34px;
@@ -245,26 +245,45 @@ body.quarto-light,
   border: none;
 }
 
-.reveal div.sourceCode code span { color: #e6edf3; }
-.reveal div.sourceCode code span.fu { color: #7dcfff; }
+.reveal div.sourceCode code span {
+  color: #e6edf3;
+}
+.reveal div.sourceCode code span.fu {
+  color: #7dcfff;
+}
 .reveal div.sourceCode code span.st,
 .reveal div.sourceCode code span.ss,
 .reveal div.sourceCode code span.vs,
-.reveal div.sourceCode code span.ch { color: #a6da7b; }
+.reveal div.sourceCode code span.ch {
+  color: #a6da7b;
+}
 .reveal div.sourceCode code span.dv,
 .reveal div.sourceCode code span.bn,
 .reveal div.sourceCode code span.fl,
-.reveal div.sourceCode code span.cn { color: #ffa86b; }
+.reveal div.sourceCode code span.cn {
+  color: #ffa86b;
+}
 .reveal div.sourceCode code span.kw,
-.reveal div.sourceCode code span.cf { color: #c3a6ff; }
-.reveal div.sourceCode code span.op { color: #89ddff; }
+.reveal div.sourceCode code span.cf {
+  color: #c3a6ff;
+}
+.reveal div.sourceCode code span.op {
+  color: #89ddff;
+}
 .reveal div.sourceCode code span.at,
-.reveal div.sourceCode code span.sc { color: #f2c66d; }
-.reveal div.sourceCode code span.ot { color: #8fb8ff; }
+.reveal div.sourceCode code span.sc {
+  color: #f2c66d;
+}
+.reveal div.sourceCode code span.ot {
+  color: #8fb8ff;
+}
 .reveal div.sourceCode code span.co,
 .reveal div.sourceCode code span.do,
 .reveal div.sourceCode code span.cv,
-.reveal div.sourceCode code span.an { color: #7d8ca3; font-style: italic; }
+.reveal div.sourceCode code span.an {
+  color: #7d8ca3;
+  font-style: italic;
+}
 
 .reveal .cell-output pre,
 .reveal .cell-output pre code,
@@ -582,7 +601,11 @@ body.quarto-light,
 }
 
 .reveal .hover-card.is-alert {
-  background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
+  background: linear-gradient(
+    to right,
+    var(--orange) 6px,
+    var(--amber-tint) 6px
+  );
 }
 
 /* Card across the top of the slide showing the image for the hovered item */
