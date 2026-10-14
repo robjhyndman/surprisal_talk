@@ -266,16 +266,11 @@ not_outs_plot_smooth|stem|0affe0edcf184bb7|432d70202265cfe9|8c998ae7ca9bd628|-76
 fr_mortality|stem|a69f78b44382efa7|b80d086a10275110|2c530c1562a7fbd1|1658610472||t20738.0038421808s|s176946b|176946|rds|local|vector|||0.589||
 pbs_scores_file|stem|c8aea98d492f193e|e62f434371abbcd4|2c530c1562a7fbd1|-418042713|data/pbs_scores.rds|t20738.0379405394s|s189370b|189370|file|local|vector|||0.585||
 pbs_scores|stem|c8aea98d492f193e|a471f35d852dde23|c08385ae11643dba|1788008389||t20738.0381002124s|s189370b|189370|rds|local|vector|||0.002||
-fig_tsparadigms|stem|7c7fad8fe4faddc7|1a717e7a9fb38547|080576d18bb4998b|-695402638||t20738.0989620735s|s610512b|610512|rds|local|vector|||0.265|`autoplot.tbl_ts()` was deprecated in fabletools 0.6.0. ℹ Please use `ggtime::autoplot.tbl_ts()` instead. ℹ Graphics functions have been moved to the {ggtime} package. Please use   `library(ggtime)` instead.|
 us_episodes|stem|d05fa2fc7ec374a3|4a4656be4ad5fd8a|5c0b049745382e79|1336723427||t20738.944033172s|s571b|571|rds|local|vector|||0.672||
 us_stmf|stem|4ed335b4283d40d4|94ff4981d464afa3|7d3190e58b24429e|29650||t20738.9440388153s|s31012b|31012|rds|local|vector|||0.459||
 us_zoom|stem|3f69723274ac5228|435c5f23ceaa46c3|2c530c1562a7fbd1|-429978789||t20738.9440392112s|s161b|161|rds|local|vector|||0.001||
-fr_causes_card|stem|bc727ea7a407c67c|5e4d5d98db094c54|912fa28b58675c39|-655724751||t20738.9440409497s|s714b|714|rds|local|vector|||0.002||
 fig_tscv|stem|3eccbf63b3defd73|94c0ec1fcc64102d|a958c07abcbd0b26|-1709125504||t20738.9440429001s|s355112b|355112|rds|local|vector|||0.085||
-us_causes_card|stem|ec6bc3597a5c773e|1c18f65ac06c367b|516805507b5e7bd9|-1015508802||t20738.944044723s|s869b|869|rds|local|vector|||0.141||
-fig_stmf|stem|96c83710e906d5af|d95aec785b05699a|f1c624b7875e3cab|563157054||t20738.9440547529s|s758981b|758981|rds|local|vector|||0.036|`autoplot.tbl_ts()` was deprecated in fabletools 0.6.0. ℹ Please use `ggtime::autoplot.tbl_ts()` instead. ℹ Graphics functions have been moved to the {ggtime} package. Please use   `library(ggtime)` instead.|
 fr_anomaly_years|stem|705f6517c366868c|4598fc82975e3ebd|6f6ee2613605941f|-115384856||t20738.9444216138s|s217b|217|rds|local|vector|||0.002||
-fr_anomalies_girafe|stem|f1f416cf7375fdd8|79a997e0f980134e|4f4b56e569dc9c27|378127899||t20738.9444247112s|s7091b|7091|rds|local|vector|||0.258||
 pbs_fc|stem|da85e282449468c8|138f878bf185b054|3dd7561fe25a8766|-699457591||t20738.9449470276s|s2885b|2885|rds|local|vector|||23.739||
 fig_a12|stem|90388efd807fa475|b58180ac746f750d|3704916bcf1e1eb4|-1560182929||t20738.9449476526s|s235393b|235393|rds|local|vector|||0.006||
 pbs_joint|stem|061109f26b697e92|5c2aff5fa22faa83|18ba20c9328c6bb8|1919876048||t20738.9449479161s|s2761b|2761|rds|local|vector|||0.007||
@@ -288,9 +283,6 @@ fig_pbs_r05|stem|6f4b604ad3436581|75521f8b5a1693fe|d6bd79b1788c020d|-1394845723|
 fig_pbs_a12|stem|d1de136fe4715466|ba54ad537b38633f|d6bd79b1788c020d|654704606||t20738.9449572811s|s351941b|351941|rds|local|vector|||0.03||
 fig_pbs_n07|stem|30d1df2471b516bf|c458612c5e5251d6|d6bd79b1788c020d|-21495834||t20738.9449584621s|s351636b|351636|rds|local|vector|||0.034||
 fig_tscv_png|stem|486aa8bef6ae8f8d|01cff71935b8d9ec|f6b4bbb192bb9f2e|-1581230640|figs/uconn/fig_tscv.png|t20738.9517044014s|s207568b|207568|file|local|vector|||0.453||
-fig_stmf_png|stem|2e8e53b9317d3518|0199ba1926100207|bd840320dcb6c51f|-1477035646|figs/uconn/fig_stmf.png|t20738.9517199455s|s488942b|488942|file|local|vector|||0.49||
-fig_tsparadigms_png|stem|b6b83c2854188421|89a4b03c22c6a405|295acf3443ff90f0|1750002542|figs/uconn/fig_tsparadigms.png|t20738.9517272488s|s376290b|376290|file|local|vector|||0.344||
-fig_fr_mortality2_png|stem|8cd8ae39f9777a32|df0824d3845bfcfb|9fd1f3adff9b1e90|57450151|figs/uconn/fig_fr_mortality2.png|t20738.9517341354s|s1853092b|1853092|file|local|vector|||0.559||
 fig_a12_png|stem|8589a834c12bc119|a9f8b761c91f6bc1|e8156654483d8bf0|802469584|figs/uconn/fig_a12.png|t20738.9517414734s|s223541b|223541|file|local|vector|||0.199||
 fig_s01_forecast_png|stem|08a4dbfd1c203727|25a9d51c207dbfcc|7efa8ec667bc3196|-919842854|figs/uconn/fig_s01_forecast.png|t20738.951749448s|s192486b|192486|file|local|vector|||0.292||
 fig_pbs_joint_png|stem|598acbbf150ec580|e0041c5c06ef40bb|ccf8a5d21e458976|-2092095810|figs/uconn/fig_pbs_joint.png|t20738.9517592861s|s80298b|80298|file|local|vector|||0.209||
@@ -298,16 +290,9 @@ fig_pbs_a12_png|stem|124af74d293da9b2|535bfad15fb65304|e5cb5722af4e3c8a|17128187
 fig_pbs_n07_png|stem|07f9cca4be11e0d1|80aaa30809fbcd9f|da2c067ba60d3a15|1541151086|figs/uconn/fig_pbs_n07.png|t20738.9517654319s|s161969b|161969|file|local|vector|||0.236||
 fig_pbs_r05_png|stem|8ef3012270f41a23|71d6ff89a984078f|108c33b33f7791bf|2112583445|figs/uconn/fig_pbs_r05.png|t20738.9517686843s|s291018b|291018|file|local|vector|||0.261||
 stmf_scores|stem|9997d2043070469c|6ebb73e3dd6bed4a|99cb32fb5770b71b|-166943092||t20739.0002436497s|s101676b|101676|rds|local|vector|||0.461|Current temporal ordering may yield unexpected results. ℹ Suggest to sort by `Age group`, `.model`, `Week` first.|
-fig_stl_anomalies|stem|eb6912d6683464ac|14ac1206d9342f09|26a4be23d99fcb84|-1118950599||t20739.00024674s|s623740b|623740|rds|local|vector|||0.064|Ignoring unknown aesthetics: data_id and tooltip|
-us_covid_girafe|stem|0df49a2af39f429d|fa4bd837867d82cc|11ee389e7ffc0ef4|-1363336769||t20739.0002523766s|s9175b|9175|rds|local|vector|||0.478||
-us_zoom_video|stem|b8e32f4e86df7d16|c5d64bc0912f62c9|77ca4a6524d9a700|869750529|figs/us_zoom.mp4|t20739.0004819966s|s530565b|530565|file|local|vector|||19.831|Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip|
-fig_stl_anomalies_png|stem|f5492f8a24b45847|9d6a527e19fccfa4|ac71ca6960886d4b|-1479696907|figs/uconn/fig_stl_anomalies.png|t20739.0004872166s|s490482b|490482|file|local|vector|||0.409||
 fig_hampel_stages|stem|a98d212a9da9195f|702a119edcfcb1fd|678b9e439f3ab6a2|1064500665||t20739.374856588s|s1101761b|1101761|rds|local|vector|||0.383||
-hampel_video|stem|530d3ec785e2136f|da3a7e3af4736a83|9be870682be7d06b|-495685671|figs/uconn/hampel_window.mp4|t20739.3750208856s|s68446b|68446|file|local|vector|||14.173||
-fig_hampel_png|stem|c8d18727e795efbb|c37ca541e20d3dcf|6c12a6fc1618dc9a|-1254726132|figs/uconn/fig_hampel_series.png*figs/uconn/fig_hampel_window.png*figs/uconn/fig_hampel_difference.png*figs/uconn/fig_hampel_normal.png|t20739.37503202s|s619330b|619330|file|local|vector|||0.884||
 stmf_scores_steps|stem|df9cae45b298ac51|24c8d6b279199b6b|526c2d730c57c1af|459984841||t20739.9209524441s|s340439b|340439|rds|local|vector|||0.043||
 fig_gpd_data|stem|11177cfa53e32a10|b73c8dc76caf428e|ec237b01446cfe70|467185038||t20739.9532394724s|s12592b|12592|rds|local|vector|||0.533||
-fig_gpd_files|stem|9200c915bfe0c4a5|73e902c1bfbada38|1000fe65e33d0f8d|2084102798|figs/uconn/fig_gpd1.png*figs/uconn/fig_gpd2.png*figs/uconn/fig_gpd3.png*figs/uconn/fig_gpd4.png*figs/uconn/fig_gpd_zoom.mp4*figs/uconn/fig_gpd_zoom.png|t20739.9583995859s|s584619b|584619|file|local|vector|||11.125||
 pbs_pca|stem|0c2164e893b035dd|5e30d55e8fa48808|a95b01e1323491b1|524497859||t20740.010490098s|s93243b|93243|rds|local|vector|||0.705||
 pbs_pca_table|stem|80ed064273d479ac|945fcf7b8b41dc99|c8a5c3c7056daecc|1250423728||t20740.0109832477s|s6302b|6302|rds|local|vector|||0.003||
 pbs_missing|stem|7235ee4a2efdcd86|e82ef5e3460ca2a5|8ab2a2d45f5a8b9c|982960061||t20740.011047858s|s1043b|1043|rds|local|vector|||0.002||
@@ -316,47 +301,78 @@ pbs_raw|stem|1e7e55e2e87b9aaa|7cdec808e7e516e4|2c530c1562a7fbd1|-276810997||t207
 pbs|stem|0412cbe34d565fbc|9778be3278ce9e51|593d55e67640ca44|-1178698041||t20740.0113932788s|s104259b|104259|rds|local|vector|||0.185||
 pbs_features|stem|d1e495f956754293|f07de43924f16858|3a28cd582660c8ab|-1595688286||t20740.0117497049s|s87916b|87916|rds|local|vector|||30.752|NA/NaN replaced by maximum positive value. NA/NaN replaced by maximum positive value. NA/NaN replaced by maximum positive value. NA/NaN replaced by maximum positive value. 2 errors (1 unique) encountered for feature 7 [2] subscript out of bounds|
 pbs_scaled|stem|ce8f7c0847a8c161|d2760762eb9ba3e4|92dee69765e491e0|343026913||t20740.0117506864s|s404484b|404484|rds|local|vector|||0.024||
-pbs_spaghetti_video_files|stem|51ab7fcb29447087|6fa1e15627d77108|07b5b0f96dc85d0f|1872011957|figs/uconn/pbs_spaghetti.mp4*figs/uconn/pbs_spaghetti_all.png|t20740.0122368111s|s6543265b|6543265|file|local|vector|||41.976||
-fig_pbs_build_png|stem|160de234349c3983|20f64d780d860d59|74cc220bdb7393e1|1875800861|figs/uconn/fig_pbs_spaghetti1.png*figs/uconn/fig_pbs_spaghetti2.png*figs/uconn/fig_pbs_spaghetti3.png*figs/uconn/fig_pbs_spaghetti4.png*figs/uconn/fig_pbs_trend1.png*figs/uconn/fig_pbs_trend2.png*figs/uconn/fig_pbs_trend3.png*figs/uconn/fig_pbs_season1.png*figs/uconn/fig_pbs_season2.png*figs/uconn/fig_pbs_season3.png*figs/uconn/fig_pbs_space1.png*figs/uconn/fig_pbs_space2.png*figs/uconn/fig_pbs_space3.png*figs/uconn/fig_pbs_space4.png|t20740.0123046856s|s4361107b|4361107|file|local|vector|||5.805||
 fig_pbs_missing|stem|8ffdde483460b7fa|12d7aa06daea05ac|2f425ff06425ec53|1377389318||t20740.012306549s|s657830b|657830|rds|local|vector|||0.016||
-fig_pbs_missing_png|stem|a71803d5e992cf33|6a355d233bfdfeff|543f65604480a25b|1545247510|figs/uconn/fig_pbs_missing.png|t20740.0123189333s|s110997b|110997|file|local|vector|||0.416||
 pbs_highlights|stem|5906a0b5d1060060|78bd93441c8a6959|c8a5c3c7056daecc|-1649385048||t20740.0193891922s|s2344b|2344|rds|local|vector|||0.012||
-pbs_kde_girafe_widget|stem|9ceb1223c7f1c548|2ef7451817f9159e|c8097446e2bf1a43|419821644||t20740.0194019915s|s16524b|16524|rds|local|vector|||1.088||
-pbs_pc_girafe_widget|stem|7b3fa0400a2ee7ac|ca8f729b5143a1b0|c8097446e2bf1a43|55098443||t20740.0194045841s|s9162b|9162|rds|local|vector|||0.2||
-pbs_highlight_pngs|stem|c5369406de7123ef|d52651e7ea041905|6c430417d952f7a7|-374488621|figs/uconn/pbs_series_J06_Concessional_Safety_net.png*figs/uconn/pbs_series_C05_General_Co-payments.png*figs/uconn/pbs_series_S02_General_Co-payments.png*figs/uconn/pbs_series_A15_General_Co-payments.png*figs/uconn/pbs_series_C09_Concessional_Co-payments.png|t20740.0210565283s|s312707b|312707|file|local|vector|||1.109||
-pbs_highlight_card|stem|2c17aaceeeed9267|9193ae2e1d81340a|04fd1f69f44e0e99|-1645666369||t20740.0213639382s|s293556b|293556|rds|local|vector|||0.011||
 tscv_plot|function|c87d13042958abac|||||||||||||||
 pbs_forecast_plot|function|b7f65c4923dcb2ba|||||||||||||||
 pbs_roll|stem|bbdeaecc58e26083|904e7d8620306c48|c3ec8616b3453aca|-1353950564||t20740.0311056833s|s3930b|3930|rds|local|vector|||18.776||
-fig_pbs_roll_files|stem|d8f5fac951197d30|953f649fe745a4e8|c4fbc2ac129fea13|-1388119224|figs/uconn/fig_pbs_roll1.png*figs/uconn/fig_pbs_roll2.png*figs/uconn/fig_pbs_roll3.png*figs/uconn/fig_pbs_roll4.png*figs/uconn/fig_pbs_roll.mp4*figs/uconn/fig_pbs_roll_end.png|t20740.0413110873s|s1180341b|1180341|file|local|vector|||20.411||
 pbs_fc_probs|stem|add24db4101ddf8f|431deb362eef5075|19cea34acf85182e|-383417742||t20740.0599089882s|s4046b|4046|rds|local|vector|||0.045||
-fig_pbs_heatmap_files|stem|ba06cf71674ff943|3b7f2900a96cbbb4|470a3c6021b7cf70|986018171|figs/uconn/fig_pbs_heatmap.png*figs/uconn/fig_pbs_heatmap.mp4*figs/uconn/fig_pbs_heatmap_end.png|t20740.0723633985s|s267116b|267116|file|local|vector|||46.785|Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and|
 fig_pbs_anomalies|stem|d4519810467fa8c9|eca4de1fb1c39505|70cb39ba54c79524|-1683032097||t20740.0775104016s|s460440b|460440|rds|local|vector|||0.054||
-fig_pbs_anomalies_png|stem|83cd2ed78c442be5|02c08a340fef1f44|61a78249129f5712|1367396417|figs/uconn/fig_pbs_anomalies.png|t20740.0775186076s|s347326b|347326|file|local|vector|||0.642||
+fig_sp_normal|stem|98450efdc4ba7bd3|cb507431523213e2|30cdb4c36aa878ab|59612374||t20740.1122374992s|s73b|73|rds|local|vector|||1.159||
+fig_sp0|stem|ac47928c32e1169e|f5dcd79359174156|30cdb4c36aa878ab|-1433420519||t20740.1122704553s|s261358b|261358|rds|local|vector|||2.775||
+fig_sp1|stem|100d473d0a84c879|e581f884a1f54f39|30cdb4c36aa878ab|-389765719||t20740.1123035235s|s284177b|284177|rds|local|vector|||2.767||
+fig_sp2|stem|4b1e9f7124c4c5b8|b7e190c9cd76a0c9|30cdb4c36aa878ab|-1640226396||t20740.1123358386s|s295049b|295049|rds|local|vector|||2.729||
+fig_spot_anomaly1|stem|3a2a39714f6d67bb|27643aab95099ed0|93d8b4a17aa895cb|1828931490||t20740.1123372043s|s224777b|224777|rds|local|vector|||0.005||
+fig_spot_anomaly2|stem|bb027e6ed1f4ca91|59fdb6a13b3026e4|95a4d18b20b279e9|217533196||t20740.1123376326s|s221493b|221493|rds|local|vector|||0.003||
+fig_sp_katex|stem|7165601aaeea1ccd|c4eabc9019e4701b|bbcebfc0fb2ac8d3|-335138383||t20740.1123405724s|s845297b|845297|rds|local|vector|||0.053||
+pbs_joint_card_html|stem|20a96785afd0b66b|b0ac75a0b89e39b5|a3df2fd6ba0f99b7|-1983209904||t20740.1304383938s|s892b|892|rds|local|vector|||0.028||
+fr_causes_card|stem|5346b8caf64db486|5e4d5d98db094c54|96b0e5cbd73ca67f|-655724751||t20740.1305725173s|s730b|730|rds|local|vector|||0.527||
+us_causes_card|stem|eb118bf20bc14b69|1c18f65ac06c367b|cac08adcf0b7f9d9|-1015508802||t20740.1305734996s|s884b|884|rds|local|vector|||0.007||
+pbs_joint_table|function|c91bc42a3086d77f
+fr_hampel|stem|6b234544c64c67af|ca61440900f4e670|e8e201fe3c61656d|-399549045||t20740.210093733s|s3316b|3316|rds|local|vector|||0.759|There were 8 warnings in `mutate()`. The first warning was: ℹ In argument: `hampel = hampel_anomalies(Mortality, bandwidth = 7, alpha =   0.01, approximation = 'gpd')`. ℹ In group 46: `Age = 22`, `Sex = 'Male'`. Caused by warning in `fpot.norm()`: ! optimization may not have succeeded ℹ Run `dplyr::last_dplyr_warnings()` to see the 7 remaining warnings.|
+fig_stmf|stem|949b65a7270243f7|6352e4bb82dca65d|f1c624b7875e3cab|563157054||t20740.2173877031s|s825925b|825925|rds|local|vector|||0.073|`autoplot.tbl_ts()` was deprecated in fabletools 0.6.0. ℹ Please use `ggtime::autoplot.tbl_ts()` instead. ℹ Graphics functions have been moved to the {ggtime} package. Please use   `library(ggtime)` instead.|
+pbs_highlight_card|stem|4176257ee6ee6e39|9193ae2e1d81340a|77a6bcd603e38f0b|-1645666369||t20740.2255131672s|s306602b|306602|rds|local|vector|||0.008||
+fig_expt1b|stem|0c8cb1cab6f9600f|96d9c5faaed2a058|df1e892a9565c6d3|-1786410210||t20740.2280612895s|s194361b|194361|rds|local|vector|||0.104||
+fig_expt1|stem|8acf7f7096739fa1|21003c6016fa5f81|df1e892a9565c6d3|259389283||t20740.2280630322s|s195442b|195442|rds|local|vector|||0.081||
+fig_stl_anomalies|stem|c019a1f694371408|14ac1206d9342f09|b8ed6ab3700aff97|-1118950599||t20740.2282981066s|s781250b|781250|rds|local|vector|||0.034|Ignoring unknown aesthetics: data_id and tooltip|
+fig_tsparadigms|stem|1de43a933248df96|1a717e7a9fb38547|c5e20bc4a0029ad3|-695402638||t20740.2375526895s|s756813b|756813|rds|local|vector|||0.364|`autoplot.tbl_ts()` was deprecated in fabletools 0.6.0. ℹ Please use `ggtime::autoplot.tbl_ts()` instead. ℹ Graphics functions have been moved to the {ggtime} package. Please use   `library(ggtime)` instead.|
+hampel_video|stem|db80b91581776cb7|da3a7e3af4736a83|97fbf9da5ffe3d57|-495685671|figs/uconn/hampel_window.mp4|t20740.2407371139s|s69666b|69666|file|local|vector|||13.341||
+fig_tsparadigms_stage_pngs|stem|ee468948a5025396|ae1083271b1f7583|c865f7214611296d|-2138856056|figs/uconn/fig_tsparadigms_1.png*figs/uconn/fig_tsparadigms_2.png*figs/uconn/fig_tsparadigms_3.png|t20740.2407538849s|s681433b|681433|file|local|vector|||1.428|`autoplot.tbl_ts()` was deprecated in fabletools 0.6.0. ℹ Please use `ggtime::autoplot.tbl_ts()` instead. ℹ Graphics functions have been moved to the {ggtime} package. Please use   `library(ggtime)` instead.|
+fig_gpd_files|stem|5d0b57ee5d95a10d|73e902c1bfbada38|c01f87138f3a9c94|2084102798|figs/uconn/fig_gpd1.png*figs/uconn/fig_gpd2.png*figs/uconn/fig_gpd3.png*figs/uconn/fig_gpd4.png*figs/uconn/fig_gpd_zoom.mp4*figs/uconn/fig_gpd_zoom.png|t20740.2408880874s|s617136b|617136|file|local|vector|||11.561||
+pbs_spaghetti_video_files|stem|0eb861c838d4a8d5|6fa1e15627d77108|08671f4faad0f474|1872011957|figs/uconn/pbs_spaghetti.mp4*figs/uconn/pbs_spaghetti_all.png|t20740.2413666121s|s6272485b|6272485|file|local|vector|||41.321||
+us_zoom_video|stem|69980f4708ea19d6|c5d64bc0912f62c9|4273fdd3426a2333|869750529|figs/us_zoom.mp4|t20740.2416024914s|s486854b|486854|file|local|vector|||20.356|Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip. Ignoring unknown aesthetics: data_id and tooltip|
+us_covid_girafe|stem|c093e57ad78add17|fa4bd837867d82cc|619893b3cbd848fb|-1363336769||t20740.2416078965s|s9092b|9092|rds|local|vector|||0.448||
+fig_stmf_png|stem|d1a9d956aeaec81c|f4bb3001cef9c954|ec9ea9dd357c97e4|-1477035646|figs/uconn/fig_stmf.png|t20740.2416155934s|s445331b|445331|file|local|vector|||0.632||
+fig_tsparadigms_png|stem|5c615f74d91c00f7|89a4b03c22c6a405|af906659f9cd2ead|1750002542|figs/uconn/fig_tsparadigms.png|t20740.2416212647s|s355570b|355570|file|local|vector|||0.445||
+fig_hampel_png|stem|6f2d630f2003dd12|c37ca541e20d3dcf|0c2783c4bf11eb57|-1254726132|figs/uconn/fig_hampel_series.png*figs/uconn/fig_hampel_window.png*figs/uconn/fig_hampel_difference.png*figs/uconn/fig_hampel_normal.png|t20740.2416333713s|s625699b|625699|file|local|vector|||0.986||
+fr_anomalies_girafe|stem|dc2626d96938ede1|79a997e0f980134e|bdb87bf4c86aacc0|378127899||t20740.2416368325s|s7177b|7177|rds|local|vector|||0.288||
+fig_fr_mortality2_png|stem|dd9c1a5a9855863b|df0824d3845bfcfb|897cb448b52feaa7|57450151|figs/uconn/fig_fr_mortality2.png|t20740.2416420172s|s1509900b|1509900|file|local|vector|||0.415||
+fig_pbs_heatmap_files|stem|fb3043acbbc1ae65|3b7f2900a96cbbb4|d1466c851026a26a|986018171|figs/uconn/fig_pbs_heatmap.png*figs/uconn/fig_pbs_heatmap.mp4*figs/uconn/fig_pbs_heatmap_end.png|t20740.2421836305s|s288182b|288182|file|local|vector|||46.78|Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and will be shifted ℹ Consider using `geom_tile()` instead.. Raster pixels are placed at uneven horizontal intervals and|
+fig_sp_png|stem|89fc3734771f4548|a38d2bdd81b36633|29f3afd17e1fa847|393547051|figs/uconn/fig_sp1.png*figs/uconn/fig_sp2.png*figs/uconn/fig_sp3.png|t20740.2421922879s|s341759b|341759|file|local|vector|||0.697||
+fig_expt1b_png|stem|41ce0f98c745a694|38565007d3e6c8ab|8d144108119c90f1|-972050522|figs/uconn/fig_expt1b.png|t20740.2421962347s|s183193b|183193|file|local|vector|||0.316||
+pbs_kde_girafe_widget|stem|59cd10a02d0b8bfe|2ef7451817f9159e|d77e427698db5fc4|419821644||t20740.2424572786s|s16512b|16512|rds|local|vector|||0.93||
+pbs_pc_girafe_widget|stem|67df1dedc025c53e|ca8f729b5143a1b0|d77e427698db5fc4|55098443||t20740.2424597439s|s9184b|9184|rds|local|vector|||0.204||
+fig_pbs_build_png|stem|cfb4a82d71731ef7|20f64d780d860d59|5a6254004cce174c|1875800861|figs/uconn/fig_pbs_spaghetti1.png*figs/uconn/fig_pbs_spaghetti2.png*figs/uconn/fig_pbs_spaghetti3.png*figs/uconn/fig_pbs_spaghetti4.png*figs/uconn/fig_pbs_trend1.png*figs/uconn/fig_pbs_trend2.png*figs/uconn/fig_pbs_trend3.png*figs/uconn/fig_pbs_season1.png*figs/uconn/fig_pbs_season2.png*figs/uconn/fig_pbs_season3.png*figs/uconn/fig_pbs_space1.png*figs/uconn/fig_pbs_space2.png*figs/uconn/fig_pbs_space3.png*figs/uconn/fig_pbs_space4.png|t20740.2425317236s|s4316212b|4316212|file|local|vector|||6.187||
+fig_stl_anomalies_png|stem|ed4761c0fdd0e8a8|c78bbe62aa9bcafa|feeed3a71a86df16|-1479696907|figs/uconn/fig_stl_anomalies.png|t20740.2425362028s|s459632b|459632|file|local|vector|||0.352||
+pbs_joint_girafe_widget|stem|6bbd7a071726f0e1|b1a3a965dfc90513|65edbe1fcd45ccb1|1960118326||t20740.2425399181s|s3697b|3697|rds|local|vector|||0.31||
+pbs_highlight_pngs|stem|05308adeafa35a9a|d52651e7ea041905|d172718a7b3cebca|-374488621|figs/uconn/pbs_series_J06_Concessional_Safety_net.png*figs/uconn/pbs_series_C05_General_Co-payments.png*figs/uconn/pbs_series_S02_General_Co-payments.png*figs/uconn/pbs_series_A15_General_Co-payments.png*figs/uconn/pbs_series_C09_Concessional_Co-payments.png|t20740.2425509367s|s326546b|326546|file|local|vector|||0.929||
+fig_pbs_anomalies_png|stem|e294679f9a36d926|02c08a340fef1f44|52f3661fc50ae61e|1367396417|figs/uconn/fig_pbs_anomalies.png|t20740.2425566432s|s362448b|362448|file|local|vector|||0.466||
+fig_pbs_missing_png|stem|e03760b2ca847f26|6a355d233bfdfeff|31fb896e1bd4df8e|1545247510|figs/uconn/fig_pbs_missing.png|t20740.2425616428s|s126995b|126995|file|local|vector|||0.395||
+fig_pbs_roll_files|stem|fd1cb4bcf7b32b1a|953f649fe745a4e8|d464da2c022071db|-1388119224|figs/uconn/fig_pbs_roll1.png*figs/uconn/fig_pbs_roll2.png*figs/uconn/fig_pbs_roll3.png*figs/uconn/fig_pbs_roll4.png*figs/uconn/fig_pbs_roll.mp4*figs/uconn/fig_pbs_roll_end.png|t20740.2492371376s|s1236654b|1236654|file|local|vector|||21.138||
+slides_uconn|stem|b11915aa9b2347e8|060bab539f7f93f0|778f220a8f160cab|1505566149|uconn_2026.html*uconn_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*_extensions/quarto-monash/presentation/letterbox/letterbox.scss*_extensions/quarto-monash/presentation/letterbox/theme.html*_extensions/quarto-monash/presentation/letterbox/title-slide.html*_extensions/quarto-monash/presentation/revealjs/monash.scss*_extensions/quarto-monash/presentation/typst/typst-show.typ*_extensions/quarto-monash/presentation/typst/typst-template.typ*figs/title_ts.png*fonts/fira-sans-latin-400-italic.woff2*fonts/fira-sans-latin-400-normal.woff2*fonts/fira-sans-latin-700-italic.woff2*fonts/fira-sans-latin-700-normal.woff2*fonts/fira-sans-latin-ext-400-italic.woff2*fonts/fira-sans-latin-ext-400-normal.woff2*fonts/fira-sans-latin-ext-700-italic.woff2*fonts/fira-sans-latin-ext-700-normal.woff2*fonts/fonts.css*fonts/hack-bold-subset.woff2*fonts/hack-bolditalic-subset.woff2*fonts/hack-italic-subset.woff2*fonts/hack-regular-subset.woff2*katex/fonts/KaTeX_AMS-Regular.woff2*katex/fonts/KaTeX_Caligraphic-Bold.woff2*katex/fonts/KaTeX_Caligraphic-Regular.woff2*katex/fonts/KaTeX_Fraktur-Bold.woff2*katex/fonts/KaTeX_Fraktur-Regular.woff2*katex/fonts/KaTeX_Main-Bold.woff2*katex/fonts/KaTeX_Main-BoldItalic.woff2*katex/fonts/KaTeX_Main-Italic.woff2*katex/fonts/KaTeX_Main-Regular.woff2*katex/fonts/KaTeX_Math-BoldItalic.woff2*katex/fonts/KaTeX_Math-Italic.woff2*katex/fonts/KaTeX_SansSerif-Bold.woff2*katex/fonts/KaTeX_SansSerif-Italic.woff2*katex/fonts/KaTeX_SansSerif-Regular.woff2*katex/fonts/KaTeX_Script-Regular.woff2*katex/fonts/KaTeX_Size1-Regular.woff2*katex/fonts/KaTeX_Size2-Regular.woff2*katex/fonts/KaTeX_Size3-Regular.woff2*katex/fonts/KaTeX_Size4-Regular.woff2*katex/fonts/KaTeX_Typewriter-Regular.woff2*katex/katex-local.html*katex/katex.min.css*katex/katex.min.js*title-slide.html*uconn_2026.css|t20740.2494252063s|s49827947b|49827947|file|local|vector|||16.31||
 create_fig_density|function|3eb090b72fddaf3e
 compute_pbs_joint|function|b80051b7668bc72c
 of_labels|object|0b7caf9ec2dd45e5
 align_ggplots|function|4f0ac64066d54a8f
 register_katex_font|function|635231c31ba6d5f5
-us_mortality_plot|function|a13ad40a620243a2
+us_mortality_plot|function|7c909b26caa98f09
 rips|function|70c5e8526e720c1d
 make_pbs|function|309d44106a87752a
 pbs_rescale|function|2474fb7432b28a0b
 create_wine_figure|function|6ed6e9034deefa69
 katex_it|function|6aa6600050412839
 get_expt1_prob|function|8b9960e405c95cdc
-pbs_joint_table|function|c91bc42a3086d77f
 pbs_plot|function|65c67a41c0485c88
 pbs_inset|function|e7ede95995d00f00
 diff_metrics|function|f1898a6671326913
-create_fig_tsparadigms|function|edf4d3827c0e5721
+create_fig_tsparadigms|function|28b1342999028051
 pbs_spaghetti_ids|function|b9e7686c22ff27f8
-uconn_theme|function|11d517619028c56e
+uconn_theme|function|34eb8f78bd9cc22a
 get_of_lookout_prob|function|5b3b7c7a98b9ce5f
 katex_up|function|f50f4f24cff70b89
 uconn_sections|object|e7dd282491aca533
 katex_sub|function|569ceea13854b96b
-pbs_feature_space_stages|function|45d4269b6e161cdb
+pbs_feature_space_stages|function|d1959595da8ff5e6
 tar_png|function|5ccc851ba7eb0146
 generate_showcase_examples|function|694f9fe65dcccf57
 generate_exp1|function|428ae308d8401455
@@ -366,10 +382,11 @@ experiment_plot|function|63bce21baa98cad6
 generate_exp3|function|21dbe787e78b6aa0
 generate_exp4|function|3e9a629d9f12db0f
 truncated_smooth|function|2209345bcc71d09a
+pbs_joint_plot|function|495deee13d1ddfc5
 set_ggplot_options|function|b809772f2a4c01db
 augment_notouts|function|120c6b036fc687e5
 as_dobin|function|b5785418219275bf
-pbs_roll_plot|function|56f988ecc04cdd1c
+pbs_roll_plot|function|9c8d4e8c1a21c2d8
 make_spot_anomaly_data|function|07117f74786de401
 create_showcase_figure|function|30460ff456b5d230
 video_tag|function|d35950190307e436
@@ -378,8 +395,9 @@ pbs_spaghetti_plot|function|7be6cc76030a84a7
 pbs_roll_data|function|1c573e68f19bb226
 gpd_stage_data|function|31aba823e91f606c
 pbs_forecast_probs|function|3a62f8cf403169c5
-pbs_pc_girafe|function|32ade73c7f9e129e
+pbs_pc_girafe|function|5a0c2fa94277d6d4
 compute_pbs_pca|function|ee010cc2a58a3a33
+hover_card|function|c3d88045a4b774bb
 create_gpd_shape_fig|function|fdbcc432fcd3fbc4
 compute_stmf_scores|function|fdddcd9f4ef945ea
 plot_wine_loo_surprisals|function|cbffdeffaa03eed8
@@ -389,7 +407,6 @@ get_expt2_prob_single|function|e59c7cf56bb14731
 create_fr_anomaly_girafe|function|c422373f99befc9e
 find_fr_anomalies|function|7fbebe92c5cb7687
 make_us_stmf|function|a44145251a9b0b3d
-hover_card|function|41eed8d69c66d3a5
 create_fr_mortality_plot|function|4795f367151c639e
 create_fig_expt2|function|23ac8fd40308dc84
 get_legend|function|e4406b4459e4a928
@@ -410,13 +427,12 @@ make_figchisq1|function|c483fe4ed3b0d1ad
 compute_pbs_features|function|7b90d92160bb5416
 create_fig_surprisal_prob|function|7730ec22166f0554
 noutouts_anomalies|function|87a06cc95c72f089
-pbs_joint_plot|function|495deee13d1ddfc5
 create_old_faithful_figure|function|874012c275ffdd72
-us_mortality_girafe|function|dba600f60ec9ae65
-us_mortality_zoom_video|function|86b6a50e40538903
+us_mortality_girafe|function|5b67173bd31f458a
+us_mortality_zoom_video|function|89728fee40e15539
 pbs_heatmap_plot|function|1e6dbeb2841f4e95
-gpd_stage_plot|function|148486d089aad566
-create_fig_expt1|function|ffaac798f8979e43
+gpd_stage_plot|function|8b2cd9c26cc3c823
+create_fig_expt1|function|8fc6331b8a507070
 pbs_feature_stages|function|a3b93899af893060
 set_up_diff_metrics|function|448ecb18690e5dcb
 create_hampel_fig|function|063057b2902d6a76
@@ -427,11 +443,13 @@ create_figure_exp1|function|0a7d5f8d7b5cee75
 create_figure_exp3|function|e3ca328d969dbb88
 create_figure_exp4|function|b9433c37ebd03a95
 create_figure_exp2|function|d6de4f60713fa1f2
-with_uconn_style|function|39cdb365e7b7adc4
+pbs_joint_girafe|function|3354dd8ebc46774d
+with_uconn_style|function|80e049203ae146ce
 cat_png_stack|function|46e7a2b754deb97e
 get_gpd_shape_single|function|4a9e3ea9a95f9a60
 pbs_spaghetti_video|function|a7e9ae14caa9d8b0
 pbs_spaghetti_stages|function|406d4533073da1f1
+pbs_joint_card|function|ac2fdbcfb6ff24b8
 get_expt2_prob|function|407cd187893abbfb
 make_kde_plot|function|5bcd7c21111a945e
 run_synthetic_exp1|function|7bf95cefd71358d8
@@ -443,22 +461,10 @@ section|function|5644519ac26ddeb6
 make_fig_sp_katex|function|54a828fba1883128
 analyse_wine_data|function|6e2210dcd1e2ea14
 analyse_old_faithful|function|2200323710e43aa1
-save_png|function|98e458eed7c1233b
+save_png|function|8fccefcc138b37b3
 get_gpd_shape|function|0a98f77fe790965a
-pbs_heatmap_files|function|d21674002da62da8
-save_aligned_pngs|function|3d6322252974adcc
-pbs_roll_files|function|fe8e33a2a3509955
-gpd_stage_files|function|b67d9af5616d308c
-pbs_series_pngs|function|f99fab35dcc3df7a
-fig_sp_normal|stem|98450efdc4ba7bd3|cb507431523213e2|30cdb4c36aa878ab|59612374||t20740.1122374992s|s73b|73|rds|local|vector|||1.159||
-fig_sp0|stem|ac47928c32e1169e|f5dcd79359174156|30cdb4c36aa878ab|-1433420519||t20740.1122704553s|s261358b|261358|rds|local|vector|||2.775||
-fig_sp1|stem|100d473d0a84c879|e581f884a1f54f39|30cdb4c36aa878ab|-389765719||t20740.1123035235s|s284177b|284177|rds|local|vector|||2.767||
-fig_sp2|stem|4b1e9f7124c4c5b8|b7e190c9cd76a0c9|30cdb4c36aa878ab|-1640226396||t20740.1123358386s|s295049b|295049|rds|local|vector|||2.729||
-fig_spot_anomaly1|stem|3a2a39714f6d67bb|27643aab95099ed0|93d8b4a17aa895cb|1828931490||t20740.1123372043s|s224777b|224777|rds|local|vector|||0.005||
-fig_spot_anomaly2|stem|bb027e6ed1f4ca91|59fdb6a13b3026e4|95a4d18b20b279e9|217533196||t20740.1123376326s|s221493b|221493|rds|local|vector|||0.003||
-fig_sp_katex|stem|7165601aaeea1ccd|c4eabc9019e4701b|bbcebfc0fb2ac8d3|-335138383||t20740.1123405724s|s845297b|845297|rds|local|vector|||0.053||
-fig_expt1b|stem|4960fa3f8386bc25|96d9c5faaed2a058|cfb60fe2529d4808|-1786410210||t20740.1123415446s|s155516b|155516|rds|local|vector|||0.049||
-fig_expt1|stem|0ee3e758e4f33ff6|21003c6016fa5f81|cfb60fe2529d4808|259389283||t20740.1123423085s|s156565b|156565|rds|local|vector|||0.034||
-fig_sp_png|stem|85861d6a2bc5f6fe|a38d2bdd81b36633|42450cb0658dfc5c|393547051|figs/uconn/fig_sp1.png*figs/uconn/fig_sp2.png*figs/uconn/fig_sp3.png|t20740.1123519845s|s327111b|327111|file|local|vector|||0.782||
-fig_expt1b_png|stem|345bf8e423819beb|38565007d3e6c8ab|e8a7c5301a8adaf0|-972050522|figs/uconn/fig_expt1b.png|t20740.1123569498s|s176414b|176414|file|local|vector|||0.415||
-slides_uconn|stem|926b1560063a3d00|25c5f46efd4c636a|945c1b2fb0db913d|1505566149|uconn_2026.html*uconn_2026.qmd*_extensions/quarto-monash/presentation/_extension.yml*_extensions/quarto-monash/presentation/_images/background/bg-01.png*_extensions/quarto-monash/presentation/_images/background/bg-02.png*_extensions/quarto-monash/presentation/_images/background/bg-03.png*_extensions/quarto-monash/presentation/_images/background/bg-04.png*_extensions/quarto-monash/presentation/_images/background/bg-05.png*_extensions/quarto-monash/presentation/_images/background/bg-06.png*_extensions/quarto-monash/presentation/_images/background/bg-07.png*_extensions/quarto-monash/presentation/_images/background/bg-08.png*_extensions/quarto-monash/presentation/_images/background/bg-09.png*_extensions/quarto-monash/presentation/_images/background/bg-10.png*_extensions/quarto-monash/presentation/_images/background/bg-11.png*_extensions/quarto-monash/presentation/_images/background/bg-12.png*_extensions/quarto-monash/presentation/_images/background/bg-13.png*_extensions/quarto-monash/presentation/_images/logo/monash-one-line-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-shield.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-black-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb-transparent.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-blue-rgb.png*_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png*_extensions/quarto-monash/presentation/beamer/beamerthemeMonash.sty*_extensions/quarto-monash/presentation/beamer/before-title.tex*_extensions/quarto-monash/presentation/beamer/toc.tex*_extensions/quarto-monash/presentation/letterbox/letterbox.scss*_extensions/quarto-monash/presentation/letterbox/theme.html*_extensions/quarto-monash/presentation/letterbox/title-slide.html*_extensions/quarto-monash/presentation/revealjs/monash.scss*_extensions/quarto-monash/presentation/typst/typst-show.typ*_extensions/quarto-monash/presentation/typst/typst-template.typ*figs/title_ts.png*fonts/fira-sans-latin-400-italic.woff2*fonts/fira-sans-latin-400-normal.woff2*fonts/fira-sans-latin-700-italic.woff2*fonts/fira-sans-latin-700-normal.woff2*fonts/fira-sans-latin-ext-400-italic.woff2*fonts/fira-sans-latin-ext-400-normal.woff2*fonts/fira-sans-latin-ext-700-italic.woff2*fonts/fira-sans-latin-ext-700-normal.woff2*fonts/fonts.css*fonts/hack-bold-subset.woff2*fonts/hack-bolditalic-subset.woff2*fonts/hack-italic-subset.woff2*fonts/hack-regular-subset.woff2*katex/fonts/KaTeX_AMS-Regular.woff2*katex/fonts/KaTeX_Caligraphic-Bold.woff2*katex/fonts/KaTeX_Caligraphic-Regular.woff2*katex/fonts/KaTeX_Fraktur-Bold.woff2*katex/fonts/KaTeX_Fraktur-Regular.woff2*katex/fonts/KaTeX_Main-Bold.woff2*katex/fonts/KaTeX_Main-BoldItalic.woff2*katex/fonts/KaTeX_Main-Italic.woff2*katex/fonts/KaTeX_Main-Regular.woff2*katex/fonts/KaTeX_Math-BoldItalic.woff2*katex/fonts/KaTeX_Math-Italic.woff2*katex/fonts/KaTeX_SansSerif-Bold.woff2*katex/fonts/KaTeX_SansSerif-Italic.woff2*katex/fonts/KaTeX_SansSerif-Regular.woff2*katex/fonts/KaTeX_Script-Regular.woff2*katex/fonts/KaTeX_Size1-Regular.woff2*katex/fonts/KaTeX_Size2-Regular.woff2*katex/fonts/KaTeX_Size3-Regular.woff2*katex/fonts/KaTeX_Size4-Regular.woff2*katex/fonts/KaTeX_Typewriter-Regular.woff2*katex/katex-local.html*katex/katex.min.css*katex/katex.min.js*title-slide.html*uconn_2026.css|t20740.1125623332s|s49790441b|49790441|file|local|vector|||17.92||
+pbs_heatmap_files|function|2de6a724c8ab0e39
+save_aligned_pngs|function|67bf7f575ffa74e6
+pbs_roll_files|function|4aa5921889a80b4b
+gpd_stage_files|function|f5cd437130182e0b
+pbs_series_pngs|function|18b896227b0db9e4

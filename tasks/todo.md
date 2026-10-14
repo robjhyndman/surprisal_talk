@@ -199,3 +199,25 @@ fbtsa (github.com/robjhyndman/fbtsa), using the PBS series that the section alre
 - Gotcha: Quarto's auto-stretch flattens a slide whose only image is in an r-stack (dropping the stack
   and the video). Slides with a single-PNG stack need `{.nostretch}`, as on the Hampel slide.
 - Headless Chrome: PNG and video share one box; video plays to its end (8.0 s); slide ends 4px inside.
+
+# Deck review: accuracy, font sizes, design, text (14 Oct 2026)
+
+- [x] Screenshot every slide (all fragments) in headless Chrome; measure font sizes and content extent
+- [x] Slide 9: fix the description of the experiment (it didn't match the plot on slide 10); 3 short cards
+- [x] Slide 19: `a` is one constant per age group, not `a_t`; shorter lead-in
+- [x] Slides 32, 43: drop `.small` (room to spare); slide 28: lone bullet → plain line
+- [x] Title slide: URL pinned bottom left, below the background series
+- [x] Plot theme: base_size 18; warm grey panels (#ebe6dc), grid in slide colour, navy strips; rebuilt all targets
+
+## Review
+
+- Re-rendered and re-screenshotted: only slides 1, 9, 19, 28, 32, 43 changed; slide 32 ends at 736px
+  (within the letterbox border), slide 43 at 710px.
+- Theme rebuild: 25 targets in ~3 min. Follow-up fixes: slides 20/21 y breaks (us_mortality_plot, so the static,
+  zoom video and girafe versions match), slide 27 pairs-plot strips back to plain text, slide 10 legend label
+  "f itself" (legend clipped at base_size 18). Contact sheets of all 22 figure slides checked.
+- Slides 20/21 at 9 x 4.65in like slide 18 (PNG, girafe and zoom video). Slide 21's girafe container
+  reaches 768px, but its SVG ends at 756px; the extra is empty widget space, as before.
+- Slide 2: sketches revealed one at a time with their cards (fig_tsparadigms_stage_pngs, hidden sketches
+  drawn transparent; stage 3 pixel-identical to the full figure); cards moved down 15px to centre on panels.
+- Alert cards: fill #f6e9e0 → #fff1e6 (light peach), which no longer clashes with the warm grey panels.
