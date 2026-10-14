@@ -1,4 +1,16 @@
 {
-  "cSpell.words": ["figchisq", "JCGS"],
-  "editor.formatOnSave": true
+  "cSpell.words": [
+    "figchisq",
+    "JCGS"
+  ],
+  "editor.formatOnSave": true,
+  "positron.r.customBinaries": [
+    "/usr/local/bin/R"
+  ],
+  "positron.r.customRootFolders": [
+    "/home/hyndman/.uvr/r-versions"
+  ],
+  "positron.r.interpreters.default": "/usr/local/bin/R",
+  "r.rpath.linux": "/usr/local/bin/R",
+  "r.rterm.linux": "/usr/local/bin/R"
 }
