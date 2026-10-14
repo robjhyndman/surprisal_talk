@@ -95,7 +95,7 @@ include_png(tar_read(fig_tsparadigms_png))
 
 `r section("Surprisals")`
 
-## Surprisal probabilities
+## Surprisal probabilities {.nostretch}
 
 ::: {.alertblock}
 The probability of an observation at least as unlikely as $y_t$ under density $f$:
@@ -110,7 +110,7 @@ $$
 #| results: asis
 
 files <- tar_read(fig_sp_png)
-cat("\n::: {.r-stack .r-stretch}\n")
+cat("\n::: {.r-stack .sp-stack}\n")
 for (step in seq_along(files)) {
   cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
   cat("![](", files[step], "){width=1800}\n", sep = "")

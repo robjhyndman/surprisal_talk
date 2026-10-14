@@ -447,14 +447,24 @@ body.quarto-light,
   margin-top: 0.9em;
 }
 
+/* Surprisal probability figure: taller than the stretch would make it, its
+   axis title reaching the bottom of the slide */
+.reveal .slides section .r-stack.sp-stack {
+  height: 484px;
+  margin-top: 0.3em;
+}
+
 .reveal .slides section .r-stack.r-stretch > div,
-.reveal .slides section .r-stack.r-stretch > div > p {
+.reveal .slides section .r-stack.r-stretch > div > p,
+.reveal .slides section .r-stack.sp-stack > div,
+.reveal .slides section .r-stack.sp-stack > div > p {
   height: 100%;
   margin: 0;
 }
 
 .reveal .slides section .r-stack.r-stretch img,
-.reveal .slides section .r-stack.r-stretch video {
+.reveal .slides section .r-stack.r-stretch video,
+.reveal .slides section .r-stack.sp-stack img {
   display: block;
   margin: 0 auto;
   height: 100%;
