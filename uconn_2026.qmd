@@ -974,14 +974,44 @@ tar_read(pbs_joint_card_html)
 
 `r section("Summary")`
 
-## Summary
+## One idea, three types of surprise {#summary}
 
-- [Weird times]{.alert}: remove the signal (moving median, STL), then surprisals of standardised residuals.
-  Check for artefacts near large anomalies.
-- [Weird series]{.alert}: features $\rightarrow$ multivariate anomaly detection, using LOO KDE surprisals.
-- [Surveillance]{.alert}: surprisals of one-step forecast densities, refitting as data arrive.
-  Forecast distributions are often too narrow.
-- In every case: surprisal = $-\log$(conditional density); extreme surprisals have an approximate GPD tail even when $f$ is wrong.
+::: {.absolute top="75" left="0" width="620"}
+```{r}
+#| label: fig_tsparadigms_summary
+#| out-width: "100%"
+
+include_png(tar_read(fig_tsparadigms_png))
+```
+:::
+
+::: {.absolute top="100" left="660" width="620"}
+::::: {.block .small}
+**Weird times**\
+$f$: density of residuals from the signal
+:::::
+:::
+
+::: {.absolute top="262" left="660" width="620"}
+::::: {.block .small}
+**Weird series**\
+$f$: kernel density of the features
+:::::
+:::
+
+::: {.absolute top="425" left="660" width="620"}
+::::: {.block .small}
+**Surveillance**\
+$f$: one-step forecast density
+:::::
+:::
+
+::: {.absolute .fragment top="575" left="0" width="1280"}
+::::: {.alertblock}
+- Surprisal probabilities: $p_t = \mathbb{P}\big(f(Y) \le f(y_t)\big)$
+- GPD tail keeps $p_t$ approximately right even when $f$ is wrong
+:::::
+:::
 
 ## Find out more
 
