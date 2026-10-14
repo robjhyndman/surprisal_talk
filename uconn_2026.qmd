@@ -290,8 +290,13 @@ fr_mortality
 ```{r}
 #| label: fr_mortality_print
 
-tar_read(fr_mortality)
+tar_read(fr_mortality) |> print(n = 8)
+fr_years <- range(tar_read(fr_mortality)$Year)
+fr_ages <- range(tar_read(fr_mortality)$Age)
 ```
+
+- Annual data: `r fr_years[1]`–`r fr_years[2]`
+- Ages `r fr_ages[1]`–`r fr_ages[2]`, by sex
 
 ## French mortality rates
 
@@ -459,8 +464,13 @@ us_stmf
 ```{r}
 #| label: stmf-print-output
 
-tar_read(us_stmf)
+tar_read(us_stmf) |> print(n = 8)
+us_weeks <- format(range(tar_read(us_stmf)$Week))
+us_ages <- unique(tar_read(us_stmf)$`Age group`)
 ```
+
+- Weekly data: `r us_weeks[1]` to `r us_weeks[2]`
+- `r length(us_ages)` age groups: `r paste(us_ages, collapse = ", ")`
 
 ## US weekly mortality rates
 
