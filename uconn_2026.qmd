@@ -1013,20 +1013,6 @@ $f$: one-step forecast density
 :::::
 :::
 
-## Find out more
-
-::: {.columns}
-::::: {.column width="22%"}
-![](figs/weird-hex.png){width="100%"}
-:::::
-::::: {.column width="78%"}
-- R package **weird** available on CRAN
-- *That's weird* book in preparation at [`OTexts.com/weird`](https://OTexts.com/weird)\
-  Chapter 11: Time series data
-- Slides, links and related papers: [`robjhyndman.com/uconn2026`](https://robjhyndman.com/uconn2026)
-:::::
-:::
-
 ## Coauthors
 
 ::: {.columns}
@@ -1050,6 +1036,40 @@ Turner\
 David\
 Frazier\
 *Monash U*
+:::::
+:::
+
+## Find out more
+
+::: {.cards .cards-2 .find-out-more}
+::::: {.block}
+[R package]{.block-title}
+
+![](figs/weird-hex.png){.find-out-more-hex}
+
+**weird** on CRAN
+
+`install.packages("weird")`
+:::::
+
+::::: {.block}
+[Book]{.block-title}
+
+*That's weird: Anomaly detection using R*
+
+In preparation at\
+[`OTexts.com/weird`](https://OTexts.com/weird)
+
+Chapter 11: Time series data
+:::::
+:::
+
+::: {.absolute top="495" left="0" width="1280"}
+::::: {.alertblock .find-out-more-link}
+![](figs/qr_uconn2026.svg){.find-out-more-qr}
+
+Slides, links and related papers:\
+[`robjhyndman.com/uconn2026`](https://robjhyndman.com/uconn2026)
 :::::
 :::
 

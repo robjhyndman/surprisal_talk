@@ -668,3 +668,56 @@ body.quarto-light,
   margin: 0;
   width: 100%;
 }
+
+/* ---- Find out more ---- */
+
+.reveal .slide .find-out-more {
+  margin-top: 1em;
+}
+
+.reveal .slide .find-out-more,
+.reveal .slide .find-out-more-link {
+  font-size: 1.15em;
+}
+
+/* Package card: hex pinned to the top right, install line to the bottom */
+.reveal .slide .find-out-more > .block:has(.find-out-more-hex) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.reveal .slide .find-out-more > .block:has(.find-out-more-hex) > p:last-child {
+  margin-top: auto;
+}
+
+/* The hex's own paragraph takes no space, so the text below it moves up */
+.reveal .slide .find-out-more p:has(> img.find-out-more-hex) {
+  height: 0;
+  margin: 0;
+}
+
+.reveal .slide .find-out-more img.find-out-more-hex {
+  position: absolute;
+  top: 0.3em;
+  right: 0.8em;
+  width: 250px;
+  margin: 0;
+}
+
+/* QR code on the left, text centred in the remaining space */
+.reveal .find-out-more-link {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.reveal .find-out-more-link > p:last-child {
+  flex: 1;
+}
+
+.reveal .slide .find-out-more-link img.find-out-more-qr {
+  display: block;
+  width: 190px;
+  margin: 0;
+}
