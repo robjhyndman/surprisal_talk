@@ -58,30 +58,38 @@ register_katex_font()
 options(pillar.width = 75)
 ```
 
-## Three types of surprise
+## Three types of surprise {.nostretch}
 
 ::: {.absolute top="95" left="0" width="760"}
 ```{r}
 #| label: fig_tsparadigms
-#| out-width: "100%"
+#| results: asis
 
-include_png(tar_read(fig_tsparadigms_png))
+# Each sketch appears with its card (stage k shows sketches 1 to k)
+files <- tar_read(fig_tsparadigms_stage_pngs)
+cat("\n::: {.r-stack}\n")
+for (k in seq_along(files)) {
+  cat("\n::: {.fragment fragment-index=\"", k, "\"}\n", sep = "")
+  cat("![](", files[k], "){width=100%}\n", sep = "")
+  cat("\n:::\n")
+}
+cat("\n:::\n")
 ```
 :::
 
-::: {.absolute .fragment top="110" left="800" width="470"}
+::: {.absolute .fragment top="125" left="800" width="470" fragment-index="1"}
 ::::: {.block}
 **Weird times**: unusual observations in a historical series
 :::::
 :::
 
-::: {.absolute .fragment top="316" left="800" width="470"}
+::: {.absolute .fragment top="331" left="800" width="470" fragment-index="2"}
 ::::: {.block}
 **Weird series**: an unusual series in a collection
 :::::
 :::
 
-::: {.absolute .fragment top="500" left="800" width="470"}
+::: {.absolute .fragment top="515" left="800" width="470" fragment-index="3"}
 ::::: {.block}
 **Surveillance**: an unusual observation just arrived
 :::::

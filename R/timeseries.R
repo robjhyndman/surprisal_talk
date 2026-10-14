@@ -2,7 +2,10 @@
 # That's Weird (OTexts.com/weird/timeseries.html)
 
 # Three anomaly detection paradigms
-create_fig_tsparadigms <- function(fr_mortality) {
+# The three types of surprise, one sketch each. Sketches not in `show` are
+# drawn fully transparent, so every subset has the same layout and the stages
+# overlay exactly.
+create_fig_tsparadigms <- function(fr_mortality, show = 1:3) {
   a12 <- tsibbledata::PBS |>
     group_by(ATC2) |>
     summarise(Scripts = sum(Scripts) / 1e3) |>
@@ -29,7 +32,16 @@ create_fig_tsparadigms <- function(fr_mortality) {
     theme(axis.title = element_blank()) +
     scale_x_yearmonth(breaks = NULL) +
     scale_y_continuous(breaks = NULL)
-  patchwork::wrap_plots(p1, p2, p3, ncol = 1)
+  hide <- function(p) {
+    p$layers <- lapply(p$layers, function(l) {
+      l$aes_params$alpha <- 0
+      l
+    })
+    p + theme(panel.background = element_blank(), panel.grid = element_blank())
+  }
+  plots <- list(p1, p2, p3)
+  plots[-show] <- lapply(plots[-show], hide)
+  patchwork::wrap_plots(plots, ncol = 1)
 }
 
 # Weird series: features of all PBS series

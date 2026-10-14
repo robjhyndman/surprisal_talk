@@ -744,6 +744,18 @@ list(
   ),
   # PNGs of the figures in uconn_2026.qmd -----------------
   tar_png(fig_tsparadigms, width = 7, height = 5.6),
+  # Slide 2 reveals the sketches one at a time, each with its card
+  tar_target(
+    fig_tsparadigms_stage_pngs,
+    vapply(1:3, function(k) {
+      save_png(
+        create_fig_tsparadigms(fr_mortality, show = seq_len(k)),
+        file.path("figs", "uconn", paste0("fig_tsparadigms_", k, ".png")),
+        width = 7, height = 5.6
+      )
+    }, character(1)),
+    format = "file"
+  ),
   tar_png(fig_expt1b),
   tar_png(fig_fr_mortality2),
   # Stages of the Hampel figure, in the order of fig_hampel_stages
