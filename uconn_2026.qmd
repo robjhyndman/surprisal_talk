@@ -480,13 +480,15 @@ us_ages <- unique(tar_read(us_stmf)$`Age group`)
 - Weekly data: `r us_weeks[1]` to `r us_weeks[2]`
 - `r length(us_ages)` age groups: `r paste(us_ages, collapse = ", ")`
 
-## US weekly mortality rates
+## US weekly mortality rates {.nostretch}
 
+::: {.absolute .us-fig top="95" left="0" width="1280"}
 ```{r}
 #| label: fig_stmf
 
 include_png(tar_read(fig_stmf_png))
 ```
+:::
 
 ## Surprisals from an STL decomposition {.small}
 

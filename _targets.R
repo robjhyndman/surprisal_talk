@@ -528,6 +528,12 @@ list(
     us_stmf |>
       autoplot(Mortality) +
       facet_grid(`Age group` ~ ., scales = "free_y") +
+      # About 3 breaks, so the narrow panels' labels don't crowd
+      scale_y_continuous(
+        breaks = scales::breaks_extended(n = 3),
+        labels = scales::label_number(drop0trailing = TRUE)
+      ) +
+      labs(x = "Week") +
       guides(colour = "none")
   ),
   tar_target(
@@ -756,8 +762,8 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
-  tar_png(fig_stmf),
-  tar_png(fig_stl_anomalies, height = 4.25),
+  tar_png(fig_stmf, height = 4.65),
+  tar_png(fig_stl_anomalies, height = 4.65),
   # Feature-space build-up: stages of each figure, overlaid as fragments
   tar_target(pbs_scaled, pbs_rescale(pbs_raw)),
   tar_target(

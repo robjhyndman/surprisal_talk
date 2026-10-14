@@ -166,6 +166,11 @@ us_mortality_plot <- function(
       size = 2
     ) +
     facet_grid(`Age group` ~ ., scales = "free_y") +
+    # About 3 breaks, so the narrow panels' labels don't crowd
+    scale_y_continuous(
+      breaks = scales::breaks_extended(n = 3),
+      labels = scales::label_number(drop0trailing = TRUE)
+    ) +
     guides(colour = "none") +
     labs(x = NULL, y = "Mortality")
 }
@@ -175,7 +180,7 @@ us_mortality_plot <- function(
 us_mortality_girafe <- function(
   ...,
   width = 9,
-  height = 4.25,
+  height = 4.65,
   tooltip_css = paste(
     "background:#0f2a44; color:white; padding:6px 10px; border-radius:6px;",
     "font-family:'Fira Sans', sans-serif; font-size:20px;"
@@ -210,7 +215,7 @@ us_mortality_zoom_video <- function(
   fps = 30,
   band_alpha = 0.08,
   width = 9,
-  height = 4.25,
+  height = 4.65,
   res = 200,
   background = "#fbf9f4"
 ) {
