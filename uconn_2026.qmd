@@ -947,15 +947,13 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 
 - $M_t$: number of series monitored at time $t$
 - $N_t$: number of series with $p_{i,t} < 0.001$
-- If series independent, each flagged with probability $\pi$:
-  $N_t \sim \text{Binomial}(M_t, \pi)$
-- Surprisal $s_t = -\log \mathbb{P}(N_t = n_t)$. For $n_t$ above the mode, larger counts are less likely,
-  so the surprisal probability is $\mathbb{P}(N_t \ge n_t)$.
+- Independent series: $N_t \sim \text{Binomial}(M_t, \pi)$
+- Surprisal probability: $\mathbb{P}(N_t \ge n_t)$
 
 ::: {.fragment}
-- If forecast densities were correct, $\pi = 0.001$.
-- But ETS forecast distributions are too narrow: `r sprintf("%.1f", 100 * mean(pbs_scores$prob < 0.001, na.rm = TRUE))`% of observations have $p_{i,t} < 0.001$.
-- So estimate $\pi$ in real time from all previous months.
+- $\pi = 0.001$ if forecast densities correct
+- ETS forecast densities too narrow: actual rate is `r sprintf("%.3f", mean(pbs_scores$prob < 0.001, na.rm = TRUE))`
+- Solution: estimate $\pi$ from all previous months
 :::
 
 ## Surveillance across several series
@@ -963,29 +961,14 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 ```{r}
 #| label: pbs_joint
 
-include_png(tar_read(fig_pbs_joint_png))
+tar_read(pbs_joint_girafe_widget)
 ```
-
-## Surveillance across several series {.small}
 
 ```{r}
-#| label: pbs_joint_table
+#| label: pbs_joint_card
 
-tar_read(pbs_joint_anomalies) |>
-  knitr::kable(format = "pipe", align = "lrrrr")
-tar_load(pbs_feb08)
+tar_read(pbs_joint_card_html)
 ```
-
-- Dec 1997, Dec 2001: unusually large end-of-year stockpiling spikes
-- Mar 1999: no obvious explanation
-- Feb 2008: `r pbs_feb08$n` of `r pbs_feb08$M` groups flagged.
-  Usual February fall did not occur, but Jan + Feb in line with previous years.
-  A change in timing, not demand.
-
-::: {.fragment}
-- Independence is unrealistic, so these probabilities are too small.
-  Still useful for ranking months.
-:::
 
 ## Summary {#part-summary .section-slide background-color="#0f2a44"}
 

@@ -706,16 +706,18 @@ list(
     compute_pbs_joint(pbs_scores)
   ),
   tar_target(
-    fig_pbs_joint,
-    pbs_joint_plot(pbs_joint)
+    pbs_joint_girafe_widget,
+    with_uconn_style(pbs_joint_girafe(pbs_joint))
   ),
+  # Explanations of the significant months, shown in a card when hovering over the plot
   tar_target(
-    pbs_joint_anomalies,
-    pbs_joint_table(pbs_joint)
-  ),
-  tar_target(
-    pbs_feb08,
-    pbs_joint |> filter(Month == yearmonth("2008 Feb"))
+    pbs_joint_card_html,
+    pbs_joint_card(pbs_joint, c(
+      `1997 Dec` = "Unusually large end-of-year stockpiling spike",
+      `1999 Mar` = "No obvious explanation",
+      `2001 Dec` = "Unusually large end-of-year stockpiling spike",
+      `2008 Feb` = "Usual February fall did not occur: a change in timing, not demand"
+    ))
   ),
   # PNGs of the figures in uconn_2026.qmd -----------------
   tar_png(fig_tsparadigms, width = 7, height = 5.6),
@@ -801,7 +803,6 @@ list(
   ),
   tar_png(fig_pbs_missing),
   tar_png(fig_pbs_anomalies, height = 4.6),
-  tar_png(fig_pbs_joint),
   # The surprisal probability steps, with the same panel position in every
   # step so they overlay exactly
   tar_target(

@@ -728,21 +728,83 @@ pbs_joint_plot <- function(pbs_joint, threshold = 0.001) {
     labs(y = "Number of flagged ATC groups")
 }
 
-# Months with a significant number of flagged series, formatted for a table
-pbs_joint_table <- function(pbs_joint, threshold = 0.001) {
-  pbs_joint |>
+# Interactive version of pbs_joint_plot(): each significant month has an
+# invisible band `halfwidth` months either side of its bar (which is too narrow
+# to hover over easily), with the month as data_id for pbs_joint_card().
+# Hovering over a band makes its bar glow. ggiraph styles every element with
+# the hovered data_id alike, so the glow is only a drop-shadow filter, which
+# leaves the unfilled band invisible.
+pbs_joint_girafe <- function(
+  pbs_joint,
+  threshold = 0.001,
+  width = 9,
+  height = 4.4,
+  halfwidth = 5,
+  glow_css = "filter:drop-shadow(0 0 3px #e0601a);"
+) {
+  flagged <- pbs_joint |>
+    filter(prob < threshold) |>
+    mutate(month = format(Month))
+  p <- pbs_joint_plot(pbs_joint, threshold) +
+    # The significant bars again, now interactive so they can glow
+    ggiraph::geom_col_interactive(
+      data = flagged,
+      aes(data_id = month),
+      fill = "#C14b14",
+      # Same bar width as the full series, not the sparse flagged months
+      width = 0.9 * resolution(as.numeric(as.Date(pbs_joint$Month)), zero = FALSE)
+    ) +
+    ggiraph::geom_rect_interactive(
+      data = flagged,
+      aes(
+        xmin = Month - halfwidth, xmax = Month + halfwidth,
+        ymin = 0, ymax = max(pbs_joint$n),
+        data_id = month
+      ),
+      inherit.aes = FALSE,
+      fill = NA,
+      colour = NA
+    )
+  ggiraph::girafe(
+    ggobj = p,
+    width_svg = width,
+    height_svg = height,
+    options = list(
+      ggiraph::opts_hover(css = glow_css),
+      ggiraph::opts_sizing(rescale = TRUE, width = 1),
+      ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
+    )
+  )
+}
+
+# Card for pbs_joint_girafe() showing n_t, P(N_t >= n_t) and `explanations`
+# (a named vector keyed by month, e.g. "1997 Dec") for the hovered month. It
+# sits in the empty top-left of the plot.
+pbs_joint_card <- function(pbs_joint, explanations, threshold = 0.001) {
+  # The slides' CSS reset neutralises <i>, <sub> and <sup>, so style them inline
+  sub <- function(x) sprintf("<span style='font-size:70%%; vertical-align:sub'>%s</span>", x)
+  sup <- function(x) sprintf("<span style='font-size:70%%; vertical-align:super'>%s</span>", x)
+  it <- function(x) sprintf("<span style='font-style:italic'>%s</span>", x)
+  # Probability as "a × 10^b"
+  sci <- function(x) {
+    e <- floor(log10(x))
+    paste0(sprintf("%.1f &times; 10", x / 10^e), sup(paste0("&minus;", -e)))
+  }
+  flagged <- pbs_joint |>
     filter(prob < threshold) |>
     mutate(
-      Month = format(Month),
-      pi = sprintf("%.4f", pi),
-      prob = sprintf("%.1e", prob)
-    ) |>
-    rename(
-      `$M_t$` = M,
-      `$n_t$` = n,
-      `$\\hat\\pi_t$` = pi,
-      `$\\mathbb{P}(N_t \\ge n_t)$` = prob
+      month = format(Month),
+      label = paste0(
+        it("n"), sub("t"), " = ", n, "<br>",
+        "P(", it("N"), sub("t"), " &ge; ", it("n"), sub("t"), ") = ", sci(prob), "<br>",
+        explanations[month]
+      )
     )
+  hover_card(
+    stats::setNames(flagged$label, flagged$month),
+    sep = "<br>",
+    class = "plot-top-left"
+  )
 }
 
 # Feature-space build-up ------------------------------------------------------

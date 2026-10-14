@@ -532,6 +532,14 @@ body.quarto-light,
   opacity: 1;
 }
 
+/* In the empty top-left of a plot filling the slide below the title */
+.reveal .hover-card.plot-top-left {
+  top: 140px;
+  left: 190px;
+  right: auto;
+  line-height: 1.3;
+}
+
 .reveal .hover-card.is-alert {
   background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
 }

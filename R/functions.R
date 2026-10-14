@@ -247,14 +247,16 @@ document.addEventListener('mouseover', function (e) {
 
 # Card that shows a label for the item under the mouse in an interactive
 # (ggiraph) plot on the same slide. `labels` is a named vector keyed by the
-# plot's data_id; the card shows "key: label". Keys in `alert` are shown in
-# the alert style.
-hover_card <- function(labels, alert = NULL) {
+# plot's data_id; the card shows "key: label" (labels may contain HTML, and
+# `sep` replaces the ":"). Keys in `alert` are shown in the alert style.
+# `class` adds classes to the card, e.g. to position it.
+hover_card <- function(labels, alert = NULL, sep = ":", class = NULL) {
   htmltools::tagList(
     htmltools::div(
-      class = "hover-card",
+      class = paste(c("hover-card", class), collapse = " "),
       `data-labels` = jsonlite::toJSON(as.list(labels), auto_unbox = TRUE),
-      `data-alert` = jsonlite::toJSON(as.character(alert))
+      `data-alert` = jsonlite::toJSON(as.character(alert)),
+      `data-sep` = sep
     ),
     htmltools::tags$script(htmltools::HTML(
       "
@@ -266,7 +268,7 @@ document.addEventListener('mouseover', function (e) {
   var key = item && item.getAttribute('data-id');
   var label = key && JSON.parse(card.dataset.labels)[key];
   if (!label) { card.classList.remove('show'); return; }
-  card.innerHTML = '<strong>' + key + ':</strong> ' + label;
+  card.innerHTML = '<strong>' + key + card.dataset.sep + '</strong> ' + label;
   card.classList.toggle('is-alert', JSON.parse(card.dataset.alert).includes(key));
   card.classList.add('show');
 });"
