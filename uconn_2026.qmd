@@ -863,14 +863,14 @@ ETS refitted monthly for every series.
 Points: [$p < 0.01$]{style="color: #F39B00"}, [$p < 0.001$]{style="color: #c14b14"}.
 :::
 
-## Surveillance using forecast distributions
+## Surprisal probabilities as p-values
 
 ::: {.incremental}
-- If $f_{i,t+1}$ is the true conditional density, and $G_{i,t+1}$ is continuous, then
+- If $f_{i,t+1|t}$ is the true forecast density, and the surprisal distribution is continuous, then
   $$
-    p_{i,t+1} \mid \mathcal{F}_{i,t} \sim \text{U}(0,1)
+    p_{i,t+1} \mid y_{i,1},\dots,y_{i,t} \sim \text{U}(0,1)
   $$
-  so the $p_{i,t}$ are iid U(0,1) over $t$ (a PIT of the surprisals).
+  so the $p_{i,t}$ are iid U(0,1) over $t$.
 - Thresholding at $\alpha$ gives a false alarm rate of $\alpha$ per series per period.
 - Model updated each period, so a level shift is flagged when it happens, then becomes the "new normal".
 - ETS: Gaussian forecast distributions, so $p_{i,t+1}$ is a two-sided $z$-test on the one-step forecast error.
@@ -973,8 +973,10 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 
 - $M_t$: number of series monitored at time $t$
 - $N_t$: number of series with $p_{i,t} < 0.001$
-- If series independent, each flagged with probability $\pi$:\
-  $N_t \sim \text{Binomial}(M_t, \pi)$; compute $\mathbb{P}(N_t \ge n_t)$
+- If series independent, each flagged with probability $\pi$:
+  $N_t \sim \text{Binomial}(M_t, \pi)$
+- Surprisal $s_t = -\log \mathbb{P}(N_t = n_t)$. For $n_t$ above the mode, larger counts are less likely,
+  so the surprisal probability is $\mathbb{P}(N_t \ge n_t)$.
 
 ::: {.fragment}
 - If forecast densities were correct, $\pi = 0.001$.
