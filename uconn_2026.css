@@ -174,9 +174,22 @@ body.quarto-light,
   margin: 0.2em 0;
 }
 
-.reveal .block ul,
-.reveal .block ol {
+/* .slide in the selectors outranks the theme's .reveal .slide ul/li spacing */
+.reveal .slide .block ul,
+.reveal .slide .block ol,
+.reveal .slide .alertblock ul,
+.reveal .slide .alertblock ol {
   margin-top: 0;
+  margin-bottom: 0;
+}
+
+.reveal .slide .block li:first-child,
+.reveal .slide .alertblock li:first-child {
+  margin-top: 0;
+}
+
+.reveal .slide .block li:last-child,
+.reveal .slide .alertblock li:last-child {
   margin-bottom: 0;
 }
 
