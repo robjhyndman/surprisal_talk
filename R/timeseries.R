@@ -617,6 +617,88 @@ pbs_roll_files <- function(d, dir, fps = 20, slow = 4, slow_frames = 10, width =
   c(pngs, video, poster)
 }
 
+# Heat map of the surprisal probabilities of all series (rows) over time,
+# filled in up to month number `upto` (0 for an empty map), with a line at the
+# current month. Colours as in pbs_roll_plot().
+pbs_heatmap_plot <- function(pbs_scores, upto) {
+  colours <- c(low = "#d5dbe3", mid = "#F39B00", high = "#c14b14")
+  p_lab <- function(x) paste(katex_it("p"), x)
+  d <- pbs_scores |>
+    as_tibble() |>
+    mutate(
+      x = lubridate::year(Month) + (lubridate::month(Month) - 1) / 12,
+      row = match(ATC2, sort(unique(ATC2))),
+      level = factor(
+        ifelse(prob < 0.001, "high", ifelse(prob < 0.01, "mid", "low")),
+        levels = names(colours)
+      )
+    )
+  months <- sort(unique(d$x))
+  groups <- sort(unique(d$ATC2))
+  # Label the first group of each anatomical main group (first letter)
+  first <- which(!duplicated(substr(groups, 1, 1)))
+  now <- if (upto > 0) months[upto] else months[1] - 1 / 12
+  ggplot(d |> filter(!is.na(prob), x <= now), aes(x = x, y = row, fill = level)) +
+    geom_raster() +
+    annotate("segment", x = now + 1 / 24, xend = now + 1 / 24, y = 0.5,
+      yend = length(groups) + 0.5, colour = "#0f2a44", linewidth = 0.8) +
+    scale_fill_manual(
+      values = colours, limits = names(colours), drop = FALSE,
+      labels = c(p_lab("&ge; 0.01"), p_lab("&lt; 0.01"), p_lab("&lt; 0.001")),
+      name = NULL
+    ) +
+    scale_x_continuous(breaks = seq(1995, 2008, by = 1), expand = c(0, 0)) +
+    scale_y_reverse(breaks = first, labels = substr(groups[first], 1, 1),
+      expand = c(0, 0)) +
+    coord_cartesian(xlim = c(months[1] - 1 / 24, max(months) + 1 / 24),
+      ylim = c(length(groups) + 0.5, 0.5)) +
+    labs(x = NULL, y = "ATC group") +
+    theme(
+      panel.grid.major = element_blank(),
+      legend.position = "top",
+      legend.justification = "right",
+      legend.text = ggtext::element_markdown(size = 14),
+      legend.margin = margin(0, 0, 0, 0)
+    )
+}
+
+# PNG of the empty heat map and an MP4 filling it in month by month (one
+# month per frame, holding the end for a second), with its poster (the last
+# frame). Frames are drawn from grobs aligned with the PNG, as in
+# pbs_roll_files().
+pbs_heatmap_files <- function(pbs_scores, dir, fps = 24, width = 9, height = 4.2,
+                              res = 400, video_width = 1800,
+                              background = "#fbf9f4") {
+  register_katex_font()
+  n <- length(unique(pbs_scores$Month))
+  plots <- lapply(0:n, function(m) pbs_heatmap_plot(pbs_scores, m))
+  tmp <- tempfile(fileext = ".png")
+  ragg::agg_png(tmp, width = width, height = height, units = "in", res = res)
+  grobs <- with_uconn_style(align_ggplots(plots))
+  grDevices::dev.off()
+  unlink(tmp)
+  dir.create(dir, showWarnings = FALSE, recursive = TRUE)
+  png <- save_png(grobs[[1]], file.path(dir, "fig_pbs_heatmap.png"),
+    width = width, height = height, res = res)
+  frames_dir <- tempfile("frames")
+  dir.create(frames_dir)
+  drawn <- file.path(frames_dir, sprintf("step%03d.png", seq_along(grobs)))
+  for (i in seq_along(grobs)) {
+    ragg::agg_png(drawn[i], width = width, height = height, units = "in",
+      res = res, background = background)
+    grid::grid.draw(grobs[[i]])
+    grDevices::dev.off()
+  }
+  frames <- rep(drawn, c(rep(1, length(drawn) - 1), fps))
+  video <- file.path(dir, "fig_pbs_heatmap.mp4")
+  poster <- file.path(dir, "fig_pbs_heatmap_end.png")
+  file.copy(drawn[length(drawn)], poster, overwrite = TRUE)
+  av::av_encode_video(frames, video, framerate = fps,
+    vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
+  unlink(frames_dir, recursive = TRUE)
+  c(png, video, poster)
+}
+
 # Surveillance across series: number of flagged series each month, and the
 # probability of at least that many under a Binomial with pi estimated from
 # all previous months

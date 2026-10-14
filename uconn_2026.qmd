@@ -918,33 +918,20 @@ pbs_fc |>
 tar_read(pbs_fc_probs) |> print(width = Inf)
 ```
 
-## Rolling forward through the data
+## Rolling forward through all series {.nostretch}
 
 ```{r}
-#| label: pbsloop
-#| echo: true
-#| eval: false
+#| label: fig_pbs_heatmap
+#| results: asis
 
-pbs$prob <- NA_real_
-for (i in seq(36, max(pbs$t) - 1)) {
-  pbs_fc <- pbs |>
-    filter(t <= i) |>
-    group_by_key() |>
-    filter(cumsum(Scripts) > 0, n() >= 36) |>
-    ungroup() |>
-    model(ets = ETS(Scripts)) |>
-    forecast(h = 1)
-  # ... compute surprisals_prob() for time i+1 and store in pbs$prob
-}
-```
-
-```{r}
-#| label: pbs_scores
-
+files <- tar_read(fig_pbs_heatmap_files)
+cat_png_stack(files[1], video = files[2:3])
 tar_load(c(pbs_scores, pbs_anomalies))
 ```
 
-- `r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
+::: {.fragment}
+`r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
+:::
 
 ## Surveillance anomalies
 

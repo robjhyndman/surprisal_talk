@@ -184,3 +184,18 @@ fbtsa (github.com/robjhyndman/fbtsa), using the PBS series that the section alre
 - Follow-up: density labelled f_{t+1|t}; tails evaluated at the exact boundaries (fill edges horizontal),
   traced only when thin (p < 0.05, curve near vertical), dashed boundary lines dropped.
 
+# Slide 41: heat map of surprisal probabilities rolled forward (14 Oct 2026)
+
+- [x] `pbs_heatmap_plot()` / `pbs_heatmap_files()`: series × month tiles coloured by p (as slide 37),
+      empty start PNG, video filling in month by month, poster = final frame
+- [x] Target `fig_pbs_heatmap_files`; qmd: replace the loop code on slide 41
+- [x] tar_make, render, check alignment and playback in headless Chrome
+
+## Review
+
+- Slide 41's loop code replaced by a heat map (84 ATC groups × 168 months, coloured by p as on slide 37):
+  empty map, then an 8 s video filling it in month by month behind a moving line; count line as a fragment.
+  Months affecting many series (Dec 1997, Mar 1999, Dec 2001, early 2008) show as vertical stripes.
+- Gotcha: Quarto's auto-stretch flattens a slide whose only image is in an r-stack (dropping the stack
+  and the video). Slides with a single-PNG stack need `{.nostretch}`, as on the Hampel slide.
+- Headless Chrome: PNG and video share one box; video plays to its end (8.0 s); slide ends 4px inside.

@@ -682,6 +682,13 @@ list(
     pbs_scores,
     readRDS(pbs_scores_file)
   ),
+  # Heat map of all surprisal probabilities, filled in month by month
+  tar_target(
+    fig_pbs_heatmap_files,
+    pbs_heatmap_files(pbs_scores, file.path("figs", "uconn")),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
   tar_target(
     pbs_anomalies,
     pbs_scores |> filter(prob < 0.001)
