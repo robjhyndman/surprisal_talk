@@ -536,6 +536,48 @@ body.quarto-light,
   background: linear-gradient(to right, var(--orange) 6px, var(--amber-tint) 6px);
 }
 
+/* Card across the top of the slide showing the image for the hovered item */
+.reveal .image-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  font-size: 0.85em;
+  padding: 0.35em 0.8em 0.5em calc(0.8em + 6px);
+  border-radius: 10px;
+  background: linear-gradient(to right, var(--orange) 6px, var(--card) 6px);
+  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.15);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.reveal .image-card.show {
+  opacity: 1;
+}
+
+.reveal .image-card.at-bottom {
+  top: auto;
+  bottom: 0;
+}
+
+.reveal .image-card-item {
+  display: none;
+}
+
+.reveal .image-card-item.show {
+  display: block;
+}
+
+.reveal .slides section .image-card img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0.2em 0 0 0;
+}
+
 /* Display maths aligned left, e.g. in a column beside bullet points */
 .reveal .math-left .katex-display,
 .reveal .math-left .katex-display > .katex {

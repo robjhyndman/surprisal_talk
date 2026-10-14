@@ -577,22 +577,26 @@ list(
     )
   ),
   # Weird series: PBS
+  # Our own copy with only the columns we use (ATC2 alone identifies the
+  # series, so ATC1 is redundant), so it prints more readably
   tar_target(
     pbs_raw,
-    tsibbledata::PBS
+    tsibbledata::PBS |>
+      update_tsibble(key = c(Concession, Type, ATC2)) |>
+      select(Month, Concession, Type, ATC2, Scripts)
   ),
   tar_target(
     pbs_features,
     compute_pbs_features(pbs_raw)
   ),
   tar_target(
-    pbs_features_table,
-    pbs_features |>
-      select(-Concession, -Type, -ATC1)
-  ),
-  tar_target(
     pbs_pca,
     compute_pbs_pca(pbs_features)
+  ),
+  tar_target(
+    pbs_prcomp_table,
+    pbs_pca |>
+      select(Concession:ATC2, starts_with(".fitted"))
   ),
   tar_target(
     pbs_pca_table,
@@ -601,24 +605,42 @@ list(
       arrange(prob)
   ),
   tar_target(
-    fig_pbs_pca,
-    pbs_pca |>
-      ggplot(aes(x = .fittedPC1, y = .fittedPC2)) +
-      geom_point() +
-      labs(x = "Principal component 1", y = "Principal component 2")
+    pbs_pc_girafe_widget,
+    with_uconn_style(pbs_pc_girafe(pbs_pca))
   ),
   tar_target(
-    fig_pbs_outliers,
-    pbs_series_plot(
-      pbs_raw,
-      pbs_pca |> filter(prob < 0.001),
-      "Outlying time series in PC space"
+    pbs_kde_girafe_widget,
+    with_uconn_style(pbs_pc_girafe(pbs_pca, hdr = TRUE))
+  ),
+  # Series shown in a card when hovering over their points in the PC plots:
+  # the anomalies, plus an isolated point (A15) and the top-left point (C09)
+  tar_target(
+    pbs_highlights,
+    pbs_pca |>
+      filter(
+        prob < 0.001 |
+          paste(Concession, Type, ATC2) %in%
+            c("General Co-payments A15", "Concessional Co-payments C09")
+      ) |>
+      arrange(prob)
+  ),
+  tar_target(
+    pbs_highlight_pngs,
+    pbs_series_pngs(pbs_raw, pbs_highlights),
+    format = "file"
+  ),
+  tar_target(
+    pbs_highlight_card,
+    image_card(
+      pbs_highlight_pngs,
+      keys = with(pbs_highlights, paste(ATC2, Concession, Type)),
+      titles = with(pbs_highlights, paste0(ATC2, ": ", Concession, ", ", Type))
     )
   ),
   tar_target(
     pbs_missing,
     pbs_features |>
-      anti_join(pbs_pca, by = c("Concession", "Type", "ATC1", "ATC2"))
+      anti_join(pbs_pca, by = c("Concession", "Type", "ATC2"))
   ),
   tar_target(
     fig_pbs_missing,
@@ -781,8 +803,6 @@ list(
     )),
     format = "file"
   ),
-  tar_png(fig_pbs_pca),
-  tar_png(fig_pbs_outliers),
   tar_png(fig_pbs_missing),
   tar_png(fig_a12, height = 3.2),
   tar_png(fig_tscv),

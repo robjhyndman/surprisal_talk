@@ -634,7 +634,10 @@ window.addEventListener("load", function () {
 #| echo: true
 #| eval: false
 
-tsibbledata::PBS
+PBS <- tsibbledata::PBS |>
+  update_tsibble(key = c(Concession, Type, ATC2)) |>
+  select(Month, Concession, Type, ATC2, Scripts)
+PBS
 ```
 
 ```{r}
@@ -710,19 +713,54 @@ tar_load(c(pbs_features, pbs_missing))
 ```{r}
 #| label: pbs_feat_print
 
-tar_read(pbs_features_table) |>
-  print(n = 3, width = 75)
+pbs_features |>
+  print(n = 3, width = 80)
 ```
 
-- `r NROW(pbs_features)` series, `r ncol(pbs_features) - 4` features each; `r NROW(pbs_missing)` series have missing features.
-- Reduce to 2 principal components of the scaled features.
+- `r NROW(pbs_features)` series, `r sum(sapply(pbs_features, is.numeric))` features each; `r NROW(pbs_missing)` series have missing features.
+
+## Australian Pharmaceutical Benefits Scheme
+
+```{r}
+#| label: fig_pbs_missing
+
+include_png(tar_read(fig_pbs_missing_png))
+```
+
+## Australian Pharmaceutical Benefits Scheme
+
+```{r}
+#| label: pbs_prcomp
+#| echo: true
+#| eval: false
+
+PBS_feat <- PBS_feat |> na.omit()
+PBS_prcomp <- PBS_feat |>
+  select(where(is.numeric)) |>
+  prcomp(scale = TRUE, rank = 2) |>
+  augment(PBS_feat)
+PBS_prcomp |>
+  select(Concession:ATC2, starts_with(".fitted"))
+```
+
+```{r}
+#| label: pbs_prcomp_print
+
+tar_read(pbs_prcomp_table) |> print(n = 5)
+```
 
 ## Australian Pharmaceutical Benefits Scheme
 
 ```{r}
 #| label: fig_weirdseries_pca
 
-include_png(tar_read(fig_pbs_pca_png))
+tar_read(pbs_pc_girafe_widget)
+```
+
+```{r}
+#| label: pbs_pc_card
+
+tar_read(pbs_highlight_card)
 ```
 
 ## Kernel density surprisals {.small}
@@ -755,6 +793,20 @@ $$
 ## Australian Pharmaceutical Benefits Scheme
 
 ```{r}
+#| label: fig_pbs_kde
+
+tar_read(pbs_kde_girafe_widget)
+```
+
+```{r}
+#| label: pbs_kde_card
+
+tar_read(pbs_highlight_card)
+```
+
+## Australian Pharmaceutical Benefits Scheme
+
+```{r}
 #| label: weirdseries_kde
 #| echo: true
 #| eval: false
@@ -764,7 +816,8 @@ PBS_prcomp |>
     prob = surprisals_prob(
       PBS_prcomp |> select(.fittedPC1, .fittedPC2),
       loo = TRUE,
-      approximation = "gpd"
+      approximation = "gpd",
+      method = "lookout"
     )
   ) |>
   select(Concession, Type, ATC2, .fittedPC1, .fittedPC2, prob) |>
@@ -776,22 +829,6 @@ PBS_prcomp |>
 #| label: weirdseries_kde_run
 
 tar_read(pbs_pca_table) |> print(n = 5)
-```
-
-## Australian Pharmaceutical Benefits Scheme
-
-```{r}
-#| label: fig_weirdseries_anomalies
-
-include_png(tar_read(fig_pbs_outliers_png))
-```
-
-## Australian Pharmaceutical Benefits Scheme
-
-```{r}
-#| label: fig_pbs_missing
-
-include_png(tar_read(fig_pbs_missing_png))
 ```
 
 ## Surveillance {#part-surveillance .section-slide background-color="#0f2a44"}

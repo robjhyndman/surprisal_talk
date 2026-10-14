@@ -195,6 +195,56 @@ align_ggplots <- function(plots) {
   })
 }
 
+# Card across the slide showing an image for the item under the
+# mouse in an interactive (ggiraph) plot on the same slide. `images` is a
+# vector of image files and `keys` the matching data_ids; `titles` are shown
+# above the images. Items without an image hide the card. The card sits at the
+# top of the slide, or the bottom when the item is in the top half. It can appear
+# on several slides; its mouse handler is registered once.
+image_card <- function(images, keys, titles = keys) {
+  items <- purrr::pmap(
+    list(images, keys, titles),
+    function(image, key, title) {
+      htmltools::div(
+        class = "image-card-item",
+        `data-key` = key,
+        htmltools::strong(title),
+        # Inline, so the card changes (and the slides rebuild) when an image does
+        htmltools::img(src = knitr::image_uri(image))
+      )
+    }
+  )
+  htmltools::tagList(
+    htmltools::div(class = "image-card", items),
+    htmltools::tags$script(htmltools::HTML(
+      "
+if (!window.imageCardListener) {
+window.imageCardListener = true;
+document.addEventListener('mouseover', function (e) {
+  var section = e.target.closest('section');
+  var card = section && section.querySelector('.image-card');
+  if (!card) return;
+  var item = e.target.closest('.girafe [data-id]');
+  var key = item && item.getAttribute('data-id');
+  var shown = false;
+  card.querySelectorAll('.image-card-item').forEach(function (el) {
+    var match = el.dataset.key === key;
+    el.classList.toggle('show', match);
+    shown = shown || match;
+  });
+  card.classList.toggle('show', shown);
+  // Keep the card clear of the hovered item: at the bottom of the slide if
+  // the item is in the top half
+  if (shown) {
+    var r = item.getBoundingClientRect(), s = section.getBoundingClientRect();
+    card.classList.toggle('at-bottom', r.top + r.height / 2 < s.top + s.height / 2);
+  }
+});
+}"
+    ))
+  )
+}
+
 # Card that shows a label for the item under the mouse in an interactive
 # (ggiraph) plot on the same slide. `labels` is a named vector keyed by the
 # plot's data_id; the card shows "key: label". Keys in `alert` are shown in

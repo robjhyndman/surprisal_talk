@@ -332,11 +332,11 @@ make_us_episodes <- function() {
 }
 
 # Weird series: first two principal components of the scaled PBS features,
-# with LOO KDE surprisal probabilities
+# with LOO KDE surprisal probabilities (lookout bandwidth)
 compute_pbs_pca <- function(pbs_features) {
   feat <- pbs_features |> na.omit()
   pca <- feat |>
-    select(-Concession, -Type, -ATC1, -ATC2) |>
+    select(-Concession, -Type, -ATC2) |>
     prcomp(scale = TRUE, rank = 2) |>
     broom::augment(feat)
   pca |>
@@ -344,19 +344,116 @@ compute_pbs_pca <- function(pbs_features) {
       prob = surprisals_prob(
         pca |> select(.fittedPC1, .fittedPC2),
         loo = TRUE,
-        approximation = "gpd"
+        approximation = "gpd",
+        method = "lookout"
       )
     )
 }
 
-# PBS series matching the keys in `series`, one panel each
+# Interactive PC scatterplot; hovering over a point shows its series. With
+# `hdr = TRUE`, the points are drawn over the 50%, 90% and 99% HDRs of the KDE
+# used for the surprisals (lookout bandwidth), anomalies are highlighted, and
+# the hover text adds the GPD surprisal probability. The GPD only models the top
+# 10% of surprisals, so probabilities at the threshold are shown as "> 0.1".
+pbs_pc_girafe <- function(
+  pbs_pca,
+  hdr = FALSE,
+  threshold = 0.001,
+  coverage = c(0.5, 0.9, 0.99),
+  width = 9,
+  height = 4.4,
+  tooltip_css = paste(
+    "background:#0f2a44; color:white; padding:6px 10px; border-radius:6px;",
+    "font-family:'Fira Sans', sans-serif; font-size:20px;"
+  )
+) {
+  fmt_prob <- function(p) {
+    dplyr::case_when(
+      p >= 0.1 ~ "&gt; 0.1",
+      p < 1e-4 ~ "&lt; 0.0001",
+      .default = format(signif(p, 2), scientific = FALSE, drop0trailing = TRUE)
+    )
+  }
+  points <- pbs_pca |>
+    mutate(
+      weird = hdr & prob < threshold,
+      id = paste(ATC2, Concession, Type),
+      tooltip = paste0(ATC2, ": ", Concession, ", ", Type)
+    ) |>
+    arrange(weird)
+  if (hdr) {
+    points <- points |>
+      mutate(tooltip = paste0(tooltip, "<br>Surprisal probability: ", fmt_prob(prob)))
+    kde <- pbs_pca |>
+      select(.fittedPC1, .fittedPC2) |>
+      dist_kde(method = "lookout")
+    p <- gg_density(kde, hdr = "fill", prob = coverage) +
+      # gg_density()'s 50% and 90% shades, with a lighter 99% region
+      scale_fill_manual(values = c("#53A0CB", "#98C6DF", "#D9EAF4"), guide = "none")
+  } else {
+    p <- ggplot()
+  }
+  p <- p +
+    ggiraph::geom_point_interactive(
+      data = points,
+      aes(x = .fittedPC1, y = .fittedPC2, colour = weird, size = weird, data_id = id, tooltip = tooltip),
+      inherit.aes = FALSE
+    ) +
+    scale_colour_manual(values = c(`FALSE` = "#1e293b", `TRUE` = "#c14b14"), guide = "none") +
+    scale_size_manual(values = c(`FALSE` = 1.5, `TRUE` = 2.5), guide = "none") +
+    labs(x = "Principal component 1", y = "Principal component 2")
+  ggiraph::girafe(
+    ggobj = p,
+    width_svg = width,
+    height_svg = height,
+    bg = "#fbf9f4",
+    options = list(
+      ggiraph::opts_tooltip(css = tooltip_css, use_fill = FALSE),
+      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:2px; r:6px;"),
+      ggiraph::opts_sizing(rescale = TRUE, width = 1),
+      ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
+    )
+  )
+}
+
+# One wide, short PNG of each PBS series in `series` (in order), for a card
+# shown when hovering over its point in pbs_pc_girafe()
+pbs_series_pngs <- function(PBS, series, dir = "figs/uconn", width = 9, height = 1.7) {
+  purrr::pmap_chr(
+    series |> select(Concession, Type, ATC2),
+    function(Concession, Type, ATC2) {
+      file <- file.path(dir, paste0("pbs_series_", ATC2, "_", Concession, "_", gsub(" ", "_", Type), ".png"))
+      p <- PBS |>
+        filter(Concession == !!Concession, Type == !!Type, ATC2 == !!ATC2) |>
+        ggplot(aes(x = Month, y = Scripts)) +
+        geom_line(colour = "#1d6fa5", linewidth = 0.6) +
+        scale_y_continuous(
+          breaks = \(x) unique(floor(pretty(x, 3))),
+          labels = scales::label_comma()
+        ) +
+        labs(x = NULL, y = NULL) +
+        theme(plot.background = element_rect(fill = "white", colour = NA))
+      save_png(p, file, width = width, height = height)
+    }
+  )
+}
+
+# PBS series matching the keys in `series`, one panel each. Each y-axis starts
+# at zero and covers at least 0-1 with whole-number breaks, so all-zero series
+# get a sensible scale.
 pbs_series_plot <- function(PBS, series, title) {
   PBS |>
     semi_join(series, by = c("Concession", "Type", "ATC2")) |>
-    autoplot(Scripts) +
-    facet_grid(vars(Concession, Type, ATC2), scales = "free_y") +
-    labs(title = title) +
-    guides(colour = "none")
+    mutate(series = paste0(ATC2, ": ", Concession, ", ", Type)) |>
+    ggplot(aes(x = Month, y = Scripts)) +
+    geom_line(colour = "#1d6fa5") +
+    geom_blank(aes(y = 1)) +
+    facet_wrap(~series, ncol = 1, scales = "free_y") +
+    scale_y_continuous(
+      limits = c(0, NA),
+      breaks = \(x) unique(floor(pretty(x, 3)))
+    ) +
+    labs(x = NULL, title = title)
 }
 
 # Surveillance: one-step ETS forecasts from the first `i` months, for series
