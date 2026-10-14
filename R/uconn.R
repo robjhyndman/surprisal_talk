@@ -2,14 +2,21 @@
 
 # ggplot2 theme for the slides
 uconn_theme <- function() {
-  theme_minimal(base_size = 15, base_family = "Fira Sans") +
+  theme_minimal(base_size = 18, base_family = "Fira Sans") +
     theme(
       plot.background = element_rect(fill = "#fbf9f4", colour = NA),
+      # Warm grey panels with grid lines in the slide colour, so the grid fades
+      # into the background; strips in the navy softened into the panel grey (70%)
+      panel.background = element_rect(fill = "#ebe6dc", colour = NA),
       panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(colour = "#e4dfd4", linewidth = 0.4),
+      panel.grid.major = element_line(colour = "#fbf9f4", linewidth = 0.5),
       text = element_text(colour = "#1e293b"),
       axis.text = element_text(colour = "#64748b"),
-      strip.text = element_text(face = "bold", hjust = 0, colour = "#0f2a44"),
+      strip.background = element_rect(fill = "#516272", colour = NA),
+      strip.text = element_text(
+        face = "bold", hjust = 0, colour = "white",
+        margin = margin(4, 6, 4, 6)
+      ),
       plot.title = element_text(face = "bold", colour = "#0f2a44"),
       plot.title.position = "plot"
     )

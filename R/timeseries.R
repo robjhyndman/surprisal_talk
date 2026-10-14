@@ -364,7 +364,8 @@ pbs_pc_girafe <- function(
       dist_kde(method = "lookout")
     p <- gg_density(kde, hdr = "fill", prob = coverage) +
       # gg_density()'s 50% and 90% shades, with a lighter 99% region
-      scale_fill_manual(values = c("#53A0CB", "#98C6DF", "#D9EAF4"), guide = "none")
+      # The slides' blue mixed into the warm grey panel (45%, 28%, 14%)
+      scale_fill_manual(values = c("#8eb0c3", "#b1c5cd", "#ced5d4"), guide = "none")
   } else {
     p <- ggplot()
   }
@@ -1001,7 +1002,8 @@ pbs_feature_space_stages <- function(scaled, pbs_pca, n = 30, threshold = 0.001,
       axisLabels = "none"
     ) +
     theme(
-      strip.text = element_text(size = 10, face = "plain", hjust = 0.5),
+      strip.background = element_blank(),
+      strip.text = element_text(size = 10, face = "plain", hjust = 0.5, colour = "#0f2a44"),
       panel.grid.major = element_blank(),
       panel.border = element_rect(fill = NA, colour = "#e4dfd4"),
       plot.background = element_blank()
