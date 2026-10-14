@@ -179,7 +179,7 @@ The [upper tail]{.alert} probabilities of $G$ can be estimated using EVT.
 ## Surprisals have GPD tails
 
 ::: {.block}
-[Theorem]{.block-title}
+[Theorem: surprisals have Generalised Pareto Distribution (GPD) tails]{.block-title}
 
 If the upper tail of $S = -\log f(Y)$ is smooth, then as the threshold $u$ grows,
 
