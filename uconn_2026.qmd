@@ -233,23 +233,25 @@ Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 
 ## Univariate experiment
 
-What happens when the distribution used to compute surprisals is mis-specified?
+What happens when $f$ is mis-specified?
 
-::: {.cards .cards-2}
+::: {.cards}
 ::::: {.block}
-[Data: Normal]{.block-title}
+[Data]{.block-title}
 
-- 1000 observations from a N(0,1) distribution
-- Surprisals computed using a t(4) distribution.
-- Estimate surprisal probabilities using N(0,1), t(4), GPD
+1000 observations from N(0,1), and 1000 from t(4)
 :::::
 
 ::::: {.block}
-[Data: t(4)]{.block-title}
+[Surprisals]{.block-title}
 
-- 1000 observations from a t(4) distribution
-- Surprisals computed using a N(0,1) distribution.
-- Estimate surprisal probabilities using N(0,1), t(4), GPD
+Computed under N(0,1) and under t(4)
+:::::
+
+::::: {.block}
+[Probabilities]{.block-title}
+
+From $f$ itself, or from a GPD fitted to the surprisals
 :::::
 :::
 
@@ -466,7 +468,7 @@ include_png(tar_read(fig_stmf_png))
 Local medians fail with seasonality.
 
 ::::::: {.fragment fragment-index="1"}
-Replace by a better signal estimate for each age group:
+Use a better signal estimate:
 :::::::
 
 ::::::: {.fragment fragment-index="2"}
@@ -474,11 +476,11 @@ Replace by a better signal estimate for each age group:
 :::::::
 
 ::::::: {.fragment fragment-index="3"}
-- $a_t$: robust estimate of $\{R_t\}$ stdev, separately for each age group
+- $a$: robust scale of $R_t$ in each age group
 :::::::
 
 ::::::: {.fragment fragment-index="4"}
-- $e_t = R_t / a_t$; surprisals under N(0,1), probabilities from GPD
+- $e_t = R_t / a$; surprisals under N(0,1), probabilities from GPD
 :::::::
 :::::
 ::::: {.column width="66%"}
@@ -712,7 +714,7 @@ pbs_features |>
   print(n = 3, width = 80)
 ```
 
-- `r NROW(pbs_features)` series, `r sum(sapply(pbs_features, is.numeric))` features each; `r NROW(pbs_missing)` series have missing features.
+`r NROW(pbs_features)` series, `r sum(sapply(pbs_features, is.numeric))` features each; `r NROW(pbs_missing)` series have missing features.
 
 ## Australian Pharmaceutical Benefits Scheme
 
@@ -758,7 +760,7 @@ tar_read(pbs_pc_girafe_widget)
 tar_read(pbs_highlight_card)
 ```
 
-## Kernel density surprisals {.small}
+## Kernel density surprisals
 
 ::: {.block}
 [KDE]{.block-title}
@@ -941,7 +943,7 @@ tar_load(c(pbs_scores, pbs_anomalies))
 include_png(tar_read(fig_pbs_anomalies_png))
 ```
 
-## Surveillance across several series {.small}
+## Surveillance across several series
 
 Some events affect many series at once: mildly unusual in each, very unusual together.
 
