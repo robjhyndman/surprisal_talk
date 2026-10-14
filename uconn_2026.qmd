@@ -183,12 +183,16 @@ The [upper tail]{.alert} probabilities of $G$ can be estimated using EVT.
 
 If the upper tail of $S = -\log f(Y)$ is smooth, then as the threshold $u$ grows,
 
+<!-- panache-ignore-format-start -->
 $$
-  \mathbb{P}\left( \frac{S - u}{a(u)} \le y \;\middle|\; S > u \right) \longrightarrow \begin{cases}
-                                                                                         1 - (1 + \xi y)^{-1/\xi}, & \xi > 0, \\
-                                                                                         1 - e^{-y},               & \xi = 0.
-                                                                                       \end{cases}
+  \mathbb{P}\left( \frac{S - u}{a(u)} \le y \;\middle|\; S > u \right)
+  \longrightarrow
+  \begin{cases}
+    1 - (1 + \xi y)^{-1/\xi}, & \xi > 0,\\
+    1 - e^{-y}, & \xi = 0.
+  \end{cases}
 $$
+<!-- panache-ignore-format-end -->
 :::
 
 ::: {.cards .cards-2}

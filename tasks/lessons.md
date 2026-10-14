@@ -23,6 +23,8 @@
 - The editor's panache formatter also reformats R code chunks (one pipe step per line), which can undo
   hand-tuned line joins and push slides into overflow. Protect such chunks with
   `<!-- panache-ignore-format-start -->` / `<!-- panache-ignore-format-end -->` around the chunk.
+  It also realigns multi-line display maths (e.g. `cases` environments) into one long, deeply indented
+  line; protect hand-laid-out `$$` blocks with the same markers.
 - Don't stage the rendered slide HTML (e.g. `uconn_2026.html`, ~40 MB) in ordinary commits. Commit it once
   at the end of the session (usually end of day).
 - Words like "log" in running text (e.g. "$-$log likelihood") are deliberately kept out of maths so they
