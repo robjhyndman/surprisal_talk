@@ -505,6 +505,11 @@ pbs_roll_plot <- function(d, origin, level = 4, labels = TRUE, width = 100) {
   p_colour <- function(p) {
     unname(colours[ifelse(p < 0.001, "high", ifelse(p < 0.01, "mid", "low"))])
   }
+  # Label text in a darker amber, legible on the grey panel
+  text_colour <- function(p) {
+    col <- p_colour(p)
+    ifelse(col == colours[["mid"]], "#a86900", col)
+  }
   date <- function(t) as.Date(d$series$Month[match(t, d$series$t)])
   math <- function(label, ...) {
     annotate("text", label = label, parse = TRUE, family = "KaTeX", size = 6, ...)
@@ -577,7 +582,7 @@ pbs_roll_plot <- function(d, origin, level = 4, labels = TRUE, width = 100) {
         formatC(signif(fc$prob, 2), format = "fg", digits = 2))
       p <- p +
         math(p_label, x = x0 + width + 20, y = fc$y - 3.5 * fc$sigma,
-          hjust = 0, colour = p_colour(fc$prob))
+          hjust = 0, colour = text_colour(fc$prob))
     }
   }
   if (level >= 3) {
@@ -587,7 +592,7 @@ pbs_roll_plot <- function(d, origin, level = 4, labels = TRUE, width = 100) {
     if (labels) {
       p <- p +
         math("italic(s)[italic(t)+1] == -log~italic(f)[italic(t)+1*\"|\"*italic(t)](italic(y)[italic(t)+1])",
-          x = x0 + width + 20, y = fc$y, hjust = 0, colour = p_colour(fc$prob))
+          x = x0 + width + 20, y = fc$y, hjust = 0, colour = text_colour(fc$prob))
     }
   }
   p
