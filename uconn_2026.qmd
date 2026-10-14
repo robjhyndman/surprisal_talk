@@ -231,17 +231,17 @@ Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 
 What happens when the distribution used to compute surprisals is mis-specified?
 
-::: {.block}
-[Data N(0,1)]{.block-title}
+::: {.cards .cards-2}
+::::: {.block}
+[Data: Normal]{.block-title}
 
 - 1000 observations from a N(0,1) distribution
 - Surprisals computed using a t(4) distribution.
 - Estimate surprisal probabilities using N(0,1), t(4), GPD
-:::
+:::::
 
-::: {.fragment}
 ::::: {.block}
-[Data t(4)]{.block-title}
+[Data: t(4)]{.block-title}
 
 - 1000 observations from a t(4) distribution
 - Surprisals computed using a N(0,1) distribution.

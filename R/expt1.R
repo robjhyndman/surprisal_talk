@@ -64,5 +64,6 @@ create_fig_expt1 <- function(norm, t4, empirical = TRUE) {
     ggplot(aes(x = y, y = Probability, col = Estimate, lty = Distribution)) +
     geom_line() +
     facet_wrap(~Model, scales = "free_x") +
-    theme(legend.position = "bottom")
+    labs(lty = paste("Distribution", katex_it("f"))) +
+    theme(legend.position = "bottom", legend.title = ggtext::element_markdown())
 }
