@@ -652,22 +652,12 @@ list(
     make_pbs(pbs_raw)
   ),
   tar_target(
-    fig_a12,
-    pbs |>
-      filter(ATC2 == "A12") |>
-      autoplot(Scripts) +
-      labs(
-        y = "Scripts (thousands)",
-        title = "Scripts for ATC group A12 (Mineral supplements)"
-      )
-  ),
-  tar_target(
     pbs_fc,
     pbs_forecast(pbs, i = 36)
   ),
   tar_target(
     pbs_fc_probs,
-    pbs_forecast_probs(pbs_fc, pbs, i = 36)
+    pbs_forecast_probs(pbs_fc, pbs)
   ),
   # Staged figure: one-step forecasts of S01 from a rolling origin, with a
   # video rolling the origin forward
@@ -807,7 +797,6 @@ list(
     format = "file"
   ),
   tar_png(fig_pbs_missing),
-  tar_png(fig_a12, height = 3.2),
   tar_png(fig_pbs_a12),
   tar_png(fig_pbs_n07),
   tar_png(fig_pbs_r05),

@@ -839,13 +839,14 @@ tar_read(pbs_pca_table) |> print(n = 5)
 
 pbs <- PBS |>
   group_by(ATC2) |>
-  summarise(Scripts = sum(Scripts) / 1e3)
+  summarise(Scripts = sum(Scripts) / 1e3) |>
+  mutate(t = as.numeric(Month - min(Month) + 1))
 ```
 
 ```{r}
-#| label: fig_a12
+#| label: pbs_print
 
-include_png(tar_read(fig_a12_png))
+tar_read(pbs) |> print(width = Inf)
 ```
 
 ## Surveillance using forecast distributions
@@ -892,6 +893,12 @@ pbs_fc <- pbs |>
   forecast(h = 1)
 ```
 
+```{r}
+#| label: pbsfc_print
+
+tar_read(pbs_fc) |> print(n = 7, width = Inf)
+```
+
 ## A first iteration: $t = 36$
 
 ```{r}
@@ -901,18 +908,14 @@ pbs_fc <- pbs |>
 
 pbs_fc |>
   rename(fcast = Scripts) |>
-  left_join(pbs |> filter(t == 37), by = c("Month", "ATC2")) |>
-  mutate(prob = surprisals_prob(Scripts, distribution = fcast)) |>
-  as_tibble() |>
-  select(ATC2, Scripts, fcast, prob) |>
-  arrange(prob) |>
-  print(n = 5, width = Inf)
+  left_join(pbs, by = c("ATC2", "Month")) |>
+  mutate(prob = surprisals_prob(Scripts, distribution = fcast))
 ```
 
 ```{r}
 #| label: pbsfc_compare_print
 
-tar_read(pbs_fc_probs) |> print(n = 5, width = Inf)
+tar_read(pbs_fc_probs) |> print(width = Inf)
 ```
 
 ## Rolling forward through the data

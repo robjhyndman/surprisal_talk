@@ -434,16 +434,13 @@ pbs_forecast <- function(pbs, i = 36) {
     forecast(h = 1)
 }
 
-# Surprisal probabilities of the observations at time i + 1 under the
-# forecasts `pbs_fc` made at time i
-pbs_forecast_probs <- function(pbs_fc, pbs, i = 36) {
+# Surprisal probabilities of the observations in the month forecast by
+# `pbs_fc`
+pbs_forecast_probs <- function(pbs_fc, pbs) {
   pbs_fc |>
     rename(fcast = Scripts) |>
-    left_join(pbs |> filter(t == i + 1), by = c("Month", "ATC2")) |>
-    mutate(prob = surprisals_prob(Scripts, distribution = fcast)) |>
-    as_tibble() |>
-    select(ATC2, Scripts, fcast, prob) |>
-    arrange(prob)
+    left_join(pbs, by = c("ATC2", "Month")) |>
+    mutate(prob = surprisals_prob(Scripts, distribution = fcast))
 }
 
 # Rolling origin surveillance of one series, for the staged figure ----------
