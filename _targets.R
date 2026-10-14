@@ -827,6 +827,18 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
+  # Stages of the GPD approximation to the surprisal probabilities, with a
+  # video zooming into the tail between stages 2 and 3
+  tar_target(
+    fig_gpd_data,
+    gpd_stage_data()
+  ),
+  tar_target(
+    fig_gpd_files,
+    gpd_stage_files(fig_gpd_data, file.path("figs", "uconn")),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
   # Slides ------------------------------------------------
   #tar_quarto(
   #  slides,
