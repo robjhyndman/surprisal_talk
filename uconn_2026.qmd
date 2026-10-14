@@ -936,25 +936,9 @@ tar_load(c(pbs_scores, pbs_anomalies))
 ## Surveillance anomalies
 
 ```{r}
-#| label: fig_pbs_a12
+#| label: fig_pbs_anomalies
 
-include_png(tar_read(fig_pbs_a12_png))
-```
-
-## Surveillance anomalies
-
-```{r}
-#| label: fig_pbs_n07
-
-include_png(tar_read(fig_pbs_n07_png))
-```
-
-## Surveillance anomalies
-
-```{r}
-#| label: fig_pbs_r05
-
-include_png(tar_read(fig_pbs_r05_png))
+include_png(tar_read(fig_pbs_anomalies_png))
 ```
 
 ## Surveillance across several series {.small}

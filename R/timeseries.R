@@ -78,19 +78,23 @@ compute_pbs_scores <- function(pbs) {
   return(pbs)
 }
 
-# Surveillance anomalies for one ATC2 group
+# Surveillance anomalies for several ATC2 groups, one panel each; `series` is
+# a vector of group descriptions named by ATC2 code
 pbs_plot <- function(pbs, anomalies, series) {
+  label <- function(x) paste0(x, " (", series[x], ")")
   dates <- anomalies |>
-    filter(ATC2 == series) |>
-    pull(Month) |>
-    as.Date()
+    as_tibble() |>
+    filter(ATC2 %in% names(series)) |>
+    mutate(ATC2 = factor(label(ATC2), levels = label(names(series))))
   pbs |>
-    filter(ATC2 == series) |>
+    filter(ATC2 %in% names(series)) |>
+    mutate(ATC2 = factor(label(ATC2), levels = label(names(series)))) |>
     ggplot(aes(x = Month, y = Scripts)) +
     scale_x_yearmonth(date_breaks = "2 years", date_labels = "%Y") +
-    geom_vline(xintercept = dates, colour = "#C14b14") +
+    geom_vline(data = dates, aes(xintercept = Month), colour = "#C14b14") +
     geom_line() +
-    labs(y = "Scripts (thousands)", title = paste("Scripts for ATC group", series))
+    facet_wrap(vars(ATC2), ncol = 1, scales = "free_y") +
+    labs(x = NULL, y = "Scripts (thousands)")
 }
 
 

@@ -694,16 +694,12 @@ list(
     pbs_scores |> filter(prob < 0.001)
   ),
   tar_target(
-    fig_pbs_a12,
-    pbs_plot(pbs, pbs_anomalies, "A12")
-  ),
-  tar_target(
-    fig_pbs_n07,
-    pbs_plot(pbs, pbs_anomalies, "N07")
-  ),
-  tar_target(
-    fig_pbs_r05,
-    pbs_plot(pbs, pbs_anomalies, "R05")
+    fig_pbs_anomalies,
+    pbs_plot(pbs, pbs_anomalies, c(
+      A12 = "Mineral supplements",
+      N07 = "Other nervous system drugs",
+      R05 = "Cough and cold preparations"
+    ))
   ),
   tar_target(
     pbs_joint,
@@ -804,9 +800,7 @@ list(
     format = "file"
   ),
   tar_png(fig_pbs_missing),
-  tar_png(fig_pbs_a12),
-  tar_png(fig_pbs_n07),
-  tar_png(fig_pbs_r05),
+  tar_png(fig_pbs_anomalies, height = 4.6),
   tar_png(fig_pbs_joint),
   # The surprisal probability steps, with the same panel position in every
   # step so they overlay exactly
