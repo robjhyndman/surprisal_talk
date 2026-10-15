@@ -272,6 +272,7 @@ gpd_stage_files <- function(d, dir, seconds = 1.5, fps = 30, width = 9, height =
   video <- file.path(dir, "fig_gpd_zoom.mp4")
   poster <- file.path(dir, "fig_gpd_zoom.png")
   file.copy(frames[length(frames)], poster, overwrite = TRUE)
+  optimise_png(poster)
   av::av_encode_video(frames, video, framerate = fps,
     vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
   unlink(frames_dir, recursive = TRUE)

@@ -640,6 +640,7 @@ pbs_roll_files <- function(d, dir, fps = 20, slow = 4, slow_frames = 10, width =
   video <- file.path(dir, "fig_pbs_roll.mp4")
   poster <- file.path(dir, "fig_pbs_roll_end.png")
   file.copy(drawn[length(drawn)], poster, overwrite = TRUE)
+  optimise_png(poster)
   av::av_encode_video(frames, video, framerate = fps,
     vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
   unlink(frames_dir, recursive = TRUE)
@@ -722,6 +723,7 @@ pbs_heatmap_files <- function(pbs_scores, dir, fps = 24, width = 9, height = 4.2
   video <- file.path(dir, "fig_pbs_heatmap.mp4")
   poster <- file.path(dir, "fig_pbs_heatmap_end.png")
   file.copy(drawn[length(drawn)], poster, overwrite = TRUE)
+  optimise_png(poster)
   av::av_encode_video(frames, video, framerate = fps,
     vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
   unlink(frames_dir, recursive = TRUE)
@@ -919,6 +921,7 @@ pbs_spaghetti_video <- function(
     grDevices::dev.off()
   }
   file.copy(frames[length(frames)], poster, overwrite = TRUE)
+  optimise_png(poster)
   av::av_encode_video(frames, file, framerate = fps, verbose = FALSE)
   unlink(dir, recursive = TRUE)
   c(file, poster)

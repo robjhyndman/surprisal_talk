@@ -105,7 +105,25 @@ save_png <- function(plot, file, width = 9, height = 4.4, res = 400) {
     }
     grDevices::dev.off()
   })
-  file
+  optimise_png(file)
+}
+
+# Compress PNGs losslessly with oxipng (as ImgBot does on GitHub), so the files
+# targets records are already compressed. Returns `files`.
+optimise_png <- function(files) {
+  oxipng <- Sys.which("oxipng")
+  if (oxipng == "") {
+    oxipng <- path.expand("~/.cargo/bin/oxipng")
+  }
+  if (!file.exists(oxipng)) {
+    warning("oxipng not found; PNGs left uncompressed")
+    return(files)
+  }
+  status <- system2(oxipng, c("--quiet", "--strip", "safe", shQuote(files)))
+  if (status != 0) {
+    warning("oxipng failed on ", paste(files, collapse = ", "))
+  }
+  files
 }
 
 # Save ggplots as PNGs with identical panel positions, so they overlay exactly.
