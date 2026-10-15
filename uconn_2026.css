@@ -11,9 +11,10 @@
   --orange: #c14b14; /* Rob's signature colour, also used in the plots */
   --orange-light: #e0601a; /* for accents on the navy slides */
   --amber: #f2b33d;
-  --amber-tint: #ffffff;
   --code-bg: #13202f;
+  --code-ink: #e6edf3;
   --output-bg: #efebe3;
+  --shadow: rgba(15, 42, 68, 0.12); /* navy */
   --r-main-font-size: 34px;
   --r-main-font: "Fira Sans", sans-serif;
   --r-heading-font: "Fira Sans", sans-serif;
@@ -37,11 +38,6 @@ body.quarto-light,
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 40px 0;
 }
 
-.reveal {
-  color: var(--ink);
-  font-family: var(--r-main-font);
-}
-
 .reveal .slide {
   line-height: 1.3;
 }
@@ -52,21 +48,35 @@ body.quarto-light,
 
 .reveal .slide-number {
   color: var(--muted);
-  background: transparent;
   font-size: 14px;
 }
 
-/* ---- Headings ---- */
+/* Navigation menu button: faded until hovered */
+.reveal .slide-menu-button {
+  opacity: 0.25;
+  transition: opacity 0.2s;
+}
+
+.reveal .slide-menu-button:hover {
+  opacity: 0.9;
+}
+
+.reveal .slide-menu-button,
+.reveal .slide-menu-button :is(a, i) {
+  color: var(--muted) !important;
+}
+
+/* ---- Headings, with an accent bar underneath ---- */
 
 .reveal h2 {
-  color: var(--navy);
   font-weight: 700;
   font-size: 1.35em;
   letter-spacing: -0.01em;
   margin-bottom: 0.55em;
 }
 
-.reveal h2::after {
+.reveal h2::after,
+#title-slide .title::after {
   content: "";
   display: block;
   width: 64px;
@@ -76,23 +86,32 @@ body.quarto-light,
   background: var(--orange);
 }
 
-/* ---- Text ---- */
-
-.reveal strong {
-  font-weight: 700;
+/* Larger bar on the navy title and section slides */
+#title-slide .title::after,
+.reveal .section-slide h2::after {
+  width: 110px;
+  height: 7px;
+  background: var(--orange-light);
 }
+
+.reveal .slide.small h2 {
+  font-size: 1.55em;
+}
+
+/* ---- Text ---- */
 
 .reveal .alert {
   color: var(--orange);
   font-weight: 700;
 }
 
-.reveal a {
-  color: var(--blue);
+.reveal .small {
+  font-size: 0.87em;
 }
 
-.reveal .slide ul,
-.reveal .slide ol {
+/* ---- Lists ---- */
+
+.reveal .slide :is(ul, ol) {
   margin-top: 0.2em;
 }
 
@@ -124,37 +143,62 @@ body.quarto-light,
   font-weight: 700;
 }
 
+/* A list split into fragments (one item per fragment div) is spaced like one list */
+.reveal div.fragment:has(+ div.fragment > ul) > ul {
+  margin-bottom: 0;
+}
+
+.reveal div.fragment + div.fragment > ul {
+  margin-top: 0;
+}
+
+/* ---- Maths ---- */
+
 .reveal .katex-display {
   margin: 0.4em 0;
 }
 
-.reveal .small {
-  font-size: 0.87em;
+/* Keep each inline formula on one line (KaTeX otherwise allows breaks after
+   operators, splitting a formula across lines) */
+.reveal .katex {
+  white-space: nowrap;
 }
 
-.reveal .slide.small h2 {
-  font-size: 1.55em;
+/* Display maths aligned left, e.g. in a column beside bullet points */
+.reveal .math-left .katex-display,
+.reveal .math-left .katex-display > .katex {
+  text-align: left;
 }
 
-/* ---- Blocks as cards ---- */
+.reveal .math-left .katex-display {
+  font-size: 0.85em;
+  margin: 0.2em 0 0.3em 0;
+}
 
-.reveal .block,
-.reveal .alertblock {
-  margin: 0.3em 0;
-  padding: 0.45em 0.8em 0.45em calc(0.8em + 6px);
+.reveal .math-left ul {
+  margin-top: 0;
+}
+
+/* ---- Cards ---- */
+
+/* Blocks, and the floating cards below, with a coloured stripe down the left.
+   The stripe is painted as a straight band in the background, which the rounded
+   corners clip cleanly (a thick border-left tapers into slivers along the edges) */
+.reveal :is(.block, .alertblock, .hover-card, .image-card) {
+  --stripe: var(--blue);
   text-align: left;
   border-radius: 10px;
-  /* Left stripe painted as a straight band in the background, which the rounded
-     corners clip cleanly (a thick border-left tapers into slivers along the edges) */
-  --stripe: var(--blue);
-  --fill: var(--card);
-  background: linear-gradient(to right, var(--stripe) 6px, var(--fill) 6px);
-  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.12);
+  background: linear-gradient(to right, var(--stripe) 6px, var(--card) 6px);
+  box-shadow: 0 4px 18px var(--shadow);
 }
 
-.reveal .alertblock {
+.reveal :is(.alertblock, .image-card, .hover-card.is-alert) {
   --stripe: var(--orange);
-  --fill: var(--amber-tint);
+}
+
+.reveal :is(.block, .alertblock) {
+  margin: 0.3em 0;
+  padding: 0.45em 0.8em 0.45em calc(0.8em + 6px);
 }
 
 .reveal .block-title {
@@ -169,43 +213,104 @@ body.quarto-light,
   color: var(--orange);
 }
 
-.reveal .block p,
-.reveal .alertblock p {
+.reveal :is(.block, .alertblock) p {
   margin: 0.2em 0;
 }
 
 /* .slide in the selectors outranks the theme's .reveal .slide ul/li spacing */
-.reveal .slide .block ul,
-.reveal .slide .block ol,
-.reveal .slide .alertblock ul,
-.reveal .slide .alertblock ol {
+.reveal .slide :is(.block, .alertblock) :is(ul, ol) {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.reveal .slide .block li:first-child,
-.reveal .slide .alertblock li:first-child {
+.reveal .slide :is(.block, .alertblock) li:first-child {
   margin-top: 0;
 }
 
-.reveal .slide .block li:last-child,
-.reveal .slide .alertblock li:last-child {
+.reveal .slide :is(.block, .alertblock) li:last-child {
   margin-bottom: 0;
+}
+
+/* Rows of small cards */
+.reveal .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7em;
+  margin-top: 0.5em;
+}
+
+.reveal .cards.cards-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.reveal .cards > :is(.block, .alertblock) {
+  margin: 0;
+}
+
+/* Floating cards, shown by script for the item under the mouse */
+.reveal :is(.hover-card, .image-card) {
+  position: absolute;
+  top: 0;
+  font-size: 0.85em;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.reveal :is(.hover-card, .image-card).show {
+  opacity: 1;
+}
+
+/* Hover card: the label, at the top right */
+.reveal .hover-card {
+  right: 0;
+  max-width: 660px;
+  padding: 0.35em 0.8em 0.35em calc(0.8em + 6px);
+}
+
+/* In the empty top-left of a plot filling the slide below the title */
+.reveal .hover-card.plot-top-left {
+  top: 140px;
+  left: 190px;
+  right: auto;
+}
+
+/* Image card: the image, across the top (or bottom) of the slide */
+.reveal .image-card {
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0.35em 0.8em 0.5em calc(0.8em + 6px);
+}
+
+.reveal .image-card.at-bottom {
+  top: auto;
+  bottom: 0;
+}
+
+.reveal .image-card-item {
+  display: none;
+}
+
+.reveal .image-card-item.show {
+  display: block;
+}
+
+.reveal .slides section .image-card img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0.2em 0 0 0;
 }
 
 /* ---- Code and output ---- */
 
-.reveal code,
-.reveal pre,
-.reveal pre code,
-.reveal div.sourceCode pre code,
-.reveal div.sourceCode code span,
-.reveal .cell-output pre code {
+.reveal :is(code, pre) {
   font-family: var(--r-code-font);
 }
 
-.reveal p code,
-.reveal li code {
+.reveal :is(p, li) code {
   font-size: 0.85em;
   color: var(--navy-2);
   background: var(--output-bg);
@@ -226,7 +331,6 @@ body.quarto-light,
 }
 
 .reveal .slide pre code {
-  font-size: 1em;
   max-height: none;
   padding: 0.6em 0.9em;
 }
@@ -241,67 +345,68 @@ body.quarto-light,
 .reveal div.sourceCode pre,
 .reveal div.sourceCode pre code {
   background-color: var(--code-bg);
-  color: #e6edf3;
+  color: var(--code-ink);
   border: none;
 }
 
+/* Syntax colours */
 .reveal div.sourceCode code span {
-  color: #e6edf3;
+  color: var(--code-ink);
 }
 .reveal div.sourceCode code span.fu {
   color: #7dcfff;
 }
-.reveal div.sourceCode code span.st,
-.reveal div.sourceCode code span.ss,
-.reveal div.sourceCode code span.vs,
-.reveal div.sourceCode code span.ch {
+.reveal div.sourceCode code span:is(.st, .ss, .vs, .ch) {
   color: #a6da7b;
 }
-.reveal div.sourceCode code span.dv,
-.reveal div.sourceCode code span.bn,
-.reveal div.sourceCode code span.fl,
-.reveal div.sourceCode code span.cn {
+.reveal div.sourceCode code span:is(.dv, .bn, .fl, .cn) {
   color: #ffa86b;
 }
-.reveal div.sourceCode code span.kw,
-.reveal div.sourceCode code span.cf {
+.reveal div.sourceCode code span:is(.kw, .cf) {
   color: #c3a6ff;
 }
 .reveal div.sourceCode code span.op {
   color: #89ddff;
 }
-.reveal div.sourceCode code span.at,
-.reveal div.sourceCode code span.sc {
+.reveal div.sourceCode code span:is(.at, .sc) {
   color: #f2c66d;
 }
 .reveal div.sourceCode code span.ot {
   color: #8fb8ff;
 }
-.reveal div.sourceCode code span.co,
-.reveal div.sourceCode code span.do,
-.reveal div.sourceCode code span.cv,
-.reveal div.sourceCode code span.an {
+.reveal div.sourceCode code span:is(.co, .do, .cv, .an) {
   color: #7d8ca3;
   font-style: italic;
 }
 
 .reveal .cell-output pre,
-.reveal .cell-output pre code,
-.reveal .cell-output-stdout pre code {
+.reveal .cell-output pre code {
   background-color: var(--output-bg);
   color: var(--ink);
   border: none;
   border-radius: 10px;
 }
 
-.reveal .cell-output pre code {
-  padding: 0.6em 0.9em;
+/* Outputs that follow progressive code highlighting (see script in qmd) */
+.reveal .step-output {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.reveal .step-output.current {
+  opacity: 1;
+}
+
+/* Printed outputs revealed in steps, stacked at the same position (left-aligned,
+   rather than centred as in other r-stacks) */
+.reveal .r-stack.output-steps > * {
+  margin: 0;
+  width: 100%;
 }
 
 /* ---- Tables ---- */
 
 .reveal table {
-  border-collapse: collapse;
   font-size: 0.9em;
   font-variant-numeric: tabular-nums;
 }
@@ -311,8 +416,7 @@ body.quarto-light,
   border-bottom: 3px solid var(--orange) !important;
 }
 
-.reveal table td,
-.reveal table th {
+.reveal table :is(td, th) {
   padding: 0.25em 0.9em !important;
 }
 
@@ -342,31 +446,17 @@ body.quarto-light,
 }
 
 #title-slide .title::after {
-  content: "";
-  display: block;
-  width: 110px;
-  height: 7px;
   margin: 0.35em 0 0.5em 0;
   border-radius: 4px;
-  background: var(--orange-light);
 }
 
-#title-slide .quarto-title-author-name,
-#title-slide .date {
+#title-slide :is(.quarto-title-author-name, .date) {
   color: #dbe4ee;
   margin: 0.15em 0;
 }
 
 #title-slide .quarto-title-author-name {
   font-weight: 700;
-}
-
-#title-slide .url,
-#title-slide .url a,
-#title-slide .url code {
-  color: var(--amber);
-  background: none;
-  font-size: 0.85em;
 }
 
 /* URL pinned to the bottom left, below the background series (backed in navy
@@ -381,23 +471,26 @@ body.quarto-light,
   background: var(--navy);
 }
 
+#title-slide .url,
+#title-slide .url :is(a, code) {
+  color: var(--amber);
+  font-size: 0.85em;
+}
+
+#title-slide .url :is(a, code) {
+  background: none;
+}
+
 #title-slide .url code {
   padding: 0;
 }
 
-/* ---- Section slides ---- */
+/* ---- Section slides and the outline ---- */
 
 .reveal .section-slide h2 {
   color: white;
   font-size: 2.2em;
-  font-weight: 700;
   margin-top: 220px;
-}
-
-.reveal .section-slide h2::after {
-  width: 110px;
-  height: 7px;
-  background: var(--orange-light);
 }
 
 .reveal .section-number {
@@ -437,7 +530,6 @@ body.quarto-light,
   display: inline-block;
   width: 2em;
   color: var(--amber);
-  font-weight: 400;
 }
 
 .reveal .outline li:has(.shaded) {
@@ -448,7 +540,17 @@ body.quarto-light,
   font-weight: 700;
 }
 
-/* Agenda slide: outline in the main area */
+/* Outline entries link to their section slides */
+.reveal .outline a.outline-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.reveal .outline a.outline-link:hover {
+  color: var(--amber);
+}
+
+/* Agenda slide: outline in the main area, on the light background */
 .reveal .agenda .outline {
   margin-top: 40px;
   font-size: 1.15em;
@@ -456,6 +558,11 @@ body.quarto-light,
 
 .reveal .agenda .outline li {
   margin: 0.5em 0;
+  color: var(--navy);
+}
+
+.reveal .agenda .outline a.outline-link:hover {
+  color: var(--orange);
 }
 
 /* ---- Figures ---- */
@@ -473,17 +580,13 @@ body.quarto-light,
   margin-top: 0.3em;
 }
 
-.reveal .slides section .r-stack.r-stretch > div,
-.reveal .slides section .r-stack.r-stretch > div > p,
-.reveal .slides section .r-stack.sp-stack > div,
-.reveal .slides section .r-stack.sp-stack > div > p {
+.reveal .slides section .r-stack:is(.r-stretch, .sp-stack) > div,
+.reveal .slides section .r-stack:is(.r-stretch, .sp-stack) > div > p {
   height: 100%;
   margin: 0;
 }
 
-.reveal .slides section .r-stack.r-stretch img,
-.reveal .slides section .r-stack.r-stretch video,
-.reveal .slides section .r-stack.sp-stack img {
+.reveal .slides section .r-stack:is(.r-stretch, .sp-stack) :is(img, video) {
   display: block;
   margin: 0 auto;
   height: 100%;
@@ -491,6 +594,24 @@ body.quarto-light,
   max-width: 100%;
   max-height: none;
   object-fit: contain;
+}
+
+/* US mortality zoom: static plot, video and interactive plot occupy exactly
+   the same box so the sequence looks like one zooming plot */
+.reveal .slides section .us-fig :is(p, img, video, .girafe) {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
+.reveal .zoom-video {
+  background: var(--paper);
+}
+
+.reveal section.zoom-done .zoom-video {
+  visibility: hidden;
 }
 
 /* ---- Coauthors ---- */
@@ -512,222 +633,13 @@ body.quarto-light,
   color: var(--navy);
 }
 
-.reveal .agenda .outline li {
-  color: var(--navy);
-}
-
-/* ---- Navigation menu button: faded until hovered ---- */
-
-.reveal .slide-menu-button {
-  opacity: 0.25;
-  transition: opacity 0.2s;
-}
-
-.reveal .slide-menu-button:hover {
-  opacity: 0.9;
-}
-
-.reveal .slide-menu-button,
-.reveal .slide-menu-button a,
-.reveal .slide-menu-button i {
-  color: var(--muted) !important;
-}
-
-/* Outline entries link to their section slides */
-.reveal .outline a.outline-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.reveal .outline a.outline-link:hover {
-  color: var(--amber);
-}
-
-.reveal .agenda .outline a.outline-link:hover {
-  color: var(--orange);
-}
-
-/* A centred line of inline maths with ordinary words around it */
-.reveal .math-line {
-  text-align: center;
-  margin: 0.3em 0;
-}
-
-/* ---- Rows of small cards ---- */
-
-.reveal .cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.7em;
-  margin-top: 0.5em;
-}
-
-.reveal .cards.cards-2 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.reveal .cards > .block,
-.reveal .cards > .alertblock {
-  margin: 0;
-}
-
-/* ---- Card showing the label for the item under the mouse ---- */
-
-.reveal .hover-card {
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 660px;
-  font-size: 0.85em;
-  padding: 0.35em 0.8em 0.35em calc(0.8em + 6px);
-  border-radius: 10px;
-  background: linear-gradient(to right, var(--blue) 6px, var(--card) 6px);
-  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.15);
-  opacity: 0;
-  transition: opacity 0.15s;
-  pointer-events: none;
-}
-
-.reveal .hover-card.show {
-  opacity: 1;
-}
-
-/* In the empty top-left of a plot filling the slide below the title */
-.reveal .hover-card.plot-top-left {
-  top: 140px;
-  left: 190px;
-  right: auto;
-  line-height: 1.3;
-}
-
-.reveal .hover-card.is-alert {
-  background: linear-gradient(
-    to right,
-    var(--orange) 6px,
-    var(--amber-tint) 6px
-  );
-}
-
-/* Card across the top of the slide showing the image for the hovered item */
-.reveal .image-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  font-size: 0.85em;
-  padding: 0.35em 0.8em 0.5em calc(0.8em + 6px);
-  border-radius: 10px;
-  background: linear-gradient(to right, var(--orange) 6px, var(--card) 6px);
-  box-shadow: 0 4px 18px rgba(15, 42, 68, 0.15);
-  opacity: 0;
-  transition: opacity 0.15s;
-  pointer-events: none;
-}
-
-.reveal .image-card.show {
-  opacity: 1;
-}
-
-.reveal .image-card.at-bottom {
-  top: auto;
-  bottom: 0;
-}
-
-.reveal .image-card-item {
-  display: none;
-}
-
-.reveal .image-card-item.show {
-  display: block;
-}
-
-.reveal .slides section .image-card img {
-  display: block;
-  width: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0.2em 0 0 0;
-}
-
-/* Display maths aligned left, e.g. in a column beside bullet points */
-.reveal .math-left .katex-display,
-.reveal .math-left .katex-display > .katex {
-  text-align: left;
-}
-
-.reveal .math-left .katex-display {
-  font-size: 0.85em;
-  margin: 0.2em 0 0.3em 0;
-}
-
-.reveal .math-left ul {
-  margin-top: 0;
-}
-
-/* A list split into fragments (one item per fragment div) is spaced like one list */
-.reveal div.fragment:has(+ div.fragment > ul) > ul {
-  margin-bottom: 0;
-}
-
-.reveal div.fragment + div.fragment > ul {
-  margin-top: 0;
-}
-
-/* ---- US mortality zoom: static plot, video and interactive plot occupy
-   exactly the same box so the sequence looks like one zooming plot ---- */
-
-.reveal .slides section .us-fig p,
-.reveal .slides section .us-fig img,
-.reveal .slides section .us-fig video,
-.reveal .slides section .us-fig .girafe {
-  display: block;
-  width: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-}
-
-.reveal .zoom-video {
-  background: var(--paper);
-}
-
-.reveal section.zoom-done .zoom-video {
-  visibility: hidden;
-}
-
-/* ---- Outputs that follow progressive code highlighting (see script in qmd) ---- */
-
-.reveal .step-output {
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.reveal .step-output.current {
-  opacity: 1;
-}
-
-/* Keep each inline formula on one line (KaTeX otherwise allows breaks after
-   operators, splitting a formula across lines) */
-.reveal .katex {
-  white-space: nowrap;
-}
-
-/* Printed outputs revealed in steps, stacked at the same position (left-aligned,
-   rather than centred as in other r-stacks) */
-.reveal .r-stack.output-steps > * {
-  margin: 0;
-  width: 100%;
-}
-
 /* ---- Find out more ---- */
 
 .reveal .slide .find-out-more {
   margin-top: 1em;
 }
 
-.reveal .slide .find-out-more,
-.reveal .slide .find-out-more-link {
+.reveal .slide :is(.find-out-more, .find-out-more-link) {
   font-size: 1.15em;
 }
 
