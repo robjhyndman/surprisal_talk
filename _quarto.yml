@@ -1,0 +1,3 @@
+project:
+  # Shrink the self-contained HTML after each render
+  post-render: slim_html.py

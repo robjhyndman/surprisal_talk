@@ -4,3 +4,6 @@ beamerthemeMonash.sty
 auckland_2026.tex
 /.uvr/library/
 /.uvr/activate*
+/.quarto/
+
+**/*.quarto_ipynb

@@ -878,6 +878,8 @@ list(
     "uconn_2026.qmd",
     quiet = FALSE,
     extra_files = c(
+      "_quarto.yml",
+      "slim_html.py",
       "uconn_2026.css",
       "title-slide.html",
       "figs/title_ts.png",
