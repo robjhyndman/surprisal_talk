@@ -167,7 +167,7 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
   p <- ggplot(df, aes(x = s)) +
     geom_histogram(
       aes(y = after_stat(count) / (d$n * d$binwidth), fill = tail),
-      binwidth = d$binwidth, boundary = d$u, colour = "#fbf9f4", linewidth = 0.2
+      binwidth = d$binwidth, boundary = d$u
     ) +
     scale_fill_manual(values = c(`FALSE` = colours[["bulk"]], `TRUE` = colours[["tail"]]),
       guide = "none") +
