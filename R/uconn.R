@@ -37,6 +37,15 @@ with_uconn_style <- function(expr) {
   force(expr)
 }
 
+# Font set for girafe() that embeds no font files. By default girafe() embeds
+# all twelve Liberation fonts (5 MB); the plots use Fira Sans, which the slides
+# already load.
+uconn_girafe_fonts <- function() {
+  fonts <- gdtools::font_set(sans = "Fira Sans")
+  fonts$dependencies <- list()
+  fonts
+}
+
 # Outline listing all sections, with the current one highlighted
 uconn_sections <- c(
   "Surprisals",

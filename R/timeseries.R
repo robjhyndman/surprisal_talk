@@ -200,6 +200,7 @@ us_mortality_girafe <- function(
 ) {
   ggiraph::girafe(
     ggobj = us_mortality_plot(..., interactive = TRUE),
+    font_set = uconn_girafe_fonts(),
     width_svg = width,
     height_svg = height,
     options = list(
@@ -392,6 +393,7 @@ pbs_pc_girafe <- function(
     labs(x = "Principal component 1", y = "Principal component 2")
   ggiraph::girafe(
     ggobj = p,
+    font_set = uconn_girafe_fonts(),
     width_svg = width,
     height_svg = height,
     bg = "#fbf9f4",
@@ -790,6 +792,7 @@ pbs_joint_girafe <- function(
     )
   ggiraph::girafe(
     ggobj = p,
+    font_set = uconn_girafe_fonts(),
     width_svg = width,
     height_svg = height,
     options = list(

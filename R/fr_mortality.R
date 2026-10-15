@@ -155,6 +155,7 @@ create_fr_anomaly_girafe <- function(
     ylim(0, 86)
   ggiraph::girafe(
     ggobj = p,
+    font_set = uconn_girafe_fonts(),
     width_svg = width,
     height_svg = height,
     options = list(
