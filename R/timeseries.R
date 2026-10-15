@@ -956,7 +956,7 @@ pbs_feature_stages <- function(features, scaled, feature, label) {
   # insets (from 58% of the panel height up) sit just above the tallest bar.
   base <- feat |>
     ggplot(aes(x = .data[[feature]])) +
-    geom_histogram(binwidth = 0.025, boundary = 0, fill = "#1d6fa5", alpha = 0.5, colour = "#fbf9f4") +
+    geom_histogram(binwidth = 0.025, boundary = 0, fill = "#1d6fa5", alpha = 0.5) +
     scale_x_continuous(limits = c(0, 1)) +
     scale_y_continuous(limits = c(0, 2.3 * top), expand = c(0, 0), breaks = pretty(c(0, top))) +
     labs(x = label, y = "Number of series")
