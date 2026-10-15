@@ -221,3 +221,20 @@ fbtsa (github.com/robjhyndman/fbtsa), using the PBS series that the section alre
 - Slide 2: sketches revealed one at a time with their cards (fig_tsparadigms_stage_pngs, hidden sketches
   drawn transparent; stage 3 pixel-identical to the full figure); cards moved down 15px to centre on panels.
 - Alert cards: fill #f6e9e0 → #fff1e6 (light peach), which no longer clashes with the warm grey panels.
+
+# Smaller HTML and Monash logo (15 Oct 2026)
+
+- [x] girafe(): no embedded Liberation fonts (plots use Fira Sans, loaded by the slides)
+- [x] Post-render step: strip the unused Source Sans Pro / Source Code Pro fonts from the HTML
+- [x] Post-render step: quantise embedded PNGs with pngquant
+- [x] Monash logo (reversed white) at the top right of the title slide
+- [x] Render; check size, computed styles, screenshots of the title slide and figure slides
+
+## Review
+
+- HTML 41.1 MB -> 16.9 MB: Liberation fonts 5.4 MB (girafe font set), Source Sans Pro 3.0 MB and
+  PNG quantisation 15.7 MB (post-render slim_html.py, via a minimal _quarto.yml; runs in ~2 s).
+- tar_quarto runs the post-render step and stays up to date afterwards (tar_outdated() empty).
+- All 48 slides screenshotted fully revealed, old vs new: identical or >= 36 dB PSNR; slide 0 differs
+  only by the logo. Girafe SVG text is all Fira Sans, as before.
+- The ImgBot merge had re-compressed generated PNGs in figs/uconn, so targets rebuilt them; left uncommitted.
