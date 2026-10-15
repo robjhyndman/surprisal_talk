@@ -883,6 +883,7 @@ list(
       "uconn_2026.css",
       "title-slide.html",
       "figs/title_ts.png",
+      "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
       "katex/katex.min.css",
       "katex/katex.min.js",
       "katex/katex-local.html",

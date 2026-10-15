@@ -485,6 +485,14 @@ body.quarto-light,
   padding: 0;
 }
 
+#title-slide .title-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 220px;
+  margin: 0;
+}
+
 /* ---- Section slides and the outline ---- */
 
 .reveal .section-slide h2 {
