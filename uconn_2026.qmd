@@ -28,7 +28,7 @@ format:
     code-line-numbers: false
     title-slide-attributes:
       data-background-color: "#0f2a44"
-      data-background-image: figs/title_ts.png
+      data-background-image: images/title_ts.png
       data-background-size: contain
       data-background-position: center
     template-partials:
@@ -1057,21 +1057,21 @@ $f$: one-step forecast density
 
 ::: {.columns}
 ::::: {.column .coauthor width="33%"}
-![](figs/sevvandi.png)
+![](images/sevvandi.png)
 
 Sevvandi\
 Kandanaarachchi\
 *CSIRO*
 :::::
 ::::: {.column .coauthor width="33%"}
-![](figs/kate.png)
+![](images/kate.png)
 
 Kate\
 Turner\
 *ANU*
 :::::
 ::::: {.column .coauthor width="33%"}
-![](figs/david.png)
+![](images/david.png)
 
 David\
 Frazier\
@@ -1085,7 +1085,7 @@ Frazier\
 ::::: {.block}
 [R package]{.block-title}
 
-![](figs/weird-hex.png){.find-out-more-hex}
+![](images/weird-hex.png){.find-out-more-hex}
 
 **weird** on CRAN
 
@@ -1106,7 +1106,7 @@ Chapter 11: Time series data
 
 ::: {.absolute top="495" left="0" width="1280"}
 ::::: {.alertblock .find-out-more-link}
-![](figs/qr_uconn2026.svg){.find-out-more-qr}
+![](images/qr_uconn2026.svg){.find-out-more-qr}
 
 Slides, links and related papers:\
 [`robjhyndman.com/uconn2026`](https://robjhyndman.com/uconn2026)

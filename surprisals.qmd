@@ -33,19 +33,19 @@ set_ggplot_options()
 
 ## Coauthors
 
-\placefig{0.2}{1.4}{height=5cm}{figs/sevvandi.png}
+\placefig{0.2}{1.4}{height=5cm}{images/sevvandi.png}
 \begin{textblock}{5}(0.2,6.7)\centering
   Sevvandi\\ 
   Kandanaarachchi\\
   \emph{CSIRO}
 \end{textblock}
-\placefig{5.5}{1.4}{height=5cm}{figs/kate.png}
+\placefig{5.5}{1.4}{height=5cm}{images/kate.png}
 \begin{textblock}{5}(5.5,6.7)\centering
  Kate\\ 
  Turner\\
  \emph{ANU}
 \end{textblock}
-\placefig{10.8}{1.4}{height=5cm}{figs/david.png}
+\placefig{10.8}{1.4}{height=5cm}{images/david.png}
 \begin{textblock}{5}(10.8,6.7)\centering
   David\\ 
   Frazier \\

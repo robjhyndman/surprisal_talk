@@ -31,7 +31,7 @@ format:
     code-line-numbers: false
     title-slide-attributes:
       data-background-color: "#0f2a44"
-      data-background-image: figs/title_of.png
+      data-background-image: images/title_of.png
       data-background-size: contain
       data-background-position: center
     template-partials:
@@ -76,7 +76,7 @@ set.seed(1) # fixed htmlwidget IDs, so re-renders are byte-identical
 
 ## The weird package for R
 
-![](figs/weird-hex.png){.absolute top="0" right="0" width="190"}
+![](images/weird-hex.png){.absolute top="0" right="0" width="190"}
 
 ::: {style="width: 80%"}
 - Functions and data sets for *That's weird: Anomaly detection using R* ([`OTexts.com/weird`](https://OTexts.com/weird))
@@ -109,7 +109,7 @@ cat(tar_read(weird_attach), sep = "\n")
 
 ## What do we mean by "weird"?
 
-![](figs/hawkins.jpg){.absolute .book-cover top="110" left="0" height="230"}
+![](images/hawkins.jpg){.absolute .book-cover top="110" left="0" height="230"}
 
 ::: {.absolute top="140" left="200" width="1080"}
 ::::: {.block .quote}
@@ -120,7 +120,7 @@ cat(tar_read(weird_attach), sep = "\n")
 :::
 
 ::: {.fragment}
-![](figs/barnett_lewis.jpg){.absolute .book-cover top="400" left="0" height="230"}
+![](images/barnett_lewis.jpg){.absolute .book-cover top="400" left="0" height="230"}
 
 ::: {.absolute top="430" left="200" width="1080"}
 ::::: {.block .quote}
@@ -229,7 +229,7 @@ An observation is an **anomaly with respect to $f$** if $p_i < \alpha$.
 
 ## Surprisal probabilities in R
 
-![](figs/weird-hex.png){.absolute top="0" right="0" width="190"}
+![](images/weird-hex.png){.absolute top="0" right="0" width="190"}
 
 ::: {style="width: 82%"}
 - `surprisals_prob()` computes surprisal probabilities for any data object, using a density you specify or a kernel density estimate.
@@ -275,7 +275,7 @@ include_png(tar_read(fig_sp_normal_png))
 
 ## Wine quality and prices
 
-![](figs/grapes.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
+![](images/grapes.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Wine quality and prices
 
@@ -456,7 +456,7 @@ tar_read(wine_p_gpd) |>
 
 ## Cricket not-outs
 
-![](figs/batting.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
+![](images/batting.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Cricket not-outs
 
@@ -555,7 +555,7 @@ tar_read(cricket_p) |> print(n = 10)
 
 ## Old Faithful eruptions
 
-![](figs/oldfaithful.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
+![](images/oldfaithful.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Old Faithful eruptions
 
@@ -649,7 +649,7 @@ include_png(tar_read(fig_of_hdrboxplot_png))
 
 ## French mortality rates
 
-![](figs/french_cemetery.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
+![](images/french_cemetery.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## French mortality rates
 
@@ -996,21 +996,21 @@ tar_read(pbs_joint_card_html)
 
 ::: {.columns}
 ::::: {.column .coauthor width="33%"}
-![](figs/sevvandi.png)
+![](images/sevvandi.png)
 
 Sevvandi\
 Kandanaarachchi\
 *CSIRO*
 :::::
 ::::: {.column .coauthor width="33%"}
-![](figs/kate.png)
+![](images/kate.png)
 
 Kate\
 Turner\
 *ANU*
 :::::
 ::::: {.column .coauthor width="33%"}
-![](figs/david.png)
+![](images/david.png)
 
 David\
 Frazier\
@@ -1024,7 +1024,7 @@ Frazier\
 ::::: {.block}
 [R package]{.block-title}
 
-![](figs/weird-hex.png){.find-out-more-hex}
+![](images/weird-hex.png){.find-out-more-hex}
 
 **weird** on CRAN
 
@@ -1043,7 +1043,7 @@ In preparation at\
 
 ::: {.absolute top="495" left="0" width="1280"}
 ::::: {.alertblock .find-out-more-link}
-![](figs/qr_wombat2026.svg){.find-out-more-qr}
+![](images/qr_wombat2026.svg){.find-out-more-qr}
 
 Slides, links and related papers:\
 [`robjhyndman.com/wombat2026`](https://robjhyndman.com/wombat2026)

@@ -8,6 +8,6 @@ auckland_2026.tex
 
 **/*.quarto_ipynb
 
-# Figures and videos written by targets (embedded in the rendered slides)
-figs/uconn/
-figs/wombat/
+# Figures and videos written by targets (tar_make() regenerates them);
+# hand-made images are in images/
+figs/

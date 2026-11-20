@@ -99,7 +99,9 @@ list(
       den = dist_normal(),
       clean = TRUE,
       size = 98
-    )
+    ),
+    # Writes figs/dist_normal.pdf (for auckland_2026.qmd) and returns its path
+    format = "file"
   ),
   tar_target(
     fig61,
@@ -126,6 +128,7 @@ list(
     tar_target(
       kde_file,
       make_kde_plot(rips_data, h, i),
+      format = "file"
     )
   ),
   # RIPS animation
@@ -141,6 +144,7 @@ list(
     tar_target(
       rip_file,
       rips(rips_data, prox, i),
+      format = "file"
     )
   ),
   tar_target(
@@ -1000,7 +1004,7 @@ list(
       "slim_html.py",
       "uconn_2026.css",
       "title-slide.html",
-      "figs/title_ts.png",
+      "images/title_ts.png",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
       "katex/katex.min.css",
       "katex/katex.min.js",
@@ -1018,7 +1022,7 @@ list(
       "uconn_2026.css",
       "wombat_2026.css",
       "title-slide.html",
-      "figs/title_of.png",
+      "images/title_of.png",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
       "katex/katex.min.css",
       "katex/katex.min.js",
