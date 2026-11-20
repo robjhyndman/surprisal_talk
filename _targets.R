@@ -996,23 +996,6 @@ list(
   #  extra_files = c("header.tex", "before-title.tex")
   #),
   tar_quarto(
-    slides_uconn,
-    "uconn_2026.qmd",
-    quiet = FALSE,
-    extra_files = c(
-      "_quarto.yml",
-      "slim_html.py",
-      "uconn_2026.css",
-      "title-slide.html",
-      "images/title_ts.png",
-      "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
-      "katex/katex.min.css",
-      "katex/katex.min.js",
-      "katex/katex-local.html",
-      "fonts/fonts.css"
-    )
-  ),
-  tar_quarto(
     slides_wombat,
     "wombat_2026.qmd",
     quiet = FALSE,
