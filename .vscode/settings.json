@@ -5,12 +5,13 @@
   ],
   "editor.formatOnSave": true,
   "positron.r.customBinaries": [
-    "/usr/local/bin/R"
+    "/usr/local/bin/R",
+    "/home/hyndman/.uvr/r-versions/4.6.2/bin/R"
   ],
   "positron.r.customRootFolders": [
     "/home/hyndman/.uvr/r-versions"
   ],
-  "positron.r.interpreters.default": "/usr/local/bin/R",
-  "r.rpath.linux": "/usr/local/bin/R",
-  "r.rterm.linux": "/usr/local/bin/R"
+  "positron.r.interpreters.default": "/home/hyndman/.uvr/r-versions/4.6.2/bin/R",
+  "r.rpath.linux": "/home/hyndman/.uvr/r-versions/4.6.2/bin/R",
+  "r.rterm.linux": "/home/hyndman/.uvr/r-versions/4.6.2/bin/R"
 }

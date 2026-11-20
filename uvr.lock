@@ -1,7 +1,7 @@
 manifest_fingerprint = "sha256:a32401694958b31215f8fd40eebee4ebf8878be7f5261dc18c8497413a82340c"
 
 [r]
-version = "4.6.1"
+version = "4.6.2"
 
 [[package]]
 name = "BH"
@@ -84,10 +84,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/Rcpp_1.1.2.tar.gz
 
 [[package]]
 name = "RcppArmadillo"
-version = "15.6.0-4.1"
+version = "15.6.2-4.1"
 source = "ppm"
-raw_version = "15.6.0-1"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/RcppArmadillo_15.6.0-1.tar.gz"
+raw_version = "15.6.2-1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/RcppArmadillo_15.6.2-1.tar.gz"
 requires = [
     "Rcpp",
     "Rcpp",
@@ -107,10 +107,10 @@ requires = [
 
 [[package]]
 name = "S7"
-version = "0.2.2"
+version = "1.0.0"
 source = "ppm"
-raw_version = "0.2.2"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/S7_0.2.2.tar.gz"
+raw_version = "1.0.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/S7_1.0.0.tar.gz"
 
 [[package]]
 name = "TDAstats"
@@ -250,13 +250,6 @@ raw_version = "2.1-4"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/colorspace_2.1-4.tar.gz"
 
 [[package]]
-name = "commonmark"
-version = "2.0.0"
-source = "ppm"
-raw_version = "2.0.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/commonmark_2.0.0.tar.gz"
-
-[[package]]
 name = "cpp11"
 version = "0.5.5"
 source = "ppm"
@@ -272,10 +265,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/crop_0.0-3.tar.gz
 
 [[package]]
 name = "curl"
-version = "8.0.0"
+version = "8.1.0"
 source = "ppm"
-raw_version = "8.0.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/curl_8.0.0.tar.gz"
+raw_version = "8.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/curl_8.1.0.tar.gz"
 system_requirements = "libcurl (>= 7.73): libcurl-devel (rpm) or libcurl4-openssl-dev (deb)"
 
 [[package]]
@@ -287,10 +280,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/data.table_1.18.6
 
 [[package]]
 name = "dbscan"
-version = "1.2.7"
+version = "1.3.0"
 source = "ppm"
-raw_version = "1.2.7"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/dbscan_1.2.7.tar.gz"
+raw_version = "1.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/dbscan_1.3.0.tar.gz"
 requires = [
     "generics",
     "Rcpp",
@@ -490,10 +483,10 @@ system_requirements = "libuv: libuv-devel (rpm) or libuv1-dev (deb). Alternative
 
 [[package]]
 name = "gdtools"
-version = "0.5.1"
+version = "0.6.0"
 source = "ppm"
-raw_version = "0.5.1"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/gdtools_0.5.1.tar.gz"
+raw_version = "0.6.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gdtools_0.6.0.tar.gz"
 requires = [
     "fontquiver",
     "htmltools",
@@ -501,7 +494,7 @@ requires = [
     "systemfonts",
     "Rcpp",
 ]
-system_requirements = "cairo, freetype2, fontconfig"
+system_requirements = "freetype2"
 
 [[package]]
 name = "generics"
@@ -535,10 +528,10 @@ requires = [
 
 [[package]]
 name = "ggiraph"
-version = "0.9.6"
+version = "0.9.7"
 source = "ppm"
-raw_version = "0.9.6"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggiraph_0.9.6.tar.gz"
+raw_version = "0.9.7"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggiraph_0.9.7.tar.gz"
 requires = [
     "cli",
     "dplyr",
@@ -568,10 +561,10 @@ requires = ["ggplot2"]
 
 [[package]]
 name = "ggplot2"
-version = "4.0.3"
+version = "4.0.4"
 source = "ppm"
-raw_version = "4.0.3"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggplot2_4.0.3.tar.gz"
+raw_version = "4.0.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggplot2_4.0.4.tar.gz"
 requires = [
     "cli",
     "gtable",
@@ -626,10 +619,10 @@ requires = [
 
 [[package]]
 name = "ggtime"
-version = "1.1.0"
+version = "1.1.1"
 source = "ppm"
-raw_version = "1.1.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtime_1.1.0.tar.gz"
+raw_version = "1.1.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/ggtime_1.1.1.tar.gz"
 requires = [
     "ggplot2",
     "gtable",
@@ -653,6 +646,14 @@ version = "1.8.1"
 source = "ppm"
 raw_version = "1.8.1"
 url = "https://packagemanager.posit.co/cran/latest/src/contrib/glue_1.8.1.tar.gz"
+
+[[package]]
+name = "gmp"
+version = "0.7.5-4.1"
+source = "ppm"
+raw_version = "0.7-5.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/gmp_0.7-5.1.tar.gz"
+system_requirements = "gmp (>= 4.2.3)"
 
 [[package]]
 name = "gratia"
@@ -908,14 +909,11 @@ requires = [
 
 [[package]]
 name = "litedown"
-version = "0.11.0"
+version = "1.0.0"
 source = "ppm"
-raw_version = "0.11"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/litedown_0.11.tar.gz"
-requires = [
-    "commonmark",
-    "xfun",
-]
+raw_version = "1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/litedown_1.0.tar.gz"
+requires = ["xfun"]
 
 [[package]]
 name = "lookout"
@@ -953,10 +951,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/magrittr_2.0.5.ta
 
 [[package]]
 name = "markdown"
-version = "2.0.0"
+version = "2.1.0"
 source = "ppm"
-raw_version = "2.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/markdown_2.0.tar.gz"
+raw_version = "2.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/markdown_2.1.tar.gz"
 requires = [
     "xfun",
     "litedown",
@@ -964,10 +962,10 @@ requires = [
 
 [[package]]
 name = "mclust"
-version = "6.1.3"
+version = "6.1.4"
 source = "ppm"
-raw_version = "6.1.3"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/mclust_6.1.3.tar.gz"
+raw_version = "6.1.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mclust_6.1.4.tar.gz"
 
 [[package]]
 name = "memoise"
@@ -982,10 +980,10 @@ requires = [
 
 [[package]]
 name = "mgcv"
-version = "1.9.4"
+version = "1.9.5"
 source = "ppm"
-raw_version = "1.9-4"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/mgcv_1.9-4.tar.gz"
+raw_version = "1.9-5"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mgcv_1.9-5.tar.gz"
 requires = [
     "nlme",
     "Matrix",
@@ -1000,18 +998,18 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/mime_0.13.tar.gz"
 
 [[package]]
 name = "mirai"
-version = "2.7.3"
+version = "2.7.4"
 source = "ppm"
-raw_version = "2.7.3"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/mirai_2.7.3.tar.gz"
+raw_version = "2.7.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mirai_2.7.4.tar.gz"
 requires = ["nanonext"]
 
 [[package]]
 name = "mixtime"
-version = "0.3.0"
+version = "0.5.0"
 source = "ppm"
-raw_version = "0.3.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/mixtime_0.3.0.tar.gz"
+raw_version = "0.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/mixtime_0.5.0.tar.gz"
 requires = [
     "lifecycle",
     "vctrs",
@@ -1039,12 +1037,13 @@ requires = [
 
 [[package]]
 name = "multicool"
-version = "1.0.1"
+version = "1.0.2"
 source = "ppm"
-raw_version = "1.0.1"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/multicool_1.0.1.tar.gz"
+raw_version = "1.0.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/multicool_1.0.2.tar.gz"
 requires = [
     "Rcpp",
+    "gmp",
     "Rcpp",
 ]
 
@@ -1070,18 +1069,18 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/mvtnorm_1.4-2.tar
 
 [[package]]
 name = "nanonext"
-version = "1.10.3"
+version = "1.10.4"
 source = "ppm"
-raw_version = "1.10.3"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/nanonext_1.10.3.tar.gz"
+raw_version = "1.10.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/nanonext_1.10.4.tar.gz"
 system_requirements = "'libnng' >= 1.12 and 'libmbedtls' >= 3.0 (optional, bundled sources compiled otherwise)"
 
 [[package]]
 name = "nlme"
-version = "3.1.171"
+version = "3.1.172"
 source = "ppm"
-raw_version = "3.1-171"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/nlme_3.1-171.tar.gz"
+raw_version = "3.1-172"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/nlme_3.1-172.tar.gz"
 requires = ["lattice"]
 
 [[package]]
@@ -1093,10 +1092,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/numDeriv_2016.8-1
 
 [[package]]
 name = "otel"
-version = "0.2.0"
+version = "0.3.0"
 source = "ppm"
-raw_version = "0.2.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/otel_0.2.0.tar.gz"
+raw_version = "0.3.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/otel_0.3.0.tar.gz"
 
 [[package]]
 name = "patchwork"
@@ -1166,10 +1165,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/prettyunits_1.2.0
 
 [[package]]
 name = "processx"
-version = "3.9.0"
+version = "3.10.0"
 source = "ppm"
-raw_version = "3.9.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/processx_3.9.0.tar.gz"
+raw_version = "3.10.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/processx_3.10.0.tar.gz"
 requires = [
     "ps",
     "R6",
@@ -1177,11 +1176,10 @@ requires = [
 
 [[package]]
 name = "progressr"
-version = "1.0.0"
+version = "1.1.0"
 source = "ppm"
-raw_version = "1.0.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/progressr_1.0.0.tar.gz"
-requires = ["digest"]
+raw_version = "1.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/progressr_1.1.0.tar.gz"
 
 [[package]]
 name = "ps"
@@ -1403,10 +1401,10 @@ system_requirements = "libpng"
 
 [[package]]
 name = "systemfonts"
-version = "1.3.2"
+version = "1.3.3"
 source = "ppm"
-raw_version = "1.3.2"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/systemfonts_1.3.2.tar.gz"
+raw_version = "1.3.3"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/systemfonts_1.3.3.tar.gz"
 requires = [
     "base64enc",
     "jsonlite",
@@ -1417,10 +1415,10 @@ system_requirements = "fontconfig, freetype2"
 
 [[package]]
 name = "tarchetypes"
-version = "0.14.1"
+version = "0.14.2"
 source = "ppm"
-raw_version = "0.14.1"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/tarchetypes_0.14.1.tar.gz"
+raw_version = "0.14.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tarchetypes_0.14.2.tar.gz"
 requires = [
     "dplyr",
     "fs",
@@ -1435,10 +1433,10 @@ requires = [
 
 [[package]]
 name = "targets"
-version = "1.12.0"
+version = "1.12.1"
 source = "ppm"
-raw_version = "1.12.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/targets_1.12.0.tar.gz"
+raw_version = "1.12.1"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/targets_1.12.1.tar.gz"
 requires = [
     "base64url",
     "callr",
@@ -1574,10 +1572,10 @@ requires = [
 
 [[package]]
 name = "tweedie"
-version = "3.1.0"
+version = "3.2.2"
 source = "ppm"
-raw_version = "3.1.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/tweedie_3.1.0.tar.gz"
+raw_version = "3.2.2"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/tweedie_3.2.2.tar.gz"
 requires = [
     "lifecycle",
     "statmod",
@@ -1655,8 +1653,8 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/warp_0.2.3.tar.gz
 name = "weird"
 version = "3.1.0-4.9000"
 source = "github"
-url = "https://api.github.com/repos/robjhyndman/weird/tarball/468806426eb857721af0db5e7a80100d3ed03485"
-checksum = "git:468806426eb857721af0db5e7a80100d3ed03485"
+url = "https://api.github.com/repos/robjhyndman/weird/tarball/9a0347c7b58f92ee766bdf1e7d401062a26b78f7"
+checksum = "git:9a0347c7b58f92ee766bdf1e7d401062a26b78f7"
 requires = [
     "aplpack",
     "broom",
@@ -1683,10 +1681,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/withr_3.0.3.tar.g
 
 [[package]]
 name = "xfun"
-version = "0.61.0"
+version = "0.62.0"
 source = "ppm"
-raw_version = "0.61"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/xfun_0.61.tar.gz"
+raw_version = "0.62"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/xfun_0.62.tar.gz"
 
 [[package]]
 name = "xml2"
