@@ -7,3 +7,8 @@ auckland_2026.tex
 /.quarto/
 
 **/*.quarto_ipynb
+
+# Figures and videos written by targets (embedded in the rendered slides)
+figs/uconn/
+figs/wombat/
+figs/us_zoom.mp4
