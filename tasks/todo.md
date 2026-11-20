@@ -238,3 +238,29 @@ fbtsa (github.com/robjhyndman/fbtsa), using the PBS series that the section alre
 - All 48 slides screenshotted fully revealed, old vs new: identical or >= 36 dB PSNR; slide 0 differs
   only by the logo. Girafe SVG text is all Fira Sans, as before.
 - The ImgBot merge had re-compressed generated PNGs in figs/uconn, so targets rebuilt them; left uncommitted.
+
+# WOMBAT talk: data science audience (20 Nov 2026)
+
+New deck `wombat_2026.qmd`: uconn design and animations, Auckland content where it fits.
+
+- [x] Outline helpers: section list per deck (option), ids safe for "?" etc.
+- [x] Targets: uconn-styled PNGs for chi-square strips, spot-the-anomaly (with circled reveals),
+      Old Faithful scatter/KDE/HDR boxplot, wine scatter/log/model plots, cricket plots + GAM,
+      surprisal-probability stages with y_i, N(0,1) example figure; QR code; title graphic
+- [x] Sections: What is an anomaly? / Wine / Approximate extreme surprisals (+ GPD animation) /
+      Cricket / Old Faithful / French mortality (uconn) / Surveillance (uconn PBS) / Summary
+- [x] `tar_quarto` target for the new deck; tar_make; render
+- [x] Screenshot every slide (all fragments) in headless Chrome; check overflow and alignment
+
+## Review
+
+- `wombat_2026.qmd` (58 slides, 13.2 MB) renders via `tar_make()` (target `slides_wombat`); uconn deck
+  and its figures unchanged (shared helpers got a `sub`/sections option with the old defaults).
+- New: `R/wombat.R` (figures/results), `wombat_2026.css` (quote cards, photos, legend cards),
+  `figs/title_of.png` (Old Faithful title graphic, added to `title_page.R`), PNGs in `figs/wombat/`.
+- Screenshotted every slide (all fragments) plus each step of the staged slides; only the slides
+  that are the same as in uconn reach into the letterbox border.
+- Both cricket and PBS surveillance sections included; delete whichever isn't wanted (and its
+  entry in `slide_sections` in the setup chunk). US weekly mortality dropped.
+- QR code `figs/qr_wombat2026.svg` (made with segno) on the closing slide.
+- Open: robjhyndman.com/wombat2026 alias not yet added.

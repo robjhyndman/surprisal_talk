@@ -54,8 +54,10 @@ uconn_sections <- c(
   "Surveillance",
   "Summary"
 )
-outline <- function(current = NULL, sections = uconn_sections) {
-  ids <- paste0("part-", gsub(" ", "-", tolower(sections)))
+# (another deck can set its own with options(slide_sections = ...))
+outline <- function(current = NULL,
+                    sections = getOption("slide_sections", uconn_sections)) {
+  ids <- section_id(sections)
   status <- if (is.null(current)) {
     ""
   } else {
@@ -68,8 +70,15 @@ outline <- function(current = NULL, sections = uconn_sections) {
     "\n\n:::\n\n"
   )
 }
+# Slide id of a section divider: "part-" and the name in lower case, with
+# punctuation dropped and spaces as hyphens ("What is an anomaly?" ->
+# "part-what-is-an-anomaly")
+section_id <- function(sections) {
+  paste0("part-", gsub("[^a-z0-9]+", "-", gsub("[?!.,]", "", tolower(sections))))
+}
 # Body of a section divider slide: section number and outline
-section <- function(current, sections = uconn_sections) {
+section <- function(current,
+                    sections = getOption("slide_sections", uconn_sections)) {
   paste0(
     "\n\n::: {.section-number}\n",
     sprintf("%02d", match(current, sections)),

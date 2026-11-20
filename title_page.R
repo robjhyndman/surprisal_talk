@@ -31,3 +31,17 @@ ragg::agg_png(
 )
 print(p)
 dev.off()
+
+# PNG title graphic for the WOMBAT talk: Old Faithful eruptions in light blue
+# in the lower half of a transparent image, for the dark title slide
+p <- oldfaithful |>
+  ggplot(aes(x = duration, y = waiting)) +
+  geom_point(colour = "#4f86b5", alpha = 0.6, size = 1.2) +
+  scale_y_continuous(expand = expansion(mult = c(0.03, 1.1))) +
+  theme_void()
+ragg::agg_png(
+  "figs/title_of.png", width = 8, height = 4.5, units = "in", res = 240,
+  background = "transparent"
+)
+print(p)
+dev.off()

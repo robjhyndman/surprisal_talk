@@ -1,0 +1,58 @@
+/* Additions to uconn_2026.css for the WOMBAT talk */
+
+/* Long section titles wrap before reaching the outline on the right */
+.reveal .section-slide h2 {
+  max-width: 800px;
+}
+
+/* ---- Quotations beside book covers ---- */
+
+.reveal .slides section img.book-cover {
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 6px 22px rgba(15, 42, 68, 0.25);
+}
+
+.reveal .block.quote {
+  font-size: 1.05em;
+}
+
+.reveal .quote-source {
+  display: block;
+  text-align: right;
+  font-size: 0.85em;
+  color: var(--muted);
+}
+
+/* ---- Photos filling the slide below the title ---- */
+
+.reveal .slides section img.photo {
+  margin: 0;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(15, 42, 68, 0.25);
+}
+
+/* ---- Small card in the title row, e.g. a plot legend ---- */
+
+.reveal .block.legend-card {
+  margin: 0;
+  font-size: 0.8em;
+  padding: 0.25em 0.8em 0.25em calc(0.8em + 6px);
+}
+
+/* ---- Chi-square strips, stacked closely ---- */
+
+.reveal .slides section p:has(> img.chisq-strip) {
+  margin: 0 0 0.2em 0;
+}
+
+.reveal .slides section img.chisq-strip {
+  margin: 0;
+}
+
+/* ---- Find out more: cards tall enough for the hex above the install line ---- */
+
+.reveal .slide .find-out-more > .block {
+  min-height: 330px;
+}

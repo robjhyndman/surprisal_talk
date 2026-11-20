@@ -261,7 +261,7 @@ us_mortality_zoom_video <- function(
 }
 
 # Surprisal probability figures (fig_sp0, fig_sp1, fig_sp2) with maths in KaTeX fonts
-make_fig_sp_katex <- function(figs) {
+make_fig_sp_katex <- function(figs, sub = "t") {
   lapply(figs, function(p) {
     # Once y_i is shown, these figures redraw the vertical grid lines in white
     # (for a white background); drop them so there are no vertical grid lines
@@ -271,7 +271,7 @@ make_fig_sp_katex <- function(figs) {
       logical(1)
     )
     p$layers <- p$layers[!white]
-    katex_fig_sp(p)
+    katex_fig_sp(p, sub = sub)
   })
 }
 

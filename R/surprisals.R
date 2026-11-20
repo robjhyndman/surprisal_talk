@@ -155,7 +155,8 @@ gpd_stage_data <- function(n = 1000, beta = 0.1, obs_rank = 20, seed = 1,
 # with the largest beta of them highlighted; (3) the GPD density, scaled by
 # beta; (4) the estimated probability for one observation as a shaded area.
 # `zoom` moves the view from all surprisals (0) to the tail above u (1).
-gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
+# `sub` is the subscript of the observation (t for time, i otherwise).
+gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0, sub = "t") {
   colours <- c(bulk = "#cbd5e1", tail = "#F39B00", gpd = "#c14b14", u = "#0f2a44")
   ease <- (1 - cos(pi * zoom)) / 2
   xlim <- c(d$xmin + ease * (d$u - d$xmin), d$xmax)
@@ -201,7 +202,7 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
       annotate("segment", x = tip + 0.3, xend = tip, y = d$top_tail * 0.45,
         yend = gpd_at(tip) * 0.5, colour = colours[["gpd"]],
         arrow = arrow(length = unit(0.12, "inches"), type = "closed")) +
-      math("hat(italic(p))[italic(t)]", x = tip + 0.3, y = d$top_tail * 0.45,
+      math(sprintf("hat(italic(p))[italic(%s)]", sub), x = tip + 0.3, y = d$top_tail * 0.45,
         vjust = -0.2, colour = colours[["gpd"]])
   }
   if (level >= 3) {
@@ -220,7 +221,7 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
   obs <- if (level >= 4) d$s_obs
   s_t <- paste0(
     "<span style='font-size:15pt; color:", colours[["gpd"]], "'>",
-    katex_it("s"), "<sub>", katex_it("t"), "</sub></span>"
+    katex_it("s"), "<sub>", katex_it(sub), "</sub></span>"
   )
   p +
     scale_x_continuous(
@@ -243,12 +244,13 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0) {
 # then scaled down to `video_width` pixels. Returns the PNG files,
 # then the MP4 and its poster (the last frame).
 gpd_stage_files <- function(d, dir, seconds = 1.5, fps = 30, width = 9, height = 3.8,
-                            res = 400, video_width = 1800, background = "#fbf9f4") {
+                            res = 400, video_width = 1800, background = "#fbf9f4",
+                            sub = "t") {
   register_katex_font()
   zoom <- seq(0, 1, length.out = seconds * fps)
   plots <- c(
-    lapply(1:4, function(level) gpd_stage_plot(d, level)),
-    lapply(zoom, function(z) gpd_stage_plot(d, 2, zoom = z))
+    lapply(1:4, function(level) gpd_stage_plot(d, level, sub = sub)),
+    lapply(zoom, function(z) gpd_stage_plot(d, 2, zoom = z, sub = sub))
   )
   # ggplotGrob() measures text on the current device, so open a matching one
   tmp <- tempfile(fileext = ".png")

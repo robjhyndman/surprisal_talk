@@ -18,8 +18,8 @@ tar_option_set(
 
 tar_source()
 
-# Target saving figure target `fig` as a PNG for uconn_2026.qmd
-tar_png <- function(fig, width = 9, height = 4.4) {
+# Target saving figure target `fig` as a PNG for the slides, in figs/`dir`
+tar_png <- function(fig, width = 9, height = 4.4, dir = "uconn") {
   fig <- deparse(substitute(fig))
   tar_target_raw(
     paste0(fig, "_png"),
@@ -27,7 +27,7 @@ tar_png <- function(fig, width = 9, height = 4.4) {
       save_png(FIG, FILE, width = WIDTH, height = HEIGHT),
       list(
         FIG = as.symbol(fig),
-        FILE = file.path("figs", "uconn", paste0(fig, ".png")),
+        FILE = file.path("figs", dir, paste0(fig, ".png")),
         WIDTH = width,
         HEIGHT = height
       )
@@ -588,7 +588,7 @@ list(
       us_episodes,
       from = us_zoom$from,
       to = us_zoom$to,
-      file = "figs/us_zoom.mp4"
+      file = "figs/uconn/us_zoom.mp4"
     )),
     format = "file"
   ),
@@ -866,6 +866,124 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
+  # Figures and results for wombat_2026.qmd ---------------
+  # Startup message of library(weird), which shows package versions: rebuilt
+  # whenever the package library changes (targets doesn't track packages)
+  tar_target(uvr_lock, "uvr.lock", format = "file"),
+  tar_target(weird_attach, weird_attach_message(uvr_lock)),
+  # Three chi-square samples, each as a strip
+  tar_target(
+    fig_chisq_pngs,
+    unname(mapply(
+      function(data, k) {
+        save_png(
+          chisq_strip(data),
+          file.path("figs", "wombat", paste0("fig_chisq", k, ".png")),
+          width = 9,
+          height = 1.15
+        )
+      },
+      list(chisq_data3, chisq_data1, chisq_data2),
+      1:3
+    )),
+    format = "file"
+  ),
+  # Spot the anomaly: two versions, each plain then with the anomaly circled
+  tar_target(
+    fig_spot_pngs,
+    {
+      stages <- expand.grid(circle = c(FALSE, TRUE), version = c("a", "b"),
+        stringsAsFactors = FALSE)
+      unname(mapply(
+        function(version, circle) {
+          save_png(
+            spot_anomaly_plot(spot_anomaly_data, version, circle),
+            file.path("figs", "wombat",
+              paste0("fig_spot_", version, if (circle) "_circle", ".png")),
+            width = 4.6,
+            height = 4.6
+          )
+        },
+        stages$version,
+        stages$circle
+      ))
+    },
+    format = "file"
+  ),
+  tar_target(fig_sp_i_png,
+    save_aligned_pngs(
+      make_fig_sp_katex(list(fig_sp0, fig_sp1, fig_sp2), sub = "i"),
+      file.path("figs", "wombat", paste0("fig_sp", 1:3, ".png")),
+      height = 3.6
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
+  tar_target(normal_eg, normal_example()),
+  tar_target(fig_sp_normal_png,
+    save_png(
+      make_fig_sp_katex(
+        list(create_fig_surprisal_prob(2L, den = dist_normal(), size = 98)),
+        sub = "i"
+      )[[1]],
+      file.path("figs", "wombat", "fig_sp_normal.png"),
+      width = 6.2,
+      height = 3.2
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
+  # Wine
+  tar_target(wine_p, wine_probs(wine_reviews)),
+  tar_target(wine_p_gpd, wine_probs(wine_reviews, approximation = "gpd")),
+  tar_target(
+    wine_bargains,
+    wine_p |>
+      filter(price < fitted) |>
+      arrange(p, points, price) |>
+      select(-fitted)
+  ),
+  tar_target(fig_wine_scatter, wine_scatter(wine_reviews)),
+  tar_target(fig_wine_scatter_log, wine_scatter(wine_reviews, log = TRUE)),
+  tar_target(fig_wine_model_log, wine_anomaly_plot(wine_p)),
+  tar_target(fig_wine_model, wine_anomaly_plot(wine_p, log = FALSE)),
+  tar_png(fig_wine_scatter, dir = "wombat"),
+  tar_png(fig_wine_scatter_log, dir = "wombat"),
+  tar_png(fig_wine_model_log, dir = "wombat"),
+  tar_png(fig_wine_model, dir = "wombat"),
+  # GPD approximation, with i rather than t
+  tar_target(
+    fig_gpd_i_files,
+    gpd_stage_files(fig_gpd_data, file.path("figs", "wombat"), sub = "i"),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
+  # Cricket
+  tar_target(cricket_no, cricket_not_outs(cricket_batting)),
+  tar_target(cricket_gam, fit_cricket_gam(cricket_no)),
+  tar_target(cricket_p, cricket_anomalies(cricket_gam, cricket_no)),
+  tar_target(fig_cricket_scatter, cricket_scatter(cricket_no)),
+  tar_target(fig_cricket_highlight, cricket_scatter(cricket_no, highlight = TRUE)),
+  tar_target(fig_cricket_gam, cricket_gam_plot(cricket_gam)),
+  # Both stages with the same panel position, so they overlay exactly
+  tar_target(
+    fig_cricket_scatter_pngs,
+    save_aligned_pngs(
+      list(fig_cricket_scatter, fig_cricket_highlight),
+      file.path("figs", "wombat", c("fig_cricket_scatter.png", "fig_cricket_highlight.png"))
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
+  tar_png(fig_cricket_gam, height = 2.9, dir = "wombat"),
+  # Old Faithful
+  tar_target(of_probs, old_faithful_probs(oldfaithful)),
+  tar_target(fig_of_scatter, old_faithful_scatter(oldfaithful)),
+  tar_target(fig_of_kde, old_faithful_kde(oldfaithful)),
+  tar_target(fig_of_hdrboxplot, old_faithful_hdrboxplot(oldfaithful)),
+  tar_png(fig_of_scatter, dir = "wombat"),
+  tar_png(fig_of_kde, height = 3.6, dir = "wombat"),
+  tar_png(fig_of_hdrboxplot, height = 3.6, dir = "wombat"),
   # Slides ------------------------------------------------
   #tar_quarto(
   #  slides,
@@ -883,6 +1001,24 @@ list(
       "uconn_2026.css",
       "title-slide.html",
       "figs/title_ts.png",
+      "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
+      "katex/katex.min.css",
+      "katex/katex.min.js",
+      "katex/katex-local.html",
+      "fonts/fonts.css"
+    )
+  ),
+  tar_quarto(
+    slides_wombat,
+    "wombat_2026.qmd",
+    quiet = FALSE,
+    extra_files = c(
+      "_quarto.yml",
+      "slim_html.py",
+      "uconn_2026.css",
+      "wombat_2026.css",
+      "title-slide.html",
+      "figs/title_of.png",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
       "katex/katex.min.css",
       "katex/katex.min.js",
