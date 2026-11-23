@@ -5,6 +5,22 @@
   max-width: 800px;
 }
 
+/* ---- Bullet lists in larger text (not the section outlines, nor lists in
+   columns, which sit beside material sized to match) ---- */
+
+.reveal .slide :is(ul, ol):not(.outline *, .columns *) {
+  font-size: 1.15em;
+}
+
+/* Larger still, e.g. a short list that is the whole slide */
+.reveal .slide .larger {
+  font-size: 1.2em;
+}
+
+.reveal .slide .larger :is(ul, ol) {
+  font-size: 1em;
+}
+
 /* ---- Photos filling the slide below the title ---- */
 
 .reveal .slides section img.photo {
