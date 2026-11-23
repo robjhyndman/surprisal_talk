@@ -59,7 +59,7 @@ set_ggplot_options()
 theme_set(uconn_theme())
 register_katex_font()
 options(
-  pillar.width = 60,
+  pillar.width = 78,
   pillar.max_footer_lines = 2,
   slide_sections = c(
     "What is an anomaly?",
@@ -272,32 +272,6 @@ include_png(tar_read(fig_sp_normal_png))
 :::::
 :::
 
-```{=html}
-<script>
-// Reveal code lines in steps: data-steps="4-6:3,7:4" makes lines 4-6 a
-// fragment with index 3 and line 7 a fragment with index 4. A pipe ending
-// the line before each step appears with that step, so the last visible line
-// never ends in a dangling pipe. Runs before Reveal is initialised, so the new
-// fragments are picked up.
-document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
-  var lines = div.querySelectorAll("pre code > span[id]");
-  div.dataset.steps.split(",").forEach(function (step) {
-    var parts = step.split(":");
-    var range = parts[0].split("-").map(Number);
-    for (var i = range[0]; i <= (range[1] || range[0]); i++) {
-      lines[i - 1].classList.add("fragment");
-      lines[i - 1].dataset.fragmentIndex = parts[1];
-    }
-    var prev = lines[range[0] - 2];
-    var pipe = prev && Array.from(prev.querySelectorAll("span.sc")).pop();
-    if (pipe && pipe.textContent === "|>" && prev.textContent.trimEnd().endsWith("|>")) {
-      pipe.classList.add("fragment");
-      pipe.dataset.fragmentIndex = parts[1];
-    }
-  });
-});
-</script>
-```
 
 ## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
@@ -329,6 +303,8 @@ cat_png_stack(
 
 ## Wine quality and prices
 
+::: {.code-steps data-steps="2-3:1,4:2"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: wine-model
 #| echo: true
@@ -339,15 +315,30 @@ wine_reviews <- wine_reviews |>
   mutate(p = surprisals_prob(wine_lm, loo = TRUE))
 wine_reviews |> arrange(p)
 ```
+<!-- panache-ignore-format-end -->
+:::
 
-```{r}
+`````{r}
 #| label: wine-model-output
+#| results: asis
 
-tar_read(wine_p) |>
-  select(-fitted) |>
-  arrange(p) |>
-  print(n = 5)
-```
+# The tibble after each revealed step; the first hidden at the next step
+wine_p <- tar_read(wine_p) |> select(-fitted)
+tables <- list(wine_p, arrange(wine_p, p))
+cat("\n::: {.r-stack .output-steps}\n\n")
+for (k in seq_along(tables)) {
+  cat(
+    "::: {.fragment",
+    if (k < length(tables)) " .current-visible",
+    " fragment-index=\"", k, "\"}\n",
+    "::::: {.cell-output .cell-output-stdout}\n````\n",
+    sep = ""
+  )
+  cat(capture.output(print(tables[[k]], n = 5)), sep = "\n")
+  cat("\n````\n:::::\n:::\n\n")
+}
+cat(":::\n")
+`````
 
 ## Wine quality and prices
 
@@ -363,7 +354,7 @@ cat_png_stack(c(
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
-[Orange: $p_i < 0.001$]{.alert}
+[$p_i < 0.001$]{.alert}
 :::::
 :::
 
@@ -1089,6 +1080,33 @@ window.addEventListener("load", function () {
       v.pause();
       v.currentTime = 0;
     });
+  });
+});
+</script>
+```
+
+```{=html}
+<script>
+// Reveal code lines in steps: data-steps="4-6:3,7:4" makes lines 4-6 a
+// fragment with index 3 and line 7 a fragment with index 4. A pipe ending
+// the line before each step appears with that step, so the last visible line
+// never ends in a dangling pipe. Runs before Reveal is initialised, so the new
+// fragments are picked up.
+document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
+  var lines = div.querySelectorAll("pre code > span[id]");
+  div.dataset.steps.split(",").forEach(function (step) {
+    var parts = step.split(":");
+    var range = parts[0].split("-").map(Number);
+    for (var i = range[0]; i <= (range[1] || range[0]); i++) {
+      lines[i - 1].classList.add("fragment");
+      lines[i - 1].dataset.fragmentIndex = parts[1];
+    }
+    var prev = lines[range[0] - 2];
+    var pipe = prev && Array.from(prev.querySelectorAll("span.sc")).pop();
+    if (pipe && pipe.textContent === "|>" && prev.textContent.trimEnd().endsWith("|>")) {
+      pipe.classList.add("fragment");
+      pipe.dataset.fragmentIndex = parts[1];
+    }
   });
 });
 </script>
