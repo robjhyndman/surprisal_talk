@@ -1,4 +1,4 @@
-.PHONY: all update clean
+.PHONY: all update clean images
 
 all:
 	Rscript -e 'targets::tar_make()'
@@ -13,3 +13,11 @@ update:
 # tar_destroy(), the stored results stay readable until they are rebuilt.
 clean:
 	Rscript -e 'targets::tar_invalidate(everything())'
+
+# Optimise the hand-made images losslessly before committing (instead of ImgBot):
+# oxipng for PNGs, svgo for SVGs. Tools missing from PATH are skipped.
+OXIPNG := $(shell command -v oxipng || ls ~/.cargo/bin/oxipng 2>/dev/null)
+SVGO := $(shell command -v svgo)
+images:
+	$(if $(OXIPNG),$(OXIPNG) --strip safe images/*.png,@echo "oxipng not found: PNGs skipped")
+	$(if $(SVGO),$(SVGO) --quiet images/*.svg,@echo "svgo not found: SVGs skipped")
