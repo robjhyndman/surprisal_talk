@@ -1005,7 +1005,7 @@ list(
       "uconn_2026.css",
       "wombat_2026.css",
       "title-slide.html",
-      "images/title_of.png",
+      "images/title_of.svg",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
       "katex/katex.min.css",
       "katex/katex.min.js",

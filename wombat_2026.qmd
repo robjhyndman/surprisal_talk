@@ -31,7 +31,7 @@ format:
     code-line-numbers: false
     title-slide-attributes:
       data-background-color: "#0f2a44"
-      data-background-image: images/title_of.png
+      data-background-image: images/title_of.svg
       data-background-size: contain
       data-background-position: center
     template-partials:
