@@ -1,4 +1,4 @@
-manifest_fingerprint = "sha256:a32401694958b31215f8fd40eebee4ebf8878be7f5261dc18c8497413a82340c"
+manifest_fingerprint = "sha256:dc2a2f46aae9d3d851eb23af413d5d6b192f7ec8d258c194453018273f5a4641"
 
 [r]
 version = "4.6.2"
@@ -1283,16 +1283,16 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/rstudioapi_0.19.0
 
 [[package]]
 name = "sass"
-version = "0.4.10"
+version = "0.5.0"
 source = "ppm"
-raw_version = "0.4.10"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/sass_0.4.10.tar.gz"
+raw_version = "0.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/sass_0.5.0.tar.gz"
 requires = [
     "fs",
-    "rlang",
     "htmltools",
     "R6",
     "rappdirs",
+    "rlang",
 ]
 system_requirements = "GNU make"
 
@@ -1401,10 +1401,10 @@ system_requirements = "libpng"
 
 [[package]]
 name = "systemfonts"
-version = "1.3.3"
+version = "1.3.4"
 source = "ppm"
-raw_version = "1.3.3"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/systemfonts_1.3.3.tar.gz"
+raw_version = "1.3.4"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/systemfonts_1.3.4.tar.gz"
 requires = [
     "base64enc",
     "jsonlite",
@@ -1458,10 +1458,10 @@ requires = [
 
 [[package]]
 name = "textshaping"
-version = "1.0.5"
+version = "1.1.0"
 source = "ppm"
-raw_version = "1.0.5"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/textshaping_1.0.5.tar.gz"
+raw_version = "1.1.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/textshaping_1.1.0.tar.gz"
 requires = [
     "lifecycle",
     "stringi",
@@ -1611,10 +1611,10 @@ requires = [
 
 [[package]]
 name = "vecvec"
-version = "1.4.0"
+version = "1.5.0"
 source = "ppm"
-raw_version = "1.4.0"
-url = "https://packagemanager.posit.co/cran/latest/src/contrib/vecvec_1.4.0.tar.gz"
+raw_version = "1.5.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/vecvec_1.5.0.tar.gz"
 requires = [
     "cli",
     "rlang",
@@ -1651,10 +1651,10 @@ url = "https://packagemanager.posit.co/cran/latest/src/contrib/warp_0.2.3.tar.gz
 
 [[package]]
 name = "weird"
-version = "3.1.0-4.9000"
-source = "github"
-url = "https://api.github.com/repos/robjhyndman/weird/tarball/9a0347c7b58f92ee766bdf1e7d401062a26b78f7"
-checksum = "git:9a0347c7b58f92ee766bdf1e7d401062a26b78f7"
+version = "3.2.0"
+source = "ppm"
+raw_version = "3.2.0"
+url = "https://packagemanager.posit.co/cran/latest/src/contrib/weird_3.2.0.tar.gz"
 requires = [
     "aplpack",
     "broom",

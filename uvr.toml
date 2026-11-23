@@ -139,13 +139,11 @@ xml2 = "*"
 yaml = "*"
 ggiraph = "*"
 ggtext = "*"
+weird= "*"
 
 [dependencies.ggtda]
 git = "tdaverse/ggtda"
 rev = "aa90e28ac854c141fb526c04bd01cb62704231da"
-
-[dependencies.weird]
-git = "robjhyndman/weird"
 
 [[sources]]
 name = "ppm"
