@@ -100,11 +100,7 @@ cat(tar_read(weird_attach), sep = "\n")
 ```
 :::
 
-## Outline {.agenda}
-
-`r outline()`
-
-## What is an anomaly? {#part-what-is-an-anomaly .section-slide background-color="#0f2a44"}
+## What is an anomaly? {#part-what-is-an-anomaly .section-slide .photo-bg background-color="#0f2a44" background-image="images/ducks.jpg"}
 
 `r section("What is an anomaly?")`
 
