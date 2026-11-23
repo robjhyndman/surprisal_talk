@@ -964,24 +964,6 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
-  # Cricket
-  tar_target(cricket_no, cricket_not_outs(cricket_batting)),
-  tar_target(cricket_gam, fit_cricket_gam(cricket_no)),
-  tar_target(cricket_p, cricket_anomalies(cricket_gam, cricket_no)),
-  tar_target(fig_cricket_scatter, cricket_scatter(cricket_no)),
-  tar_target(fig_cricket_highlight, cricket_scatter(cricket_no, highlight = TRUE)),
-  tar_target(fig_cricket_gam, cricket_gam_plot(cricket_gam)),
-  # Both stages with the same panel position, so they overlay exactly
-  tar_target(
-    fig_cricket_scatter_pngs,
-    save_aligned_pngs(
-      list(fig_cricket_scatter, fig_cricket_highlight),
-      file.path("figs", "wombat", c("fig_cricket_scatter.png", "fig_cricket_highlight.png"))
-    ),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  tar_png(fig_cricket_gam, height = 2.9, dir = "wombat"),
   # Old Faithful
   tar_target(of_probs, old_faithful_probs(oldfaithful)),
   tar_target(fig_of_scatter, old_faithful_scatter(oldfaithful)),

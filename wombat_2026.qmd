@@ -65,7 +65,6 @@ options(
     "What is an anomaly?",
     "Wine quality and prices",
     "Approximate extreme surprisal probabilities",
-    "Cricket not-outs",
     "Old Faithful eruptions",
     "French mortality rates",
     "Pharmaceutical surveillance",
@@ -470,101 +469,6 @@ tar_read(wine_p_gpd) |>
   select(-fitted) |>
   arrange(p) |>
   print(n = 5)
-```
-
-## Cricket not-outs {#part-cricket-not-outs .section-slide .photo-bg background-color="#0f2a44" background-image="images/batting.jpg"}
-
-`r section("Cricket not-outs")`
-
-## Cricket not-outs
-
-```{r}
-#| label: df_no
-#| echo: true
-#| eval: false
-
-df_no <- cricket_batting |>
-  filter(Innings > 0, Gender == "Men") |>
-  mutate(prop_no = NotOuts / Innings, RPI = Runs / Innings)
-df_no
-```
-
-```{r}
-#| label: df_no-output
-
-tar_read(cricket_no) |> print(n = 5)
-```
-
-## Cricket not-outs
-
-```{r}
-#| label: fig_cricket_scatter
-#| results: asis
-
-cat_png_stack(tar_read(fig_cricket_scatter_pngs))
-```
-
-::: {.absolute .fragment top="150" right="0" width="640"}
-::::: {.alertblock .small}
-[Statistical model]{.block-title}
-
-$\text{NotOuts} \sim \text{Binomial}(\text{Innings},\ q)$\
-$\log\big(q/(1 - q)\big) = g_1(\text{RPI}) + g_2(\text{Start})$
-:::::
-:::
-
-## Cricket not-outs {.nostretch}
-
-::: {.columns}
-::::: {.column width="52%"}
-```{r}
-#| label: fit_notouts
-#| echo: true
-#| eval: false
-
-fit_notouts <- mgcv::gam(
-  prop_no ~ s(RPI) + s(Start),
-  data = df_no,
-  weights = Innings,
-  family = binomial(link = logit)
-)
-```
-:::::
-::::: {.column width="48%"}
-::::::: {.alertblock .small}
-[Statistical model]{.block-title}
-
-$\text{NotOuts} \sim \text{Binomial}(\text{Innings},\ q)$\
-$\log\big(q/(1 - q)\big) = g_1(\text{RPI}) + g_2(\text{Start})$
-:::::::
-:::::
-:::
-
-::: {.fragment}
-```{r}
-#| label: fig_cricket_gam
-
-include_png(tar_read(fig_cricket_gam_png))
-```
-:::
-
-## Cricket not-outs
-
-```{r}
-#| label: notouts-surprisal
-#| echo: true
-#| eval: false
-
-augment(fit_notouts, data = df_no) |>
-  mutate(p = surprisals_prob(fit_notouts, approximation = "gpd")) |>
-  select(Player:End, Innings, NotOuts, RPI, p) |>
-  filter(p < 0.001)
-```
-
-```{r}
-#| label: notouts-surprisal-output
-
-tar_read(cricket_p) |> print(n = 5)
 ```
 
 ## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/oldfaithful.jpg"}
@@ -990,7 +894,6 @@ tar_read(pbs_joint_card_html)
 | Data             | Density $f$                                 |
 | :--------------- | :------------------------------------------ |
 | Wine prices      | Normal regression model for log price       |
-| Cricket not-outs | Binomial GAM                                |
 | Old Faithful     | Kernel density estimate (leave-one-out)     |
 | French mortality | Normal centred on a moving median           |
 | PBS scripts      | One-step forecast density from an ETS model |
