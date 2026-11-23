@@ -69,3 +69,9 @@
   margin: 0 auto;
   display: block;
 }
+
+/* ---- Code and output large enough to read from the back of the room ---- */
+
+.reveal .slide pre {
+  font-size: 0.75em;
+}
