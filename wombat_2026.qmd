@@ -293,13 +293,9 @@ document.querySelectorAll(".code-steps[data-steps]").forEach(function (div) {
 </script>
 ```
 
-## Wine quality and prices {#part-wine-quality-and-prices .section-slide background-color="#0f2a44"}
+## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
 `r section("Wine quality and prices")`
-
-## Wine quality and prices
-
-![](images/grapes.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Wine quality and prices
 
@@ -474,13 +470,9 @@ tar_read(wine_p_gpd) |>
   print(n = 5)
 ```
 
-## Cricket not-outs {#part-cricket-not-outs .section-slide background-color="#0f2a44"}
+## Cricket not-outs {#part-cricket-not-outs .section-slide .photo-bg background-color="#0f2a44" background-image="images/batting.jpg"}
 
 `r section("Cricket not-outs")`
-
-## Cricket not-outs
-
-![](images/batting.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Cricket not-outs
 
@@ -573,13 +565,9 @@ augment(fit_notouts, data = df_no) |>
 tar_read(cricket_p) |> print(n = 5)
 ```
 
-## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide background-color="#0f2a44"}
+## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/oldfaithful.jpg"}
 
 `r section("Old Faithful eruptions")`
-
-## Old Faithful eruptions
-
-![](images/oldfaithful.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## Old Faithful eruptions
 
@@ -667,13 +655,9 @@ oldfaithful |>
 include_png(tar_read(fig_of_hdrboxplot_png))
 ```
 
-## French mortality rates {#part-french-mortality-rates .section-slide background-color="#0f2a44"}
+## French mortality rates {#part-french-mortality-rates .section-slide .photo-bg background-color="#0f2a44" background-image="images/french_cemetery.jpg"}
 
 `r section("French mortality rates")`
-
-## French mortality rates
-
-![](images/french_cemetery.jpg){.absolute .photo top="95" left="0" width="1280" height="600"}
 
 ## French mortality rates
 
@@ -832,7 +816,7 @@ tar_read(fr_anomalies_girafe)
 tar_read(fr_causes_card)
 ```
 
-## Pharmaceutical surveillance {#part-pharmaceutical-surveillance .section-slide background-color="#0f2a44"}
+## Pharmaceutical surveillance {#part-pharmaceutical-surveillance .section-slide .photo-bg background-color="#0f2a44" background-image="images/pills.jpg" style="--photo-opacity: 0.15"}
 
 `r section("Pharmaceutical surveillance")`
 

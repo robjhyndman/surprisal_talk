@@ -21,13 +21,16 @@
   font-size: 1em;
 }
 
-/* ---- Photos filling the slide below the title ---- */
+/* ---- Photos ---- */
 
-.reveal .slides section img.photo {
-  margin: 0;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 6px 22px rgba(15, 42, 68, 0.25);
+/* Photo behind a section slide, faded into the navy so the text stays
+   readable. (The letterbox extension moves backgrounds into this div and
+   ignores background-opacity, so set opacity and size here.) A light photo
+   can be faded further with style="--photo-opacity: 0.15" on the slide. */
+.reveal section.photo-bg > .background-image-div {
+  opacity: var(--photo-opacity, 0.25);
+  background-size: cover;
+  background-position: center;
 }
 
 /* ---- Small card in the title row, e.g. a plot legend ---- */
