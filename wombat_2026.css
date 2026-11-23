@@ -37,3 +37,19 @@
 .reveal .slide .find-out-more > .block {
   min-height: 330px;
 }
+
+/* ---- Figures alone on a slide (with at most overlaid cards) ---- */
+
+/* Taller than the stretch makes them, reaching into the letterbox border
+   below the slide; still capped at the slide width */
+.reveal .slides section:not(:has(> :not(h2, .r-stretch, .absolute))) > .r-stretch {
+  height: 630px !important;
+}
+
+.reveal .slides section:not(:has(> :not(h2, .r-stretch, .absolute))) > img.r-stretch {
+  width: auto !important;
+  max-width: 100%;
+  max-height: none;
+  margin: 0 auto;
+  display: block;
+}
