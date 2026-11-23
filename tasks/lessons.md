@@ -30,3 +30,6 @@
 - Words like "log" in running text (e.g. "$-$log likelihood") are deliberately kept out of maths so they
   stay in Fira Sans. Don't move them into KaTeX to fix a line break; use
   `[...]{style="white-space: nowrap"}` instead.
+- After optimising SVGs (svgo), check them in place on the rendered slide in Chrome, not just with
+  `rsvg-convert`: the two render differently, and svgo's convertShapeToPath turned svglite's
+  transparent clip rect into a black box that only showed in the browser.
