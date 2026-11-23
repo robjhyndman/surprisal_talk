@@ -116,7 +116,9 @@ cat(tar_read(weird_attach), sep = "\n")
 
 files <- tar_read(fig_chisq_pngs)
 for (k in seq_along(files)) {
-  if (k > 1) cat("\n::: {.fragment}\n")
+  if (k > 1) {
+    cat("\n::: {.fragment}\n")
+  }
   cat("\n![](", files[k], "){.chisq-strip width=1200}\n", sep = "")
   if (k > 1) cat("\n:::\n")
 }
@@ -138,12 +140,20 @@ All points were randomly generated from the **same** $\chi^2_5$ distribution.
 files <- tar_read(fig_spot_pngs)
 spot_stack <- function(files, left, index) {
   cat(
-    "\n::: {.absolute top=\"95\" left=\"", left, "\" width=\"520\"",
+    "\n::: {.absolute top=\"95\" left=\"",
+    left,
+    "\" width=\"520\"",
     if (index[1] > 0) paste0(" .fragment fragment-index=\"", index[1], "\""),
     "}\n::::: {.r-stack}\n",
-    "![](", files[1], "){width=520}\n\n",
-    "::::::: {.fragment fragment-index=\"", index[2], "\"}\n",
-    "![](", files[2], "){width=520}\n:::::::\n",
+    "![](",
+    files[1],
+    "){width=520}\n\n",
+    "::::::: {.fragment fragment-index=\"",
+    index[2],
+    "\"}\n",
+    "![](",
+    files[2],
+    "){width=520}\n:::::::\n",
     ":::::\n:::\n",
     sep = ""
   )
@@ -421,7 +431,8 @@ Anomalies are extreme values of the surprisals.
 
 ::: {.alertblock}
 $$
-  p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big) = \mathbb{P}\big(-\log f(Y) \ge s_i\big), \qquad Y \sim f
+  p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big)
+      = \mathbb{P}\big(-\log f(Y) \ge s_i\big), \qquad Y \sim f
 $$
 :::
 
@@ -985,13 +996,13 @@ tar_read(pbs_joint_card_html)
 
 ## One idea, many kinds of data
 
-| Data                | Density $f$                                   |
-|:--------------------|:----------------------------------------------|
-| Wine prices         | Normal regression model for log price         |
-| Cricket not-outs    | Binomial GAM                                  |
-| Old Faithful        | Kernel density estimate (leave-one-out)       |
-| French mortality    | Normal centred on a moving median             |
-| PBS scripts         | One-step forecast density from an ETS model   |
+| Data             | Density $f$                                 |
+| :--------------- | :------------------------------------------ |
+| Wine prices      | Normal regression model for log price       |
+| Cricket not-outs | Binomial GAM                                |
+| Old Faithful     | Kernel density estimate (leave-one-out)     |
+| French mortality | Normal centred on a moving median           |
+| PBS scripts      | One-step forecast density from an ETS model |
 
 ::: {.fragment}
 ::::: {.alertblock}
