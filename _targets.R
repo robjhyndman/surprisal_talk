@@ -949,10 +949,12 @@ list(
   ),
   tar_target(fig_wine_scatter, wine_scatter(wine_reviews)),
   tar_target(fig_wine_scatter_log, wine_scatter(wine_reviews, log = TRUE)),
+  tar_target(fig_wine_model_scatter, wine_model_scatter(wine_reviews)),
   tar_target(fig_wine_model_log, wine_anomaly_plot(wine_p)),
   tar_target(fig_wine_model, wine_anomaly_plot(wine_p, log = FALSE)),
   tar_png(fig_wine_scatter, dir = "wombat"),
   tar_png(fig_wine_scatter_log, dir = "wombat"),
+  tar_png(fig_wine_model_scatter, dir = "wombat"),
   tar_png(fig_wine_model_log, dir = "wombat"),
   tar_png(fig_wine_model, dir = "wombat"),
   # GPD approximation, with i rather than t

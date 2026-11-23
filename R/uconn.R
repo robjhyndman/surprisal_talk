@@ -158,8 +158,9 @@ include_png <- function(file, retina = 2) {
 # revealed as a fragment (call from a chunk with `results: asis`). An optional
 # video (MP4 file and poster PNG of its last frame) is added as a fragment after
 # PNG number `video_after` (by default the last), played when shown by the
-# script on the Hampel slide.
-cat_png_stack <- function(files, video = NULL, video_after = length(files)) {
+# script on the Hampel slide. `indices`, if given, sets the fragment index of
+# each PNG after the first, so other fragments on the slide can come between.
+cat_png_stack <- function(files, video = NULL, video_after = length(files), indices = NULL) {
   video_md <- function() {
     tag <- htmltools::tagAppendAttributes(
       video_tag(video[1]),
@@ -170,7 +171,15 @@ cat_png_stack <- function(files, video = NULL, video_after = length(files)) {
   }
   cat("\n::: {.r-stack .r-stretch}\n")
   for (step in seq_along(files)) {
-    cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
+    cat(
+      if (step == 1) {
+        "\n::: {.step}\n"
+      } else if (is.null(indices)) {
+        "\n::: {.fragment}\n"
+      } else {
+        paste0("\n::: {.fragment fragment-index=\"", indices[step - 1], "\"}\n")
+      }
+    )
     cat("![](", files[step], "){width=1800}\n", sep = "")
     cat("\n:::\n")
     if (!is.null(video) && step == video_after) {

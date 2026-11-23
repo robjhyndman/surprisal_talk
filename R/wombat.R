@@ -120,6 +120,41 @@ wine_scatter <- function(wine, log = FALSE) {
   p
 }
 
+# The log-scale scatter plot with the fitted regression line and, at each of
+# `at` points, the normal density of log price drawn sideways (over ±2.5 sd,
+# which stays within the range of the data so the axes match wine_scatter())
+wine_model_scatter <- function(wine, at = c(82, 86, 90, 94, 98), width = 1.8) {
+  wine_lm <- lm(log(price) ~ points, data = wine)
+  sigma <- sigma(wine_lm)
+  mu <- predict(wine_lm, newdata = tibble(points = at))
+  # Each density closed along its baseline at `at`, so it can be filled
+  z <- c(2.5, -2.5, seq(-2.5, 2.5, length.out = 101))
+  densities <- tibble(
+    group = rep(seq_along(at), each = length(z)),
+    points = rep(at, each = length(z)) +
+      width * rep(c(0, 0, exp(-z[-(1:2)]^2 / 2)), length(at)),
+    price = exp(rep(mu, each = length(z)) + sigma * rep(z, length(at))),
+    curve = rep(seq_along(z) > 2, length(at))
+  )
+  line <- tibble(points = range(wine$points)) |>
+    mutate(price = exp(predict(wine_lm, newdata = pick(points))))
+  wine_scatter(wine, log = TRUE) +
+    geom_polygon(
+      data = densities,
+      aes(group = group),
+      fill = wombat_colours[["orange"]],
+      alpha = 0.25
+    ) +
+    # Outline the curves only, not the baselines
+    geom_path(
+      data = densities |> filter(curve),
+      aes(group = group),
+      colour = wombat_colours[["orange"]],
+      linewidth = 0.8
+    ) +
+    geom_line(data = line, colour = wombat_colours[["blue"]], linewidth = 1)
+}
+
 # Wines with surprisal probability below `alpha` in orange, with the fitted line
 wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
   wine <- wine |>
