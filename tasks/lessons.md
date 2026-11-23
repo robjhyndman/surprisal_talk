@@ -33,3 +33,6 @@
 - After optimising SVGs (svgo), check them in place on the rendered slide in Chrome, not just with
   `rsvg-convert`: the two render differently, and svgo's convertShapeToPath turned svglite's
   transparent clip rect into a black box that only showed in the browser.
+- When fitting a figure to a slide, measure where its visible content (axis title) ends in a screenshot,
+  not the image's bounding box, which includes the PNG's blank margin. Grow figures until the axis title
+  sits just above the progress bar.

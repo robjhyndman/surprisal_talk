@@ -923,7 +923,7 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
-  tar_target(normal_eg, normal_example()),
+  tar_target(normal_eg_steps, normal_example_steps()),
   tar_target(fig_sp_normal_png,
     save_png(
       make_fig_sp_katex(
@@ -932,7 +932,7 @@ list(
       )[[1]],
       file.path("figs", "wombat", "fig_sp_normal.png"),
       width = 6.2,
-      height = 3.2
+      height = 3.85
     ),
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")

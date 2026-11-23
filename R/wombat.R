@@ -221,14 +221,13 @@ cricket_anomalies <- function(fit, df_no) {
 
 # N(0,1) example -------------------------------------------------------------
 
-normal_example <- function(seed = 2026, n = 1000) {
+# The tibble after each step of the slide code: y generated, p added, sorted
+normal_example_steps <- function(seed = 2026, n = 1000) {
   set.seed(seed)
   N01 <- dist_normal(mean = 0, sd = 1)
-  tibble(
-    y = generate(N01, times = n)[[1]],
-    p = surprisals_prob(y, distribution = N01)
-  ) |>
-    arrange(p)
+  generated <- tibble(y = generate(N01, times = n)[[1]])
+  with_p <- generated |> mutate(p = surprisals_prob(y, distribution = N01))
+  list(generated, with_p, arrange(with_p, p))
 }
 
 # Output of library(weird), as printed when the package is attached.
