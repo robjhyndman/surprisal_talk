@@ -453,23 +453,47 @@ Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 
 ## Wine quality and prices
 
+::: {.r-stack .output-steps}
+::::: {.fragment .fade-out fragment-index="1"}
+<!-- panache-ignore-format-start -->
+```{r}
+#| label: wine-model-empirical
+#| echo: true
+#| eval: false
+
+wine_lm <- lm(log(price) ~ points, data = wine_reviews)
+wine_reviews <- wine_reviews |>
+  mutate(p = surprisals_prob(wine_lm, loo = TRUE))
+wine_reviews |> arrange(p)
+```
+<!-- panache-ignore-format-end -->
+:::::
+
+::::: {.fragment fragment-index="1"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: wine-model-gpd
 #| echo: true
 #| eval: false
 
+wine_lm <- lm(log(price) ~ points, data = wine_reviews)
 wine_reviews <- wine_reviews |>
   mutate(p = surprisals_prob(wine_lm, loo = TRUE, approximation = "gpd"))
 wine_reviews |> arrange(p)
 ```
+<!-- panache-ignore-format-end -->
+:::::
+:::
 
 ```{r}
 #| label: wine-model-gpd-output
+#| results: asis
 
-tar_read(wine_p_gpd) |>
-  select(-fitted) |>
-  arrange(p) |>
-  print(n = 5)
+# Empirical probabilities, then the GPD ones when the argument appears
+cat_output_steps(list(
+  tar_read(wine_p) |> select(-fitted) |> arrange(p),
+  tar_read(wine_p_gpd) |> select(-fitted) |> arrange(p)
+))
 ```
 
 ## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/oldfaithful.jpg"}
