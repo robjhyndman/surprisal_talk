@@ -140,14 +140,23 @@ files <- tar_read(fig_spot_pngs)
 boxes <- tar_read(spot_boxes)
 spot_plot <- function(file, box, left, index, circle_index) {
   cat(
-    "\n::: {.absolute .spot-fig top=\"95\" left=\"", left, "\" width=\"520\"",
+    "\n::: {.absolute .spot-fig top=\"95\" left=\"",
+    left,
+    "\" width=\"520\"",
     if (index > 0) paste0(" .fragment fragment-index=\"", index, "\""),
-    "}\n![](", file, ")\n\n",
-    "[]{.rn-fragment fragment-index=\"", circle_index, "\" rn-type=\"circle\"",
+    "}\n![](",
+    file,
+    ")\n\n",
+    "[]{.rn-fragment fragment-index=\"",
+    circle_index,
+    "\" rn-type=\"circle\"",
     " rn-color=\"#c14b14\" rn-strokewidth=\"3\" rn-padding=\"0\"",
     sprintf(
       " style=\"left: %.3f%%; top: %.3f%%; width: %.3f%%; height: %.3f%%\"}\n:::\n",
-      100 * box[["left"]], 100 * box[["top"]], 100 * box[["width"]], 100 * box[["width"]]
+      100 * box[["left"]],
+      100 * box[["top"]],
+      100 * box[["width"]],
+      100 * box[["width"]]
     ),
     sep = ""
   )
