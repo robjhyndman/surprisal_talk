@@ -49,6 +49,8 @@ hover_card <- function(labels, alert = NULL, sep = ":", class = NULL, connect = 
       "
 document.addEventListener('mouseover', function (e) {
   var item = e.target.closest('.girafe [data-id]');
+  // Ignore plots in fragments not yet shown (see slides.css)
+  if (item && item.closest('.fragment:not(.visible)')) item = null;
   var section = e.target.closest('section');
   var card = section && section.querySelector('.hover-card');
   if (!card) return;
@@ -86,6 +88,19 @@ document.addEventListener('mouseover', function (e) {
   var o = line.querySelector('circle');
   o.setAttribute('cx', x); o.setAttribute('cy', y); o.setAttribute('r', 9);
   line.classList.add('show');
+});
+// A card and its line are placed for the plot shown when hovered: clear them
+// when that changes (a fragment brings in another plot, or the slides are
+// resized), until the next hover. Reveal is loaded after the slides.
+window.addEventListener('load', function () {
+  var clear = function () {
+    document.querySelectorAll('.hover-card.show, .hover-connector.show').forEach(function (el) {
+      el.classList.remove('show');
+    });
+  };
+  ['fragmentshown', 'fragmenthidden', 'slidechanged', 'resize'].forEach(function (ev) {
+    Reveal.on(ev, clear);
+  });
 });"
     ))
   )

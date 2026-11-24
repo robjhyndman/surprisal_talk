@@ -261,6 +261,14 @@ body.quarto-light,
   opacity: 1;
 }
 
+/* Interactive plots in fragments not yet shown must not catch the mouse:
+   ggiraph gives its interactive elements pointer-events: all, which on SVG
+   ignores visibility, so a hidden plot stacked over a visible one would take
+   its hovers */
+.reveal .slides section .fragment:not(.visible) .girafe [id] {
+  pointer-events: none;
+}
+
 /* Line from the hovered item to its card (hover_card(connect = TRUE)), in
    orange, and the card's stripe to match */
 .reveal .hover-card[data-connect] {
