@@ -67,7 +67,7 @@ options(
     "Approximate extreme surprisal probabilities",
     "Old Faithful eruptions",
     "French mortality rates",
-    "Pharmaceutical surveillance",
+    "PBS prescriptions",
     "Summary"
   )
 )
@@ -753,9 +753,9 @@ tar_read(fr_anomalies_girafe)
 tar_read(fr_causes_card)
 ```
 
-## Pharmaceutical surveillance {#part-pharmaceutical-surveillance .section-slide .photo-bg background-color="#0f2a44" background-image="images/pills.jpg" style="--photo-opacity: 0.15"}
+## PBS prescriptions {#part-pbs-prescriptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/pills.jpg" style="--photo-opacity: 0.15"}
 
-`r section("Pharmaceutical surveillance")`
+`r section("PBS prescriptions")`
 
 ## Australian Pharmaceutical Benefits Scheme
 
