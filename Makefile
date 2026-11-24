@@ -1,7 +1,11 @@
 .PHONY: all update clean images
 
+# Build only the current talk and the targets it depends on. Past talks are
+# frozen as git tags (`git tag -l`); check one out to re-render it.
+TALK := slides_wombat
+
 all:
-	Rscript -e 'targets::tar_make()'
+	Rscript -e 'targets::tar_make($(TALK))'
 
 # Remove the installed weird so uvr reinstalls the latest GitHub version
 update:
