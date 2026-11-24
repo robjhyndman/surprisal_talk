@@ -265,17 +265,19 @@ list(
     fr_anomalies_girafe,
     with_slide_style(create_fr_anomaly_girafe(fr_anomalies))
   ),
-  # Known causes of the anomalous years, shown in a card when hovering over the plot
+  # Known causes of the anomalous years, shown in a card when hovering over the
+  # plot. 1834 is uncertain (Le Roy Ladurie & Rousseau 2009 cite a deadly
+  # influenza epidemic; regional reports suggest cholera), so it is highlighted
   tar_target(
     fr_causes_card,
     {
       fr_causes <- c(
         "1832" = "Cholera outbreak",
-        "1834" = "unknown cause",
-        "1837" = "unknown cause",
+        "1834" = "Influenza or cholera? (uncertain)",
+        "1837" = "Influenza epidemic",
         "1849" = "Cholera outbreak",
         "1870" = "Franco–Prussian war",
-        "1871" = "Repression of the Commune de Paris",
+        "1871" = "Franco–Prussian war, smallpox epidemic, Paris Commune",
         "1914" = "World War I",
         "1915" = "World War I",
         "1918" = "Spanish flu outbreak",
@@ -283,7 +285,7 @@ list(
       )
       hover_card(
         fr_causes,
-        alert = names(fr_causes)[fr_causes == "unknown cause"]
+        alert = "1834"
       )
     }
   ),
