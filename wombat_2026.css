@@ -88,3 +88,31 @@
 .reveal .slide pre {
   font-size: 0.75em;
 }
+
+/* ---- Function arguments linked to the bullets that describe them ---- */
+
+/* An argument in a signature stays visible, and takes its bullet's colour
+   when that bullet appears (same fragment-index) */
+.reveal .slides section .fragment.arg-hl {
+  opacity: 1;
+  visibility: inherit;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.reveal .arg-object code,
+.reveal .slides section .fragment.arg-object.visible {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.reveal .arg-distribution code,
+.reveal .slides section .fragment.arg-distribution.visible {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* Consecutive one-item lists (one per fragment) spaced as a single list */
+.reveal .slide div.fragment + div.fragment > ul:only-child {
+  margin-top: 0;
+}

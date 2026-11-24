@@ -215,11 +215,16 @@ An observation is an **anomaly with respect to $f$** if $p_i < \alpha$.
 
 ::: {.larger}
 ::::: {style="width: 82%"}
-`surprisals_prob(object, distribution, ...)` returns a surprisal probability for each observation in `object` under model `distribution`.
+<code>surprisals_prob(<span class="fragment arg-hl arg-object" data-fragment-index="1">object</span>, <span class="fragment arg-hl arg-distribution" data-fragment-index="2">distribution</span>, \.\.\.)</code> returns a surprisal probability for each observation in `object` under model `distribution`.
 :::::
 
-- `object`: a vector, matrix, data frame or factor, or a fitted `lm`, `glm` or `gam` (which supplies data and distribution).
-- `distribution`: any **distributional** object; a kernel density estimate by default for numerical data.
+::: {.fragment fragment-index="1"}
+- [`object`]{.arg-object}: a vector, matrix, data frame or factor, or a fitted `lm`, `glm` or `gam` (which supplies data and distribution).
+:::
+
+::: {.fragment fragment-index="2"}
+- [`distribution`]{.arg-distribution}: any **distributional** object; a kernel density estimate by default for numerical data.
+:::
 :::
 
 ## Surprisal probabilities in R
