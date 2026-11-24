@@ -349,14 +349,26 @@ cat(":::\n")
 
 ## Wine quality and prices
 
+::: {.r-stack .wine-fig}
+```{r}
+#| label: fig_wine_model_log
+
+tar_read(wine_model_log_girafe)
+```
+
+::::: {.fragment}
 ```{r}
 #| label: fig_wine_model
-#| results: asis
 
-cat_png_stack(c(
-  tar_read(fig_wine_model_log_png),
-  tar_read(fig_wine_model_png)
-))
+tar_read(wine_model_girafe)
+```
+:::::
+:::
+
+```{r}
+#| label: wine_card
+
+tar_read(wine_anomaly_card_html)
 ```
 
 ::: {.absolute top="0" right="0"}
@@ -364,24 +376,6 @@ cat_png_stack(c(
 [$p_i < 0.001$]{.alert}
 :::::
 :::
-
-## Weirdly low-priced wines
-
-```{r}
-#| label: bargains
-#| echo: true
-#| eval: false
-
-wine_reviews |>
-  filter(log(price) < fitted(wine_lm)) |>
-  arrange(p, points, price)
-```
-
-```{r}
-#| label: bargains-output
-
-tar_read(wine_bargains) |> print(n = 5)
-```
 
 ## Approximate extreme surprisal probabilities {#part-approximate-extreme-surprisal-probabilities .section-slide background-color="#0f2a44"}
 

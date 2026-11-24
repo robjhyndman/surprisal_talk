@@ -85,3 +85,58 @@ wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
   }
   p
 }
+
+# Interactive version of wine_anomaly_plot(): the anomalies can be hovered
+# over, with "winery year" as data_id for wine_anomaly_card()
+wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, width = 9, height = 4.4) {
+  anomalies <- wine |>
+    filter(p < alpha) |>
+    mutate(id = wine_id(winery, year))
+  p <- wine_anomaly_plot(wine, log = log, alpha = alpha) +
+    ggiraph::geom_point_interactive(
+      data = anomalies,
+      aes(data_id = id),
+      colour = slide_colours[["orange"]],
+      size = 2.5
+    )
+  ggiraph::girafe(
+    ggobj = p,
+    font_set = girafe_fonts(),
+    width_svg = width,
+    height_svg = height,
+    options = list(
+      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:2px; r:6px;"),
+      ggiraph::opts_sizing(rescale = TRUE, width = 1),
+      ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
+    )
+  )
+}
+
+wine_id <- function(winery, year) paste(winery, year)
+
+# Card for wine_anomaly_girafe() describing the hovered wine
+wine_anomaly_card <- function(wine, alpha = 0.001) {
+  # Probability as "a × 10^b"; the slides' CSS reset neutralises <sup>
+  sci <- function(x) {
+    e <- floor(log10(x))
+    sprintf(
+      "%.1f &times; 10<span style='font-size:70%%; vertical-align:super'>&minus;%d</span>",
+      x / 10^e, -e
+    )
+  }
+  anomalies <- wine |>
+    filter(p < alpha) |>
+    mutate(
+      label = paste0(
+        state, ", ", country, " &middot; ", points, " points<br>",
+        "US$", price, " (expected US$", round(fitted), ") &middot; ",
+        "<span style='white-space:nowrap'><span style='font-style:italic'>p</span> = ", sci(p), "</span>",
+        "<div class='wine-review'>", htmltools::htmlEscape(description), "</div>"
+      )
+    )
+  hover_card(
+    stats::setNames(anomalies$label, wine_id(anomalies$winery, anomalies$year)),
+    sep = "<br>",
+    class = "wine-card"
+  )
+}

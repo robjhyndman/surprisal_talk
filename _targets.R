@@ -148,23 +148,21 @@ list(
   ),
   tar_target(wine_p, wine_probs(wine_reviews)),
   tar_target(wine_p_gpd, wine_probs(wine_reviews, approximation = "gpd")),
-  tar_target(
-    wine_bargains,
-    wine_p |>
-      filter(price < fitted) |>
-      arrange(p, points, price) |>
-      select(-fitted)
-  ),
   tar_target(fig_wine_scatter, wine_scatter(wine_reviews)),
   tar_target(fig_wine_scatter_log, wine_scatter(wine_reviews, log = TRUE)),
   tar_target(fig_wine_model_scatter, wine_model_scatter(wine_reviews)),
-  tar_target(fig_wine_model_log, wine_anomaly_plot(wine_p)),
-  tar_target(fig_wine_model, wine_anomaly_plot(wine_p, log = FALSE)),
   tar_png(fig_wine_scatter),
   tar_png(fig_wine_scatter_log),
   tar_png(fig_wine_model_scatter),
-  tar_png(fig_wine_model_log),
-  tar_png(fig_wine_model),
+  tar_target(
+    wine_model_log_girafe,
+    with_slide_style(wine_anomaly_girafe(wine_p))
+  ),
+  tar_target(
+    wine_model_girafe,
+    with_slide_style(wine_anomaly_girafe(wine_p, log = FALSE))
+  ),
+  tar_target(wine_anomaly_card_html, wine_anomaly_card(wine_p)),
 
   # Approximate extreme surprisal probabilities ----------
   # Stages of the GPD approximation to the surprisal probabilities, with a
