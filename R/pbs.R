@@ -42,24 +42,30 @@ pbs_plot <- function(pbs, anomalies, series) {
 }
 
 # Surveillance: one-step ETS forecasts from the first `i` months, for series
-# with at least 36 observations from their first non-zero value
-pbs_forecast <- function(pbs, i = 36) {
-  pbs |>
-    filter(t <= i) |>
+# with at least 36 observations from their first non-zero value. Returns the
+# data after each step shown on the slide (the last is the forecasts)
+pbs_forecast_steps <- function(pbs, i = 36) {
+  window <- pbs |> filter(t <= i)
+  long <- window |>
     group_by_key() |>
     filter(cumsum(Scripts) > 0, n() >= 36) |>
-    ungroup() |>
-    model(ets = ETS(Scripts)) |>
-    forecast(h = 1)
+    ungroup()
+  fit <- long |> model(ets = ETS(Scripts))
+  list(pbs, window, long, fit, fit |> forecast(h = 1))
 }
 
 # Surprisal probabilities of the observations in the month forecast by
-# `pbs_fc`
-pbs_forecast_probs <- function(pbs_fc, pbs) {
-  pbs_fc |>
-    rename(fcast = Scripts) |>
-    left_join(pbs, by = c("ATC2", "Month")) |>
-    mutate(prob = surprisals_prob(Scripts, distribution = fcast))
+# `pbs_fc`. Returns the data after each step shown on the slide (the last has
+# the probabilities)
+pbs_forecast_probs_steps <- function(pbs_fc, pbs) {
+  renamed <- pbs_fc |> rename(fcast = Scripts)
+  joined <- renamed |> left_join(pbs, by = c("ATC2", "Month"))
+  list(
+    pbs_fc,
+    renamed,
+    joined,
+    joined |> mutate(prob = surprisals_prob(Scripts, distribution = fcast))
+  )
 }
 
 # One-step ETS forecasts of one series from each origin in `origins` (as in

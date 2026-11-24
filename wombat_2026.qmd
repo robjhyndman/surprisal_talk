@@ -811,6 +811,8 @@ Points: [$p < 0.01$]{style="color: #F39B00"}, [$p < 0.001$]{style="color: #c14b1
 
 ## A first iteration: $t = 36$
 
+::: {.code-steps data-steps="2:1,3-5:2,6:3,7:4"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: pbsfc
 #| echo: true
@@ -824,15 +826,20 @@ pbs_fc <- pbs |>
   model(ets = ETS(Scripts)) |>
   forecast(h = 1)
 ```
+<!-- panache-ignore-format-end -->
+:::
 
-```{r}
+`````{r}
 #| label: pbsfc_print
+#| results: asis
 
-tar_read(pbs_fc) |> print(n = 4, width = Inf)
-```
+cat_output_steps(tar_read(pbs_fc_steps), n = 4, width = Inf)
+`````
 
 ## A first iteration: $t = 36$
 
+::: {.code-steps data-steps="2:1,3:2,4:3"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: pbsfc_compare
 #| echo: true
@@ -843,12 +850,15 @@ pbs_fc |>
   left_join(pbs, by = c("ATC2", "Month")) |>
   mutate(prob = surprisals_prob(Scripts, distribution = fcast))
 ```
+<!-- panache-ignore-format-end -->
+:::
 
-```{r}
+`````{r}
 #| label: pbsfc_compare_print
+#| results: asis
 
-tar_read(pbs_fc_probs) |> print(n = 5, width = Inf)
-```
+cat_output_steps(tar_read(pbs_fc_probs_steps), width = Inf)
+`````
 
 ## Rolling forward through all series {.nostretch}
 

@@ -313,12 +313,16 @@ list(
     pbs_steps(tsibbledata::PBS)
   ),
   tar_target(
-    pbs_fc,
-    pbs_forecast(pbs, i = 36)
+    pbs_fc_steps,
+    pbs_forecast_steps(pbs, i = 36)
   ),
   tar_target(
-    pbs_fc_probs,
-    pbs_forecast_probs(pbs_fc, pbs)
+    pbs_fc,
+    pbs_fc_steps[[length(pbs_fc_steps)]]
+  ),
+  tar_target(
+    pbs_fc_probs_steps,
+    pbs_forecast_probs_steps(pbs_fc, pbs)
   ),
   # Staged figure: one-step forecasts of S01 from a rolling origin, with a
   # video rolling the origin forward
