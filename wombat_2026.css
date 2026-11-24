@@ -41,6 +41,10 @@
   padding: 0.25em 0.8em 0.25em calc(0.8em + 6px);
 }
 
+.reveal .block.orange-stripe {
+  --stripe: var(--orange);
+}
+
 /* ---- Chi-square strips, stacked closely ---- */
 
 .reveal .slides section p:has(> img.chisq-strip) {

@@ -22,7 +22,7 @@ old_faithful_kde <- function(oldfaithful) {
   oldfaithful |>
     select(duration, waiting) |>
     dist_kde() |>
-    gg_density(show_points = TRUE, alpha = 0.15, colors = slide_colours[["blue"]]) +
+    gg_density(show_points = TRUE, alpha = 0.15, colors = slide_colours[["ink"]]) +
     of_coord +
     of_labels
 }

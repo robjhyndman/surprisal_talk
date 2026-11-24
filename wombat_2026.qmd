@@ -299,7 +299,7 @@ cat_png_stack(
 ```
 
 ::: {.absolute .fragment fragment-index="2" top="165" left="140" width="480"}
-::::: {.alertblock .small}
+::::: {.block .small}
 [Statistical model]{.block-title}
 
 [$\log(\text{Price}) \sim \text{N}(a + b\,\text{Points},\ \sigma^2)$]{style="font-size: 0.85em"}
@@ -372,7 +372,7 @@ tar_read(wine_anomaly_card_html)
 ```
 
 ::: {.absolute top="0" right="0"}
-::::: {.block .legend-card}
+::::: {.block .legend-card .orange-stripe}
 [$p_i < 0.001$]{.alert}
 :::::
 :::
@@ -542,7 +542,7 @@ cat_output_steps(tar_read(of_probs_steps))
 #| eval: false
 
 dist_kde(oldfaithful[, c("duration", "waiting")]) |>
-  gg_density(show_points = TRUE)
+  gg_density(show_points = TRUE, colors = "#1e293b")
 ```
 
 ::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
@@ -562,7 +562,7 @@ include_png(tar_read(fig_of_kde_png))
 #| eval: false
 
 dist_kde(oldfaithful[, c("duration", "waiting")]) |>
-  gg_density(show_points = TRUE) +
+  gg_density(show_points = TRUE, colors = "#1e293b") +
   geom_point(data = filter(oldfaithful, p < 0.005), colour = "#c14b14")
 ```
 
