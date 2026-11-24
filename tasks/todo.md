@@ -295,3 +295,13 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
   400-dpi figures in the same R session are shifted by a fraction of a pixel (and vice versa), so figure
   pixels depend on which targets ran first. The figures before this change were the "contaminated" ones;
   the current `figs/` are clean renders. Not fixed here.
+
+# Fix order-dependent figure rendering (24 Nov 2026)
+
+- [x] `hampel_window_video()` draws frames at 400 dpi (like every PNG) and scales the video to 1800 px,
+      as the other videos do; it was the only device opened at 200 dpi
+- [x] Check: drawing the video, or the girafe widgets, no longer changes later figures; the video is the
+      same whether drawn first or after other figures
+- [x] `make clean && make`: all 37 PNGs pixel-identical to the clean reference, other 3 videos
+      frame-identical; Hampel video still 1800x520, 91 frames, and its first frame now matches
+      `fig_hampel_window.png` 4x more closely (RMSE 0.011 vs 0.043)

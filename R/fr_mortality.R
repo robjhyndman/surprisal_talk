@@ -229,6 +229,10 @@ create_hampel_fig <- function(
 # from `from` to `to` and tracing out the moving median. The first and last
 # frames match create_hampel_fig(stage = "window") with centre = from and to.
 # The default `from` puts the first full window of 2w+1 years at the left edge.
+# Frames are drawn at the same resolution as the PNGs and the video is then
+# scaled down to `video_width` pixels, as for the other videos. Drawing text at
+# another resolution shifts figures drawn later in the same R session by a
+# fraction of a pixel, which made the figures depend on the order targets ran.
 hampel_window_video <- function(
   fr_mortality,
   file,
@@ -238,7 +242,8 @@ hampel_window_video <- function(
   fps = 30,
   width = 9,
   height = 2.6,
-  res = 200,
+  res = 400,
+  video_width = 1800,
   background = "#fbf9f4"
 ) {
   n <- seconds * fps
@@ -255,7 +260,8 @@ hampel_window_video <- function(
     print(p)
     grDevices::dev.off()
   }
-  av::av_encode_video(frames, file, framerate = fps, verbose = FALSE)
+  av::av_encode_video(frames, file, framerate = fps,
+    vfilter = sprintf("scale=%d:-2", video_width), verbose = FALSE)
   unlink(dir, recursive = TRUE)
   file
 }
