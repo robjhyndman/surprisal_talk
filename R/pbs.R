@@ -9,6 +9,19 @@ make_pbs <- function(PBS) {
     mutate(t = as.numeric(Month - min(Month) + 1))
 }
 
+# The PBS data after each step of the pipeline shown on the slide (raw,
+# grouped, summarised, with time index), for revealing the output in steps
+pbs_steps <- function(PBS) {
+  grouped <- PBS |> group_by(ATC2)
+  summarised <- grouped |> summarise(Scripts = sum(Scripts) / 1e3)
+  list(
+    PBS,
+    grouped,
+    summarised,
+    summarised |> mutate(t = as.numeric(Month - min(Month) + 1))
+  )
+}
+
 # Surveillance anomalies for several ATC2 groups, one panel each; `series` is
 # a vector of group descriptions named by ATC2 code
 pbs_plot <- function(pbs, anomalies, series) {

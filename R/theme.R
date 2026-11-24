@@ -156,6 +156,31 @@ include_png <- function(file, retina = 2) {
   knitr::include_graphics(file, dpi = 96 * retina)
 }
 
+# Write markdown for printed outputs stacked on top of each other, one per
+# step of a code reveal (call from a chunk with `results: asis`). The first is
+# shown with the slide; output k replaces output k - 1 at fragment index k - 1,
+# to match a `.code-steps` div whose steps have indices 1, 2, ...
+cat_output_steps <- function(tables, n = 5, width = 80) {
+  cat("\n::: {.r-stack .output-steps}\n\n")
+  for (k in seq_along(tables)) {
+    cls <- if (k == 1) {
+      ".fragment .fade-out"
+    } else if (k < length(tables)) {
+      ".fragment .current-visible"
+    } else {
+      ".fragment"
+    }
+    cat(
+      "::: {", cls, " fragment-index=\"", max(k - 1, 1), "\"}\n",
+      "::::: {.cell-output .cell-output-stdout}\n````\n",
+      sep = ""
+    )
+    cat(capture.output(print(tables[[k]], n = n, width = width)), sep = "\n")
+    cat("\n````\n:::::\n:::\n\n")
+  }
+  cat(":::\n")
+}
+
 # Write markdown for PNGs stacked on top of each other, each after the first
 # revealed as a fragment (call from a chunk with `results: asis`). An optional
 # video (MP4 file and poster PNG of its last frame) is added as a fragment after

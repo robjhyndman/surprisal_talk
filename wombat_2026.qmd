@@ -759,41 +759,27 @@ tar_read(fr_causes_card)
 
 ## Australian Pharmaceutical Benefits Scheme
 
-```{r}
-#| label: pbs_data
-#| echo: true
-#| eval: false
-
-PBS <- tsibbledata::PBS |>
-  update_tsibble(key = c(Concession, Type, ATC2)) |>
-  select(Month, Concession, Type, ATC2, Scripts)
-PBS
-```
-
-```{r}
-#| label: pbs_data_print
-
-tar_read(pbs_raw) |> print(n = 5)
-```
-
-## PBS scripts by ATC group
-
+::: {.code-steps data-steps="2:1,3:2,4:3"}
+<!-- panache-ignore-format-start -->
 ```{r}
 #| label: pbs
 #| echo: true
 #| eval: false
 
-pbs <- PBS |>
+pbs <- tsibbledata::PBS |>
   group_by(ATC2) |>
   summarise(Scripts = sum(Scripts) / 1e3) |>
   mutate(t = as.numeric(Month - min(Month) + 1))
 ```
+<!-- panache-ignore-format-end -->
+:::
 
-```{r}
+`````{r}
 #| label: pbs_print
+#| results: asis
 
-tar_read(pbs) |> print(n = 5, width = Inf)
-```
+cat_output_steps(tar_read(pbs_eg_steps))
+`````
 
 ## Surveillance using forecast distributions
 

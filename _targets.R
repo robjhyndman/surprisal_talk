@@ -304,17 +304,13 @@ list(
   ),
 
   # Pharmaceutical surveillance --------------------------
-  # Our own copy with only the columns we use (ATC2 alone identifies the
-  # series, so ATC1 is redundant), so it prints more readably
-  tar_target(
-    pbs_raw,
-    tsibbledata::PBS |>
-      update_tsibble(key = c(Concession, Type, ATC2)) |>
-      select(Month, Concession, Type, ATC2, Scripts)
-  ),
   tar_target(
     pbs,
-    make_pbs(pbs_raw)
+    make_pbs(tsibbledata::PBS)
+  ),
+  tar_target(
+    pbs_eg_steps,
+    pbs_steps(tsibbledata::PBS)
   ),
   tar_target(
     pbs_fc,
