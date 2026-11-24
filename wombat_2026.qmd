@@ -781,7 +781,7 @@ pbs <- tsibbledata::PBS |>
 cat_output_steps(tar_read(pbs_eg_steps))
 `````
 
-## Surveillance using forecast distributions
+## Anomaly detection using forecast distributions
 
 ```{r}
 #| label: fig_pbs_roll
@@ -875,7 +875,7 @@ tar_load(c(pbs_scores, pbs_anomalies))
 `r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
 :::
 
-## Surveillance anomalies
+## Forecast distribution anomalies
 
 ```{r}
 #| label: fig_pbs_anomalies
@@ -883,7 +883,7 @@ tar_load(c(pbs_scores, pbs_anomalies))
 include_png(tar_read(fig_pbs_anomalies_png))
 ```
 
-## Surveillance across several series
+## Anomalies across several series
 
 Some events affect many series at once: mildly unusual in each, very unusual together.
 
@@ -898,7 +898,7 @@ Some events affect many series at once: mildly unusual in each, very unusual tog
 - Solution: estimate $\pi$ from all previous months
 :::
 
-## Surveillance across several series
+## Anomalies across several series
 
 ```{r}
 #| label: pbs_joint
