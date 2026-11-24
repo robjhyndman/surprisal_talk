@@ -512,12 +512,41 @@ body.quarto-light,
 
 .reveal .section-slide .outline {
   position: absolute;
-  top: 120px;
+  top: 100px;
   right: 0;
   width: 380px;
-  padding-left: 1.2em;
-  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  /* navy panel, so the outline reads over any background photo */
+  padding: 0.9em 1.3em 0.9em 1.1em;
+  background: rgba(15, 42, 68, 0.82);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
   font-size: 0.8em;
+}
+
+.reveal .section-slide .outline li {
+  margin: 0.45em 0;
+  padding: 0.15em 0 0.15em 2.2em;
+}
+
+.reveal .section-slide .outline li:first-child {
+  margin-top: 0;
+}
+
+.reveal .section-slide .outline li:last-child,
+.reveal .section-slide .outline > :last-child {
+  margin-bottom: 0;
+}
+
+.reveal .section-slide .outline li::before {
+  left: 0.3em;
+}
+
+/* Current section: lighter navy row with a gold bar */
+.reveal .section-slide .outline li:has(.current) {
+  background: #1f4a75;
+  border-radius: 4px;
+  box-shadow: inset 4px 0 0 var(--amber);
 }
 
 .reveal .outline ol {
@@ -543,7 +572,7 @@ body.quarto-light,
 }
 
 .reveal .outline li:has(.shaded) {
-  opacity: 0.45;
+  opacity: 0.72;
 }
 
 .reveal .outline .current {
