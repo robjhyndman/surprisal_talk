@@ -68,6 +68,48 @@ pbs_forecast_probs_steps <- function(pbs_fc, pbs) {
   )
 }
 
+# Histogram of the surprisal probabilities of all series (bins of width
+# `binwidth`), with the height expected if they were U(0,1) dashed. Months
+# with no scripts are left out: once a series drops to zero, ETS forecasts
+# zero with a tiny variance, the surprisal distribution is no longer
+# continuous, and observed zeros get p close to 1. Colours and legend as in
+# the heat map; with `highlight = TRUE` values below 0.01 and 0.001 are
+# coloured (stacked in the first bin, p < 0.001 on top). Without it the legend is drawn
+# invisibly, so both versions have the same layout and overlay exactly
+pbs_pvalue_hist <- function(scores, binwidth = 0.01, highlight = FALSE) {
+  colours <- c(low = "#d5dbe3", mid = "#F39B00", high = "#c14b14")
+  p_lab <- function(x) paste(katex_it("p"), x)
+  scores <- scores |>
+    filter(!is.na(prob), Scripts > 0) |>
+    mutate(level = if (highlight) {
+      ifelse(prob < 0.001, "high", ifelse(prob < 0.01, "mid", "low"))
+    } else {
+      "low"
+    }) |>
+    mutate(level = factor(level, levels = names(colours)))
+  expected <- NROW(scores) * binwidth
+  hidden <- if (highlight) NULL else "transparent"
+  ggplot(scores, aes(x = prob, fill = level)) +
+    geom_histogram(breaks = seq(0, 1, by = binwidth), boundary = 0,
+      position = position_stack(reverse = TRUE)) +
+    geom_hline(yintercept = expected, linetype = "dashed", colour = "#0f2a44") +
+    scale_fill_manual(
+      values = colours, limits = names(colours), drop = FALSE,
+      labels = c(p_lab("&ge; 0.01"), p_lab("&lt; 0.01"), p_lab("&lt; 0.001")),
+      name = NULL
+    ) +
+    guides(fill = guide_legend(override.aes = list(alpha = if (highlight) 1 else 0))) +
+    scale_x_continuous(expand = expansion(mult = 0.01)) +
+    scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+    labs(x = "Surprisal probability", y = "Count") +
+    theme(
+      legend.position = "top",
+      legend.justification = "right",
+      legend.text = ggtext::element_markdown(size = 14, colour = hidden),
+      legend.margin = margin(0, 0, 0, 0)
+    )
+}
+
 # One-step ETS forecasts of one series from each origin in `origins` (as in
 # compute_pbs_scores()): the Normal forecast mean and sd, the observation at
 # the next time and its surprisal probability

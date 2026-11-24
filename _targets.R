@@ -324,6 +324,11 @@ list(
     pbs_fc_probs_steps,
     pbs_forecast_probs_steps(pbs_fc, pbs)
   ),
+  # Distribution of all the surprisal probabilities, then with p < 0.01 coloured
+  tar_target(fig_pbs_pvalues1, pbs_pvalue_hist(pbs_scores)),
+  tar_target(fig_pbs_pvalues2, pbs_pvalue_hist(pbs_scores, highlight = TRUE)),
+  tar_png(fig_pbs_pvalues1, width = 11, height = 3.5),
+  tar_png(fig_pbs_pvalues2, width = 11, height = 3.5),
   # Staged figure: one-step forecasts of S01 from a rolling origin, with a
   # video rolling the origin forward
   tar_target(

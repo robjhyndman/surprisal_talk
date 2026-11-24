@@ -796,17 +796,9 @@ ETS refitted monthly for every series.
 Points: [$p < 0.01$]{style="color: #F39B00"}, [$p < 0.001$]{style="color: #c14b14"}.
 :::
 
-## Surprisal probabilities as p-values
-
-::: {.incremental}
-- If $f_{i,t+1|t}$ is the true forecast density, and the surprisal distribution is continuous, then
-  $$
-    p_{i,t+1} \mid y_{i,1},\dots,y_{i,t} \sim \text{U}(0,1)
-  $$
-  so the $p_{i,t}$ are iid U(0,1) over $t$.
-- Thresholding at $\alpha$ gives a false alarm rate of $\alpha$ per series per period.
-- Model updated each period, so a level shift is flagged when it happens, then becomes the "new normal".
-- ETS: Gaussian forecast distributions, so $p_{i,t+1}$ is a two-sided $z$-test on the one-step forecast error.
+::: {.notes}
+ETS is refitted each month, so a level shift is flagged when it happens and then becomes the "new normal".
+ETS forecast distributions are Gaussian, so $p_{i,t+1}$ is a two-sided $z$-test on the one-step forecast error.
 :::
 
 ## A first iteration: $t = 36$
@@ -873,6 +865,29 @@ tar_load(c(pbs_scores, pbs_anomalies))
 
 ::: {.fragment}
 `r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
+:::
+
+## Surprisal probabilities as p-values
+
+- If the forecast distribution is right, $p_{i,t} \sim \text{U}(0,1)$
+
+::: {.fragment fragment-index="1"}
+- Flag $p_{i,t} < \alpha$: false alarms at rate $\alpha$ per series per month
+:::
+
+```{r}
+#| label: fig_pbs_pvalues
+#| results: asis
+
+cat_png_stack(
+  c(tar_read(fig_pbs_pvalues1_png), tar_read(fig_pbs_pvalues2_png)),
+  indices = 1
+)
+```
+
+::: {.notes}
+Months with no scripts are left out of the histogram: when a series drops to zero, ETS forecasts zero with a tiny variance, so the surprisal distribution is not continuous and observed zeros get $p$ close to 1.
+Most of the excess near zero comes from months when many series are unusual at once (see the slides on anomalies across several series); the rest is because the Gaussian forecast distributions have tails that are too thin.
 :::
 
 ## Forecast distribution anomalies
