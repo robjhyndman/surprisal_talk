@@ -23,36 +23,54 @@ make_spot_anomaly_data <- function() {
     filter(r < 1)
 }
 
-# Points of a circle, for marking an anomaly
-circle_path <- function(x, y, r, n = 200) {
-  theta <- seq(0, 2 * pi, length.out = n)
-  tibble(x = x + r * cos(theta), y = y + r * sin(theta))
-}
-
-# Spot-the-anomaly scatterplots: (a) uniform on the disc plus a point outside
-# it; (b) uniform on the disc with a hole round the point nearest the centre.
-# `circle` adds a circle round the anomaly.
-spot_anomaly_plot <- function(data, version = c("a", "b"), circle = FALSE) {
+# Centre and radius of the mark around the anomaly in each spot-the-anomaly
+# plot, and the data with that anomaly: (a) uniform on the disc plus a point
+# outside it; (b) uniform on the disc with a hole round the point nearest the
+# centre
+spot_anomaly <- function(data, version = c("a", "b")) {
   version <- match.arg(version)
   if (version == "a") {
     data <- bind_rows(data, tibble(x = 0.75, y = -0.75))
-    mark <- circle_path(0.75, -0.75, 0.09)
+    mark <- list(x = 0.75, y = -0.75, r = 0.09)
   } else {
     data <- filter(data, r > 0.025 | r == min(r))
     centre <- filter(data, r == min(r))
-    mark <- circle_path(centre$x, centre$y, 0.12)
+    mark <- list(x = centre$x, y = centre$y, r = 0.12)
   }
-  p <- ggplot(data, aes(x = x, y = y)) +
+  list(data = data, mark = mark)
+}
+
+spot_anomaly_plot <- function(data, version = c("a", "b")) {
+  ggplot(spot_anomaly(data, version)$data, aes(x = x, y = y)) +
     geom_point(alpha = 0.5, size = 1.3, colour = slide_colours[["ink"]]) +
     coord_fixed(xlim = c(-1.05, 1.05), ylim = c(-1.05, 1.05), expand = FALSE) +
     labs(x = NULL, y = NULL)
-  if (circle) {
-    p <- p +
-      geom_path(
-        data = mark,
-        colour = slide_colours[["orange"]],
-        linewidth = 1.6
-      )
-  }
-  p
+}
+
+# The square round the anomaly in spot_anomaly_plot() saved as a `size`-inch
+# square PNG, as fractions of the image (left, top, width), for placing a
+# hand-drawn circle over it on the slide
+spot_anomaly_box <- function(data, version = c("a", "b"), size = 4.6) {
+  mark <- spot_anomaly(data, version)$mark
+  file <- tempfile(fileext = ".png")
+  on.exit(unlink(file))
+  with_slide_style({
+    ragg::agg_png(file, width = size, height = size, units = "in", res = 100)
+    on.exit(grDevices::dev.off(), add = TRUE, after = FALSE)
+    grid::grid.newpage()
+    grid::grid.draw(ggplotGrob(spot_anomaly_plot(data, version)))
+    grid::grid.force() # keep the gtable's viewports, to find the panel's
+    panel <- grep("^panel", grid::grid.ls(grobs = FALSE, viewports = TRUE, print = FALSE)$name,
+      value = TRUE)[1]
+    grid::seekViewport(panel)
+    # The panel spans [-1.05, 1.05] in both directions
+    npc <- function(v) grid::unit((v + 1.05) / 2.1, "npc")
+    loc <- grid::deviceLoc(
+      npc(c(mark$x - mark$r, mark$x + mark$r)),
+      npc(c(mark$y + mark$r, mark$y - mark$r))
+    )
+  })
+  x <- grid::convertX(loc$x, "in", valueOnly = TRUE) / size
+  y <- 1 - grid::convertY(loc$y, "in", valueOnly = TRUE) / size
+  c(left = x[1], top = y[1], width = x[2] - x[1])
 }

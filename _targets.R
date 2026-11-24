@@ -77,27 +77,28 @@ list(
     spot_anomaly_data,
     make_spot_anomaly_data()
   ),
-  # Spot the anomaly: two versions, each plain then with the anomaly circled
+  # Spot the anomaly: two versions, with the anomaly in each circled on the
+  # slide by a hand-drawn (rough notation) circle round spot_boxes
   tar_target(
     fig_spot_pngs,
-    {
-      stages <- expand.grid(circle = c(FALSE, TRUE), version = c("a", "b"),
-        stringsAsFactors = FALSE)
-      unname(mapply(
-        function(version, circle) {
-          save_png(
-            spot_anomaly_plot(spot_anomaly_data, version, circle),
-            file.path("figs",
-              paste0("fig_spot_", version, if (circle) "_circle", ".png")),
-            width = 4.6,
-            height = 4.6
-          )
-        },
-        stages$version,
-        stages$circle
-      ))
-    },
+    vapply(
+      c("a", "b"),
+      function(version) {
+        save_png(
+          spot_anomaly_plot(spot_anomaly_data, version),
+          file.path("figs", paste0("fig_spot_", version, ".png")),
+          width = 4.6,
+          height = 4.6
+        )
+      },
+      character(1),
+      USE.NAMES = FALSE
+    ),
     format = "file"
+  ),
+  tar_target(
+    spot_boxes,
+    lapply(c(a = "a", b = "b"), \(version) spot_anomaly_box(spot_anomaly_data, version))
   ),
 
   # Surprisal probabilities ------------------------------
@@ -407,6 +408,9 @@ list(
       "title-slide.html",
       "images/title_of.svg",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",
+      "_extensions/EmilHvitfeldt/roughnotation/rough.lua",
+      "_extensions/EmilHvitfeldt/roughnotation/rough.js",
+      "_extensions/EmilHvitfeldt/roughnotation/rough.css",
       "katex/katex.min.css",
       "katex/katex.min.js",
       "katex/katex-local.html",

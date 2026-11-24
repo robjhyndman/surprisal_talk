@@ -36,6 +36,8 @@ format:
       data-background-position: center
     template-partials:
       - title-slide.html
+filters:
+  - roughnotation
 execute:
   echo: false
   message: false
@@ -131,30 +133,27 @@ All points were randomly generated from the **same** $\chi^2_5$ distribution.
 #| label: fig_spot
 #| results: asis
 
-# a, a circled, b, b circled
+# Each plot, then a hand-drawn circle (roughnotation extension) round its
+# anomaly: fragment indices 1 and 3, with plot b appearing at 2. The circle is
+# drawn round an empty span placed over the anomaly in percentages of the plot.
 files <- tar_read(fig_spot_pngs)
-spot_stack <- function(files, left, index) {
+boxes <- tar_read(spot_boxes)
+spot_plot <- function(file, box, left, index, circle_index) {
   cat(
-    "\n::: {.absolute top=\"95\" left=\"",
-    left,
-    "\" width=\"520\"",
-    if (index[1] > 0) paste0(" .fragment fragment-index=\"", index[1], "\""),
-    "}\n::::: {.r-stack}\n",
-    "![](",
-    files[1],
-    "){width=520}\n\n",
-    "::::::: {.fragment fragment-index=\"",
-    index[2],
-    "\"}\n",
-    "![](",
-    files[2],
-    "){width=520}\n:::::::\n",
-    ":::::\n:::\n",
+    "\n::: {.absolute .spot-fig top=\"95\" left=\"", left, "\" width=\"520\"",
+    if (index > 0) paste0(" .fragment fragment-index=\"", index, "\""),
+    "}\n![](", file, ")\n\n",
+    "[]{.rn-fragment fragment-index=\"", circle_index, "\" rn-type=\"circle\"",
+    " rn-color=\"#c14b14\" rn-strokewidth=\"3\" rn-padding=\"0\"",
+    sprintf(
+      " style=\"left: %.3f%%; top: %.3f%%; width: %.3f%%; height: %.3f%%\"}\n:::\n",
+      100 * box[["left"]], 100 * box[["top"]], 100 * box[["width"]], 100 * box[["width"]]
+    ),
     sep = ""
   )
 }
-spot_stack(files[1:2], 40, c(0, 1))
-spot_stack(files[3:4], 720, c(2, 3))
+spot_plot(files[1], boxes$a, 40, 0, 1)
+spot_plot(files[2], boxes$b, 720, 2, 3)
 ```
 
 ::: {.absolute .fragment top="630" left="0" width="1280" fragment-index="4"}

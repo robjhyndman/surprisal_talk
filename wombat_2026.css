@@ -149,3 +149,20 @@
   white-space: nowrap;
   max-width: none;
 }
+
+/* ---- Spot the anomaly: plots exactly filling their boxes, so the
+   roughnotation span over each anomaly (placed in percentages) lines up ---- */
+.reveal .spot-fig p {
+  margin: 0;
+}
+
+.reveal .spot-fig img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+}
+
+.reveal .spot-fig .rn-fragment {
+  position: absolute;
+}
