@@ -51,11 +51,15 @@ old_faithful_girafe <- function(oldfaithful, of_probs, alpha = 0.005, width = 10
     filter(p < alpha) |>
     mutate(id = of_id(time))
   p <- old_faithful_kde(oldfaithful) +
+    geom_point(data = anomalies, aes(x = duration, y = waiting), colour = slide_colours[["orange"]], size = 2.5) +
+    # Invisible, larger targets, so the small points are easy to hover over.
+    # The hovered point is marked by the line to its card (hover_card()), not
+    # by ggiraph's hover style, which is turned off.
     ggiraph::geom_point_interactive(
       data = anomalies,
       aes(x = duration, y = waiting, data_id = id),
-      colour = slide_colours[["orange"]],
-      size = 2.5
+      size = 7,
+      alpha = 0
     )
   ggiraph::girafe(
     ggobj = p,
@@ -63,7 +67,7 @@ old_faithful_girafe <- function(oldfaithful, of_probs, alpha = 0.005, width = 10
     width_svg = width,
     height_svg = height,
     options = list(
-      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:2px; r:6px;"),
+      ggiraph::opts_hover(css = "cursor:pointer;"),
       ggiraph::opts_sizing(rescale = TRUE, width = 1),
       ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
     )
@@ -89,6 +93,7 @@ old_faithful_card <- function(of_probs, alpha = 0.005) {
   hover_card(
     stats::setNames(anomalies$label, of_id(anomalies$time)),
     sep = ",",
-    class = "of-card"
+    class = "of-card",
+    connect = TRUE
   )
 }

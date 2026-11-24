@@ -87,17 +87,19 @@ wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
 }
 
 # Interactive version of wine_anomaly_plot(): the anomalies can be hovered
-# over, with "winery year" as data_id for wine_anomaly_card()
+# over, with the id from wine_anomaly_ids() as data_id for wine_anomaly_card()
 wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, width = 9, height = 4.4) {
-  anomalies <- wine |>
-    filter(p < alpha) |>
-    mutate(id = wine_id(winery, year))
+  anomalies <- wine_anomaly_ids(wine, alpha)
   p <- wine_anomaly_plot(wine, log = log, alpha = alpha) +
+    geom_point(data = anomalies, colour = slide_colours[["orange"]], size = 2.5) +
+    # Invisible, larger targets, so the small points are easy to hover over.
+    # The hovered point is marked by the line to its card (hover_card()), not
+    # by ggiraph's hover style, which is turned off.
     ggiraph::geom_point_interactive(
       data = anomalies,
       aes(data_id = id),
-      colour = slide_colours[["orange"]],
-      size = 2.5
+      size = 7,
+      alpha = 0
     )
   ggiraph::girafe(
     ggobj = p,
@@ -105,16 +107,29 @@ wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, width = 9, heig
     width_svg = width,
     height_svg = height,
     options = list(
-      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:2px; r:6px;"),
+      ggiraph::opts_hover(css = "cursor:pointer;"),
       ggiraph::opts_sizing(rescale = TRUE, width = 1),
       ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
     )
   )
 }
 
-wine_id <- function(winery, year) paste(winery, year)
+# The anomalies, with an id naming the wines at each (points, price): "winery
+# year", or several of them joined by "and" when wines share a point (e.g.
+# "Tua Rita 2012 and Tua Rita 2013"), as one point can only be hovered over once
+wine_anomaly_ids <- function(wine, alpha = 0.001) {
+  wine |>
+    filter(p < alpha) |>
+    arrange(winery, year) |>
+    mutate(
+      n = n(),
+      id = paste(paste(winery, year), collapse = " and "),
+      .by = c(points, price)
+    )
+}
 
-# Card for wine_anomaly_girafe() describing the hovered wine
+# Card for wine_anomaly_girafe() describing the hovered wine. Wines sharing a
+# point share a card, with the first sentence of each review.
 wine_anomaly_card <- function(wine, alpha = 0.001) {
   # Probability as "a × 10^b"; the slides' CSS reset neutralises <sup>
   sci <- function(x) {
@@ -124,19 +139,28 @@ wine_anomaly_card <- function(wine, alpha = 0.001) {
       x / 10^e, -e
     )
   }
-  anomalies <- wine |>
-    filter(p < alpha) |>
+  first_sentence <- function(x) sub("^(.*?[.!?])\\s.*$", "\\1", x, perl = TRUE)
+  anomalies <- wine_anomaly_ids(wine, alpha) |>
     mutate(
-      label = paste0(
-        state, ", ", country, " &middot; ", points, " points<br>",
-        "US$", price, " (expected US$", round(fitted), ") &middot; ",
-        "<span style='white-space:nowrap'><span style='font-style:italic'>p</span> = ", sci(p), "</span>",
-        "<div class='wine-review'>", htmltools::htmlEscape(description), "</div>"
+      review = if_else(
+        n > 1,
+        paste0("<strong>", winery, " ", year, ":</strong> ", htmltools::htmlEscape(first_sentence(description))),
+        htmltools::htmlEscape(description)
       )
+    ) |>
+    summarise(
+      label = paste0(
+        paste(unique(paste0(state, ", ", country)), collapse = "; "), "<br>",
+        first(points), " points, US$", first(price), "<br>",
+        "expected US$", round(first(fitted)), ", <span style='font-style:italic'>p</span> = ", sci(first(p)),
+        paste0("<div class='wine-review'>", review, "</div>", collapse = "")
+      ),
+      .by = id
     )
   hover_card(
-    stats::setNames(anomalies$label, wine_id(anomalies$winery, anomalies$year)),
+    stats::setNames(anomalies$label, anomalies$id),
     sep = "<br>",
-    class = "wine-card"
+    class = "wine-card",
+    connect = TRUE
   )
 }

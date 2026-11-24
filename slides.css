@@ -261,6 +261,34 @@ body.quarto-light,
   opacity: 1;
 }
 
+/* Line from the hovered item to its card (hover_card(connect = TRUE)), in
+   orange, and the card's stripe to match */
+.reveal .hover-card[data-connect] {
+  --stripe: var(--orange);
+}
+
+.reveal .hover-connector {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.reveal .hover-connector.show {
+  opacity: 1;
+}
+
+.reveal .hover-connector :is(line, circle) {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2.5px;
+}
+
 /* Hover card: the label, at the top right */
 .reveal .hover-card {
   right: 0;
