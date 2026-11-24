@@ -52,3 +52,14 @@
 - To try CSS on the rendered slides without re-rendering, insert a `<style>` block before the *first*
   `</head>` of a copy of the HTML; the last one is inside an embedded script, and inserting there
   blanks the page.
+- When a Quarto extension provides the feature, use its markdown syntax (classes/attributes on a span or
+  div) rather than hand-writing the HTML it would produce. If a layout quirk gets in the way (e.g. a
+  `<p>` margin offsetting an image), fix the quirk with CSS, not by bypassing the extension.
+- Hover effects can't be verified with a synthetic `mouseover`: it skips the plotting library's own hover
+  styling (e.g. ggiraph's `opts_hover`). Before adding a custom highlight, turn off any library highlight
+  so only one shows, and check hit areas with `document.elementFromPoint()` just off each point.
+- Interactive plots stacked as fragments: ggiraph sets `pointer-events: all` on its interactive elements,
+  which on SVG ignores `visibility: hidden`, so a hidden plot on top can steal hovers in some browsers
+  even when headless `elementFromPoint()` says otherwise. Disable pointer events inside
+  `.fragment:not(.visible)`, and test interactive slides at the presenter's screen size (e.g.
+  `--window-size=2560,1440`, Reveal scale > 1), not only at 1280×800.
