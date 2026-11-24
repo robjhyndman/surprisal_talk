@@ -256,29 +256,10 @@ list(
     ),
     format = "file"
   ),
-  # All Hampel anomalies, as computed by the code on the slide (fr_anomalies
-  # keeps only the years with at least 3 of them)
+  # The data after each step of the Hampel code on the slide
   tar_target(
-    fr_hampel,
-    fr_mortality |>
-      group_by(Age, Sex) |>
-      mutate(
-        hampel = hampel_anomalies(
-          Mortality,
-          bandwidth = 7,
-          alpha = 0.01,
-          approximation = "gpd"
-        )
-      ) |>
-      ungroup() |>
-      filter(hampel)
-  ),
-  tar_target(
-    fr_anomaly_years,
-    fr_anomalies |>
-      distinct(Year, Sex, n) |>
-      arrange(Year, Sex) |>
-      as.data.frame()
+    fr_hampel_steps,
+    fr_steps(fr_mortality)
   ),
   tar_target(
     fr_anomalies_girafe,

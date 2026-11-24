@@ -43,6 +43,33 @@ create_fr_mortality_plot <- function(
   p
 }
 
+# The data after each step of the Hampel anomaly code on the slide: the
+# pipeline finding all anomalies, then the years with at least 3 of them
+fr_steps <- function(fr_mortality) {
+  grouped <- fr_mortality |> group_by(Age, Sex)
+  flagged <- grouped |>
+    mutate(
+      hampel = hampel_anomalies(
+        Mortality,
+        bandwidth = 7,
+        alpha = 0.01,
+        approximation = "gpd"
+      )
+    )
+  ungrouped <- flagged |> ungroup()
+  anomalies <- ungrouped |> filter(hampel)
+  counted <- anomalies |> count(Year, Sex)
+  list(
+    fr_mortality,
+    grouped,
+    flagged,
+    ungrouped,
+    anomalies,
+    counted,
+    counted |> filter(n >= 3)
+  )
+}
+
 find_fr_anomalies <- function(fr_mortality) {
   fr_anomalies <- fr_mortality |>
     group_by(Age, Sex) |>
