@@ -529,14 +529,16 @@ body.quarto-light,
 
 .reveal .outline li {
   counter-increment: section;
+  position: relative;
+  padding-left: 2em;  /* hanging indent: wrapped lines align with the first */
   margin: 0.6em 0;
   color: white;
 }
 
 .reveal .outline li::before {
   content: counter(section, decimal-leading-zero);
-  display: inline-block;
-  width: 2em;
+  position: absolute;
+  left: 0;
   color: var(--amber);
 }
 
