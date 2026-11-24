@@ -36,3 +36,10 @@
 - When fitting a figure to a slide, measure where its visible content (axis title) ends in a screenshot,
   not the image's bounding box, which includes the PNG's blank margin. Grow figures until the axis title
   sits just above the progress bar.
+  This applies to every figure, including ones below code or text (not just figure-only slides): never
+  stop at the default slide bottom. A figure in an `.absolute` box can take a negative `bottom` to reach
+  into the letterbox border; also check its blank top margin doesn't cover content above it.
+- Code shown on a slide must match what the figure actually does (e.g. the colour used), even when the
+  real figure code adds styling. When consecutive slides build on the same plot, write their code in the
+  same form so only the changed line differs; if a new line won't fit, reshape the earlier slide's code
+  too rather than only the new one.

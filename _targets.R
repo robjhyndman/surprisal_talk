@@ -188,10 +188,12 @@ list(
   tar_target(of_probs, old_faithful_probs(oldfaithful)),
   tar_target(fig_of_scatter, old_faithful_scatter(oldfaithful)),
   tar_target(fig_of_kde, old_faithful_kde(oldfaithful)),
+  tar_target(fig_of_kde_anomalies, old_faithful_kde_anomalies(oldfaithful, of_probs)),
   tar_target(fig_of_hdrboxplot, old_faithful_hdrboxplot(oldfaithful)),
   tar_png(fig_of_scatter),
-  tar_png(fig_of_kde, height = 3.6),
-  tar_png(fig_of_hdrboxplot, height = 3.6),
+  tar_png(fig_of_kde, width = 10, height = 3.95),
+  tar_png(fig_of_kde_anomalies, width = 10, height = 3.95),
+  tar_png(fig_of_hdrboxplot, width = 10, height = 3.95),
 
   # French mortality rates -------------------------------
   tar_target(

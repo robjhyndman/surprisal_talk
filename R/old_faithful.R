@@ -5,6 +5,10 @@ of_labels <- ggplot2::labs(
   y = "Waiting time (seconds)"
 )
 
+# Common axis limits, so the points stay put between the KDE and HDR box plot
+# slides (the 99% HDR extends beyond the data)
+of_coord <- ggplot2::coord_cartesian(xlim = c(0, 312), ylim = c(3000, 7315))
+
 old_faithful_scatter <- function(oldfaithful) {
   oldfaithful |>
     ggplot(aes(x = duration, y = waiting)) +
@@ -19,12 +23,25 @@ old_faithful_kde <- function(oldfaithful) {
     select(duration, waiting) |>
     dist_kde() |>
     gg_density(show_points = TRUE, alpha = 0.15, colors = slide_colours[["blue"]]) +
+    of_coord +
     of_labels
+}
+
+# The same KDE plot, with the eruptions of surprisal probability < 0.005
+# highlighted
+old_faithful_kde_anomalies <- function(oldfaithful, of_probs) {
+  old_faithful_kde(oldfaithful) +
+    geom_point(
+      data = filter(of_probs, p < 0.005),
+      aes(x = duration, y = waiting),
+      colour = slide_colours[["orange"]]
+    )
 }
 
 old_faithful_hdrboxplot <- function(oldfaithful) {
   oldfaithful |>
     gg_hdrboxplot(duration, waiting, color = slide_colours[["blue"]]) +
+    of_coord +
     of_labels
 }
 

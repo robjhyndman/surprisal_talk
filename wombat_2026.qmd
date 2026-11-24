@@ -533,16 +533,39 @@ tar_read(of_probs) |> print(n = 5)
 #| echo: true
 #| eval: false
 
-oldfaithful[, c("duration", "waiting")] |>
-  dist_kde() |>
+dist_kde(oldfaithful[, c("duration", "waiting")]) |>
   gg_density(show_points = TRUE)
 ```
 
+:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_kde
+#| out-width: 100%
 
 include_png(tar_read(fig_of_kde_png))
 ```
+::::
+
+## Old Faithful eruptions
+
+```{r}
+#| label: of-kde-anomalies
+#| echo: true
+#| eval: false
+
+dist_kde(oldfaithful[, c("duration", "waiting")]) |>
+  gg_density(show_points = TRUE) +
+  geom_point(data = filter(oldfaithful, p < 0.005), colour = "#c14b14")
+```
+
+:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
+```{r}
+#| label: fig_of_kde_anomalies
+#| out-width: 100%
+
+include_png(tar_read(fig_of_kde_anomalies_png))
+```
+::::
 
 ## Old Faithful eruptions
 
@@ -555,11 +578,14 @@ oldfaithful |>
   gg_hdrboxplot(duration, waiting)
 ```
 
+:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_hdrboxplot
+#| out-width: 100%
 
 include_png(tar_read(fig_of_hdrboxplot_png))
 ```
+::::
 
 ## French mortality rates {#part-french-mortality-rates .section-slide .photo-bg background-color="#0f2a44" background-image="images/french_cemetery.jpg"}
 

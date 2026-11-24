@@ -197,12 +197,13 @@ create_hampel_fig <- function(
   }
   if (level >= 4) {
     p <- p +
+      # Fill without an outline, and the density as an open curve, so there is
+      # no vertical line along density = 0
       geom_polygon(
         data = normal, aes(x = x, y = y),
-        fill = colours[["normal"]], alpha = 0.3, colour = colours[["normal"]]
+        fill = colours[["normal"]], alpha = 0.3, colour = NA
       ) +
-      annotate("segment", x = t, xend = t, y = min(yy), yend = max(yy),
-        colour = colours[["normal"]]) +
+      geom_path(data = normal, aes(x = x, y = y), colour = colours[["normal"]]) +
       math_label(
         "N(italic(m)[italic(t)]*','~italic('σ')[italic(t)]^2)",
         x = t + 0.6, y = m_t - 3.2 * sigma_t,

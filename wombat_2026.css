@@ -73,6 +73,16 @@
   display: block;
 }
 
+/* Old Faithful KDE and HDR box plot: the same box on both slides, below code
+   of different lengths, so the points don't move between them */
+.reveal .slides section .of-fig :is(figure, p, img) {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
 /* ---- Code and output large enough to read from the back of the room ---- */
 
 .reveal .slide pre {
