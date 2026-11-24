@@ -646,7 +646,7 @@ fr_ages <- range(tar_read(fr_mortality)$Age)
 ```
 
 - Annual data: `r fr_years[1]`–`r fr_years[2]`
-- Ages `r fr_ages[1]`–`r fr_ages[2]`, by sex
+- Ages `r fr_ages[1]`–`r fr_ages[2]`+, by sex
 
 ## French mortality rates
 
