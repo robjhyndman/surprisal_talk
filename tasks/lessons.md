@@ -43,7 +43,12 @@
   real figure code adds styling. When consecutive slides build on the same plot, write their code in the
   same form so only the changed line differs; if a new line won't fit, reshape the earlier slide's code
   too rather than only the new one.
-- Chrome is installed as a Flatpak (`com.google.Chrome`), so it isn't on PATH. Screenshot a slide with
-  `flatpak run --filesystem=home com.google.Chrome --headless --hide-scrollbars --window-size=1280,800
-  --virtual-time-budget=8000 --screenshot=$HOME/<dir>/out.png "file://<path>.html#/<slide-id>"`
-  (the output path must be under `$HOME`). Don't fall back to Firefox.
+- Chrome differs by machine: on the laptop it is a Flatpak (`com.google.Chrome`, not on PATH); on the
+  desktop it is `/usr/bin/google-chrome`. Check `which google-chrome` first. Screenshot a slide with
+  `<chrome> --headless --hide-scrollbars --window-size=1280,800 --virtual-time-budget=8000
+  --screenshot=$HOME/<dir>/out.png "file://<path>.html#/<slide-id>"`, where `<chrome>` is
+  `google-chrome` or `flatpak run --filesystem=home com.google.Chrome`. Keep both the HTML and the
+  output under `$HOME` (files in the /tmp scratchpad render blank). Don't fall back to Firefox.
+- To try CSS on the rendered slides without re-rendering, insert a `<style>` block before the *first*
+  `</head>` of a copy of the HTML; the last one is inside an embedded script, and inserting there
+  blanks the page.
