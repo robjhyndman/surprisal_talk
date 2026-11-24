@@ -218,13 +218,13 @@ An observation is an **anomaly with respect to $f$** if $p_i < \alpha$.
 <code>surprisals_prob(<span class="fragment arg-hl arg-object" data-fragment-index="1">object</span>, <span class="fragment arg-hl arg-distribution" data-fragment-index="2">distribution</span>, \.\.\.)</code> returns a surprisal probability for each observation in `object` under model `distribution`.
 :::::
 
-::: {.fragment fragment-index="1"}
+::::: {.fragment fragment-index="1"}
 - [`object`]{.arg-object}: a vector, matrix, data frame or factor, or a fitted `lm`, `glm` or `gam` (which supplies data and distribution).
-:::
+:::::
 
-::: {.fragment fragment-index="2"}
+::::: {.fragment fragment-index="2"}
 - [`distribution`]{.arg-distribution}: any **distributional** object; a kernel density estimate by default for numerical data.
-:::
+:::::
 :::
 
 ## Surprisal probabilities in R
@@ -257,7 +257,9 @@ for (k in seq_along(tables)) {
   cat(
     "::: {.fragment",
     if (k < length(tables)) " .current-visible",
-    " fragment-index=\"", k, "\"}\n",
+    " fragment-index=\"",
+    k,
+    "\"}\n",
     "::::: {.cell-output .cell-output-stdout}\n````\n",
     sep = ""
   )
@@ -275,7 +277,6 @@ include_png(tar_read(fig_sp_normal_png))
 ```
 :::::
 :::
-
 
 ## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
@@ -334,7 +335,9 @@ for (k in seq_along(tables)) {
   cat(
     "::: {.fragment",
     if (k < length(tables)) " .current-visible",
-    " fragment-index=\"", k, "\"}\n",
+    " fragment-index=\"",
+    k,
+    "\"}\n",
     "::::: {.cell-output .cell-output-stdout}\n````\n",
     sep = ""
   )
@@ -542,14 +545,14 @@ dist_kde(oldfaithful[, c("duration", "waiting")]) |>
   gg_density(show_points = TRUE)
 ```
 
-:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
+::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_kde
 #| out-width: 100%
 
 include_png(tar_read(fig_of_kde_png))
 ```
-::::
+:::
 
 ## Old Faithful eruptions
 
@@ -563,14 +566,14 @@ dist_kde(oldfaithful[, c("duration", "waiting")]) |>
   geom_point(data = filter(oldfaithful, p < 0.005), colour = "#c14b14")
 ```
 
-:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
+::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_kde_anomalies
 #| out-width: 100%
 
 include_png(tar_read(fig_of_kde_anomalies_png))
 ```
-::::
+:::
 
 ## Old Faithful eruptions
 
@@ -583,14 +586,14 @@ oldfaithful |>
   gg_hdrboxplot(duration, waiting)
 ```
 
-:::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
+::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_hdrboxplot
 #| out-width: 100%
 
 include_png(tar_read(fig_of_hdrboxplot_png))
 ```
-::::
+:::
 
 ## French mortality rates {#part-french-mortality-rates .section-slide .photo-bg background-color="#0f2a44" background-image="images/french_cemetery.jpg"}
 
@@ -774,12 +777,12 @@ pbs <- tsibbledata::PBS |>
 <!-- panache-ignore-format-end -->
 :::
 
-`````{r}
+```{r}
 #| label: pbs_print
 #| results: asis
 
 cat_output_steps(tar_read(pbs_eg_steps))
-`````
+```
 
 ## Anomaly detection using forecast distributions
 
@@ -821,12 +824,12 @@ pbs_fc <- pbs |>
 <!-- panache-ignore-format-end -->
 :::
 
-`````{r}
+```{r}
 #| label: pbsfc_print
 #| results: asis
 
 cat_output_steps(tar_read(pbs_fc_steps), n = 4, width = Inf)
-`````
+```
 
 ## A first iteration: $t = 36$
 
@@ -845,12 +848,12 @@ pbs_fc |>
 <!-- panache-ignore-format-end -->
 :::
 
-`````{r}
+```{r}
 #| label: pbsfc_compare_print
 #| results: asis
 
 cat_output_steps(tar_read(pbs_fc_probs_steps), width = Inf)
-`````
+```
 
 ## Rolling forward through all series {.nostretch}
 
@@ -900,17 +903,16 @@ include_png(tar_read(fig_pbs_anomalies_png))
 
 ## Anomalies across several series
 
-Some events affect many series at once: mildly unusual in each, very unusual together.
+Some months are a little unusual in many series at once.
 
-- $M_t$: number of series monitored at time $t$
-- $N_t$: number of series with $p_{i,t} < 0.001$
+- $N_t$ of the $M_t$ series have $p_{i,t} < 0.001$
 - Independent series: $N_t \sim \text{Binomial}(M_t, \pi)$
 - Surprisal probability: $\mathbb{P}(N_t \ge n_t)$
+- $\pi$ estimated from all previous months
 
-::: {.fragment}
-- $\pi = 0.001$ if forecast densities correct
-- ETS forecast densities too narrow: actual rate is `r sprintf("%.3f", mean(pbs_scores$prob < 0.001, na.rm = TRUE))`
-- Solution: estimate $\pi$ from all previous months
+::: {.notes}
+If the forecast densities were correct, $\pi$ would be 0.001.
+ETS forecast densities are too narrow, so the actual rate is much higher: the orange part of the first bar in the histogram.
 :::
 
 ## Anomalies across several series
