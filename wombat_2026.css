@@ -75,7 +75,7 @@
 
 /* Old Faithful KDE and HDR box plot: the same box on both slides, below code
    of different lengths, so the points don't move between them */
-.reveal .slides section .of-fig :is(figure, p, img) {
+.reveal .slides section .of-fig :is(figure, p, img, .girafe, .girafe svg) {
   display: block;
   width: 100%;
   max-width: none;
@@ -115,4 +115,33 @@
 /* Consecutive one-item lists (one per fragment) spaced as a single list */
 .reveal .slide div.fragment + div.fragment > ul:only-child {
   margin-top: 0;
+}
+
+/* ---- Wine anomalies: interactive plots stacked, card in the empty top left ---- */
+.reveal .wine-fig,
+.reveal .wine-fig > *,
+.reveal .wine-fig .girafe {
+  width: 100%;
+}
+
+.reveal .hover-card.wine-card {
+  top: 235px;
+  left: 195px;
+  right: auto;
+  max-width: 380px;
+  font-size: 0.7em;
+}
+
+.reveal .wine-card .wine-review {
+  margin-top: 0.3em;
+  font-size: 0.85em;
+  line-height: 1.25;
+  color: var(--muted, #475569);
+}
+
+/* ---- Old Faithful anomalies: two-line card in the title row, beside the title ---- */
+.reveal .hover-card.of-card {
+  font-size: 0.8em;
+  white-space: nowrap;
+  max-width: none;
 }

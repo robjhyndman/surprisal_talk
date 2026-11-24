@@ -480,14 +480,6 @@ tar_read(wine_p_gpd) |>
 ## Old Faithful eruptions
 
 ```{r}
-#| label: fig_of_scatter
-
-include_png(tar_read(fig_of_scatter_png))
-```
-
-## Old Faithful eruptions
-
-```{r}
 #| label: of-data
 #| echo: true
 #| eval: false
@@ -510,6 +502,16 @@ Data from [`geysertimes.org`](https://geysertimes.org)
 ## Old Faithful eruptions
 
 ```{r}
+#| label: fig_of_scatter
+
+include_png(tar_read(fig_of_scatter_png))
+```
+
+## Old Faithful eruptions
+
+::: {.code-steps data-steps="7:1"}
+<!-- panache-ignore-format-start -->
+```{r}
 #| label: of-probs
 #| echo: true
 #| eval: false
@@ -519,13 +521,17 @@ oldfaithful$p <- surprisals_prob(
   loo = TRUE,
   approximation = "gpd"
 )
-oldfaithful |> arrange(p)
+oldfaithful |>
+  arrange(p)
 ```
+<!-- panache-ignore-format-end -->
+:::
 
 ```{r}
 #| label: of-probs-output
+#| results: asis
 
-tar_read(of_probs) |> print(n = 5)
+cat_output_steps(tar_read(of_probs_steps))
 ```
 
 ## Old Faithful eruptions
@@ -563,11 +569,16 @@ dist_kde(oldfaithful[, c("duration", "waiting")]) |>
 ::: {.absolute .of-fig bottom="-38" left="0" width="100%"}
 ```{r}
 #| label: fig_of_kde_anomalies
-#| out-width: 100%
 
-include_png(tar_read(fig_of_kde_anomalies_png))
+tar_read(of_kde_anomalies_girafe)
 ```
 :::
+
+```{r}
+#| label: of_card
+
+tar_read(of_anomaly_card_html)
+```
 
 ## Old Faithful eruptions
 
@@ -897,7 +908,7 @@ include_png(tar_read(fig_pbs_anomalies_png))
 
 ## Anomalies across several series
 
-Some months are a little unusual in many series at once.
+Some months are unusual in many series at once.
 
 - $N_t$ of the $M_t$ series have $p_{i,t} < 0.001$
 - Independent series: $N_t \sim \text{Binomial}(M_t, \pi)$

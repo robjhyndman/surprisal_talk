@@ -27,17 +27,6 @@ old_faithful_kde <- function(oldfaithful) {
     of_labels
 }
 
-# The same KDE plot, with the eruptions of surprisal probability < 0.005
-# highlighted
-old_faithful_kde_anomalies <- function(oldfaithful, of_probs) {
-  old_faithful_kde(oldfaithful) +
-    geom_point(
-      data = filter(of_probs, p < 0.005),
-      aes(x = duration, y = waiting),
-      colour = slide_colours[["orange"]]
-    )
-}
-
 old_faithful_hdrboxplot <- function(oldfaithful) {
   oldfaithful |>
     gg_hdrboxplot(duration, waiting, color = slide_colours[["blue"]]) +
@@ -52,5 +41,54 @@ old_faithful_probs <- function(oldfaithful) {
     loo = TRUE,
     approximation = "gpd"
   )
-  oldfaithful |> arrange(p)
+  oldfaithful
+}
+
+# The KDE plot with the eruptions of surprisal probability < `alpha` in orange,
+# as an interactive plot: hovering over one shows old_faithful_card()
+old_faithful_girafe <- function(oldfaithful, of_probs, alpha = 0.005, width = 10, height = 3.95) {
+  anomalies <- of_probs |>
+    filter(p < alpha) |>
+    mutate(id = of_id(time))
+  p <- old_faithful_kde(oldfaithful) +
+    ggiraph::geom_point_interactive(
+      data = anomalies,
+      aes(x = duration, y = waiting, data_id = id),
+      colour = slide_colours[["orange"]],
+      size = 2.5
+    )
+  ggiraph::girafe(
+    ggobj = p,
+    font_set = girafe_fonts(),
+    width_svg = width,
+    height_svg = height,
+    options = list(
+      ggiraph::opts_hover(css = "stroke:#0f2a44; stroke-width:2px; r:6px;"),
+      ggiraph::opts_sizing(rescale = TRUE, width = 1),
+      ggiraph::opts_toolbar(saveaspng = FALSE, hidden = c("selection", "zoom", "misc"))
+    )
+  )
+}
+
+of_id <- function(time) format(time, "%d %b %Y %H:%M")
+
+# Card for old_faithful_girafe(), in the title row: the duration as recorded on
+# geysertimes.org, the parsed duration and waiting time, and the surprisal
+# probability
+old_faithful_card <- function(of_probs, alpha = 0.005) {
+  anomalies <- of_probs |>
+    filter(p < alpha) |>
+    mutate(
+      prob = if_else(p < 1e-4, "&lt; 0.0001", sprintf("= %.4f", p)),
+      label = paste0(
+        "recorded as &ldquo;", htmltools::htmlEscape(recorded_duration), "&rdquo;<br>",
+        "Duration ", duration, " s, waiting ", waiting, " s &middot; ",
+        "<span style='font-style:italic'>p</span> ", prob
+      )
+    )
+  hover_card(
+    stats::setNames(anomalies$label, of_id(anomalies$time)),
+    sep = ",",
+    class = "of-card"
+  )
 }
