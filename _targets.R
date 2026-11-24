@@ -1,15 +1,15 @@
 library(targets)
 library(tarchetypes)
 
-# Set target options:
+# Targets for the current talk only. Past talks are frozen as git tags
+# (`git tag -l`): check one out to rebuild it with its own pipeline.
+
 tar_option_set(
   packages = c(
     "tibble",
     "weird",
-    "lookout",
     "dplyr",
     "ggplot2",
-    "ggtda",
     "tsibble",
     "fable",
     "feasts"
@@ -18,8 +18,8 @@ tar_option_set(
 
 tar_source()
 
-# Target saving figure target `fig` as a PNG for the slides, in figs/`dir`
-tar_png <- function(fig, width = 9, height = 4.4, dir = "uconn") {
+# Target saving figure target `fig` as a PNG for the slides, in figs/
+tar_png <- function(fig, width = 9, height = 4.4) {
   fig <- deparse(substitute(fig))
   tar_target_raw(
     paste0(fig, "_png"),
@@ -27,7 +27,7 @@ tar_png <- function(fig, width = 9, height = 4.4, dir = "uconn") {
       save_png(FIG, FILE, width = WIDTH, height = HEIGHT),
       list(
         FIG = as.symbol(fig),
-        FILE = file.path("figs", dir, paste0(fig, ".png")),
+        FILE = file.path("figs", paste0(fig, ".png")),
         WIDTH = width,
         HEIGHT = height
       )
@@ -37,9 +37,13 @@ tar_png <- function(fig, width = 9, height = 4.4, dir = "uconn") {
   )
 }
 
-# Replace the target list below with your own:
 list(
-  # Anomaly definition
+  # Startup message of library(weird), which shows package versions: rebuilt
+  # whenever the package library changes (targets doesn't track packages)
+  tar_target(uvr_lock, "uvr.lock", format = "file"),
+  tar_target(weird_attach, weird_attach_message(uvr_lock)),
+
+  # What is an anomaly? ----------------------------------
   tar_target(chisq_data1, {
     set.seed(1)
     tibble(x = c(rchisq(100, df = 5)))
@@ -52,34 +56,51 @@ list(
     set.seed(3)
     tibble(x = c(rchisq(100, df = 5)))
   }),
+  # Three chi-square samples, each as a strip
   tar_target(
-    figchisq1,
-    make_figchisq1(chisq_data1)
-  ),
-  tar_target(
-    figchisq2,
-    make_figchisq1(chisq_data2)
-  ),
-  tar_target(
-    figchisq3,
-    make_figchisq1(chisq_data3)
-  ),
-  tar_target(
-    figchisq5,
-    create_fig_density(dist_chisq(5), y = 9, shading = FALSE)
+    fig_chisq_pngs,
+    unname(mapply(
+      function(data, k) {
+        save_png(
+          chisq_strip(data),
+          file.path("figs", paste0("fig_chisq", k, ".png")),
+          width = 9,
+          height = 1.15
+        )
+      },
+      list(chisq_data3, chisq_data1, chisq_data2),
+      1:3
+    )),
+    format = "file"
   ),
   tar_target(
     spot_anomaly_data,
     make_spot_anomaly_data()
   ),
+  # Spot the anomaly: two versions, each plain then with the anomaly circled
   tar_target(
-    fig_spot_anomaly1,
-    create_fig_spot_anomaly1(spot_anomaly_data)
+    fig_spot_pngs,
+    {
+      stages <- expand.grid(circle = c(FALSE, TRUE), version = c("a", "b"),
+        stringsAsFactors = FALSE)
+      unname(mapply(
+        function(version, circle) {
+          save_png(
+            spot_anomaly_plot(spot_anomaly_data, version, circle),
+            file.path("figs",
+              paste0("fig_spot_", version, if (circle) "_circle", ".png")),
+            width = 4.6,
+            height = 4.6
+          )
+        },
+        stages$version,
+        stages$circle
+      ))
+    },
+    format = "file"
   ),
-  tar_target(
-    fig_spot_anomaly2,
-    create_fig_spot_anomaly2(spot_anomaly_data)
-  ),
+
+  # Surprisal probabilities ------------------------------
   tar_target(
     fig_sp0,
     create_fig_surprisal_prob(step = 0L)
@@ -92,358 +113,100 @@ list(
     fig_sp2,
     create_fig_surprisal_prob(step = 2L)
   ),
-  tar_target(
-    fig_sp_normal,
-    create_fig_surprisal_prob(
-      step = 2L,
-      den = dist_normal(),
-      clean = TRUE,
-      size = 98
+  # The surprisal probability steps, with the same panel position in every
+  # step so they overlay exactly
+  tar_target(fig_sp_png,
+    save_aligned_pngs(
+      make_fig_sp_katex(list(fig_sp0, fig_sp1, fig_sp2), sub = "i"),
+      file.path("figs", paste0("fig_sp", 1:3, ".png")),
+      height = 3.6
     ),
-    # Writes figs/dist_normal.pdf (for auckland_2026.qmd) and returns its path
-    format = "file"
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
   ),
-  tar_target(
-    fig61,
-    create_fig_density(dist_chisq(5), y = 9)
+  tar_target(normal_eg_steps, normal_example_steps()),
+  tar_target(fig_sp_normal_png,
+    save_png(
+      make_fig_sp_katex(
+        list(create_fig_surprisal_prob(2L, den = dist_normal(), size = 98)),
+        sub = "i"
+      )[[1]],
+      file.path("figs", "fig_sp_normal.png"),
+      width = 6.2,
+      height = 3.85
+    ),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
   ),
-  tar_target(
-    fig_normal,
-    create_fig_density(dist_normal(), y = 2.2)
-  ),
-  tar_target(
-    fig_hdr,
-    create_fig_density(
-      dist_mixture(
-        dist_normal(-2, 1),
-        dist_normal(2, 1),
-        weights = c(1 / 3, 2 / 3)
-      ),
-      y = -0.5
-    )
-  ),
-  # KDE
-  tar_map(
-    list(h = seq(0.04, 0.25, l = 99), i = seq(99)),
-    tar_target(
-      kde_file,
-      make_kde_plot(rips_data, h, i),
-      format = "file"
-    )
-  ),
-  # RIPS animation
-  tar_target(
-    rips_data,
-    d <- tibble(
-      x = stats::rnorm(n = 20, mean = 0, sd = .2),
-      y = x + stats::rnorm(n = 20, mean = 0, sd = .2)
-    )
-  ),
-  tar_map(
-    list(prox = seq(0.01, by = 0.005, l = 99), i = seq(99)),
-    tar_target(
-      rip_file,
-      rips(rips_data, prox, i),
-      format = "file"
-    )
-  ),
-  tar_target(
-    barcode,
-    make_barcode(rips_data)
-  ),
-  tar_target(
-    rips_kde_bandwidth,
-    lookout::find_tda_bw(rips_data, fast = FALSE, gamma = gamma)
-  ),
-  tar_target(
-    rips_kde,
-    dist_kde(rips_data, H = diag(rep(rips_kde_bandwidth^2, 2))) |>
-      gg_density(show_points = TRUE)
-  ),
-  # Should scaling be used?
-  tar_target(scale, TRUE),
-  # Value of alpha
-  tar_target(alpha, 0.01),
-  # Value of beta
-  tar_target(beta, 0.90),
-  # Value of gamma
-  tar_target(gamma, 0.97),
-  # Old faithful example ------------------------------
-  tar_target(
-    oldfaithful,
-    weird::oldfaithful
-  ),
-  tar_target(
-    old_faithful_results,
-    analyse_old_faithful(oldfaithful, scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_old_faithful,
-    create_old_faithful_figure(old_faithful_results)
-  ),
-  tar_target(
-    fig_old_faithful2,
-    create_old_faithful_figure(
-      old_faithful_results,
-      scale = TRUE
-    )
-  ),
-  tar_target(
-    fig_old_faithful3,
-    create_old_faithful_figure(
-      old_faithful_results,
-      scale = TRUE,
-      contour = TRUE
-    )
-  ),
-  tar_target(
-    fig_old_faithful4,
-    create_old_faithful_figure(
-      old_faithful_results,
-      scale = TRUE,
-      contour = TRUE,
-      show_anomalies = TRUE
-    )
-  ),
-  tar_target(
-    fig_old_faithful5,
-    create_old_faithful_figure(
-      old_faithful_results,
-      scale = FALSE,
-      contour = FALSE,
-      show_anomalies = TRUE
-    )
-  ),
-  tar_target(
-    of_lookout_prob,
-    get_of_lookout_prob(oldfaithful, alpha)
-  ),
-  # Wine reviews example -------------------------------
+
+  # Wine quality and prices ------------------------------
   tar_target(
     wine_reviews,
     weird::fetch_wine_reviews() |>
       filter(variety %in% c("Shiraz", "Syrah")) |>
       select(-variety, -region)
   ),
+  tar_target(wine_p, wine_probs(wine_reviews)),
+  tar_target(wine_p_gpd, wine_probs(wine_reviews, approximation = "gpd")),
   tar_target(
-    wine_aug,
-    augment_wine(wine_reviews)
+    wine_bargains,
+    wine_p |>
+      filter(price < fitted) |>
+      arrange(p, points, price) |>
+      select(-fitted)
+  ),
+  tar_target(fig_wine_scatter, wine_scatter(wine_reviews)),
+  tar_target(fig_wine_scatter_log, wine_scatter(wine_reviews, log = TRUE)),
+  tar_target(fig_wine_model_scatter, wine_model_scatter(wine_reviews)),
+  tar_target(fig_wine_model_log, wine_anomaly_plot(wine_p)),
+  tar_target(fig_wine_model, wine_anomaly_plot(wine_p, log = FALSE)),
+  tar_png(fig_wine_scatter),
+  tar_png(fig_wine_scatter_log),
+  tar_png(fig_wine_model_scatter),
+  tar_png(fig_wine_model_log),
+  tar_png(fig_wine_model),
+
+  # Approximate extreme surprisal probabilities ----------
+  # Stages of the GPD approximation to the surprisal probabilities, with a
+  # video zooming into the tail between stages 2 and 3
+  tar_target(
+    fig_gpd_data,
+    gpd_stage_data()
   ),
   tar_target(
-    wine_loo_surprisals,
-    plot_wine_loo_surprisals(wine_aug)
+    fig_gpd_files,
+    gpd_stage_files(fig_gpd_data, "figs", sub = "i"),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
   ),
+
+  # Old Faithful eruptions -------------------------------
   tar_target(
-    wine_loo_anomalies,
-    plot_wine_loo_surprisals(wine_aug, show_anomalies = TRUE)
+    oldfaithful,
+    weird::oldfaithful
   ),
-  tar_target(
-    wine_model_plot,
-    create_wine_model_plot(wine_aug)
-  ),
-  #tar_target(
-  #  wine_results,
-  #  analyse_wine_data(wine_reviews, scale, alpha, beta, gamma)
-  #),
-  tar_target(
-    fig_wine,
-    create_wine_figure(wine_aug, show_anomalies = FALSE)
-  ),
-  tar_target(
-    fig_wine1,
-    create_wine_figure(wine_aug, show_anomalies = FALSE, log = TRUE)
-  ),
-  tar_target(
-    fig_wine2,
-    create_wine_figure(wine_aug, show_anomalies = TRUE)
-  ),
-  tar_target(
-    wine_anomalies,
-    wine_aug |>
-      filter(prob < 0.001) |>
-      arrange(prob) |>
-      select(
-        Area = state,
-        Winery = winery,
-        Year = year,
-        Points = points,
-        Price = price
-      )
-  ),
-  # French mortality example ---------------------------
+  tar_target(of_probs, old_faithful_probs(oldfaithful)),
+  tar_target(fig_of_scatter, old_faithful_scatter(oldfaithful)),
+  tar_target(fig_of_kde, old_faithful_kde(oldfaithful)),
+  tar_target(fig_of_hdrboxplot, old_faithful_hdrboxplot(oldfaithful)),
+  tar_png(fig_of_scatter),
+  tar_png(fig_of_kde, height = 3.6),
+  tar_png(fig_of_hdrboxplot, height = 3.6),
+
+  # French mortality rates -------------------------------
   tar_target(
     fr_mortality,
     weird::fr_mortality
   ),
   tar_target(
-    fig_fr_mortality,
-    create_fr_mortality_plot(fr_mortality, type = "functional")
-  ),
-  tar_target(
     fig_fr_mortality2,
     create_fr_mortality_plot(fr_mortality, type = "timeseries")
   ),
-  tar_target(
-    fig_fr_mortality3,
-    create_fr_mortality_plot(fr_mortality, type = "functional", fr_anomalies)
-  ),
-  tar_target(
-    fig_fr_mortality4,
-    create_fr_mortality_plot(fr_mortality, type = "timeseries", fr_anomalies)
-  ),
+  tar_png(fig_fr_mortality2),
   tar_target(
     fr_anomalies,
     find_fr_anomalies(fr_mortality)
   ),
-  tar_target(
-    fig_fr_anomalies,
-    create_fr_anomaly_plot(fr_anomalies)
-  ),
-  # Cricket not-outs ------------------------------------
-  tar_target(
-    cricket_batting,
-    weird::cricket_batting
-  ),
-  tar_target(
-    not_outs,
-    cricket_batting |>
-      filter(Innings > 0) |>
-      mutate(prop_no = NotOuts / Innings)
-  ),
-  tar_target(
-    fit_no,
-    fit_notouts(not_outs)
-  ),
-  tar_target(
-    notouts_aug,
-    augment_notouts(fit_no, not_outs)
-  ),
-  tar_target(
-    not_outs_plot,
-    create_notouts_plot(notouts_aug, show_smooth = FALSE, show_jma = FALSE)
-  ),
-  tar_target(
-    not_outs_plot_smooth,
-    create_notouts_plot(notouts_aug, show_jma = FALSE)
-  ),
-  tar_target(
-    not_outs_plot_jma,
-    create_notouts_plot(notouts_aug)
-  ),
-
-  # Experiment 1 - theory
-  tar_target(
-    norm_data,
-    rnorm(1000)
-  ),
-  tar_target(
-    t4_data,
-    rt(1000, df = 4)
-  ),
-  tar_target(
-    fig_expt1,
-    create_fig_expt1(norm_data, t4_data)
-  ),
-  tar_target(
-    fig_expt1b,
-    create_fig_expt1(norm_data, t4_data, empirical = FALSE)
-  ),
-  # Experiment 2 - theory
-  tar_target(
-    expt2_prob,
-    get_expt2_prob()
-  ),
-  tar_target(
-    fig_expt2,
-    create_fig_expt2(expt2_prob)
-  ),
-  tar_target(
-    fig_expt2b,
-    create_fig_expt2(expt2_prob, empirical = FALSE)
-  ),
-  tar_target(
-    gpd_shape_estimates,
-    get_gpd_shape()
-  ),
-  tar_target(
-    fig_gpd_shape,
-    create_gpd_shape_fig(gpd_shape_estimates)
-  ),
-
-  # ------------------------------------------------------
-  # Experiment 1: Gamma distribution
-  # ------------------------------------------------------
-
-  tar_target(
-    exp1_results,
-    run_synthetic_exp1(scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_exp1,
-    create_figure_exp1(exp1_results)
-  ),
-
-  # ------------------------------------------------------
-  # Experiment 2: Normal distribution
-  # ------------------------------------------------------
-
-  tar_target(
-    exp2_results,
-    run_synthetic_exp2(scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_exp2,
-    create_figure_exp2(exp2_results)
-  ),
-
-  # ------------------------------------------------------
-  # Experiment 3: Increasing N with normal distribution
-  # ------------------------------------------------------
-
-  tar_target(
-    exp3_results,
-    run_synthetic_exp3(scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_exp3,
-    create_figure_exp3(exp3_results)
-  ),
-
-  # ------------------------------------------------------
-  # Experiment 4: Increasing N with gamma distribution
-  # ------------------------------------------------------
-
-  tar_target(
-    exp4_results,
-    run_synthetic_exp4(scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_exp4,
-    create_figure_exp4(exp4_results)
-  ),
-
-  # ------------------------------------------------------
-  # SHOWCASE EXAMPLES
-  # ------------------------------------------------------
-
-  tar_target(
-    showcase_results,
-    generate_showcase_examples(scale, alpha, beta, gamma)
-  ),
-  tar_target(
-    fig_showcase,
-    create_showcase_figure(showcase_results)
-  ),
-  # Time series examples --------------------------------
-  tar_target(
-    fig_tsparadigms,
-    create_fig_tsparadigms(fr_mortality)
-  ),
-  tar_target(
-    fig_sp_katex,
-    make_fig_sp_katex(list(fig_sp0, fig_sp1, fig_sp2))
-  ),
-  # Weird times: French mortality
   tar_target(
     fig_hampel_stages,
     {
@@ -461,13 +224,28 @@ list(
       figs
     }
   ),
+  # Stages of the Hampel figure, in the order of fig_hampel_stages
+  tar_target(
+    fig_hampel_png,
+    unname(mapply(
+      save_png,
+      fig_hampel_stages,
+      file.path(
+        "figs",
+        paste0("fig_hampel_", names(fig_hampel_stages), ".png")
+      ),
+      MoreArgs = list(height = 2.6)
+    )),
+    format = "file",
+    packages = c(tar_option_get("packages"), "ggtext")
+  ),
   # Window sliding over the series, tracing out the moving median
   tar_target(
     hampel_video,
-    with_uconn_style(
+    with_slide_style(
       hampel_window_video(
         fr_mortality,
-        file.path("figs", "uconn", "hampel_window.mp4")
+        file.path("figs", "hampel_window.mp4")
       )
     ),
     format = "file"
@@ -498,7 +276,7 @@ list(
   ),
   tar_target(
     fr_anomalies_girafe,
-    with_uconn_style(create_fr_anomaly_girafe(fr_anomalies))
+    with_slide_style(create_fr_anomaly_girafe(fr_anomalies))
   ),
   # Known causes of the anomalous years, shown in a card when hovering over the plot
   tar_target(
@@ -522,88 +300,8 @@ list(
       )
     }
   ),
-  # Weird times: US weekly mortality
-  tar_target(
-    us_stmf,
-    make_us_stmf(weird::us_mortality)
-  ),
-  tar_target(
-    fig_stmf,
-    us_stmf |>
-      autoplot(Mortality) +
-      facet_grid(`Age group` ~ ., scales = "free_y") +
-      # About 3 breaks, so the narrow panels' labels don't crowd
-      scale_y_continuous(
-        breaks = scales::breaks_extended(n = 3),
-        labels = scales::label_number(drop0trailing = TRUE)
-      ) +
-      labs(x = "Week") +
-      guides(colour = "none")
-  ),
-  tar_target(
-    stmf_scores,
-    compute_stmf_scores(us_stmf)
-  ),
-  # Output as it is computed on the slide: columns after augment(), a, e and
-  # prob, in time order; then sorted by prob
-  tar_target(
-    stmf_scores_steps,
-    {
-      steps <- lapply(
-        list(character(), "a", c("a", "e"), c("a", "e", "prob")),
-        \(extra) {
-          # tsibble warns about any sort other than key then index; these are intended
-          suppressWarnings(arrange(stmf_scores, Week, `Age group`)) |>
-            select(Week, `Age group`, Mortality, .fitted, all_of(extra))
-        }
-      )
-      c(steps, list(suppressWarnings(arrange(steps[[4]], prob))))
-    }
-  ),
-  tar_target(
-    fig_stl_anomalies,
-    us_mortality_plot(us_stmf, stmf_scores)
-  ),
-  tar_target(
-    us_episodes,
-    make_us_episodes()
-  ),
-  tar_target(
-    us_zoom,
-    list(from = yearweek("2019 W40"), to = yearweek("2022 W26"))
-  ),
-  tar_target(
-    us_covid_girafe,
-    with_uconn_style(us_mortality_girafe(
-      us_stmf,
-      stmf_scores,
-      us_episodes,
-      from = us_zoom$from,
-      to = us_zoom$to,
-      band_alpha = 0.08
-    ))
-  ),
-  # Animation zooming in from the full period to the interactive plot
-  tar_target(
-    us_zoom_video,
-    with_uconn_style(us_mortality_zoom_video(
-      us_stmf,
-      stmf_scores,
-      us_episodes,
-      from = us_zoom$from,
-      to = us_zoom$to,
-      file = "figs/uconn/us_zoom.mp4"
-    )),
-    format = "file"
-  ),
-  tar_target(
-    us_causes_card,
-    hover_card(
-      setNames(us_episodes$cause, us_episodes$episode),
-      alert = c("2020 W03–W04", "2021 W13–W15")
-    )
-  ),
-  # Weird series: PBS
+
+  # Pharmaceutical surveillance --------------------------
   # Our own copy with only the columns we use (ATC2 alone identifies the
   # series, so ATC1 is redundant), so it prints more readably
   tar_target(
@@ -612,68 +310,6 @@ list(
       update_tsibble(key = c(Concession, Type, ATC2)) |>
       select(Month, Concession, Type, ATC2, Scripts)
   ),
-  tar_target(
-    pbs_features,
-    compute_pbs_features(pbs_raw)
-  ),
-  tar_target(
-    pbs_pca,
-    compute_pbs_pca(pbs_features)
-  ),
-  tar_target(
-    pbs_prcomp_table,
-    pbs_pca |>
-      select(Concession:ATC2, starts_with(".fitted"))
-  ),
-  tar_target(
-    pbs_pca_table,
-    pbs_pca |>
-      select(Concession, Type, ATC2, .fittedPC1, .fittedPC2, prob) |>
-      arrange(prob)
-  ),
-  tar_target(
-    pbs_pc_girafe_widget,
-    with_uconn_style(pbs_pc_girafe(pbs_pca))
-  ),
-  tar_target(
-    pbs_kde_girafe_widget,
-    with_uconn_style(pbs_pc_girafe(pbs_pca, hdr = TRUE))
-  ),
-  # Series shown in a card when hovering over their points in the PC plots:
-  # the anomalies, plus an isolated point (A15) and the top-left point (C09)
-  tar_target(
-    pbs_highlights,
-    pbs_pca |>
-      filter(
-        prob < 0.001 |
-          paste(Concession, Type, ATC2) %in%
-            c("General Co-payments A15", "Concessional Co-payments C09")
-      ) |>
-      arrange(prob)
-  ),
-  tar_target(
-    pbs_highlight_pngs,
-    pbs_series_pngs(pbs_raw, pbs_highlights),
-    format = "file"
-  ),
-  tar_target(
-    pbs_highlight_card,
-    image_card(
-      pbs_highlight_pngs,
-      keys = with(pbs_highlights, paste(ATC2, Concession, Type)),
-      titles = with(pbs_highlights, paste0(ATC2, ": ", Concession, ", ", Type))
-    )
-  ),
-  tar_target(
-    pbs_missing,
-    pbs_features |>
-      anti_join(pbs_pca, by = c("Concession", "Type", "ATC2"))
-  ),
-  tar_target(
-    fig_pbs_missing,
-    pbs_series_plot(pbs_raw, pbs_missing, "Time series with missing features")
-  ),
-  # Surveillance: PBS by ATC2 group
   tar_target(
     pbs,
     make_pbs(pbs_raw)
@@ -694,7 +330,7 @@ list(
   ),
   tar_target(
     fig_pbs_roll_files,
-    pbs_roll_files(pbs_roll, file.path("figs", "uconn")),
+    pbs_roll_files(pbs_roll, "figs"),
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
@@ -712,7 +348,7 @@ list(
   # Heat map of all surprisal probabilities, filled in month by month
   tar_target(
     fig_pbs_heatmap_files,
-    pbs_heatmap_files(pbs_scores, file.path("figs", "uconn")),
+    pbs_heatmap_files(pbs_scores, "figs"),
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
@@ -728,13 +364,14 @@ list(
       R05 = "Cough and cold preparations"
     ))
   ),
+  tar_png(fig_pbs_anomalies, height = 4.6),
   tar_target(
     pbs_joint,
     compute_pbs_joint(pbs_scores)
   ),
   tar_target(
     pbs_joint_girafe_widget,
-    with_uconn_style(pbs_joint_girafe(pbs_joint))
+    with_slide_style(pbs_joint_girafe(pbs_joint))
   ),
   # Explanations of the significant months, shown in a card when hovering over the plot
   tar_target(
@@ -746,239 +383,8 @@ list(
       `2008 Feb` = "Usual February fall did not occur: a change in timing, not demand"
     ))
   ),
-  # PNGs of the figures in uconn_2026.qmd -----------------
-  tar_png(fig_tsparadigms, width = 7, height = 5.6),
-  # Slide 2 reveals the sketches one at a time, each with its card
-  tar_target(
-    fig_tsparadigms_stage_pngs,
-    vapply(1:3, function(k) {
-      save_png(
-        create_fig_tsparadigms(fr_mortality, show = seq_len(k)),
-        file.path("figs", "uconn", paste0("fig_tsparadigms_", k, ".png")),
-        width = 7, height = 5.6
-      )
-    }, character(1)),
-    format = "file"
-  ),
-  tar_png(fig_expt1b),
-  tar_png(fig_fr_mortality2),
-  # Stages of the Hampel figure, in the order of fig_hampel_stages
-  tar_target(
-    fig_hampel_png,
-    unname(mapply(
-      save_png,
-      fig_hampel_stages,
-      file.path(
-        "figs",
-        "uconn",
-        paste0("fig_hampel_", names(fig_hampel_stages), ".png")
-      ),
-      MoreArgs = list(height = 2.6)
-    )),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  tar_png(fig_stmf, height = 4.65),
-  tar_png(fig_stl_anomalies, height = 4.65),
-  # Feature-space build-up: stages of each figure, overlaid as fragments
-  tar_target(pbs_scaled, pbs_rescale(pbs_raw)),
-  tar_target(
-    fig_pbs_build_png,
-    {
-      stages <- list(
-        spaghetti = pbs_spaghetti_stages(pbs_scaled),
-        trend = pbs_feature_stages(
-          pbs_features,
-          pbs_scaled,
-          "trend_strength",
-          "Strength of trend"
-        ),
-        season = pbs_feature_stages(
-          pbs_features,
-          pbs_scaled,
-          "seasonal_strength_year",
-          "Strength of seasonality"
-        ),
-        # Grobs are built with a PNG device open, so text is measured as drawn
-        space = {
-          tmp <- tempfile(fileext = ".png")
-          ragg::agg_png(tmp, width = 9, height = 3.6, units = "in", res = 400)
-          grobs <- with_uconn_style(pbs_feature_space_stages(
-            pbs_scaled,
-            pbs_pca
-          ))
-          grDevices::dev.off()
-          unlink(tmp)
-          grobs
-        }
-      )
-      heights <- c(spaghetti = 4.4, trend = 4.4, season = 4.4, space = 3.6)
-      unlist(lapply(names(stages), function(s) {
-        files <- file.path(
-          "figs",
-          "uconn",
-          paste0("fig_pbs_", s, seq_along(stages[[s]]), ".png")
-        )
-        unname(mapply(
-          save_png,
-          stages[[s]],
-          files,
-          MoreArgs = list(height = heights[[s]])
-        ))
-      }))
-    },
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext", "patchwork", "GGally")
-  ),
-  # Spaghetti plot continued, adding the remaining series
-  tar_target(
-    pbs_spaghetti_video_files,
-    with_uconn_style(pbs_spaghetti_video(
-      pbs_scaled,
-      file = file.path("figs", "uconn", "pbs_spaghetti.mp4"),
-      poster = file.path("figs", "uconn", "pbs_spaghetti_all.png")
-    )),
-    format = "file"
-  ),
-  tar_png(fig_pbs_missing),
-  tar_png(fig_pbs_anomalies, height = 4.6),
-  # The surprisal probability steps, with the same panel position in every
-  # step so they overlay exactly
-  tar_target(
-    fig_sp_png,
-    save_aligned_pngs(
-      fig_sp_katex,
-      file.path(
-        "figs",
-        "uconn",
-        paste0("fig_sp", seq_along(fig_sp_katex), ".png")
-      ),
-      height = 3.6
-    ),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  # Stages of the GPD approximation to the surprisal probabilities, with a
-  # video zooming into the tail between stages 2 and 3
-  tar_target(
-    fig_gpd_data,
-    gpd_stage_data()
-  ),
-  tar_target(
-    fig_gpd_files,
-    gpd_stage_files(fig_gpd_data, file.path("figs", "uconn")),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  # Figures and results for wombat_2026.qmd ---------------
-  # Startup message of library(weird), which shows package versions: rebuilt
-  # whenever the package library changes (targets doesn't track packages)
-  tar_target(uvr_lock, "uvr.lock", format = "file"),
-  tar_target(weird_attach, weird_attach_message(uvr_lock)),
-  # Three chi-square samples, each as a strip
-  tar_target(
-    fig_chisq_pngs,
-    unname(mapply(
-      function(data, k) {
-        save_png(
-          chisq_strip(data),
-          file.path("figs", "wombat", paste0("fig_chisq", k, ".png")),
-          width = 9,
-          height = 1.15
-        )
-      },
-      list(chisq_data3, chisq_data1, chisq_data2),
-      1:3
-    )),
-    format = "file"
-  ),
-  # Spot the anomaly: two versions, each plain then with the anomaly circled
-  tar_target(
-    fig_spot_pngs,
-    {
-      stages <- expand.grid(circle = c(FALSE, TRUE), version = c("a", "b"),
-        stringsAsFactors = FALSE)
-      unname(mapply(
-        function(version, circle) {
-          save_png(
-            spot_anomaly_plot(spot_anomaly_data, version, circle),
-            file.path("figs", "wombat",
-              paste0("fig_spot_", version, if (circle) "_circle", ".png")),
-            width = 4.6,
-            height = 4.6
-          )
-        },
-        stages$version,
-        stages$circle
-      ))
-    },
-    format = "file"
-  ),
-  tar_target(fig_sp_i_png,
-    save_aligned_pngs(
-      make_fig_sp_katex(list(fig_sp0, fig_sp1, fig_sp2), sub = "i"),
-      file.path("figs", "wombat", paste0("fig_sp", 1:3, ".png")),
-      height = 3.6
-    ),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  tar_target(normal_eg_steps, normal_example_steps()),
-  tar_target(fig_sp_normal_png,
-    save_png(
-      make_fig_sp_katex(
-        list(create_fig_surprisal_prob(2L, den = dist_normal(), size = 98)),
-        sub = "i"
-      )[[1]],
-      file.path("figs", "wombat", "fig_sp_normal.png"),
-      width = 6.2,
-      height = 3.85
-    ),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  # Wine
-  tar_target(wine_p, wine_probs(wine_reviews)),
-  tar_target(wine_p_gpd, wine_probs(wine_reviews, approximation = "gpd")),
-  tar_target(
-    wine_bargains,
-    wine_p |>
-      filter(price < fitted) |>
-      arrange(p, points, price) |>
-      select(-fitted)
-  ),
-  tar_target(fig_wine_scatter, wine_scatter(wine_reviews)),
-  tar_target(fig_wine_scatter_log, wine_scatter(wine_reviews, log = TRUE)),
-  tar_target(fig_wine_model_scatter, wine_model_scatter(wine_reviews)),
-  tar_target(fig_wine_model_log, wine_anomaly_plot(wine_p)),
-  tar_target(fig_wine_model, wine_anomaly_plot(wine_p, log = FALSE)),
-  tar_png(fig_wine_scatter, dir = "wombat"),
-  tar_png(fig_wine_scatter_log, dir = "wombat"),
-  tar_png(fig_wine_model_scatter, dir = "wombat"),
-  tar_png(fig_wine_model_log, dir = "wombat"),
-  tar_png(fig_wine_model, dir = "wombat"),
-  # GPD approximation, with i rather than t
-  tar_target(
-    fig_gpd_i_files,
-    gpd_stage_files(fig_gpd_data, file.path("figs", "wombat"), sub = "i"),
-    format = "file",
-    packages = c(tar_option_get("packages"), "ggtext")
-  ),
-  # Old Faithful
-  tar_target(of_probs, old_faithful_probs(oldfaithful)),
-  tar_target(fig_of_scatter, old_faithful_scatter(oldfaithful)),
-  tar_target(fig_of_kde, old_faithful_kde(oldfaithful)),
-  tar_target(fig_of_hdrboxplot, old_faithful_hdrboxplot(oldfaithful)),
-  tar_png(fig_of_scatter, dir = "wombat"),
-  tar_png(fig_of_kde, height = 3.6, dir = "wombat"),
-  tar_png(fig_of_hdrboxplot, height = 3.6, dir = "wombat"),
+
   # Slides ------------------------------------------------
-  #tar_quarto(
-  #  slides,
-  #  "auckland_2026.qmd", #"surprisals.qmd",  "surprisals_fsi2025.qmd",
-  #  quiet = FALSE,
-  #  extra_files = c("header.tex", "before-title.tex")
-  #),
   tar_quarto(
     slides_wombat,
     "wombat_2026.qmd",
@@ -986,7 +392,7 @@ list(
     extra_files = c(
       "_quarto.yml",
       "slim_html.py",
-      "uconn_2026.css",
+      "slides.css",
       "wombat_2026.css",
       "title-slide.html",
       "images/title_of.svg",

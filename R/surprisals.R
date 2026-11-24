@@ -1,3 +1,5 @@
+# Surprisal probabilities and their GPD approximation
+
 create_fig_surprisal_prob <- function(
   step = 0L,
   den = dist_chisq(5),
@@ -118,6 +120,30 @@ create_fig_surprisal_prob <- function(
     return(file)
   }
   return(p)
+}
+
+# Surprisal probability figures (fig_sp0, fig_sp1, fig_sp2) with maths in KaTeX fonts
+make_fig_sp_katex <- function(figs, sub = "t") {
+  lapply(figs, function(p) {
+    # Once y_i is shown, these figures redraw the vertical grid lines in white
+    # (for a white background); drop them so there are no vertical grid lines
+    white <- vapply(
+      p$layers,
+      \(l) identical(l$aes_params$colour, "white"),
+      logical(1)
+    )
+    p$layers <- p$layers[!white]
+    katex_fig_sp(p, sub = sub)
+  })
+}
+
+# The tibble after each step of the slide code: y generated, p added, sorted
+normal_example_steps <- function(seed = 2026, n = 1000) {
+  set.seed(seed)
+  N01 <- dist_normal(mean = 0, sd = 1)
+  generated <- tibble(y = generate(N01, times = n)[[1]])
+  with_p <- generated |> mutate(p = surprisals_prob(y, distribution = N01))
+  list(generated, with_p, arrange(with_p, p))
 }
 
 # Data for the stages of the GPD approximation to the surprisal probabilities:
@@ -255,7 +281,7 @@ gpd_stage_files <- function(d, dir, seconds = 1.5, fps = 30, width = 9, height =
   # ggplotGrob() measures text on the current device, so open a matching one
   tmp <- tempfile(fileext = ".png")
   ragg::agg_png(tmp, width = width, height = height, units = "in", res = res)
-  grobs <- with_uconn_style(align_ggplots(plots))
+  grobs <- with_slide_style(align_ggplots(plots))
   grDevices::dev.off()
   unlink(tmp)
   dir.create(dir, showWarnings = FALSE, recursive = TRUE)

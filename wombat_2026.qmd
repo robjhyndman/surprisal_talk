@@ -24,7 +24,7 @@ format:
     css:
       - fonts/fonts.css
       - katex/katex.min.css
-      - uconn_2026.css
+      - slides.css
       - wombat_2026.css
     include-in-header:
       - file: katex/katex-local.html
@@ -54,9 +54,9 @@ library(fable)
 library(feasts)
 library(ggtime)
 library(ggiraph)
-tar_source(c("R/functions.R", "R/katex.R", "R/uconn.R"))
+tar_source(c("R/functions.R", "R/katex.R", "R/theme.R"))
 set_ggplot_options()
-theme_set(uconn_theme())
+theme_set(slide_theme())
 register_katex_font()
 options(
   pillar.width = 78,
@@ -193,7 +193,7 @@ $$
 #| label: fig_sp
 #| results: asis
 
-files <- tar_read(fig_sp_i_png)
+files <- tar_read(fig_sp_png)
 cat("\n::: {.r-stack .sp-stack}\n")
 for (step in seq_along(files)) {
   cat(if (step == 1) "\n::: {.step}\n" else "\n::: {.fragment}\n")
@@ -440,7 +440,7 @@ $$
 #| label: fig_gpd
 #| results: asis
 
-files <- tar_read(fig_gpd_i_files)
+files <- tar_read(fig_gpd_files)
 cat_png_stack(files[1:4], video = files[5:6], video_after = 2)
 ```
 

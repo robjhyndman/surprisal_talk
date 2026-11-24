@@ -1,7 +1,15 @@
-# Styling and slide helpers for uconn_2026.qmd
+# Slide theme, colours and helpers for drawing and placing figures on the slides
+
+slide_colours <- c(
+  ink = "#1e293b",
+  faint = "#94a3b8",
+  blue = "#1d6fa5",
+  amber = "#F39B00",
+  orange = "#c14b14"
+)
 
 # ggplot2 theme for the slides
-uconn_theme <- function() {
+slide_theme <- function() {
   theme_minimal(base_size = 18, base_family = "Fira Sans") +
     theme(
       plot.background = element_rect(fill = "#fbf9f4", colour = NA),
@@ -25,10 +33,10 @@ uconn_theme <- function() {
 # Evaluate `expr` with the slides' ggplot2 theme and colours, restoring the
 # previous ones afterwards. ggplots are styled when drawn, so this is needed
 # for targets that draw plots (widgets, videos) rather than return them.
-with_uconn_style <- function(expr) {
+with_slide_style <- function(expr) {
   opts <- c("ggplot2.discrete.colour", "ggplot2.discrete.fill")
   old_opts <- lapply(stats::setNames(nm = opts), getOption)
-  old_theme <- theme_set(uconn_theme())
+  old_theme <- theme_set(slide_theme())
   on.exit({
     options(old_opts)
     theme_set(old_theme)
@@ -40,23 +48,15 @@ with_uconn_style <- function(expr) {
 # Font set for girafe() that embeds no font files. By default girafe() embeds
 # all twelve Liberation fonts (5 MB); the plots use Fira Sans, which the slides
 # already load.
-uconn_girafe_fonts <- function() {
+girafe_fonts <- function() {
   fonts <- gdtools::font_set(sans = "Fira Sans")
   fonts$dependencies <- list()
   fonts
 }
 
-# Outline listing all sections, with the current one highlighted
-uconn_sections <- c(
-  "Surprisals",
-  "Weird times",
-  "Weird series",
-  "Surveillance",
-  "Summary"
-)
 # (another deck can set its own with options(slide_sections = ...))
 outline <- function(current = NULL,
-                    sections = getOption("slide_sections", uconn_sections)) {
+                    sections = getOption("slide_sections")) {
   ids <- section_id(sections)
   status <- if (is.null(current)) {
     ""
@@ -70,15 +70,17 @@ outline <- function(current = NULL,
     "\n\n:::\n\n"
   )
 }
+
 # Slide id of a section divider: "part-" and the name in lower case, with
 # punctuation dropped and spaces as hyphens ("What is an anomaly?" ->
 # "part-what-is-an-anomaly")
 section_id <- function(sections) {
   paste0("part-", gsub("[^a-z0-9]+", "-", gsub("[?!.,]", "", tolower(sections))))
 }
+
 # Body of a section divider slide: section number and outline
 section <- function(current,
-                    sections = getOption("slide_sections", uconn_sections)) {
+                    sections = getOption("slide_sections")) {
   paste0(
     "\n\n::: {.section-number}\n",
     sprintf("%02d", match(current, sections)),
@@ -98,12 +100,12 @@ video_tag <- function(file) {
 }
 
 # Save a ggplot (or a grob) as a PNG styled as on the slides, matching the
-# knitr options in uconn_2026.qmd (dpi 200, with Quarto's fig-retina 2), so the
+# knitr options in the talk (dpi 200, with Quarto's fig-retina 2), so the
 # slides needn't redraw it each render
 save_png <- function(plot, file, width = 9, height = 4.4, res = 400) {
   dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
   register_katex_font()
-  with_uconn_style({
+  with_slide_style({
     ragg::agg_png(file, width = width, height = height, units = "in",
       res = res, background = "#fbf9f4")
     if (ggplot2::is_ggplot(plot)) {
@@ -142,7 +144,7 @@ save_aligned_pngs <- function(plots, files, width = 9, height = 4.4, res = 400) 
   register_katex_font()
   tmp <- tempfile(fileext = ".png")
   ragg::agg_png(tmp, width = width, height = height, units = "in", res = res)
-  grobs <- with_uconn_style(align_ggplots(plots))
+  grobs <- with_slide_style(align_ggplots(plots))
   grDevices::dev.off()
   unlink(tmp)
   mapply(save_png, grobs, files, MoreArgs = list(width = width, height = height, res = res))

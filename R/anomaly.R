@@ -1,85 +1,17 @@
-make_figchisq1 <- function(data) {
-  data |>
-    ggplot(aes(x = x, y = 1)) +
-    geom_point(alpha = 0.5) +
-    scale_y_discrete() +
+# What is an anomaly? Chi-square samples and spot-the-anomaly figures
+
+# A strip of chi-square draws, with the largest in orange
+chisq_strip <- function(data) {
+  ggplot(data, aes(x = x, y = 0)) +
+    geom_point(alpha = 0.45, size = 3, colour = slide_colours[["ink"]]) +
     geom_point(
-      data = data |> filter(x == max(x)),
-      aes(x = x, y = 1),
-      color = "#c14b14"
+      data = filter(data, x == max(x)),
+      size = 3.5,
+      colour = slide_colours[["orange"]]
     ) +
-    labs(y = "", x = "y") +
-    xlim(0, 26)
-}
-
-create_fig_density <- function(distribution, y, shading = TRUE) {
-  sup <- support(distribution) |> unclass()
-  sup <- sup$lim[[1]]
-  if (sup[1] == -Inf) {
-    sup[1] <- quantile(distribution, 0.001)
-  }
-  if (sup[2] == Inf) {
-    sup[2] <- quantile(distribution, 0.999)
-  }
-  df <- tibble(
-    y = seq(sup[1], sup[2], l = 501),
-    fy = density(distribution, at = y)[[1]]
-  )
-  falpha <- density(distribution, at = y)
-  p <- df |>
-    ggplot(aes(x = y, y = fy)) +
-    geom_line() +
-    labs(x = "y", y = "Probability Density Function: f(y)")
-
-  if (shading) {
-    fy <- hdr_table(
-      distribution,
-      prob = seq(min(falpha, 0.01), max(falpha, 0.99), l = 20)
-    )
-    fy$below <- fy$density < falpha
-    fy <- hdr_table(
-      distribution,
-      prob = seq(max(fy$prob[!fy$below]), min(fy$prob[fy$below]), l = 10)
-    )
-    palpha <- approx(fy$density, fy$prob, xout = falpha)$y |> suppressWarnings()
-    hdr <- hdr_table(distribution, prob = palpha) |> select(lower, upper)
-    # Invert HDRs
-    hdr_inverse <- tibble(
-      lower = c(sup[1], hdr$upper),
-      upper = c(hdr$lower, sup[2])
-    )
-    for (i in seq(NROW(hdr_inverse))) {
-      df_subset <- df |>
-        filter(y >= hdr_inverse[i, ]$lower & y <= hdr_inverse[i, ]$upper)
-      p <- p +
-        geom_hline(
-          aes(yintercept = falpha),
-          col = "#F39B00",
-          linetype = "dashed"
-        ) +
-        geom_polygon(
-          fill = "#F39B00",
-          data = bind_rows(
-            tibble(y = hdr_inverse[i, ]$lower, fy = 0),
-            df_subset,
-            tibble(y = hdr_inverse[i, ]$upper, fy = 0),
-            tibble(y = hdr_inverse[i, ]$lower, fy = 0)
-          )
-        )
-    }
-  }
-  xbreaks <- c(pretty(sup), y)
-  p +
-    scale_x_continuous(
-      breaks = xbreaks,
-      labels = latex2exp::TeX(c(head(xbreaks, -1), "$y_i$")),
-      minor_breaks = NULL
-    ) +
-    scale_y_continuous(
-      breaks = c(-Inf, falpha),
-      labels = latex2exp::TeX(c("Inf", "$f(y_i)$")),
-      minor_breaks = NULL
-    )
+    scale_y_continuous(breaks = NULL) +
+    scale_x_continuous(limits = c(0, 26), breaks = seq(0, 25, by = 5)) +
+    labs(x = NULL, y = NULL)
 }
 
 make_spot_anomaly_data <- function() {
@@ -91,22 +23,36 @@ make_spot_anomaly_data <- function() {
     filter(r < 1)
 }
 
-create_fig_spot_anomaly1 <- function(data) {
-  data |>
-    ggplot(aes(x = x, y = y)) +
-    geom_point(alpha = 0.5) +
-    geom_point(
-      data = data.frame(x = 0.75, y = -0.75),
-      aes(x = x, y = y),
-      alpha = 0.5
-    ) +
-    coord_fixed()
+# Points of a circle, for marking an anomaly
+circle_path <- function(x, y, r, n = 200) {
+  theta <- seq(0, 2 * pi, length.out = n)
+  tibble(x = x + r * cos(theta), y = y + r * sin(theta))
 }
 
-create_fig_spot_anomaly2 <- function(data) {
-  data |>
-    filter(r > 0.025 | r == min(r)) |>
-    ggplot(aes(x = x, y = y)) +
-    geom_point(alpha = 0.5) +
-    coord_fixed()
+# Spot-the-anomaly scatterplots: (a) uniform on the disc plus a point outside
+# it; (b) uniform on the disc with a hole round the point nearest the centre.
+# `circle` adds a circle round the anomaly.
+spot_anomaly_plot <- function(data, version = c("a", "b"), circle = FALSE) {
+  version <- match.arg(version)
+  if (version == "a") {
+    data <- bind_rows(data, tibble(x = 0.75, y = -0.75))
+    mark <- circle_path(0.75, -0.75, 0.09)
+  } else {
+    data <- filter(data, r > 0.025 | r == min(r))
+    centre <- filter(data, r == min(r))
+    mark <- circle_path(centre$x, centre$y, 0.12)
+  }
+  p <- ggplot(data, aes(x = x, y = y)) +
+    geom_point(alpha = 0.5, size = 1.3, colour = slide_colours[["ink"]]) +
+    coord_fixed(xlim = c(-1.05, 1.05), ylim = c(-1.05, 1.05), expand = FALSE) +
+    labs(x = NULL, y = NULL)
+  if (circle) {
+    p <- p +
+      geom_path(
+        data = mark,
+        colour = slide_colours[["orange"]],
+        linewidth = 1.6
+      )
+  }
+  p
 }

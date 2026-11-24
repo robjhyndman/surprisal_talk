@@ -264,3 +264,34 @@ New deck `wombat_2026.qmd`: uconn design and animations, Auckland content where 
   entry in `slide_sections` in the setup chunk). US weekly mortality dropped.
 - QR code `figs/qr_wombat2026.svg` (made with segno) on the closing slide.
 - Open: robjhyndman.com/wombat2026 alias not yet added.
+
+# Trim the repo to the current talk (24 Nov 2026)
+
+Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UConn2026).
+
+- [x] Baseline: copy freshly built `wombat_2026.html` and `figs/` to scratchpad
+- [x] `_targets.R`: keep only the 67 targets upstream of `slides_wombat`; drop `_i` suffixes
+      (`fig_sp_i_png` → `fig_sp_png`, `fig_gpd_i_files` → `fig_gpd_files`); all figures in `figs/`
+- [x] `R/` by topic, only functions Wombat uses: `theme.R` (was `uconn.R`), `functions.R`, `katex.R`,
+      `anomaly.R`, `surprisals.R`, `wine.R`, `old_faithful.R`, `fr_mortality.R`, `pbs.R`
+- [x] Rename UConn-named shared things: `uconn_2026.css` → `slides.css`, `uconn_theme` → `slide_theme`,
+      `with_uconn_style` → `with_slide_style`, `uconn_girafe_fonts` → `girafe_fonts`,
+      `wombat_colours` → `slide_colours`, `wombat_of_labels` → `of_labels`
+- [x] Delete old talks' sources/PDFs and support files only they use (keep `uconn_2026.html`: linked from
+      robjhyndman.com via GitHub Pages)
+- [x] `tar_make()`, `tar_prune()`, remove stale `figs/uconn`, `figs/wombat`
+- [x] Compare rendered `wombat_2026.html` (and figures) with the baseline
+
+## Review
+
+- `_targets.R` has 65 targets (was ~300 incl. 198 animation frames); `R/` has 9 topic files (was 21);
+  old talks' sources, PDFs and 10 images removed. `uconn_2026.html` kept at the root (GitHub Pages link).
+- `of_labels` now uses `ggplot2::labs()`: it only worked before because a stray top-level
+  `library(weird)` in the old `R/fr_mortality.R` happened to be sourced first.
+- Verified: old code (worktree at 4a0ea62) and new code, both built cleanly with the same packages, give
+  pixel-identical PNGs (37/37) and frame-identical videos (4/4); the slide HTML is identical apart from
+  embedded media.
+- Found a pre-existing order dependence: after `hampel_window_video()` draws text at 200 dpi, later
+  400-dpi figures in the same R session are shifted by a fraction of a pixel (and vice versa), so figure
+  pixels depend on which targets ran first. The figures before this change were the "contaminated" ones;
+  the current `figs/` are clean renders. Not fixed here.

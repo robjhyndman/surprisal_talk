@@ -1,76 +1,39 @@
-of_labels <- labs(
-  x = "Eruption duration (seconds)",
-  y = "Waiting time to next eruption (seconds)",
-  title = "Old Faithful eruptions from 14 January 2017 to 29 December 2023"
+# Old Faithful eruptions
+
+of_labels <- ggplot2::labs(
+  x = "Duration (seconds)",
+  y = "Waiting time (seconds)"
 )
 
-analyse_old_faithful <- function(oldfaithful, scale, alpha, beta, gamma) {
-  lookobjNew <- lookout::lookout(
-    oldfaithful[, c("duration", "waiting")],
-    scale = scale,
-    alpha = alpha,
-    beta = beta,
-    gamma = gamma,
-    old_version = FALSE
-  )
-  as.data.frame.lookoutliers(lookobjNew)
-}
-
-create_old_faithful_figure <- function(
-  results,
-  scale = FALSE,
-  contour = FALSE,
-  show_anomalies = FALSE
-) {
-  alpha <- 500 / NROW(results)
-  if (scale) {
-    df <- mvscale(results[, 1:2])
-    colnames(df) <- c("duration", "waiting")
-    df$outliers <- results$outliers
-  } else {
-    df <- results
-  }
-  if (contour) {
-    h <- lookout::find_tda_bw(df[, 1:2], fast = FALSE, gamma = 0.97)
-    p <- dist_kde(df[, 1:2], H = diag(rep(h^2, 2))) |>
-      gg_density(show_points = !show_anomalies, colors = "black")
-  } else {
-    p <- df |>
-      ggplot(aes(x = duration, y = waiting))
-    if (!show_anomalies) {
-      p <- p +
-        geom_point(alpha = alpha, color = "black")
-    }
-  }
-  if (show_anomalies) {
-    p <- p +
-      geom_point(
-        data = df,
-        aes(x = duration, y = waiting, color = outliers),
-        alpha = alpha + (1 - alpha) * results$outliers
-      ) +
-      scale_color_manual(
-        values = c(`FALSE` = "#999999", `TRUE` = "red")
-      ) +
-      guides(color = "none")
-  }
-  if (scale) {
-    p +
-      labs(
-        x = "Z1",
-        y = "Z2",
-        title = "Standardized Old Faithful eruptions from 14 January 2017 to 29 December 2023"
-      )
-  } else {
-    p + of_labels
-  }
-}
-
-get_of_lookout_prob <- function(oldfaithful, alpha = 0.01) {
-  of <- oldfaithful |>
-    select(duration, waiting)
-  oldfaithful$prob <- surprisals_prob(of, loo = TRUE, approximation = "gpd", method = "lookout")
+old_faithful_scatter <- function(oldfaithful) {
   oldfaithful |>
-    filter(prob < alpha) |>
-    arrange(duration)
+    ggplot(aes(x = duration, y = waiting)) +
+    geom_point(alpha = 0.3, colour = slide_colours[["ink"]]) +
+    of_labels +
+    labs(title = "Eruptions from 14 January 2017 to 29 December 2023")
+}
+
+# Kernel density estimate of the eruptions, with the points
+old_faithful_kde <- function(oldfaithful) {
+  oldfaithful |>
+    select(duration, waiting) |>
+    dist_kde() |>
+    gg_density(show_points = TRUE, alpha = 0.15, colors = slide_colours[["blue"]]) +
+    of_labels
+}
+
+old_faithful_hdrboxplot <- function(oldfaithful) {
+  oldfaithful |>
+    gg_hdrboxplot(duration, waiting, color = slide_colours[["blue"]]) +
+    of_labels
+}
+
+# Surprisal probabilities of the eruptions, as on the slide
+old_faithful_probs <- function(oldfaithful) {
+  oldfaithful$p <- surprisals_prob(
+    oldfaithful[, c("duration", "waiting")],
+    loo = TRUE,
+    approximation = "gpd"
+  )
+  oldfaithful |> arrange(p)
 }

@@ -1,4 +1,4 @@
-library(weird)
+# French mortality rates
 
 create_fr_mortality_plot <- function(
   fr_mortality,
@@ -64,64 +64,6 @@ find_fr_anomalies <- function(fr_mortality) {
   fr_anomalies |> right_join(yrs, by = c("Year", "Sex"))
 }
 
-create_fr_anomaly_plot <- function(fr_anomalies) {
-  yrs <- fr_anomalies |>
-    select(Year, Sex) |>
-    distinct()
-
-  fr_anomalies_plot_male2 <- fr_anomalies |>
-    filter(Sex == "Male") |>
-    ggplot(aes(x = Year, y = Age)) +
-    facet_grid(. ~ Sex) +
-    scale_x_continuous(
-      breaks = seq(1820, 2000, by = 20),
-      limits = range(yrs$Year)
-    ) +
-    geom_vline(
-      xintercept = unique(yrs$Year[yrs$Sex == "Male"]),
-      alpha = 0.5,
-      color = "grey"
-    ) +
-    geom_point(col = "#478cb2") +
-    ggrepel::geom_text_repel(
-      data = yrs[yrs$Sex == "Male", ],
-      #yrs |> filter(Sex == "Male", !Year %in% 1915:1918),
-      aes(y = 75, label = Year),
-      col = "#478cb2",
-      size = 3,
-      seed = 1967
-    ) +
-    ylim(0, 86)
-  fr_anomalies_plot_female2 <- fr_anomalies |>
-    filter(Sex == "Female") |>
-    ggplot(aes(x = Year, y = Age)) +
-    facet_grid(. ~ Sex) +
-    scale_x_continuous(
-      breaks = seq(1820, 2000, by = 20),
-      limits = range(yrs$Year)
-    ) +
-    geom_vline(
-      xintercept = unique(yrs$Year[yrs$Sex == "Female"]),
-      alpha = 0.5,
-      color = "grey"
-    ) +
-    labs(title = "French mortality anomalies") +
-    geom_point(col = "#c1653a") +
-    ggrepel::geom_text_repel(
-      data = yrs[yrs$Sex == "Female", ],
-      aes(y = 75, label = Year),
-      col = "#c1653a",
-      size = 3,
-      seed = 1967
-    ) +
-    ylim(0, 86)
-  patchwork::wrap_plots(
-    fr_anomalies_plot_female2,
-    fr_anomalies_plot_male2,
-    nrow = 1
-  )
-}
-
 # Interactive version of the anomaly plot: hovering over a point shows its year
 # and age, and highlights all anomalies from that year
 create_fr_anomaly_girafe <- function(
@@ -155,7 +97,7 @@ create_fr_anomaly_girafe <- function(
     ylim(0, 86)
   ggiraph::girafe(
     ggobj = p,
-    font_set = uconn_girafe_fonts(),
+    font_set = girafe_fonts(),
     width_svg = width,
     height_svg = height,
     options = list(
@@ -167,7 +109,6 @@ create_fr_anomaly_girafe <- function(
     )
   )
 }
-
 
 # Illustration of the Hampel identifier for one series, built up in stages:
 #   "series":     the series alone
