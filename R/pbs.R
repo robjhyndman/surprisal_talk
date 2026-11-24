@@ -145,9 +145,7 @@ pbs_roll_plot <- function(d, origin, level = 4, labels = TRUE, width = 100) {
     p <- p +
       geom_polygon(data = bind_rows(dens, tibble(x = x0, y = rev(range(dens$y)))),
         aes(x = x, y = y), fill = colours[["fill"]], colour = NA) +
-      geom_path(data = dens, aes(x = x, y = y), colour = colours[["density"]]) +
-      annotate("segment", x = x0, xend = x0, y = min(dens$y), yend = max(dens$y),
-        colour = colours[["density"]])
+      geom_path(data = dens, aes(x = x, y = y), colour = colours[["density"]])
     if (labels) {
       p <- p +
         math("italic(f)[italic(t)+1*\"|\"*italic(t)](italic(y))", x = x0 + width + 20, y = fc$mu,
