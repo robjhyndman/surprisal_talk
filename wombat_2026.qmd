@@ -980,7 +980,7 @@ In preparation at\
 :::::
 :::
 
-::: {.absolute top="495" left="0" width="1280"}
+::: {.absolute top="489" left="0" width="1280"}
 ::::: {.alertblock .find-out-more-link}
 ![](images/qr_wombat2026.svg){.find-out-more-qr}
 

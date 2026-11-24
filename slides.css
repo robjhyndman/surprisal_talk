@@ -674,7 +674,7 @@ body.quarto-light,
   position: absolute;
   top: 0.3em;
   right: 0.8em;
-  width: 250px;
+  width: 230px;
   margin: 0;
 }
 
@@ -691,6 +691,6 @@ body.quarto-light,
 
 .reveal .slide .find-out-more-link img.find-out-more-qr {
   display: block;
-  width: 190px;
+  width: 210px;
   margin: 0;
 }
