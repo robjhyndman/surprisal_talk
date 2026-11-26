@@ -317,11 +317,19 @@ cat(":::\n")
 `````
 :::::
 ::::: {.column .fragment width="62%" fragment-index="2"}
+::::::: {.fragment .fade-out fragment-index="4"}
 ```{r}
 #| label: fig_sp_normal
 
 include_png(tar_read(fig_sp_normal_png))
 ```
+:::::::
+:::::
+:::
+
+::: {.absolute .fragment top="380" left="520" width="630" fragment-index="4"}
+::::: {.alertblock}
+No anomalies here, yet flagging $p_i < \alpha$ gives about $n\alpha$ false alarms.
 :::::
 :::
 
