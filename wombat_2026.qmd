@@ -187,13 +187,52 @@ include_png(tar_read(fig_of_scatter_png))
 include_png(tar_read(fig_wine_scatter_png))
 ```
 
+## Surprisals
+
+::: {.alertblock}
+The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
+:::
+
+Surprisals are already familiar:
+
+::: {.cards}
+::::: {.block}
+[Machine learning]{.block-title}
+
+Log loss (cross-entropy)
+:::::
+
+::::: {.block}
+[Information theory]{.block-title}
+
+Expected surprisal = entropy
+:::::
+
+::::: {.block}
+[Statistics]{.block-title}
+
+Sum of surprisals = [$-$log likelihood]{style="white-space: nowrap"}
+:::::
+:::
+
+::: {.fragment}
+Small density $\Leftrightarrow$ large surprisal.
+:::
+
+::: {.fragment}
+::::: {.alertblock}
+Anomalies are observations with extreme surprisal values.
+:::::
+:::
+
 ## Surprisal probabilities {.nostretch}
 
 ::: {.alertblock}
 The probability of an observation at least as unlikely as $y_i$ under density $f$:
 
 $$
-  p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big), \qquad Y \sim f
+  p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big)
+      = \mathbb{P}\big(-\log f(Y) \ge s_i\big), \qquad Y \sim f
 $$
 :::
 
@@ -389,55 +428,10 @@ tar_read(wine_anomaly_card_html)
 
 `r section("Approximate extreme surprisal probabilities", credit = "Photo: Basile Morin, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Karst_peaks_with_sea_of_clouds_at_sunrise,_South_view_from_the_top_of_Mount_Nam_Xay,_Vang_Vieng,_Laos.jpg)")`
 
-## Surprisals
-
-::: {.alertblock}
-The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
-:::
-
-Surprisals are already familiar:
-
-::: {.cards}
-::::: {.block}
-[Machine learning]{.block-title}
-
-Log loss (cross-entropy)
-:::::
-
-::::: {.block}
-[Information theory]{.block-title}
-
-Expected surprisal = entropy
-:::::
-
-::::: {.block}
-[Statistics]{.block-title}
-
-Sum of surprisals = [$-$log likelihood]{style="white-space: nowrap"}
-:::::
-:::
-
-::: {.fragment}
-Small density $\Leftrightarrow$ large surprisal $\Leftrightarrow$ small surprisal probability.
-:::
-
-::: {.fragment}
-::::: {.alertblock}
-Anomalies are extreme values of the surprisals.
-:::::
-:::
-
-## Surprisal probabilities
-
-::: {.alertblock}
-$$
-  p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big)
-      = \mathbb{P}\big(-\log f(Y) \ge s_i\big), \qquad Y \sim f
-$$
-:::
+## What if $f$ is wrong?
 
 ::: {.incremental}
-- $y_i$ can be multivariate, functional, an image, …
+- $s_i$ is a single number, whatever $y_i$ is: multivariate, functional, an image, …
 - $f$ can be assumed, estimated, conditional, …
 - If $f$ is wrong, $p_i$ is wrong.
 - But we can use [extreme value theory]{.alert}: the upper tail of the surprisal distribution is approximately a Generalised Pareto Distribution (GPD), even if $f$ is wrong.
