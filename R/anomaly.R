@@ -74,3 +74,58 @@ spot_anomaly_box <- function(data, version = c("a", "b"), size = 4.6) {
   y <- 1 - grid::convertY(loc$y, "in", valueOnly = TRUE) / size
   c(left = x[1], top = y[1], width = x[2] - x[1])
 }
+
+# The boxplot rule on a N(0,1) density, drawn like the surprisal probability
+# figure (fig_sp2): the fences Q1 - 1.5 IQR and Q3 + 1.5 IQR, the density level
+# they share (dashed; the same on both sides because the density is
+# symmetric), and the probability beyond each fence shaded
+boxplot_rule_normal <- function() {
+  q <- stats::qnorm(c(0.25, 0.75))
+  fences <- q + c(-1.5, 1.5) * diff(q)
+  ffence <- stats::dnorm(fences[2])
+  tail <- stats::pnorm(fences[1])
+  df <- tibble(y = seq(-4, 4, length.out = 501), fy = stats::dnorm(y))
+  tail_area <- function(keep, edge) {
+    df |>
+      filter(keep(y)) |>
+      bind_rows(tibble(y = c(edge, edge), fy = c(0, stats::dnorm(edge)))) |>
+      bind_rows(tibble(y = sign(edge) * 4, fy = 0)) |>
+      arrange(fy, sign(edge) * y)
+  }
+  sub <- function(x, i) paste0(katex_it(x), "<sub>", i, "</sub>")
+  iqr <- paste0(katex_up("1.5&thinsp;IQR"))
+  ggplot(df, aes(x = y, y = fy)) +
+    geom_hline(yintercept = ffence, colour = slide_colours[["amber"]], linetype = "dashed") +
+    geom_polygon(data = tail_area(\(y) y >= fences[2], fences[2]), fill = slide_colours[["amber"]]) +
+    geom_polygon(data = tail_area(\(y) y <= fences[1], fences[1]), fill = slide_colours[["amber"]]) +
+    geom_line() +
+    annotate(
+      "text",
+      x = fences + c(-0.35, 0.35),
+      y = 0.045,
+      label = paste0(signif(100 * tail, 2), "%"),
+      colour = slide_colours[["orange"]],
+      size = 6,
+      family = "Fira Sans"
+    ) +
+    scale_x_continuous(
+      breaks = c(fences[1], q, fences[2]),
+      labels = c(
+        paste0(sub("Q", 1), katex_up(" &minus; "), iqr),
+        sub("Q", 1),
+        sub("Q", 3),
+        paste0(sub("Q", 3), katex_up(" + "), iqr)
+      ),
+      minor_breaks = NULL
+    ) +
+    scale_y_continuous(breaks = seq(0, 0.4, by = 0.1), minor_breaks = NULL) +
+    labs(x = katex_it("y"), y = paste0(katex_it("f"), katex_up("("), katex_it("y"), katex_up(")"))) +
+    theme(
+      panel.grid.major.x = element_blank(),
+      axis.ticks.x.bottom = element_line(colour = "#64748b"),
+      axis.ticks.length.x.bottom = unit(6, "pt"),
+      axis.title.x.bottom = ggtext::element_markdown(),
+      axis.title.y.left = ggtext::element_markdown(angle = 90, hjust = 0.5),
+      axis.text.x.bottom = ggtext::element_markdown()
+    )
+}

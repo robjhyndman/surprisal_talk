@@ -125,6 +125,9 @@ list(
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
+  # The boxplot rule as a threshold on a Normal density
+  tar_target(fig_boxplot_normal, boxplot_rule_normal()),
+  tar_png(fig_boxplot_normal, height = 3.6),
   tar_target(normal_eg_steps, normal_example_steps()),
   tar_target(fig_sp_normal_png,
     save_png(

@@ -333,6 +333,30 @@ No anomalies here, yet flagging $p_i < \alpha$ gives about $n\alpha$ false alarm
 :::::
 :::
 
+## The boxplot rule {.nostretch}
+
+::: {.alertblock}
+Anomaly if $y_i < Q_1 - 1.5\,\text{IQR}$ or $y_i > Q_3 + 1.5\,\text{IQR}$.
+:::
+
+::: {.r-stack .sp-stack}
+::::: {.step}
+![](`r tar_read(fig_boxplot_normal_png)`){width=1800}
+:::::
+:::
+
+::: {.absolute .fragment top="215" left="150" width="330" fragment-index="1"}
+::::: {.alertblock}
+Implicitly assumes a **symmetric unimodal** density
+:::::
+:::
+
+::: {.absolute .fragment top="215" left="880" width="295" fragment-index="2"}
+::::: {.alertblock}
+Normal false alarm rate: $\alpha \approx 0.007$
+:::::
+:::
+
 ## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
 `r section("Wine quality and prices", credit = "Photo: Graham, [CC BY 2.0](https://commons.wikimedia.org/wiki/File:Wine_grapes_nearing_harvest_in_Ontario-also_example_of_trellis_wire.jpg)")`
