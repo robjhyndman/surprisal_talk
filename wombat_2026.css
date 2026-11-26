@@ -33,6 +33,21 @@
   background-position: center;
 }
 
+/* Faint credit for the background photo, bottom left of a section slide */
+.reveal .section-slide .photo-credit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 0.4em;
+  color: rgba(255, 255, 255, 0.45);
+  /* dark halo, so it reads over light patches of the photo */
+  text-shadow: 0 0 4px #0f2a44, 0 0 2px #0f2a44;
+}
+
+.reveal .section-slide .photo-credit a {
+  color: inherit;
+}
+
 /* ---- Small card in the title row, e.g. a plot legend ---- */
 
 .reveal .block.legend-card {

@@ -103,7 +103,7 @@ cat(tar_read(weird_attach), sep = "\n")
 
 ## What is an anomaly? {#part-what-is-an-anomaly .section-slide .photo-bg background-color="#0f2a44" background-image="images/ducks.jpg"}
 
-`r section("What is an anomaly?")`
+`r section("What is an anomaly?", credit = "Photo: Bob Jenkin, [Pexels](https://www.pexels.com/photo/standout-blue-peacock-among-yellow-duck-toys-31558264/)")`
 
 ## Is this an anomaly? {.nostretch}
 
@@ -288,7 +288,7 @@ include_png(tar_read(fig_sp_normal_png))
 
 ## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
-`r section("Wine quality and prices")`
+`r section("Wine quality and prices", credit = "Photo: Graham, [CC BY 2.0](https://commons.wikimedia.org/wiki/File:Wine_grapes_nearing_harvest_in_Ontario-also_example_of_trellis_wire.jpg)")`
 
 ## Wine quality and prices
 
@@ -385,9 +385,9 @@ tar_read(wine_anomaly_card_html)
 :::::
 :::
 
-## Approximate extreme surprisal probabilities {#part-approximate-extreme-surprisal-probabilities .section-slide background-color="#0f2a44"}
+## Approximate extreme surprisal probabilities {#part-approximate-extreme-surprisal-probabilities .section-slide .photo-bg background-color="#0f2a44" background-image="images/peaks.jpg"}
 
-`r section("Approximate extreme surprisal probabilities")`
+`r section("Approximate extreme surprisal probabilities", credit = "Photo: Basile Morin, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Karst_peaks_with_sea_of_clouds_at_sunrise,_South_view_from_the_top_of_Mount_Nam_Xay,_Vang_Vieng,_Laos.jpg)")`
 
 ## Surprisals
 
@@ -507,7 +507,7 @@ cat_output_steps(list(
 
 ## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/oldfaithful.jpg"}
 
-`r section("Old Faithful eruptions")`
+`r section("Old Faithful eruptions", credit = "Photo: NPS / Jacob W. Frank, [public domain](https://commons.wikimedia.org/wiki/File:Old_Faithful_eruption_on_a_bluebird_evening_(48416996051).jpg)")`
 
 ## Old Faithful eruptions
 
@@ -634,7 +634,7 @@ include_png(tar_read(fig_of_hdrboxplot_png))
 
 ## French mortality rates {#part-french-mortality-rates .section-slide .photo-bg background-color="#0f2a44" background-image="images/french_cemetery.jpg"}
 
-`r section("French mortality rates")`
+`r section("French mortality rates", credit = "Photo: Benh LIEU SONG, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:National_Cemetery_Douaumont.jpg)")`
 
 ## French mortality rates
 
@@ -792,7 +792,7 @@ tar_read(fr_causes_card)
 
 ## PBS prescriptions {#part-pbs-prescriptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/pills.jpg" style="--photo-opacity: 0.15"}
 
-`r section("PBS prescriptions")`
+`r section("PBS prescriptions", credit = "Photo: freestocks, [Pexels](https://www.pexels.com/photo/pile-of-white-pink-and-brown-oblong-and-round-medication-tablet-143654/)")`
 
 ## Australian Pharmaceutical Benefits Scheme
 
@@ -967,9 +967,9 @@ tar_read(pbs_joint_girafe_widget)
 tar_read(pbs_joint_card_html)
 ```
 
-## Summary {#part-summary .section-slide background-color="#0f2a44"}
+## Summary {#part-summary .section-slide .photo-bg background-color="#0f2a44" background-image="images/wombats.jpg"}
 
-`r section("Summary")`
+`r section("Summary", credit = "Image: generated with ChatGPT")`
 
 ## One idea, many kinds of data
 

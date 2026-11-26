@@ -78,14 +78,17 @@ section_id <- function(sections) {
   paste0("part-", gsub("[^a-z0-9]+", "-", gsub("[?!.,]", "", tolower(sections))))
 }
 
-# Body of a section divider slide: section number and outline
+# Body of a section divider slide: section number, outline and, if given, a
+# credit for the background photo (markdown, e.g. "Photo: [Name](url), CC BY")
 section <- function(current,
-                    sections = getOption("slide_sections")) {
+                    sections = getOption("slide_sections"),
+                    credit = NULL) {
   paste0(
     "\n\n::: {.section-number}\n",
     sprintf("%02d", match(current, sections)),
     "\n:::\n",
-    outline(current, sections)
+    outline(current, sections),
+    if (!is.null(credit)) paste0("::: {.photo-credit}\n", credit, "\n:::\n\n")
   )
 }
 
