@@ -245,7 +245,7 @@ An observation is an **anomaly with respect to $f$** if $p_i < \alpha$.
 #| eval: false
 
 N01 <- dist_normal(mean = 0, sd = 1)
-tibble(y = generate(N01, times = 1000)[[1]]) |>
+tibble(y = unlist(generate(N01, times = 1000))) |>
   mutate(p = surprisals_prob(y, distribution = N01)) |>
   arrange(p)
 ```
