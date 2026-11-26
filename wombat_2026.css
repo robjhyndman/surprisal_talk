@@ -181,3 +181,16 @@
 .reveal .spot-fig .rn-fragment {
   position: absolute;
 }
+
+/* ---- Cards side by side in the title bar, stretched to the same height ---- */
+
+.reveal .slide .absolute.header-cards {
+  display: flex;
+  align-items: stretch;
+  gap: 90px;
+}
+
+.reveal .header-cards > .block.legend-card {
+  display: flex;
+  align-items: center;
+}

@@ -450,7 +450,17 @@ tar_read(wine_model_girafe)
 tar_read(wine_anomaly_card_html)
 ```
 
-::: {.absolute top="0" right="0"}
+```{r}
+#| label: wine_counts
+
+wine_p <- tar_read(wine_p)
+```
+
+::: {.absolute .header-cards top="0" right="0"}
+::::: {.block .legend-card .orange-stripe .fragment}
+`r sum(wine_p$p < 0.001)` anomalies (`r format(round(0.001 * NROW(wine_p), 1))` expected)
+:::::
+
 ::::: {.block .legend-card .orange-stripe}
 [$p_i < 0.001$]{.alert}
 :::::
