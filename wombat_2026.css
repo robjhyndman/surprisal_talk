@@ -194,3 +194,8 @@
   display: flex;
   align-items: center;
 }
+
+/* ---- Smaller code and output, for two columns of them side by side ---- */
+.reveal .slide.compact-code pre {
+  font-size: 0.6em;
+}
