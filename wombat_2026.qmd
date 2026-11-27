@@ -408,7 +408,7 @@ cat_png_stack(
 )
 ```
 
-::: {.absolute .fragment fragment-index="2" top="165" left="140" width="480"}
+::: {.absolute .fragment fragment-index="2" top="127" left="140" width="480"}
 ::::: {.block .small}
 [Statistical model]{.block-title}
 
