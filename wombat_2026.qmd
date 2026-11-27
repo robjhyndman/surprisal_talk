@@ -976,7 +976,7 @@ ETS is refitted each month, so a level shift is flagged when it happens and then
 ETS forecast distributions are Gaussian, so $p_{i,t+1}$ is a two-sided $z$-test on the one-step forecast error.
 :::
 
-## A first iteration: $t = 36$ {.compact-code}
+## A first iteration: $t = 36$
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
@@ -985,7 +985,7 @@ First 3 years, to June 1994
 :::
 
 ::: {.columns}
-::::: {.column width="47%"}
+::::: {.column width="43%"}
 ::::::: {.code-steps data-steps="2:1,3:2,4:3"}
 <!-- panache-ignore-format-start -->
 ```{r}
@@ -1023,7 +1023,7 @@ pbs_fc |>
 :::::::::
 :::::::
 :::::
-::::: {.column width="53%"}
+::::: {.column width="57%"}
 ```{r}
 #| label: pbsfc_print
 #| results: asis
