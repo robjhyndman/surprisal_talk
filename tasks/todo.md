@@ -369,3 +369,38 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
 - [x] Slide 38 at the deck's normal code size (`.compact-code` removed), columns 43/57
 - [x] Every step of slides 36 and 38 screenshotted; `fig_pbs_anomalies_png` hash unchanged
 - [x] Slide 38: `mutate()` spread over six lines, one argument per line (steps renumbered); screenshotted
+
+# Uniform text size (27 Nov 2026)
+
+- [x] Slide 42: "Upper tail probability: P(N_t ≥ n_t)" (binomial tail, not a surprisal probability;
+      the two agree for every flagged month)
+- [x] Paragraphs now 1.15em like bullet lists (same exclusions: title/section slides, outlines,
+      columns, legend cards; plus paragraphs inside list items)
+- [x] `.body-size-list` → `.body-size` (covers text and lists; also usable on the slide heading);
+      on Surprisals and Surprisal probabilities, which overflow at the larger size
+- [x] `.find-out-more` container no longer 1.15em (its paragraphs were enlarged twice)
+- [x] Measured computed sizes and content bottoms on every slide, all fragments shown; screenshotted
+      the slides that grew
+
+- [x] Surprisals and Surprisal probabilities back at the larger size by trimming words instead:
+      "The surprisal of observation $y_i$ under density $f$: …"; "$s_i$ is one number, …, image, …";
+      "Surprisals are already familiar:" dropped; "… under $f$:"; definition figure 466px (`.sp-def-stack`)
+- [x] Shiraz caption: "*Wine Enthusiast* reviews: week of 15 June 2017" (one line)
+- [x] Screenshotted all three slides at their last fragment
+- [x] Boxplot rule: figure 585px (`.boxplot-stack`, was 484px) so the cards clear the curve and the
+      0.35% labels; axis title just above the progress bar; screenshotted with both cards
+- [x] Boxplot rule: left card 265px wide (was 330); right card "Normal density false alarm rate", moved right (left 920, was 880)
+- [x] Shiraz model card: formula spilled out (inline 0.85em in a `.small` card, enlarged by the
+      paragraph rule); both shrinks removed, card sized to its content (no width: at 2560x1440
+      KaTeX renders relatively wider, and a fixed 660px still spilled); no card spills at 1280x800,
+      1920x1080 or 2560x1440 (checked all)
+- [x] Shiraz model card fits the empty top-left of the plot (no points under it, checked at 1280x800
+      and 2560x1440): title dropped, formula on two lines ("log Price ~ N(mu, sigma^2)",
+      "mu = a + b Points"), card at top 115, left 130
+- [x] PBS data slide: "Monthly data" card lifted (top 645, was 664) off the progress bar
+- [x] PBS rolling-forecast slide: the text under the figure is now in a card
+
+## Review
+
+- Text and bullets are 39.1px on every slide outside columns (34px in columns, as before).
+  `.body-size` is still defined but no slide uses it.

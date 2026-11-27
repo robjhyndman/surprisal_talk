@@ -25,8 +25,8 @@
   `<!-- panache-ignore-format-start -->` / `<!-- panache-ignore-format-end -->` around the chunk.
   It also realigns multi-line display maths (e.g. `cases` environments) into one long, deeply indented
   line; protect hand-laid-out `$$` blocks with the same markers.
-- Don't stage the rendered slide HTML (e.g. `uconn_2026.html`, ~40 MB) or `_targets/meta/meta` in ordinary commits. Commit them once
-  at the end of the session (usually end of day).
+- Don't stage the rendered slide HTML (e.g. `uconn_2026.html`, ~40 MB) or `_targets/meta/meta` in ordinary commits. Commit them once,
+  only when I say the session is finished. "Commit all changes" doesn't mean the session is over.
 - Words like "log" in running text (e.g. "$-$log likelihood") are deliberately kept out of maths so they
   stay in Fira Sans. Don't move them into KaTeX to fix a line break; use
   `[...]{style="white-space: nowrap"}` instead.
@@ -68,3 +68,11 @@
   the section names you remember. Check the full list before saying it's done.
 - Commits: split the session's work into one commit per logical change (splitting within a file
   where needed), not a single bundled commit. Now a global rule in `~/.claude/CLAUDE.md`.
+- Body text and bullet text should be the same size, within and between slides; larger is better.
+  Size paragraphs and lists with the same rule; don't size one kind of text on its own. When a slide
+  overflows, first trim words (drop articles, a colon for "is", shorter phrasing) so wrapped lines fit
+  on one, and propose cuts; only drop a slide to the base size (`.body-size`) as a last resort.
+- Check slides at the presenter's screen size (2560x1440) as well as 1280x800, for every layout check,
+  not just interactive plots: KaTeX renders relatively wider at a larger Reveal scale, so a card that
+  fits at 1280x800 can spill at 2560x1440. Let a card size itself to its content (no fixed `width` on
+  the `.absolute` div) unless the text is meant to wrap.
