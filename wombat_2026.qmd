@@ -515,23 +515,22 @@ wine_p <- tar_read(wine_p)
 
 ## What if $f$ is wrong?
 
-::: {.incremental}
+::: {.incremental .tight-list}
 - If $f$ is wrong, $p_i$ is wrong.
-- But we can use [extreme value theory]{.alert}: the upper tail of the surprisal distribution is approximately a Generalised Pareto Distribution (GPD), even if $f$ is wrong.
+- But by [extreme value theory]{.alert}, the largest surprisals are approximately Generalised Pareto (GPD), even if $f$ is wrong.
 - So $p_i \approx$ tail probability of a GPD fitted to the largest surprisals.
 :::
-
-## Approximate GPD surprisal probabilities
 
 ```{r}
 #| label: fig_gpd
 #| results: asis
 
 files <- tar_read(fig_gpd_files)
-cat_png_stack(files[1:4], video = files[5:6], video_after = 2)
+cat_png_stack(files[1:4], video = files[5:6], video_after = 2, class = "sp-stack gpd-stack",
+  hide_first = TRUE)
 ```
 
-::: {.fragment}
+::: {.absolute .fragment top="372" left="925" width="315"}
 ::::: {.block}
 Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 :::::

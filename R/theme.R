@@ -190,7 +190,12 @@ cat_output_steps <- function(tables, n = 5, width = 80) {
 # PNG number `video_after` (by default the last), played when shown by the
 # script on the Hampel slide. `indices`, if given, sets the fragment index of
 # each PNG after the first, so other fragments on the slide can come between.
-cat_png_stack <- function(files, video = NULL, video_after = length(files), indices = NULL) {
+# If `hide_first`, the first PNG is a fragment too, shown after the fragments
+# before the stack (e.g. incremental bullets above it).
+# `class` sizes the stack: "r-stretch" fills the height left on the slide, and
+# "sp-stack" (plus a class setting its height in CSS) gives it a fixed height.
+cat_png_stack <- function(files, video = NULL, video_after = length(files), indices = NULL,
+                          class = "r-stretch", hide_first = FALSE) {
   video_md <- function() {
     tag <- htmltools::tagAppendAttributes(
       video_tag(video[1]),
@@ -199,11 +204,11 @@ cat_png_stack <- function(files, video = NULL, video_after = length(files), indi
     )
     cat("\n::: {.fragment}\n```{=html}\n", as.character(tag), "\n```\n:::\n", sep = "")
   }
-  cat("\n::: {.r-stack .r-stretch}\n")
+  cat("\n::: {.r-stack ", paste0(".", strsplit(class, " ")[[1]], collapse = " "), "}\n", sep = "")
   for (step in seq_along(files)) {
     cat(
       if (step == 1) {
-        "\n::: {.step}\n"
+        if (hide_first) "\n::: {.fragment}\n" else "\n::: {.step}\n"
       } else if (is.null(indices)) {
         "\n::: {.fragment}\n"
       } else {

@@ -177,7 +177,7 @@ list(
   ),
   tar_target(
     fig_gpd_files,
-    gpd_stage_files(fig_gpd_data, "figs", sub = "i"),
+    gpd_stage_files(fig_gpd_data, "figs", sub = "i", width = 7.8, height = 3.4),
     format = "file",
     packages = c(tar_option_get("packages"), "ggtext")
   ),
