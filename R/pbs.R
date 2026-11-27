@@ -41,17 +41,15 @@ pbs_plot <- function(pbs, anomalies, series) {
     labs(x = NULL, y = "Scripts (thousands)")
 }
 
-# Surveillance: one-step ETS forecasts from the first `i` months, for series
-# with at least 36 observations from their first non-zero value. Returns the
-# data after each step shown on the slide (the last is the forecasts)
-pbs_forecast_steps <- function(pbs, i = 36) {
-  window <- pbs |> filter(t <= i)
-  long <- window |>
-    group_by_key() |>
-    filter(cumsum(Scripts) > 0, n() >= 36) |>
-    ungroup()
-  fit <- long |> model(ets = ETS(Scripts))
-  list(pbs, window, long, fit, fit |> forecast(h = 1))
+# Surveillance: one-step ETS forecasts from the data up to `end`. Returns the
+# data after each step shown on the slide (the last is the forecasts). Unlike
+# the full run (the book's compute_pbs_scores()), series are not first limited
+# to those with 36 months from their first non-zero value: at June 1994 that
+# only drops L03, and leaves the other forecasts unchanged.
+pbs_forecast_steps <- function(pbs, end = "1994 Jun") {
+  window <- pbs |> filter_index(~ end)
+  fit <- window |> model(ets = ETS(Scripts))
+  list(pbs, window, fit, fit |> forecast(h = 1))
 }
 
 # Surprisal probabilities of the observations in the month forecast by
@@ -59,7 +57,7 @@ pbs_forecast_steps <- function(pbs, i = 36) {
 # the probabilities)
 pbs_forecast_probs_steps <- function(pbs_fc, pbs) {
   renamed <- pbs_fc |> rename(fcast = Scripts)
-  joined <- renamed |> left_join(pbs, by = c("ATC2", "Month"))
+  joined <- renamed |> left_join(pbs, by = c("ATC2", "Month")) # as left_join(pbs)
   list(
     pbs_fc,
     renamed,

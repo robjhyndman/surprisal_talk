@@ -986,7 +986,7 @@ First 3 years, to June 1994
 
 ::: {.columns}
 ::::: {.column width="47%"}
-::::::: {.code-steps data-steps="2:1,3-5:2,6:3,7:4"}
+::::::: {.code-steps data-steps="2:1,3:2,4:3"}
 <!-- panache-ignore-format-start -->
 ```{r}
 #| label: pbsfc
@@ -994,18 +994,15 @@ First 3 years, to June 1994
 #| eval: false
 
 pbs_fc <- pbs |>
-  filter(t <= 36) |>
-  group_by_key() |>
-  filter(cumsum(Scripts) > 0, n() >= 36) |>
-  ungroup() |>
+  filter_index(~ "1994 Jun") |>
   model(ets = ETS(Scripts)) |>
   forecast(h = 1)
 ```
 <!-- panache-ignore-format-end -->
 :::::::
 
-::::::: {.fragment fragment-index="5"}
-::::::::: {.code-steps data-steps="3:6,4-6:7"}
+::::::: {.fragment fragment-index="4"}
+::::::::: {.code-steps data-steps="3:5,4-9:6"}
 <!-- panache-ignore-format-start -->
 ```{r}
 #| label: pbsfc_compare
@@ -1014,10 +1011,13 @@ pbs_fc <- pbs |>
 
 pbs_fc |>
   rename(fcast = Scripts) |>
-  left_join(pbs, by = c("ATC2", "Month")) |>
-  mutate(prob = surprisals_prob(
-    Scripts, distribution = fcast
-  ))
+  left_join(pbs) |>
+  mutate(
+    prob = surprisals_prob(
+      Scripts,
+      distribution = fcast
+    )
+  )
 ```
 <!-- panache-ignore-format-end -->
 :::::::::
@@ -1029,12 +1029,15 @@ pbs_fc |>
 #| results: asis
 
 # The forecasting steps, then the comparison steps after the first (pbs_fc
-# again). After the data steps, drop .model (always "ets") and t to fit the column
+# again). After the data steps, drop .model (always "ets"), .mean and t to fit the column
 tables <- c(tar_read(pbs_fc_steps), tar_read(pbs_fc_probs_steps)[-1])
-tables[-(1:3)] <- lapply(tables[-(1:3)], select, -any_of(c(".model", "t")))
+tables[-(1:2)] <- lapply(tables[-(1:2)], select, -any_of(c(".model", ".mean", "t")))
 cat_output_steps(tables, n = 4, width = Inf)
 ```
 :::::
+:::
+::: {.notes}
+In the full run, each month only series with at least 36 months since their first non-zero value are modelled. At June 1994 that excludes only L03, which starts in 1992.
 :::
 
 ## Rolling forward through all series {.nostretch}

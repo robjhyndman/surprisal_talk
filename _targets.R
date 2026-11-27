@@ -316,7 +316,7 @@ list(
   ),
   tar_target(
     pbs_fc_steps,
-    pbs_forecast_steps(pbs, i = 36)
+    pbs_forecast_steps(pbs)
   ),
   tar_target(
     pbs_fc,
