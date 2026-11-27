@@ -193,34 +193,36 @@ include_png(tar_read(fig_wine_scatter_png))
 The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
 :::
 
+::: {.fragment fragment-index="1"}
+Small density $\Leftrightarrow$ large surprisal.
+:::
+
+::: {.fragment fragment-index="2"}
 Surprisals are already familiar:
+:::
 
 ::: {.cards}
-::::: {.block}
+::::: {.block .fragment fragment-index="2"}
 [Information theory]{.block-title}
 
 Expected surprisal = entropy
 :::::
 
-::::: {.block}
+::::: {.block .fragment fragment-index="3"}
 [Machine learning]{.block-title}
 
 Log loss\
 (cross-entropy)
 :::::
 
-::::: {.block}
+::::: {.block .fragment fragment-index="4"}
 [Statistics]{.block-title}
 
 Sum of surprisals = [$-$log likelihood]{style="white-space: nowrap"}
 :::::
 :::
 
-::: {.fragment}
-Small density $\Leftrightarrow$ large surprisal.
-:::
-
-::: {.fragment}
+::: {.fragment fragment-index="5"}
 ::::: {.alertblock}
 Anomalies are observations with extreme surprisal values.
 :::::
