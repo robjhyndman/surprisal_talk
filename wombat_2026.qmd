@@ -416,11 +416,10 @@ cat_png_stack(
 )
 ```
 
-::: {.absolute .fragment fragment-index="2" top="127" left="140" width="480"}
-::::: {.block .small}
-[Statistical model]{.block-title}
-
-[$\log(\text{Price}) \sim \text{N}(a + b\,\text{Points},\ \sigma^2)$]{style="font-size: 0.85em"}
+::: {.absolute .fragment fragment-index="2" top="115" left="130"}
+::::: {.block}
+$\log\text{Price} \sim \text{N}(\mu, \sigma^2)$\
+$\mu = a + b\,\text{Points}$
 :::::
 :::
 
