@@ -581,6 +581,38 @@ cat_output_steps(list(
 ))
 ```
 
+## Shiraz value for money
+
+::: {.wine-fig}
+```{r}
+#| label: fig_wine_gpd
+
+tar_read(wine_gpd_girafe)
+```
+:::
+
+```{r}
+#| label: wine_gpd_card
+
+tar_read(wine_gpd_card_html)
+```
+
+```{r}
+#| label: wine_gpd_counts
+
+wine_p_gpd <- tar_read(wine_p_gpd)
+```
+
+::: {.absolute .header-cards .close-cards top="0" right="0"}
+::::: {.alertblock .legend-card}
+`r sum(wine_p_gpd$p < 0.001)` anomalies (`r format(round(0.001 * NROW(wine_p_gpd), 1))` expected)
+:::::
+
+::::: {.alertblock .legend-card}
+[$p_i < 0.001$]{.alert}&emsp;[Normal only]{style="color: #F39B00; font-weight: 700"}
+:::::
+:::
+
 ## Old Faithful eruptions {#part-old-faithful-eruptions .section-slide .photo-bg background-color="#0f2a44" background-image="images/oldfaithful.jpg"}
 
 `r section("Old Faithful eruptions", credit = "Photo: NPS / Jacob W. Frank, [public domain](https://commons.wikimedia.org/wiki/File:Old_Faithful_eruption_on_a_bluebird_evening_(48416996051).jpg)")`

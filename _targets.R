@@ -167,6 +167,18 @@ list(
     with_slide_style(wine_anomaly_girafe(wine_p, log = FALSE))
   ),
   tar_target(wine_anomaly_card_html, wine_anomaly_card(wine_p)),
+  # The same plot and card with the GPD probabilities, after section 3, with
+  # the wines that were anomalies only under the Normal model in amber
+  tar_target(
+    wine_gpd_girafe,
+    with_slide_style(
+      wine_anomaly_girafe(wine_p_gpd, log = FALSE, former = wine_p$p < 0.001)
+    )
+  ),
+  tar_target(
+    wine_gpd_card_html,
+    wine_anomaly_card(wine_p_gpd, former = wine_p$p < 0.001)
+  ),
 
   # Approximate extreme surprisal probabilities ----------
   # Stages of the GPD approximation to the surprisal probabilities, with a

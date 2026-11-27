@@ -58,20 +58,21 @@ wine_model_scatter <- function(wine, at = c(82, 86, 90, 94, 98), width = 1.8) {
     geom_line(data = line, colour = slide_colours[["blue"]], linewidth = 1)
 }
 
-# Wines with surprisal probability below `alpha` in orange, with the fitted line
-wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
-  wine <- wine |>
-    mutate(anomaly = p < alpha) |>
-    arrange(anomaly)
+# Wines with surprisal probability below `alpha` in orange, with the fitted line.
+# `former`, if given, is a logical vector marking the wines flagged by an
+# earlier model: those no longer below `alpha` are shown in amber.
+wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001, former = NULL) {
+  wine <- wine_status(wine, alpha, former) |>
+    arrange(status)
   p <- wine |>
     ggplot(aes(x = points, y = price)) +
-    geom_point(aes(colour = anomaly, alpha = anomaly)) +
+    geom_point(aes(colour = status, alpha = status)) +
     geom_line(aes(y = fitted), colour = slide_colours[["blue"]], linewidth = 1) +
-    scale_colour_manual(
-      values = c(`FALSE` = slide_colours[["ink"]], `TRUE` = slide_colours[["orange"]]),
+    scale_colour_manual(values = wine_status_colours, guide = "none") +
+    scale_alpha_manual(
+      values = c(typical = 0.25, former = 0.9, anomaly = 0.9),
       guide = "none"
     ) +
-    scale_alpha_manual(values = c(`FALSE` = 0.25, `TRUE` = 0.9), guide = "none") +
     labs(x = "Points", y = "Price (US$)")
   if (log) {
     p <- p + scale_y_log10()
@@ -79,12 +80,36 @@ wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
   p
 }
 
-# Interactive version of wine_anomaly_plot(): the anomalies can be hovered
-# over, with the id from wine_anomaly_ids() as data_id for wine_anomaly_card()
-wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, width = 9, height = 4.4) {
-  anomalies <- wine_anomaly_ids(wine, alpha)
-  p <- wine_anomaly_plot(wine, log = log, alpha = alpha) +
-    geom_point(data = anomalies, colour = slide_colours[["orange"]], size = 2.5) +
+wine_status_colours <- c(
+  typical = slide_colours[["ink"]],
+  former = slide_colours[["amber"]],
+  anomaly = slide_colours[["orange"]]
+)
+
+# Each wine as "anomaly" (p < alpha), "former" (flagged by `former` only) or
+# "typical", as a factor in that order of drawing (anomalies on top)
+wine_status <- function(wine, alpha = 0.001, former = NULL) {
+  former <- if (is.null(former)) FALSE else former
+  wine |>
+    mutate(
+      status = case_when(
+        p < alpha ~ "anomaly",
+        former ~ "former",
+        .default = "typical"
+      ),
+      status = factor(status, levels = c("typical", "former", "anomaly"))
+    )
+}
+
+# Interactive version of wine_anomaly_plot(): the anomalies (and former
+# anomalies) can be hovered over, with the id from wine_anomaly_ids() as
+# data_id for wine_anomaly_card()
+wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, former = NULL,
+                                width = 9, height = 4.4) {
+  anomalies <- wine_anomaly_ids(wine, alpha, former) |>
+    arrange(status)
+  p <- wine_anomaly_plot(wine, log = log, alpha = alpha, former = former) +
+    geom_point(data = anomalies, aes(colour = status), size = 2.5) +
     # Invisible, larger targets, so the small points are easy to hover over.
     # The hovered point is marked by the line to its card (hover_card()), not
     # by ggiraph's hover style, which is turned off.
@@ -107,12 +132,13 @@ wine_anomaly_girafe <- function(wine, log = TRUE, alpha = 0.001, width = 9, heig
   )
 }
 
-# The anomalies, with an id naming the wines at each (points, price): "winery
-# year", or several of them joined by "and" when wines share a point (e.g.
-# "Tua Rita 2012 and Tua Rita 2013"), as one point can only be hovered over once
-wine_anomaly_ids <- function(wine, alpha = 0.001) {
-  wine |>
-    filter(p < alpha) |>
+# The anomalies (and former anomalies), with an id naming the wines at each
+# (points, price): "winery year", or several of them joined by "and" when wines
+# share a point (e.g. "Tua Rita 2012 and Tua Rita 2013"), as one point can only
+# be hovered over once
+wine_anomaly_ids <- function(wine, alpha = 0.001, former = NULL) {
+  wine_status(wine, alpha, former) |>
+    filter(status != "typical") |>
     arrange(winery, year) |>
     mutate(
       n = n(),
@@ -123,7 +149,7 @@ wine_anomaly_ids <- function(wine, alpha = 0.001) {
 
 # Card for wine_anomaly_girafe() describing the hovered wine. Wines sharing a
 # point share a card, with the first sentence of each review.
-wine_anomaly_card <- function(wine, alpha = 0.001) {
+wine_anomaly_card <- function(wine, alpha = 0.001, former = NULL) {
   # Probability as "a × 10^b"; the slides' CSS reset neutralises <sup>
   sci <- function(x) {
     e <- floor(log10(x))
@@ -133,7 +159,7 @@ wine_anomaly_card <- function(wine, alpha = 0.001) {
     )
   }
   first_sentence <- function(x) sub("^(.*?[.!?])\\s.*$", "\\1", x, perl = TRUE)
-  anomalies <- wine_anomaly_ids(wine, alpha) |>
+  anomalies <- wine_anomaly_ids(wine, alpha, former) |>
     mutate(
       review = if_else(
         n > 1,

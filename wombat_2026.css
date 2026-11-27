@@ -200,6 +200,11 @@
   gap: 90px;
 }
 
+/* Closer together, when the cards are too wide for the title row otherwise */
+.reveal .slide .absolute.header-cards.close-cards {
+  gap: 16px;
+}
+
 .reveal .header-cards > :is(.block, .alertblock).legend-card {
   display: flex;
   align-items: center;
