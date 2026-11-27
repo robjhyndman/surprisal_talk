@@ -189,7 +189,7 @@ include_png(tar_read(fig_wine_scatter_png))
 
 ## Surprisals
 
-::: {.alertblock}
+::: {.block}
 The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
 :::
 
@@ -228,7 +228,7 @@ Anomalies are observations with extreme surprisal values.
 
 ## Surprisal probabilities {.nostretch}
 
-::: {.alertblock}
+::: {.block}
 The probability of an observation at least as unlikely as $y_i$ under density $f$:
 
 $$
@@ -347,13 +347,13 @@ Anomaly if $y_i < Q_1 - 1.5\,\text{IQR}$ or $y_i > Q_3 + 1.5\,\text{IQR}$.
 :::
 
 ::: {.absolute .fragment top="215" left="150" width="330" fragment-index="1"}
-::::: {.alertblock}
+::::: {.block}
 Implicitly assumes a **symmetric unimodal** density
 :::::
 :::
 
 ::: {.absolute .fragment top="215" left="880" width="295" fragment-index="2"}
-::::: {.alertblock}
+::::: {.block}
 Normal false alarm rate: $\alpha \approx 0.007$
 :::::
 :::
@@ -458,11 +458,11 @@ wine_p <- tar_read(wine_p)
 ```
 
 ::: {.absolute .header-cards top="0" right="0"}
-::::: {.block .legend-card .orange-stripe .fragment}
+::::: {.alertblock .legend-card .fragment}
 `r sum(wine_p$p < 0.001)` anomalies (`r format(round(0.001 * NROW(wine_p), 1))` expected)
 :::::
 
-::::: {.block .legend-card .orange-stripe}
+::::: {.alertblock .legend-card}
 [$p_i < 0.001$]{.alert}
 :::::
 :::
@@ -492,7 +492,7 @@ cat_png_stack(files[1:4], video = files[5:6], video_after = 2)
 ```
 
 ::: {.fragment}
-::::: {.alertblock}
+::::: {.block}
 Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 :::::
 :::
@@ -1022,7 +1022,7 @@ tar_read(pbs_joint_card_html)
 | PBS scripts      | One-step forecast density from an ETS model |
 
 ::: {.fragment}
-::::: {.alertblock}
+::::: {.block}
 - Surprisal probabilities: $p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big)$
 - GPD tail keeps $p_i$ approximately right even when $f$ is wrong
 :::::
@@ -1078,7 +1078,7 @@ In preparation at\
 :::
 
 ::: {.absolute top="489" left="0" width="1280"}
-::::: {.alertblock .find-out-more-link}
+::::: {.block .find-out-more-link}
 ![](images/qr_wombat2026.svg){.find-out-more-qr}
 
 Slides, links and related papers:\

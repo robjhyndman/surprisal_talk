@@ -50,14 +50,10 @@
 
 /* ---- Small card in the title row, e.g. a plot legend ---- */
 
-.reveal .block.legend-card {
+.reveal :is(.block, .alertblock).legend-card {
   margin: 0;
   font-size: 0.8em;
   padding: 0.25em 0.8em 0.25em calc(0.8em + 6px);
-}
-
-.reveal .block.orange-stripe {
-  --stripe: var(--orange);
 }
 
 /* ---- Chi-square strips, stacked closely ---- */
@@ -190,7 +186,7 @@
   gap: 90px;
 }
 
-.reveal .header-cards > .block.legend-card {
+.reveal .header-cards > :is(.block, .alertblock).legend-card {
   display: flex;
   align-items: center;
 }
