@@ -1093,7 +1093,7 @@ Some months are unusual in many series at once.
 
 - $N_t$ of the $M_t$ series have $p_{i,t} < 0.001$
 - Independent series: $N_t \sim \text{Binomial}(M_t, \pi)$
-- Surprisal probability: $\mathbb{P}(N_t \ge n_t)$
+- Upper tail probability: $\mathbb{P}(N_t \ge n_t)$
 - $\pi$ estimated from all previous months
 
 ::: {.notes}
