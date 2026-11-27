@@ -364,6 +364,36 @@ Normal false alarm rate: $\alpha \approx 0.007$
 
 ## Wine quality and prices
 
+<!-- panache-ignore-format-start -->
+```{r}
+#| label: wine-data
+#| echo: true
+#| eval: false
+
+wine_reviews <- fetch_wine_reviews() |>
+  filter(variety %in% c("Shiraz", "Syrah")) |>
+  select(-variety, -region)
+```
+<!-- panache-ignore-format-end -->
+
+```{r}
+#| label: wine-data-output
+
+tar_read(wine_reviews) |> print(n = 5)
+```
+
+::: {.block}
+Reviews from *Wine Enthusiast* magazine during the week of 15 June 2017
+:::
+
+::: {.absolute top="0" right="0"}
+::::: {.block .legend-card}
+Data from [`kaggle.com`](https://www.kaggle.com/datasets/zynicide/wine-reviews)
+:::::
+:::
+
+## Wine quality and prices
+
 ```{r}
 #| label: fig_wine_scatter
 #| results: asis
@@ -560,7 +590,10 @@ oldfaithful
 #| label: of-data-output
 
 tar_read(oldfaithful) |> print(n = 5)
+of_months <- format(range(tar_read(oldfaithful)$time), "%b %Y")
 ```
+
+- Eruptions: `r of_months[1]`–`r of_months[2]`
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
@@ -693,6 +726,12 @@ fr_ages <- range(tar_read(fr_mortality)$Age)
 
 - Annual data: `r fr_years[1]`–`r fr_years[2]`
 - Ages `r fr_ages[1]`–`r fr_ages[2]`+, by sex
+
+::: {.absolute top="0" right="0"}
+::::: {.block .legend-card}
+Data from [`mortality.org`](https://www.mortality.org)
+:::::
+:::
 
 ## French mortality rates
 
@@ -831,7 +870,7 @@ tar_read(fr_causes_card)
 
 `r section("PBS prescriptions", credit = "Photo: freestocks, [Pexels](https://www.pexels.com/photo/pile-of-white-pink-and-brown-oblong-and-round-medication-tablet-143654/)")`
 
-## Australian Pharmaceutical Benefits Scheme
+## Pharmaceutical Benefits Scheme
 
 ::: {.code-steps data-steps="2:1,3:2,4:3"}
 <!-- panache-ignore-format-start -->
@@ -852,8 +891,20 @@ pbs <- tsibbledata::PBS |>
 #| label: pbs_print
 #| results: asis
 
+pbs_months <- format(range(tar_read(pbs_eg_steps)[[1]]$Month), "%b %Y")
+
 cat_output_steps(tar_read(pbs_eg_steps))
 ```
+
+::: {.absolute .fragment .fade-out top="650" left="0" fragment-index="1"}
+- Monthly data: `r pbs_months[1]`–`r pbs_months[2]`
+:::
+
+::: {.absolute top="0" right="0"}
+::::: {.block .legend-card}
+Data from [`pbs.gov.au`](https://www.pbs.gov.au)
+:::::
+:::
 
 ::: {.notes}
 ATC2: 84 drug groups in the Anatomical Therapeutic Chemical classification (e.g. A10 = antidiabetic therapy).

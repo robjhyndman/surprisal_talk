@@ -3,7 +3,7 @@
 wine_title <- function(wine) {
   paste0(
     format(NROW(wine), big.mark = ","),
-    " Shiraz/Syrah wines reviewed by Wine Enthusiast"
+    " Shiraz/Syrah wines"
   )
 }
 
