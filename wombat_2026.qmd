@@ -174,17 +174,17 @@ An anomaly is an observation in a region of **low probability density**.
 ## Are there any anomalies here?
 
 ```{r}
-#| label: fig_of_teaser
+#| label: fig_wine_teaser
 
-include_png(tar_read(fig_of_scatter_png))
+include_png(tar_read(fig_wine_scatter_png))
 ```
 
 ## Are there any anomalies here?
 
 ```{r}
-#| label: fig_wine_teaser
+#| label: fig_of_teaser
 
-include_png(tar_read(fig_wine_scatter_png))
+include_png(tar_read(fig_of_scatter_png))
 ```
 
 ## Surprisals
@@ -983,7 +983,6 @@ ETS forecast distributions are Gaussian, so $p_{i,t+1}$ is a two-sided $z$-test 
 First 3 years, to June 1994
 :::::
 :::
-
 
 ::: {.columns}
 ::::: {.column width="47%"}
