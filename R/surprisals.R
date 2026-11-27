@@ -232,12 +232,9 @@ gpd_stage_plot <- function(d, level, zoom = if (level >= 3) 1 else 0, sub = "t")
         vjust = -0.2, colour = colours[["gpd"]])
   }
   if (level >= 3) {
-    top <- max(d$gpd_den$y)
     p <- p +
       geom_line(data = d$gpd_den, aes(x = x, y = y), colour = colours[["gpd"]],
         linewidth = 1) +
-      math("italic(\"\u03b2\")~hat(italic(g))(italic(s))", x = d$u + 0.25, y = top * 0.9, hjust = 0,
-        colour = colours[["gpd"]]) +
       annotate("text", label = "GPD fitted to the excesses", family = "Fira Sans",
         size = 5.5, x = d$xmax, y = d$top_tail * 0.95, hjust = 1, vjust = 1,
         colour = colours[["gpd"]])
