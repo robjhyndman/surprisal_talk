@@ -193,7 +193,7 @@ include_png(tar_read(fig_of_scatter_png))
 The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
 :::
 
-::: {.body-size-list .tight-list}
+::: {.tight-list}
 ::::: {.fragment fragment-index="1"}
 - Small density $\Leftrightarrow$ large surprisal.
 :::::

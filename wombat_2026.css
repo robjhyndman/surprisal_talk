@@ -5,15 +5,18 @@
   max-width: 800px;
 }
 
-/* ---- Bullet lists in larger text (not the section outlines, nor lists in
-   columns, which sit beside material sized to match) ---- */
+/* ---- Body text and bullet lists in the same larger text (not the title or
+   section slides, the section outlines, the legend cards, nor text in
+   columns, which sits beside material sized to match). Paragraphs inside list
+   items are already sized by the list. ---- */
 
-.reveal .slide :is(ul, ol):not(.outline *, .columns *) {
+.reveal .slide :is(ul, ol, p):not(.quarto-title-block *, .section-slide *, .outline *, .columns *, .legend-card *, li *) {
   font-size: 1.15em;
 }
 
-/* Body-text size, on a slide too full for the larger lists */
-.reveal .slide .body-size-list :is(ul, ol) {
+/* Base size for text and lists, on a slide too full for the larger text */
+.reveal .slide .body-size :is(ul, ol, p),
+.reveal .slide.body-size :is(ul, ol, p) {
   font-size: 1em;
 }
 
@@ -31,7 +34,7 @@
   font-size: 1.2em;
 }
 
-.reveal .slide .larger :is(ul, ol) {
+.reveal .slide .larger :is(ul, ol, p) {
   font-size: 1em;
 }
 
