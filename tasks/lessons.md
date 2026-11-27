@@ -25,7 +25,7 @@
   `<!-- panache-ignore-format-start -->` / `<!-- panache-ignore-format-end -->` around the chunk.
   It also realigns multi-line display maths (e.g. `cases` environments) into one long, deeply indented
   line; protect hand-laid-out `$$` blocks with the same markers.
-- Don't stage the rendered slide HTML (e.g. `uconn_2026.html`, ~40 MB) in ordinary commits. Commit it once
+- Don't stage the rendered slide HTML (e.g. `uconn_2026.html`, ~40 MB) or `_targets/meta/meta` in ordinary commits. Commit them once
   at the end of the session (usually end of day).
 - Words like "log" in running text (e.g. "$-$log likelihood") are deliberately kept out of maths so they
   stay in Fira Sans. Don't move them into KaTeX to fix a line break; use
@@ -63,3 +63,8 @@
   even when headless `elementFromPoint()` says otherwise. Disable pointer events inside
   `.fragment:not(.visible)`, and test interactive slides at the presenter's screen size (e.g.
   `--window-size=2560,1440`, Reveal scale > 1), not only at 1280×800.
+- When asked to make a kind of slide consistent ("the data slides"), find every slide of that kind
+  by a structural marker (e.g. every `Data from` legend card), not just the ones the user named or
+  the section names you remember. Check the full list before saying it's done.
+- Commits: split the session's work into one commit per logical change (splitting within a file
+  where needed), not a single bundled commit. Now a global rule in `~/.claude/CLAUDE.md`.

@@ -305,3 +305,42 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
 - [x] `make clean && make`: all 37 PNGs pixel-identical to the clean reference, other 3 videos
       frame-identical; Hampel video still 1800x520, 91 frames, and its first frame now matches
       `fig_hampel_window.png` 4x more closely (RMSE 0.011 vs 0.043)
+
+# The boxplot rule slide (review suggestion #3, 26 Nov 2026)
+
+- [x] `boxplot_rule_normal()` in `R/anomaly.R` and target `fig_boxplot_normal_png`: N(0,1) density drawn like
+      slide 9 (fig_sp2), ticks at Q1, Q3 and the fences, shared density level dashed, tails shaded (0.35% each)
+- [x] Slide "The boxplot rule" at the end of section 1, after the N(0,1) slide: the rule, the figure, then two corner cards
+      (symmetric unimodal density; Normal false alarm rate α ≈ 0.007)
+- [x] Rendered; screenshotted each step
+
+## Review
+
+- A first version (χ² strips with fences, then χ²₅ against the implied Normal) was dropped as adding too little;
+  its code was reverted and its targets pruned.
+
+# Wine anomalies with GPD probabilities (27 Nov 2026)
+
+- [x] Targets `wine_gpd_girafe` and `wine_gpd_card_html`: slide 17's original-scale plot and hover card, from `wine_p_gpd`
+- [x] New slide after the GPD code slide: plot, hover card, header cards "9 anomalies (4.6 expected)" and $p_i < 0.001$
+- [x] Rendered; screenshot checked; hover card fills in with the GPD p-value (checked in the DOM)
+- [x] The 8 wines flagged only under the Normal model shown in amber (`former` argument in `R/wine.R`),
+      also hoverable (card shows their GPD p); legend card "$p_i < 0.001$ / Normal only", header cards closer (`.close-cards`)
+
+# Merge "What if f is wrong?" with the GPD figure (27 Nov 2026)
+
+- [x] First two bullets moved to the Surprisals slide; there, all three lines after the card are bullets at
+      body-text size with tighter spacing (`.body-size-list`), so the slide still fits
+- [x] GPD figure stack (with zoom video) below the remaining three bullets; old slide 20 removed
+- [x] `cat_png_stack()` gains `class`; `.gpd-stack` fixed at 340px, left-aligned; ordering card to its right
+- [x] EVT bullet shortened to two lines to make room
+- [x] Figure hidden until the three bullets are shown (`cat_png_stack(hide_first = TRUE)`)
+- [x] Bullets closer together (`.tight-list`, shared with slide 8); GPD PNGs and video redrawn at
+      7.8 x 3.4 in (was 9 x 3.8), so text is ~20% larger; stack 385px tall, axis title just above the
+      progress bar; ordering card moved right
+- [x] Dropped the β ĝ(s) label (notation not used elsewhere); ordering card top-aligned with the figure
+- [x] Screenshotted each step; axis title clears the progress bar
+
+## Review
+
+- The GPD figure is ~880px wide (was full width on its own slide); text enlarged to compensate.
