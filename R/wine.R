@@ -1,4 +1,4 @@
-# Wine quality and prices
+# Shiraz value for money
 
 # Price against points, on a log scale if `log`
 wine_scatter <- function(wine, log = FALSE) {

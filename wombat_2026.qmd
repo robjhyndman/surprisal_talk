@@ -65,7 +65,7 @@ options(
   pillar.max_footer_lines = 2,
   slide_sections = c(
     "What is an anomaly?",
-    "Wine quality and prices",
+    "Shiraz value for money",
     "Approximate extreme surprisal probabilities",
     "Old Faithful eruptions",
     "French mortality rates",
@@ -358,11 +358,11 @@ Normal false alarm rate: $\alpha \approx 0.007$
 :::::
 :::
 
-## Wine quality and prices {#part-wine-quality-and-prices .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
+## Shiraz value for money {#part-shiraz-value-for-money .section-slide .photo-bg background-color="#0f2a44" background-image="images/grapes.jpg"}
 
-`r section("Wine quality and prices", credit = "Photo: Graham, [CC BY 2.0](https://commons.wikimedia.org/wiki/File:Wine_grapes_nearing_harvest_in_Ontario-also_example_of_trellis_wire.jpg)")`
+`r section("Shiraz value for money", credit = "Photo: Graham, [CC BY 2.0](https://commons.wikimedia.org/wiki/File:Wine_grapes_nearing_harvest_in_Ontario-also_example_of_trellis_wire.jpg)")`
 
-## Wine quality and prices
+## Shiraz value for money
 
 <!-- panache-ignore-format-start -->
 ```{r}
@@ -392,7 +392,7 @@ Data from [`kaggle.com`](https://www.kaggle.com/datasets/zynicide/wine-reviews)
 :::::
 :::
 
-## Wine quality and prices
+## Shiraz value for money
 
 ```{r}
 #| label: fig_wine_scatter
@@ -416,7 +416,7 @@ cat_png_stack(
 :::::
 :::
 
-## Wine quality and prices
+## Shiraz value for money
 
 ::: {.code-steps data-steps="2-3:1,4:2"}
 <!-- panache-ignore-format-start -->
@@ -457,7 +457,7 @@ for (k in seq_along(tables)) {
 cat(":::\n")
 `````
 
-## Wine quality and prices
+## Shiraz value for money
 
 ::: {.r-stack .wine-fig}
 ```{r}
@@ -527,7 +527,7 @@ Only needs $f$ to get the *ordering* of the extreme surprisals correct.
 :::::
 :::
 
-## Wine quality and prices
+## Shiraz value for money
 
 ::: {.r-stack .output-steps}
 ::::: {.fragment .fade-out fragment-index="1"}

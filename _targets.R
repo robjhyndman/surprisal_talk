@@ -143,7 +143,7 @@ list(
     packages = c(tar_option_get("packages"), "ggtext")
   ),
 
-  # Wine quality and prices ------------------------------
+  # Shiraz value for money -------------------------------
   tar_target(
     wine_reviews,
     weird::fetch_wine_reviews() |>
