@@ -907,7 +907,7 @@ Monthly data: `r pbs_months[1]`–`r pbs_months[2]`
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
-Data from [`pbs.gov.au`](https://www.pbs.gov.au)
+Data from [Medicare Australia](https://www.pbs.gov.au)
 :::::
 :::
 
