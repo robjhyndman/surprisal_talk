@@ -92,10 +92,11 @@ find_fr_anomalies <- function(fr_mortality) {
 }
 
 # Interactive version of the anomaly plot: hovering over a point shows its year
-# and age, and highlights all anomalies from that year
+# and age, and highlights all anomalies from that year. Both sexes in the same
+# anomaly colour: the panels already separate them.
 create_fr_anomaly_girafe <- function(
   fr_anomalies,
-  colours = c(Female = "#c14b14", Male = "#1d6fa5"),
+  colour = slide_colours[["orange"]],
   tooltip_css = paste(
     "background:#0f2a44; color:white; padding:6px 10px; border-radius:6px;",
     "font-family:'Fira Sans', sans-serif; font-size:20px;"
@@ -116,10 +117,10 @@ create_fr_anomaly_girafe <- function(
       alpha = 0.5
     ) +
     ggiraph::geom_point_interactive(
-      aes(colour = Sex, data_id = Year, tooltip = tooltip),
+      aes(data_id = Year, tooltip = tooltip),
+      colour = colour,
       size = 2
     ) +
-    scale_colour_manual(values = colours, guide = "none") +
     scale_x_continuous(breaks = seq(1820, 2000, by = 20)) +
     ylim(0, 86)
   ggiraph::girafe(
