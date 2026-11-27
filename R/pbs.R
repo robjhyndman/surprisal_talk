@@ -5,21 +5,14 @@ make_pbs <- function(PBS) {
   PBS |>
     arrange(ATC2, Month) |>
     group_by(ATC2) |>
-    summarise(Scripts = sum(Scripts) / 1e3, .groups = "drop") |>
-    mutate(t = as.numeric(Month - min(Month) + 1))
+    summarise(Scripts = sum(Scripts) / 1e3, .groups = "drop")
 }
 
 # The PBS data after each step of the pipeline shown on the slide (raw,
-# grouped, summarised, with time index), for revealing the output in steps
+# grouped, summarised), for revealing the output in steps
 pbs_steps <- function(PBS) {
   grouped <- PBS |> group_by(ATC2)
-  summarised <- grouped |> summarise(Scripts = sum(Scripts) / 1e3)
-  list(
-    PBS,
-    grouped,
-    summarised,
-    summarised |> mutate(t = as.numeric(Month - min(Month) + 1))
-  )
+  list(PBS, grouped, grouped |> summarise(Scripts = sum(Scripts) / 1e3))
 }
 
 # Surveillance anomalies for several ATC2 groups, one panel each; `series` is
@@ -112,7 +105,10 @@ pbs_pvalue_hist <- function(scores, binwidth = 0.01, highlight = FALSE) {
 # compute_pbs_scores()): the Normal forecast mean and sd, the observation at
 # the next time and its surprisal probability
 pbs_roll_data <- function(pbs, series = "S01", origins = 36:95) {
-  pbs <- pbs |> filter(ATC2 == series)
+  # t counts months from the start of the data (July 1991 is 1)
+  pbs <- pbs |>
+    mutate(t = as.numeric(Month - min(Month) + 1)) |>
+    filter(ATC2 == series)
   fc <- lapply(origins, function(i) {
     fc <- pbs |>
       filter(t <= i) |>
