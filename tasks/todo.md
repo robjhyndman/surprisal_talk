@@ -357,3 +357,15 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
 - [x] Teaser slides swapped: wine, then Old Faithful (the order of the sections)
 - [x] "A first iteration: t = 36", with "First 3 years, to June 1994" in a title-row card
 - [x] Checked: the HDR boxplot's 19 outliers are exactly the 19 eruptions with p < 0.005
+- [x] Slide 38: the two longest code lines wrapped (reveal steps renumbered), `.mean` dropped from the
+      output, code and output 0.7em (was 0.6em), columns 42/58 so the last table doesn't wrap;
+      every step screenshotted
+
+# PBS code without t (27 Nov 2026)
+
+- [x] `t` dropped from `pbs` and the data slide; computed only in `pbs_roll_data()` (rolling figures unchanged)
+- [x] Slide 38: `filter_index(~ "1994 Jun")`; no `group_by_key()`/`filter(cumsum(...))`/`ungroup()` (only drops L03
+      at this origin, other forecasts identical; speaker note added); `left_join(pbs)`; 83 series shown
+- [x] Slide 38 at the deck's normal code size (`.compact-code` removed), columns 43/57
+- [x] Every step of slides 36 and 38 screenshotted; `fig_pbs_anomalies_png` hash unchanged
+- [x] Slide 38: `mutate()` spread over six lines, one argument per line (steps renumbered); screenshotted
