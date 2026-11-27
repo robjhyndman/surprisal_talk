@@ -593,7 +593,9 @@ tar_read(oldfaithful) |> print(n = 5)
 of_months <- format(range(tar_read(oldfaithful)$time), "%b %Y")
 ```
 
-- Eruptions: `r of_months[1]`–`r of_months[2]`
+::: {.block}
+Eruptions: `r of_months[1]`–`r of_months[2]`
+:::
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
@@ -724,8 +726,9 @@ fr_years <- range(tar_read(fr_mortality)$Year)
 fr_ages <- range(tar_read(fr_mortality)$Age)
 ```
 
-- Annual data: `r fr_years[1]`–`r fr_years[2]`
-- Ages `r fr_ages[1]`–`r fr_ages[2]`+, by sex
+::: {.block}
+Annual data: `r fr_years[1]`–`r fr_years[2]`, ages `r fr_ages[1]`–`r fr_ages[2]`+, by sex
+:::
 
 ::: {.absolute top="0" right="0"}
 ::::: {.block .legend-card}
@@ -896,8 +899,10 @@ pbs_months <- format(range(tar_read(pbs_eg_steps)[[1]]$Month), "%b %Y")
 cat_output_steps(tar_read(pbs_eg_steps))
 ```
 
-::: {.absolute .fragment .fade-out top="650" left="0" fragment-index="1"}
-- Monthly data: `r pbs_months[1]`–`r pbs_months[2]`
+::: {.absolute .fragment .fade-out top="664" left="0" width="100%" fragment-index="1"}
+::::: {.block style="padding-block: 0.3em"}
+Monthly data: `r pbs_months[1]`–`r pbs_months[2]`
+:::::
 :::
 
 ::: {.absolute top="0" right="0"}
