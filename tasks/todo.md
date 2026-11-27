@@ -351,3 +351,9 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
       revealed as before; the figure grows into the freed space
 - [x] French anomalies plot: both sexes in the anomaly orange (`create_fr_anomaly_girafe(colour = )`)
 - [x] Rendered; screenshotted both slides
+
+# Teaser order, PBS first-iteration title (27 Nov 2026)
+
+- [x] Teaser slides swapped: wine, then Old Faithful (the order of the sections)
+- [x] "A first iteration: t = 36", with "First 3 years, to June 1994" in a title-row card
+- [x] Checked: the HDR boxplot's 19 outliers are exactly the 19 eruptions with p < 0.005
