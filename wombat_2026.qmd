@@ -193,36 +193,46 @@ include_png(tar_read(fig_wine_scatter_png))
 The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
 :::
 
-::: {.fragment fragment-index="1"}
-Small density $\Leftrightarrow$ large surprisal.
+::: {.body-size-list .tight-list}
+::::: {.fragment fragment-index="1"}
+- Small density $\Leftrightarrow$ large surprisal.
+:::::
+
+::::: {.fragment fragment-index="2"}
+- $s_i$ is a single number, whatever $y_i$ is: multivariate, functional, an image, …
+:::::
+
+::::: {.fragment fragment-index="3"}
+- $f$ can be assumed, estimated, conditional, …
+:::::
 :::
 
-::: {.fragment fragment-index="2"}
+::: {.fragment fragment-index="4"}
 Surprisals are already familiar:
 :::
 
 ::: {.cards}
-::::: {.block .fragment fragment-index="2"}
+::::: {.block .fragment fragment-index="4"}
 [Information theory]{.block-title}
 
 Expected surprisal = entropy
 :::::
 
-::::: {.block .fragment fragment-index="3"}
+::::: {.block .fragment fragment-index="5"}
 [Machine learning]{.block-title}
 
 Log loss\
 (cross-entropy)
 :::::
 
-::::: {.block .fragment fragment-index="4"}
+::::: {.block .fragment fragment-index="6"}
 [Statistics]{.block-title}
 
 Sum of surprisals = [$-$log likelihood]{style="white-space: nowrap"}
 :::::
 :::
 
-::: {.fragment fragment-index="5"}
+::: {.fragment fragment-index="7"}
 ::::: {.alertblock}
 Anomalies are observations with extreme surprisal values.
 :::::
@@ -506,8 +516,6 @@ wine_p <- tar_read(wine_p)
 ## What if $f$ is wrong?
 
 ::: {.incremental}
-- $s_i$ is a single number, whatever $y_i$ is: multivariate, functional, an image, …
-- $f$ can be assumed, estimated, conditional, …
 - If $f$ is wrong, $p_i$ is wrong.
 - But we can use [extreme value theory]{.alert}: the upper tail of the surprisal distribution is approximately a Generalised Pareto Distribution (GPD), even if $f$ is wrong.
 - So $p_i \approx$ tail probability of a GPD fitted to the largest surprisals.

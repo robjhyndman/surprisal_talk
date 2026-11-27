@@ -12,6 +12,20 @@
   font-size: 1.15em;
 }
 
+/* Body-text size, on a slide too full for the larger lists */
+.reveal .slide .body-size-list :is(ul, ol) {
+  font-size: 1em;
+}
+
+/* Items closer together, and no space below the list */
+.reveal .slide .tight-list :is(ul, ol) {
+  margin-bottom: 0;
+}
+
+.reveal .slide .tight-list li {
+  margin-block: 0.1em;
+}
+
 /* Larger still, e.g. a short list that is the whole slide */
 .reveal .slide .larger {
   font-size: 1.2em;
