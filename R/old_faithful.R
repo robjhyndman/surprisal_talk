@@ -13,8 +13,7 @@ old_faithful_scatter <- function(oldfaithful) {
   oldfaithful |>
     ggplot(aes(x = duration, y = waiting)) +
     geom_point(alpha = 0.3, colour = slide_colours[["ink"]]) +
-    of_labels +
-    labs(title = "Eruptions from 14 January 2017 to 29 December 2023")
+    of_labels
 }
 
 # Kernel density estimate of the eruptions, with the points

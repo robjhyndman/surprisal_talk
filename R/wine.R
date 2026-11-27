@@ -1,18 +1,11 @@
 # Wine quality and prices
 
-wine_title <- function(wine) {
-  paste0(
-    format(NROW(wine), big.mark = ","),
-    " Shiraz/Syrah wines"
-  )
-}
-
 # Price against points, on a log scale if `log`
 wine_scatter <- function(wine, log = FALSE) {
   p <- wine |>
     ggplot(aes(x = points, y = price)) +
     geom_point(alpha = 0.3, colour = slide_colours[["ink"]]) +
-    labs(x = "Points", y = "Price (US$)", title = wine_title(wine))
+    labs(x = "Points", y = "Price (US$)")
   if (log) {
     p <- p + scale_y_log10()
   }
@@ -79,7 +72,7 @@ wine_anomaly_plot <- function(wine, log = TRUE, alpha = 0.001) {
       guide = "none"
     ) +
     scale_alpha_manual(values = c(`FALSE` = 0.25, `TRUE` = 0.9), guide = "none") +
-    labs(x = "Points", y = "Price (US$)", title = wine_title(wine))
+    labs(x = "Points", y = "Price (US$)")
   if (log) {
     p <- p + scale_y_log10()
   }
