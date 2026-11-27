@@ -197,15 +197,16 @@ Surprisals are already familiar:
 
 ::: {.cards}
 ::::: {.block}
-[Machine learning]{.block-title}
-
-Log loss (cross-entropy)
-:::::
-
-::::: {.block}
 [Information theory]{.block-title}
 
 Expected surprisal = entropy
+:::::
+
+::::: {.block}
+[Machine learning]{.block-title}
+
+Log loss\
+(cross-entropy)
 :::::
 
 ::::: {.block}
