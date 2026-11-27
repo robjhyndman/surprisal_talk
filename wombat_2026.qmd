@@ -934,7 +934,7 @@ pbs_months <- format(range(tar_read(pbs_eg_steps)[[1]]$Month), "%b %Y")
 cat_output_steps(tar_read(pbs_eg_steps))
 ```
 
-::: {.absolute .fragment .fade-out top="664" left="0" width="100%" fragment-index="1"}
+::: {.absolute .fragment .fade-out top="645" left="0" width="100%" fragment-index="1"}
 ::::: {.block style="padding-block: 0.3em"}
 Monthly data: `r pbs_months[1]`–`r pbs_months[2]`
 :::::
@@ -961,8 +961,10 @@ cat_png_stack(files[1:4], video = files[5:6])
 ```
 
 ::: {.fragment}
+::::: {.block}
 ETS refitted monthly for every series.
 Points: [$p < 0.01$]{style="color: #F39B00"}, [$p < 0.001$]{style="color: #c14b14"}.
+:::::
 :::
 
 ::: {.notes}
