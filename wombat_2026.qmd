@@ -348,21 +348,21 @@ No anomalies here, yet flagging $p_i < \alpha$ gives about $n\alpha$ false alarm
 Anomaly if $y_i < Q_1 - 1.5\,\text{IQR}$ or $y_i > Q_3 + 1.5\,\text{IQR}$.
 :::
 
-::: {.r-stack .sp-stack}
+::: {.r-stack .sp-stack .boxplot-stack}
 ::::: {.step}
 ![](`r tar_read(fig_boxplot_normal_png)`){width=1800}
 :::::
 :::
 
-::: {.absolute .fragment top="215" left="150" width="330" fragment-index="1"}
+::: {.absolute .fragment top="215" left="150" width="265" fragment-index="1"}
 ::::: {.block}
 Implicitly assumes a **symmetric unimodal** density
 :::::
 :::
 
-::: {.absolute .fragment top="215" left="880" width="295" fragment-index="2"}
+::: {.absolute .fragment top="215" left="920" width="295" fragment-index="2"}
 ::::: {.block}
-Normal false alarm rate: $\alpha \approx 0.007$
+Normal density false alarm rate: $\alpha \approx 0.007$
 :::::
 :::
 

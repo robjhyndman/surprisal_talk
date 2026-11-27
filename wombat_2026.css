@@ -221,6 +221,12 @@
   height: 466px;
 }
 
+/* The boxplot rule's figure, tall enough that the cards clear the density
+   curve and the tail labels */
+.reveal .slides section .r-stack.sp-stack.boxplot-stack {
+  height: 585px;
+}
+
 .reveal .slides section .r-stack.sp-stack.gpd-stack {
   height: 385px;
   margin-top: 0.15em;
