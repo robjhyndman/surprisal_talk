@@ -249,8 +249,7 @@ create_hampel_fig <- function(
   p +
     scale_y_continuous(expand = expansion(mult = c(0.08, 0.2))) +
     coord_cartesian(xlim = years, clip = "off") +
-    labs(x = "Year", y = "Mortality", title = paste0(sex, ", age ", age)) +
-    theme(plot.title = element_text(face = "plain"))
+    labs(x = "Year", y = "Mortality", title = paste0(sex, ", age ", age))
 }
 
 # MP4 of the "window" stage of create_hampel_fig(), with the window sliding

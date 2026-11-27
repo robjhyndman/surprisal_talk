@@ -25,7 +25,7 @@ slide_theme <- function() {
         face = "bold", hjust = 0, colour = "white",
         margin = margin(4, 6, 4, 6)
       ),
-      plot.title = element_text(face = "bold", colour = "#0f2a44"),
+      plot.title = element_text(face = "plain", colour = "#0f2a44"),
       plot.title.position = "plot"
     )
 }
