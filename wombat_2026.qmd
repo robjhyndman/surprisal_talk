@@ -190,7 +190,7 @@ include_png(tar_read(fig_of_scatter_png))
 ## Surprisals
 
 ::: {.block}
-The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_i)$.
+The **surprisal** of observation $y_i$ under density $f$: $s_i = -\log f(y_i)$.
 :::
 
 ::: {.tight-list}
@@ -199,16 +199,12 @@ The **surprisal** of an observation $y_i$ under density $f$ is $s_i = -\log f(y_
 :::::
 
 ::::: {.fragment fragment-index="2"}
-- $s_i$ is a single number, whatever $y_i$ is: multivariate, functional, an image, …
+- $s_i$ is one number, whatever $y_i$ is: multivariate, functional, image, …
 :::::
 
 ::::: {.fragment fragment-index="3"}
 - $f$ can be assumed, estimated, conditional, …
 :::::
-:::
-
-::: {.fragment fragment-index="4"}
-Surprisals are already familiar:
 :::
 
 ::: {.cards}
@@ -241,7 +237,7 @@ Anomalies are observations with extreme surprisal values.
 ## Surprisal probabilities {.nostretch}
 
 ::: {.block}
-The probability of an observation at least as unlikely as $y_i$ under density $f$:
+The probability of an observation at least as unlikely as $y_i$ under $f$:
 
 $$
   p_i = \mathbb{P}\big(f(Y) \le f(y_i)\big)
@@ -254,7 +250,7 @@ $$
 #| results: asis
 
 files <- tar_read(fig_sp_png)
-cat("\n::: {.r-stack .sp-stack}\n")
+cat("\n::: {.r-stack .sp-stack .sp-def-stack}\n")
 for (step in seq_along(files)) {
   cat("\n::: {.fragment}\n")
   cat("![](", files[step], "){width=1800}\n", sep = "")
@@ -395,7 +391,7 @@ tar_read(wine_reviews) |> print(n = 5)
 ```
 
 ::: {.block}
-Reviews from *Wine Enthusiast* magazine during the week of 15 June 2017
+*Wine Enthusiast* reviews: week of 15 June 2017
 :::
 
 ::: {.absolute top="0" right="0"}

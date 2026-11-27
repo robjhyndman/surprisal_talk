@@ -215,6 +215,12 @@
 
 /* ---- GPD figure below the bullets on "What if f is wrong?": left-aligned,
    reaching the bottom of the slide, with a card in the space to its right ---- */
+/* The definition slide's figure, shorter to leave room for the block above it
+   at the larger text size */
+.reveal .slides section .r-stack.sp-stack.sp-def-stack {
+  height: 466px;
+}
+
 .reveal .slides section .r-stack.sp-stack.gpd-stack {
   height: 385px;
   margin-top: 0.15em;
