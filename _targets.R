@@ -402,7 +402,6 @@ list(
       "_quarto.yml",
       "slim_html.py",
       "slides.css",
-      "wombat_2026.css",
       "title-slide.html",
       "images/title_of.svg",
       "_extensions/quarto-monash/presentation/_images/logo/monash-stacked-reversed-white.png",

@@ -25,7 +25,6 @@ format:
       - fonts/fonts.css
       - katex/katex.min.css
       - slides.css
-      - wombat_2026.css
     include-in-header:
       - file: katex/katex-local.html
     code-line-numbers: false
