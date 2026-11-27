@@ -404,3 +404,18 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
 
 - Text and bullets are 39.1px on every slide outside columns (34px in columns, as before).
   `.body-size` is still defined but no slide uses it.
+
+# Simplify the CSS: one stylesheet (27 Nov 2026)
+
+- [x] Style baseline (computed styles + boxes, every element, all fragments) at 1280x800 and 2560x1440;
+      re-dump of the unchanged page identical (so the check is deterministic)
+- [x] Merged wombat_2026.css into slides.css; dropped unused rules (image cards, step outputs, agenda,
+      US zoom, .small, .body-size, duplicate list spacing); folded overrides (pre size, section h2)
+- [x] wombat_2026.css dropped from the YAML and `_targets.R` extra_files; `git rm`
+- [x] Re-rendered: computed styles identical at both sizes (first try caught Spot the anomaly's image
+      margin, from merging its rule with the Old Faithful one: kept separate); sample slides
+      pixel-identical
+
+## Review
+
+- 995 lines in two files -> 880 in one; no visible change.
