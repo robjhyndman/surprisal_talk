@@ -1042,8 +1042,10 @@ cat_png_stack(files[1], video = files[2:3])
 tar_load(c(pbs_scores, pbs_anomalies))
 ```
 
-::: {.fragment}
-`r NROW(pbs_anomalies)` observations with $p_{i,t} < 0.001$, out of `r sum(!is.na(pbs_scores$prob))`.
+::: {.absolute .fragment top="0" right="0"}
+::::: {.alertblock .legend-card}
+`r NROW(pbs_anomalies)` anomalies (`r format(round(0.001 * sum(!is.na(pbs_scores$prob)), 1))` expected)
+:::::
 :::
 
 ## Surprisal probabilities as p-values
