@@ -344,3 +344,10 @@ Past talks are frozen as tags/releases (Toptime2025, FSI2025, Auckland2026, UCon
 ## Review
 
 - The GPD figure is ~880px wide (was full width on its own slide); text enlarged to compensate.
+
+# PBS heatmap count card; French anomalies in one colour (27 Nov 2026)
+
+- [x] Heatmap slide: the count under the plot is now a title-row card, "267 anomalies (14 expected)",
+      revealed as before; the figure grows into the freed space
+- [x] French anomalies plot: both sexes in the anomaly orange (`create_fr_anomaly_girafe(colour = )`)
+- [x] Rendered; screenshotted both slides
